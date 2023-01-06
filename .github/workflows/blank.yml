@@ -28,7 +28,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: build application
-        run: make build
+        run: |
+          make
         
 
       # Runs a set of commands using the runners shell
