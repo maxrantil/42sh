@@ -27,6 +27,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: compile
-        run: make re
+        run: make
 
       # Runs a set of commands using the runners shell
