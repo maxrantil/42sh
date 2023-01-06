@@ -30,6 +30,3 @@ jobs:
       - name: build application
         shell: bash
         run: make
-        
-
-      # Runs a set of commands using the runners shell
