@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/17 18:22:31 by mrantil           #+#    #+#              #
-#    Updated: 2023/01/06 10:40:46 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/06 10:45:28 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ SOURCE_COUNT = $(words $(FILES))
 H_FILES 	= 	ft_21sh \
 				keyboard
 
-FILES 		=	main.c
+FILES 		=	main
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
@@ -95,6 +95,7 @@ $(NAME): libft/libft.a $(OBJECTS) $(O_PATHS)
 
 $(OBJECTS):
 	@make -C $(LIBRARIES)
+	@mkdir -p $(OBJECTS)
 	@printf "$(GREEN)_________________________________________________________________\n$(RESET)"
 	@printf "$(NAME): $(GREEN)$(OBJECTS) directory was created.$(RESET)\n\n\n"
 
