@@ -26,8 +26,8 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Run Make
-        run: bash make
+      - name: build application
+        run: make build
         
 
       # Runs a set of commands using the runners shell
