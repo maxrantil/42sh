@@ -3,23 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 10:51:27 by mrantil           #+#    #+#             */
-/*   Updated: 2022/10/17 13:11:14 by mrantil          ###   ########.fr       */
+/*   Created: 2022/11/22 16:52:56 by mbarutel          #+#    #+#             */
+/*   Updated: 2022/11/22 19:42:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_arrlen(void **arr)
+/**
+ * This function returns the length of an array of strings
+ * 
+ * @param array The array to get the length of.
+ * 
+ * @return The length of the array.
+ */
+size_t	ft_arrlen(char **array)
 {
-	size_t	i;
+	size_t	len;
 
-	if (!arr)
-		return (0);
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
+	len = 0;
+	if (array)
+	{
+		while (array[len])
+			len++;
+	}
+	return (len);
 }

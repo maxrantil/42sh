@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/06 18:18:34 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:07:06 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/12/05 12:34:14 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *str)
+/**
+ * ft_putstr() writes the string s to the standard output
+ * 
+ * @param s The string to be printed.
+ */
+void	ft_putstr(char const *s)
 {
-	if (str == NULL)
-		return ;
-	(void)(write(1, str, ft_strlen(str)) + 1);
+	write(1, s, ft_strlen(s));
 }

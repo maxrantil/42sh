@@ -3,27 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 14:51:09 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/30 15:17:22 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/12/07 17:39:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * It deletes a list.
+ * 
+ * @param alst A pointer to the first link of a list.
+ * @param del pointer to a function that takes two parameters, the first being
+ * a pointer to the memory that needs to be freed, and the second being the size
+ * of the memory that needs to be freed.
+ */
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	t_list	*upcoming;
-	t_list	*current;
+	t_list	*ptr;
 
-	current = *alst;
-	while (current != NULL)
+	if (alst)
 	{
-		upcoming = current->next;
-		(*del)(current->content, current->content_size);
-		free(current);
-		current = upcoming;
+		while (*alst)
+		{
+			ptr = (*alst)->next;
+			ft_lstdelone(alst, del);
+			(*alst) = ptr;
+		}
+		ptr = NULL;
 	}
-	*alst = NULL;
 }

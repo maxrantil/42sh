@@ -3,25 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 16:24:28 by mrantil           #+#    #+#             */
-/*   Updated: 2022/11/25 13:41:50 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:04:19 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/12/13 22:19:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * It allocates memory and returns a pointer to the allocated memory.
+ * 
+ * @param size The size of the memory that you want to allocate.
+ * 
+ * @return A pointer to the allocated memory.
+ */
 void	*ft_memalloc(size_t size)
 {
-	void	*mem;
+	void	*ptr;
 
-	mem = malloc(sizeof(mem) * size);
-	if (!mem)
+	if (size == 0)
+		return (NULL);
+	ptr = (void *)malloc(size);
+	if (ptr)
 	{
-		ft_putstr_fd("error, malloc error\n", STDERR_FILENO);
-		exit(1);
+		ft_bzero(ptr, size);
+		return (ptr);
 	}
-	ft_memset(mem, '0', size);
-	return (mem);
+	else
+		ft_exit_no_mem(1);
+	return (NULL);
 }

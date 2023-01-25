@@ -3,25 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 17:13:36 by mrantil           #+#    #+#             */
-/*   Updated: 2022/11/25 13:52:32 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:07:20 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/12/08 22:17:30 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strchr(const char *s, int c)
+/**
+ * The function ft_strchr() takes a string and a character as arguments and
+ * returns a pointer to the first occurrence of the character in the string
+ * 
+ * @param str The string to be searched.
+ * @param c The character to be located.
+ * 
+ * @return A pointer to the first occurrence of the character c in the string.
+ */
+char	*ft_strchr(const char *str, int c)
 {
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (s[i] && s[i] != c)
-		i++;
-	if (s[i] == c)
-		return (&((char *)s)[i]);
-	return (NULL);
+	while (*str != '\0')
+	{
+		if (*str == (char)c)
+			return ((char *)str);
+		str++;
+	}
+	if ((char)c == '\0')
+		return ((char *)str);
+	return (0);
 }

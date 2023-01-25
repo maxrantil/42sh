@@ -3,40 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 19:58:30 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:01:41 by mbarutel          #+#    #+#             */
+/*   Updated: 2022/09/03 21:17:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_atoi(const char *str)
+/**
+ * It takes a string, and returns an integer
+ * 
+ * @param nbr The string to be converted to an integer.
+ * 
+ * @return the integer value of the string passed as argument.
+ */
+int	ft_atoi(const char *nbr)
 {
-	unsigned long int	res;
-	long int			minus;
+	unsigned int	index;
+	unsigned long	result;
+	long			sign;
 
-	res = 0;
-	minus = 1;
-	while (ft_isspace(str))
-		str++;
-	if (*str == '+' || *str == '-')
+	index = 0;
+	result = 0;
+	sign = 1;
+	while (nbr[index] == ' ' || (nbr[index] >= 9 && nbr[index] <= 13))
+		index++;
+	if (nbr[index] == '-' || nbr[index] == '+')
 	{
-		if (*str == '-')
-			minus = -1;
-		str++;
+		if (nbr[index] == '-')
+			sign = -1;
+		index++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (nbr[index] != '\0' && ((nbr[index] >= '0' && nbr[index] <= '9')))
 	{
-		res = res * 10 + *str - 48;
-		if (res > 9223372036854775807)
-		{
-			if (minus < 0)
-				return (0);
-			return (-1);
-		}
-		str++;
+		result = result * 10 + nbr[index] - '0';
+		index++;
 	}
-	return (res * minus);
+	if (result > 9223372036854775807UL && sign == 1)
+		return (-1);
+	if (result > 9223372036854775808UL && sign == -1)
+		return (0);
+	return ((int)(result * sign));
 }

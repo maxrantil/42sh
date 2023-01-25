@@ -1,32 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strtrim.o                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 11:54:38 by mrantil           #+#    #+#             */
-/*   Updated: 2022/11/25 15:03:22 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:11:13 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/12/07 18:12:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s)
+static size_t	ft_start(char const *str)
 {
-	char	*st;
-	size_t	sl;
+	size_t	i;
 
-	if (!s)
-		return (NULL);
-	st = NULL;
-	s = ft_skip_whitespaces((char *)s);
-	sl = ft_strlen(s);
-	if (sl)
+	i = 0;
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	return (i);
+}
+
+static size_t	ft_end(char const *str)
+{
+	size_t	end;
+
+	end = ft_strlen(str) - 1;
+	while (&str[end] > str && ft_isspace(str[end]))
+		end--;
+	return (end);
+}
+
+/**
+ * It takes a string and returns a copy of the string with the leading and
+ * trailing whitespace removed.
+ * 
+ * @return A pointer to a new string.
+ */
+char	*ft_strtrim(char const *str)
+{
+	size_t	start;
+	size_t	end;
+
+	if (str)
 	{
-		while (sl && ft_isspace(&s[sl - 1]))
-			sl--;
-		st = ft_strsub(s, 0, sl);
+		start = ft_start(str);
+		end = ft_end(str) + 1;
+		if (start < end)
+			return (ft_strsub(str, start, end - start));
 	}
-	return (st);
+	return (NULL);
 }

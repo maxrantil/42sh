@@ -3,22 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 17:14:42 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:08:13 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/11/16 14:08:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * It duplicates a string.
+ * 
+ * @param s1 The string to be copied.
+ * 
+ * @return A pointer to a new string.
+ */
 char	*ft_strdup(const char *s1)
 {
-	char	*cpy;
+	char	*ret;
 
-	cpy = ft_strnew(ft_strlen(s1));
-	if (!cpy)
-		return (NULL);
-	ft_strcpy(cpy, s1);
-	return (cpy);
+	ret = (char *)ft_memalloc(ft_strlen(s1) + 1);
+	if (ret)
+	{
+		ret = ft_strcpy(ret, s1);
+		return (ret);
+	}
+	return (NULL);
 }

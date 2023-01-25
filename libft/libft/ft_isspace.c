@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 13:12:34 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2022/09/17 10:57:33 by mbarutel          #+#    #+#             */
+/*   Updated: 2022/11/23 13:21:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_isspace(const char *str)
+/**
+ * The function ft_isspace() returns 1 if the character c is a whitespace
+ * character, and 0 otherwise
+ * 
+ * @param c The character to be checked.
+ * 
+ * @return the number of words in the string.
+ */
+int	ft_isspace(int c)
 {
-	if (!str)
-		return (0);
-	if ((*str >= 9 && *str <= 13) || *str == 32)
+	if (c >= 9 && c <= 13)
+		return (1);
+	if (c == 32)
 		return (1);
 	return (0);
 }

@@ -3,25 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 17:52:55 by mrantil           #+#    #+#             */
-/*   Updated: 2022/10/07 20:02:39 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:10:08 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/12/05 12:35:49 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * It creates a new string of size size + 1 and fills it with zeros.
+ * 
+ * @param size The size of the string to be allocated.
+ * 
+ * @return A pointer to a new string of size + 1.
+ */
 char	*ft_strnew(size_t size)
 {
-	char	*str;
+	char	*ret;
 
-	str = (char *)malloc(sizeof(char) * (size + 1));
-	if (!str)
+	ret = (char *)ft_memalloc(sizeof(char) * (size + 1));
+	if (ret)
 	{
-		ft_putstr_fd("error, malloc error\n", STDERR_FILENO);
-		exit(1);
+		ft_bzero(ret, size + 1);
+		return (ret);
 	}
-	ft_memset(str, '\0', size + 1);
-	return (str);
+	return (NULL);
 }

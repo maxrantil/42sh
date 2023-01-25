@@ -3,87 +3,120 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 16:46:14 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:28:55 by mrantil          ###   ########.fr       */
+/*   Created: 2022/03/04 12:56:15 by mbarutel          #+#    #+#             */
+/*   Updated: 2022/11/17 18:00:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	initialize_data(const char *format, t_ftprintf *data, int flag)
+/*
+	Initialises both structs
+*/
+static void	ft_init_struct(t_flags *flags)
 {
-	data->fmt = format;
-	data->hold_str = NULL;
-	if (!flag)
-		data->char_count = 0;
-	data->space_count = 0;
-	data->astx_flag = 0;
-	data->len_va_arg = 0;
-	data->width = 0;
-	data->width_check = 0;
-	data->precision = 0;
-	data->plus_flag = 0;
-	data->minus_flag = 0;
-	data->va_ret = 0;
-	data->hash_flag = 0;
-	data->zero = 0;
-	data->zero_flag = 0;
-	data->le_f = 0;
-	data->for_plus = 0;
-	data->precision_flag = 0;
-	data->uint_check = 0;
-	data->sign = 1;
+	flags->mod = 0;
+	flags->hash = 0;
+	flags->zero = 0;
+	flags->plus = 0;
+	flags->minus = 0;
+	flags->width = 0;
+	flags->space = 0;
+	flags->precision = -1;
 }
 
-void	check_parser(t_ftprintf *data)
+/*
+	Assigns the int value within modifier struct depending on the modifer
+	and will return current index position.
+*/
+static char	*ft_modifier_check(char *format, t_flags *flags)
 {
-	size_t	i;
+	if ((ft_strncmp(format, "h", 1) == 0))
+		flags->mod = 1;
+	if ((ft_strncmp(format, "hh", 2) == 0))
+		flags->mod = 2;
+	if ((ft_strncmp(format, "l", 1) == 0))
+		flags->mod = 3;
+	if ((ft_strncmp(format, "L", 1) == 0))
+		flags->mod = 4;
+	if ((ft_strncmp(format, "ll", 2) == 0))
+		flags->mod = 5;
+	while (*format == 'l' || *format == 'h' || *format == 'L')
+		format++;
+	return (format);
+}
 
-	i = 0;
-	while (FLAGS[i])
+/*
+	If one of the flag characters is found, it increments the value in the struct
+*/
+static char	*ft_flags_check(char *format, t_flags *flags, t_arg *arg)
+{
+	format++;
+	while (*format == '#' || *format == '0'
+		|| *format == '+' || *format == '-' || *format == ' ')
 	{
-		while (FLAGS[i] && FLAGS[i] != *data->fmt)
-			i++;
-		g_flag_disp_tbl[i](data);
-		if (!data->sign)
-			break ;
-		i = 0;
+		if (*format == '-')
+			flags->minus++;
+		if (*format == '#')
+			flags->hash++;
+		if (*format == '0')
+			flags->zero++;
+		if (*format == '+')
+			flags->plus++;
+		if (*format == ' ')
+			flags->space++;
+		format++;
 	}
-	i = 0;
-	while (i < 6)
-		g_check_disp_tbl[i++](data);
-	i = 0;
-	while (SPECIF[i] && SPECIF[i] != *data->fmt)
-		i++;
-	g_print_disp_tbl[i](data);
+	format = width_calculator(format, flags, arg);
+	format = precision_calculator(format, flags, arg);
+	return (format);
 }
 
-static void	parser_loop(t_ftprintf *data)
+static char	*arg_handler(char *format, t_flags *flags,
+t_arg *arg, int *char_count)
 {
-	while (*data->fmt)
+	ft_init_struct(flags);
+	format = ft_flags_check(format, flags, arg);
+	format = ft_modifier_check(format, flags);
+	arg->specifier = *format;
+	if (speci_correction(*format))
+		char_count[0] += ft_arg_filter(arg, flags);
+	else
+		if (*format != '\0')
+			char_count[0] += write(1, format, 1);
+	return (format);
+}
+
+/*
+	Initilizes the list
+	Prints characters that are not %
+	When % is encountered, ft_flag_check 
+	is called to collect all the flags and the specifier
+*/
+int	ft_printf(const char *restrict format, ...)
+{
+	t_arg		arg[1];
+	t_flags		flags[1];
+	int			char_count;
+
+	char_count = 0;
+	va_start(arg->arg, format);
+	while (*format != '\0')
 	{
-		if (*data->fmt == '{')
-			write_colors(data);
-		if (*data->fmt != '%')
+		if (*format == '{')
+			format = coloring((char *)format, &char_count);
+		if (*format != '%')
 		{
-			data->char_count += write(1, data->fmt++, 1);
-			continue ;
+			if (*format != '\0')
+				char_count += write(1, format, 1);
 		}
-		++data->fmt;
-		check_parser(data);
-		initialize_data(data->fmt, data, 1);
+		else
+			format = arg_handler((char *)format, flags, arg, &char_count);
+		if (*format != '\0')
+			format++;
 	}
-}
-
-int	ft_printf(const char *format, ...)
-{
-	t_ftprintf		data;
-
-	va_start(data.ap, format);
-	initialize_data(format, &data, 0);
-	parser_loop(&data);
-	va_end(data.ap);
-	return ((int)data.char_count);
+	va_end(arg->arg);
+	return (char_count);
 }
