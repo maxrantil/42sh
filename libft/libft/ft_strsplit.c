@@ -3,85 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/12 16:35:23 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/24 18:00:29 by mbarutel          #+#    #+#             */
+/*   Updated: 2022/09/14 10:06:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	*ft_freemal(char **ret, int index)
+static char	*word_array(const char *str, char c)
 {
-	while (index--)
+	int		i;
+	char	*ret;
+
+	if (str)
 	{
-		if (ret[index])
-			free(ret[index]);
-	}		
-	free(ret);
+		i = 0;
+		while (str[i] != c && str[i] != '\0')
+			i++;
+		ret = (char *)ft_memalloc(sizeof(char) * (i + 1));
+		if (ret)
+		{
+			i = 0;
+			while (str[i] != c && str[i] != '\0')
+			{
+				ret[i] = str[i];
+				i++;
+			}
+			ret[i] = '\0';
+			return (ret);
+		}
+	}
 	return (NULL);
 }
 
-static int	word_count(char const *s, char c)
+static int	word_len(const char *str, int c)
 {
-	int	state;
-	int	wc;
+	int	index;
+	int	words;
 
-	wc = 0;
-	state = OUT;
-	while (*s)
+	index = 0;
+	words = 0;
+	if (str)
 	{
-		if (*s == c)
-			state = OUT;
-		else if (state == OUT)
+		while (str[index] != '\0')
 		{
-			state = IN;
-			++wc;
+			if (str[index] != c && (str[index + 1] == c
+					||str[index + 1] == '\0'))
+				words++;
+			index++;
 		}
-		++s;
 	}
-	return (wc);
+	return (words);
 }
 
-static char	**make_ret(char const *s, char c, char **ret)
+static char	**ft_splitter(char **ret, char const *s, char c, int len)
 {
-	t_strsplit	a;
+	int	i;
 
-	a.i = 0;
-	a.index = 0;
-	while (s[a.i])
+	i = 0;
+	while (i < len)
 	{
-		while (s[a.i] == c)
-			a.i++;
-		a.e = a.i;
-		if (s[a.i] == '\0')
-			break ;
-		while (s[a.e] != c)
+		while (*s == c)
+			s++;
+		if (*s != c)
 		{
-			a.e++;
-			if (!s[a.e])
-				break ;
+			ret[i] = word_array(s, c);
+			if (!ret[i])
+			{
+				ft_memdel((void **)&ret);
+				return (NULL);
+			}
 		}
-		ret[a.index] = ft_strsub(s, a.i, a.e - a.i);
-		if (!ret[a.index])
-			return (ft_freemal(ret, a.index));
-		a.index++;
-		a.i = a.e;
+		while (*s != c && *s != '\0')
+			s++;
+		i++;
 	}
-	ret[a.index] = NULL;
+	ret[i] = NULL;
 	return (ret);
 }
 
+/**
+ * It splits a string into words, separated by a character.
+ * 
+ * @param s the string to be split
+ * @param c the character to split on
+ * 
+ * @return A pointer to a pointer to a char.
+ */
 char	**ft_strsplit(char const *s, char c)
 {
-	char		**ret;
+	int		len;
+	char	**ret;
 
-	if (!s)
-		return (NULL);
-	ret = (char **)ft_memalloc(sizeof(char *) * word_count(s, c) + 1);
-	if (!ret)
-		return (NULL);
-	ret = make_ret(s, c, ret);
-	return (ret);
+	len = word_len(s, c);
+	ret = (char **)ft_memalloc(sizeof(char *) * (len + 1));
+	if (ret && s)
+	{
+		ret = ft_splitter(ret, s, c, len);
+		return (ret);
+	}
+	return (NULL);
 }

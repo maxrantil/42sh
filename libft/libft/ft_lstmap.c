@@ -3,46 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 15:06:34 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/30 15:17:54 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/12/09 09:33:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_delnode(void *content, size_t content_size)
-{
-	if (content != NULL)
-	{
-		ft_bzero(content, content_size);
-		free(content);
-		content = NULL;
-	}
-}
-
+/**
+ * It takes a list and a function as parameters. It applies the function to 
+ * each element of the list and creates a new list with the results.
+ * 
+ * @param lst a pointer to the first element of a linked list
+ * @param f a function that takes a t_list pointer and returns a t_list pointer
+ * 
+ * @return A pointer to a new list.
+ */
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*head;
-	t_list	*current;
+	t_list	*newlist;
 
-	if (!lst || !f)
-		return (NULL);
-	current = f(lst);
-	if (!current)
-		return (NULL);
-	head = current;
-	while (lst->next)
+	if (lst && f)
 	{
-		lst = lst->next;
-		current->next = f(lst);
-		if (!current->next)
+		newlist = f(lst);
+		if (!newlist)
 		{
-			ft_lstdel(&head, &ft_delnode);
+			ft_lstdel(&newlist, ft_del);
 			return (NULL);
 		}
-		current = current->next;
+		if (newlist && lst->next)
+			newlist->next = ft_lstmap(lst->next, f);
+		return (newlist);
 	}
-	return (head);
+	return (NULL);
 }

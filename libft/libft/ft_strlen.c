@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 17:15:28 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:09:13 by mbarutel          #+#    #+#             */
+/*   Updated: 2022/09/04 15:18:32 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * It counts the number of characters in a string.
+ * 
+ * @param str This is the string we want to find the length of.
+ * 
+ * @return The length of the string.
+ */
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
-	if (!str)
-		return (0);
 	i = 0;
-	if (str)
-	{
-		while (str[i] != '\0')
-			i++;
-	}
+	while (str[i] != '\0')
+		i++;
 	return (i);
 }

@@ -3,23 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 17:10:40 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:05:13 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/11/16 14:05:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * It copies the memory area pointed to by src to the memory area pointed to
+ * by dst.
+ * 
+ * @param dst pointer to the destination array where the content is to be 
+ * copied, type-casted to a pointer of type void *.
+ * @param src pointer to the source array
+ * @param len the number of bytes to copy
+ * 
+ * @return The pointer to the destination string.
+ */
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	if (src < dst)
+	size_t	i;
+
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	if (dst > src)
 	{
-		while (len--)
-			((unsigned char *)dst)[len] = ((unsigned char *)src)[len];
+		while (i++ < len)
+			((char *)dst)[len - i] = ((char *)src)[len - i];
 	}
 	else
-		return (ft_memcpy(dst, src, len));
+	{
+		while (i < len)
+		{
+			((char *)dst)[i] = ((char *)src)[i];
+			i++;
+		}	
+	}
 	return (dst);
 }

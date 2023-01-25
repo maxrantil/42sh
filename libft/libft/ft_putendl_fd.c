@@ -3,19 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 13:41:16 by mrantil           #+#    #+#             */
-/*   Updated: 2022/07/13 09:27:47 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:05:48 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/12/05 12:33:50 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * ft_putendl_fd() takes a string and a file descriptor and writes the 
+ * string to the file descriptor followed by a newline
+ * 
+ * @param s The string to be printed.
+ * @param fd file descriptor
+ */
 void	ft_putendl_fd(char const *s, int fd)
 {
-	if (s == NULL)
-		return ;
-	(void)(write(fd, s, ft_strlen(s)) + 1);
-	(void)(write(fd, "\n", 1) + 1);
+	if (s)
+	{
+		ft_putstr_fd(s, fd);
+		ft_putchar_fd('\n', fd);
+	}
 }

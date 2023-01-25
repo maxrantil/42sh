@@ -3,30 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 17:10:27 by mrantil           #+#    #+#             */
-/*   Updated: 2022/09/15 11:24:18 by mrantil          ###   ########.fr       */
+/*   Created: 2021/11/16 14:04:53 by mbarutel          #+#    #+#             */
+/*   Updated: 2021/11/16 14:04:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+/**
+ * It copies n bytes from memory area src to memory area dest.
+ * 
+ * @param dest The destination array where the content is to be copied, 
+ * type-casted to a pointer of type void *.
+ * @param src The source string.
+ * @param n the number of bytes to copy
+ * 
+ * @return The address of the destination string.
+ */
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned char	*original;
-	unsigned char	*copy;
-	size_t			i;
+	size_t	i;
 
-	original = (unsigned char *)src;
-	copy = (unsigned char *)dst;
 	i = 0;
-	if (!dst && !src)
+	if (!dest && !src)
 		return (NULL);
 	while (i < n)
 	{
-		copy[i] = original[i];
+		((char *)dest)[i] = ((const char *)src)[i];
 		i++;
 	}
-	return (dst);
+	return (dest);
 }
