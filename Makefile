@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/26 11:21:14 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/26 15:43:30 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -150,6 +150,8 @@ FILES			= \
 				$(FT_TEST)ft_test_is_binary \
 				$(FT_TEST)ft_test_is_not \
 				$(FT_TEST)ft_test_not_return_last \
+				$(FT_TEST)ft_test_error_int_print \
+				$(FT_TEST)ft_test_check_int \
 				$(HASH)ft_hash \
 				$(HASH)hash_init \
 				$(HASH)hash_print \
