@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/26 15:07:08 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:15:16 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ char *substitute_or_create(t_shell *sh, char *cmd)
 		subs = ft_strdup(ft_strchr(strip, ':') + 1);
 		op = subs[0];
 		subs = (char *)ft_memmove(subs, subs + 1, ft_strlen(subs));
+		var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs) - 1));
 	}
 	else if (ft_strchr(strip, '#'))
 	{
@@ -145,15 +146,20 @@ char *substitute_or_create(t_shell *sh, char *cmd)
 		op = subs[0];
 	}
 	else
+	{
 		expanded = ft_expansion_dollar(sh, strip);
+		if (!expanded)
+			expanded = ft_strnew(1);
+	}
 	ft_printf("expanded asdfasfasfasfd[%s]\n", expanded);
 	if (ft_strnequ(subs, "${", 2))
-			expanded = substitute_or_create(sh, subs);
-	var = ft_strndup(strip, ft_strlen(strip) - ft_strlen(subs) - 2);
+		subs = substitute_or_create(sh, subs);
+	
 	
 	format = format_mode(op);
-	//expanded = subst_param(sh, var, subs, format);
-	ft_printf("var [%s] format [%d]\n", var, format);
+	if (!*expanded)
+		expanded = subst_param(sh, var, subs, format);
+	//ft_printf("var [%s] format [%d]\n", var, format);
 	ft_printf("expanded [%s]\n", expanded);
 	return (expanded);
 }
