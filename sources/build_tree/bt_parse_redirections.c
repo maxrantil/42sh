@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bt_parse_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 15:14:15 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/13 17:51:47 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 t_treenode	*parse_redirections(t_token *tokens, int i_tok, int cmd)
 {

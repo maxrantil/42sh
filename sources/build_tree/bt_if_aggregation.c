@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bt_if_aggregation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:18:53 by jniemine          #+#    #+#             */
-/*   Updated: 2022/12/19 16:13:41 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 t_treenode	*init_aggregation_node(int close_fd, char *dest, t_treenode *cmd)
 {

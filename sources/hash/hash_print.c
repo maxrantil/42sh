@@ -6,11 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:10:49 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/11 12:51:06 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static void	print_table(t_hash **ht)
 {

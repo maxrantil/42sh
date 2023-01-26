@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tok_error_after_tokenizing.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:26:19 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/19 15:31:02 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static int	op(int token)
 {

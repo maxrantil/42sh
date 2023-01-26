@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_blash_check.c                                   :+:      :+:    :+:   */
+/*   ft_bslash_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 12:03:10 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/12/29 12:03:37 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 size_t	ft_bslash_check(char *buff, ssize_t pos)
 {

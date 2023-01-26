@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raw_enable.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 08:41:48 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/24 15:11:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It puts the terminal into raw mode

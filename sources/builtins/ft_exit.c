@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 08:23:30 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/06 13:00:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It exits the shell
- * 
- * @param sesh The session struct.
+ *
+ * @param sh The session struct.
  * @param status The exit status of the shell.
  */
-void	ft_exit(t_session *sesh, int status)
+void	ft_exit(t_shell *sh, int status)
 {
-	sesh->exit_stat = status;
+	sh->exit_stat = status;
 	ft_printf("{RED}exit{RESET}\n");
-	ft_history_write_to_file(sesh->term);
-	ft_raw_disable(sesh->orig_termios);
-	if (sesh->term->clipboard.buff)
-		ft_strdel(&sesh->term->clipboard.buff);
-	shell_end_cycle(sesh);
+	ft_history_write_to_file(sh->term);
+	ft_raw_disable(sh->orig_termios);
+	if (sh->term->clipboard.buff)
+		ft_strdel(&sh->term->clipboard.buff);
+	shell_end_cycle(sh);
 	exit(status);
 }

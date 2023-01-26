@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_search_history_move.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:15:26 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 13:17:28 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static void	get_next_index(t_term *t, t_search_history *config)
 {
@@ -24,7 +24,7 @@ static void	get_next_index(t_term *t, t_search_history *config)
 			t->nl_addr[t->total_row]))
 				config->history_index++;
 		}
-	}	
+	}
 }
 
 void	ft_selector_do(t_term *t, t_search_history *config)

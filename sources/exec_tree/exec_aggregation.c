@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_aggregation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2022/12/19 16:15:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static int	is_nb(char *str)
 {
@@ -36,15 +36,15 @@ static int	test_file_access(char *file)
 	return (1);
 }
 
-static void	redir_to_file(t_aggregate *node, t_session *sesh)
+static void	redir_to_file(t_aggregate *node, t_shell *sh)
 {
 	node->cmd = init_redir_wrap(ft_strdup(node->dest), node->cmd,
 			RE_OUT_ONE, node->close_fd);
-	exec_tree(node->cmd, &sesh->env, sesh->terminal, sesh);
+	exec_tree(node->cmd, &sh->env, sh->terminal, sh);
 }
 
 void	exec_aggregate(t_aggregate *node, char ***environ_cp,
-		char *terminal, t_session *sesh)
+		char *terminal, t_shell *sh)
 {
 	struct stat	buf;
 	int			open_fd;
@@ -57,7 +57,7 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 	{
 		if (!test_if_file(node->dest) || !test_file_access(node->dest))
 			return ;
-		redir_to_file(node, sesh);
+		redir_to_file(node, sh);
 		return ;
 	}
 	if (fstat(open_fd, &buf) < 0)
@@ -70,5 +70,5 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 		ft_err_print(NULL, "dup2", "failed", 2);
 		return ;
 	}
-	exec_tree(node->cmd, environ_cp, terminal, sesh);
+	exec_tree(node->cmd, environ_cp, terminal, sh);
 }

@@ -6,11 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/25 16:06:38 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /*
 	ERRORS:
@@ -22,7 +22,7 @@
 			msg: 21sh: <first param>: unary operator expected
 		Only one operator is allowed, so for example in: test -fe, -fe is treated as operand.
 */
-static int validate_input(t_session *sesh, char **cmd, int punctuation)
+static int validate_input(t_shell *sh, char **cmd, int punctuation)
 {
 	int		argc;
 
@@ -35,7 +35,7 @@ static int validate_input(t_session *sesh, char **cmd, int punctuation)
 		ft_err_print("test", cmd[1 + punctuation], "unary operator expected", 2);
 	else
 		return (0);
-	(void)sesh; // fix return value later
+	(void)sh; // fix return value later
 	return (1);
 }
 
@@ -87,16 +87,16 @@ static int operator_dispatcher(char **cmd, int punctuation)
 	return (1);
 }
 
-int ft_test(t_session *sesh, char **cmd)
+int ft_test(t_shell *sh, char **cmd)
 {
 	int		punctuation;
 
 	punctuation = 0;
 	if (ft_strequ(cmd[1], "!"))
 		punctuation = 1;
-	sesh->exit_stat = 1;
-	if (validate_input(sesh, cmd, punctuation))
+	sh->exit_stat = 1;
+	if (validate_input(sh, cmd, punctuation))
 		return (0);
-	sesh->exit_stat = operator_dispatcher(cmd, punctuation);
+	sh->exit_stat = operator_dispatcher(cmd, punctuation);
 	return (0);
 }

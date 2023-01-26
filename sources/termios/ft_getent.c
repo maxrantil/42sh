@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getent.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 08:42:47 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/12 16:44:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It gets the terminal type from the environment, and then uses the termcap

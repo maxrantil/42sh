@@ -6,11 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:33:14 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/11 12:18:12 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static int	hash_error_print(char *arg)
 {
@@ -58,7 +58,7 @@ static void	hash_clear(t_hash **ht)
 	}
 }
 
-void	hash_set(t_session *sesh, char **arg)
+void	hash_set(t_shell *sh, char **arg)
 {
 	int		i;
 	int		index;
@@ -68,17 +68,17 @@ void	hash_set(t_session *sesh, char **arg)
 	i = -1;
 	while (arg[++i])
 	{
-		exepath = search_bin(arg[i], sesh->env);
+		exepath = search_bin(arg[i], sh->env);
 		if (exepath)
 		{
 			if (!ft_strnequ(arg[i], "hash", 4))
 			{
 				index = hash_function(arg[i]);
-				tmp = sesh->ht[index];
+				tmp = sh->ht[index];
 				while (tmp && !ft_strequ(arg[i], tmp->program))
 					tmp = tmp->next;
 				if (tmp == NULL)
-					hash_init_struct(sesh, exepath, 0);
+					hash_init_struct(sh, exepath, 0);
 			}
 			ft_strdel(&exepath);
 		}
@@ -87,12 +87,12 @@ void	hash_set(t_session *sesh, char **arg)
 	}
 }
 
-int	ft_hash(t_session *sesh, char **arg)
+int	ft_hash(t_shell *sh, char **arg)
 {
 	if (ft_strnequ(arg[0], "hash", 4) && !arg[1])
-		hash_print(sesh->ht);
+		hash_print(sh->ht);
 	else if (ft_strnequ(arg[0], "hash", 4) && ft_strnequ(arg[1], "-r", 2))
-		hash_clear(sesh->ht);
-	hash_set(sesh, arg);
+		hash_clear(sh->ht);
+	hash_set(sh, arg);
 	return (0);
 }

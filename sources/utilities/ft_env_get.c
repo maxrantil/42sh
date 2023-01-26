@@ -6,27 +6,27 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:51:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 16:16:36 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It takes a session and a key, and returns a pointer to the environment
  * variable with that key.
  *
- * @param sesh The session struct.
+ * @param sh The session struct.
  * @param key the key to search for
  *
  * @return A pointer to the environment variable.
  */
-char	**ft_env_get(t_session *sesh, char *key)
+char	**ft_env_get(t_shell *sh, char *key)
 {
 	char	**env;
 	char	*key_full;
 
-	env = sesh->env;
+	env = sh->env;
 	key_full = ft_strjoin(key, "=");
 	while (*env)
 	{

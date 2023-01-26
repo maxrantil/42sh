@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bt_if_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 15:52:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/06 12:52:25 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 t_treenode	*init_redir(char *filepath,
 		t_treenode *cmd, int close_fd, int open_flags)

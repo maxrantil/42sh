@@ -6,11 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/25 16:26:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 int	check_if_user_exe(char *cmd, char **dest)
 {
@@ -38,29 +38,29 @@ static int	check_file_validity(struct stat *buff, char *cmd)
 	return (1);
 }
 
-int	check_access(char *cmd, char **args, t_session *sesh)
+int	check_access(char *cmd, char **args, t_shell *sh)
 {
 	struct stat	buf;
 
 	if (((cmd && ft_strchr(cmd, '/')) && access(cmd, F_OK) < 0))
 	{
 		ft_err_print(NULL, args[0], "No such file or directory", 2);
-		sesh->exit_stat = 127;
+		sh->exit_stat = 127;
 		return (0);
 	}
 	else if (!cmd || !ft_strchr(cmd, '/'))
 	{
-		if (ft_env_get(sesh, "PATH"))
+		if (ft_env_get(sh, "PATH"))
 			ft_err_print(NULL, args[0], "command not found", 2);
 		else
 			ft_err_print(NULL, args[0], "No such file or directory", 2);
-		sesh->exit_stat = 127;
+		sh->exit_stat = 127;
 		return (0);
 	}
 	stat(cmd, &buf);
 	if (!check_file_validity(&buf, cmd))
 	{
-		sesh->exit_stat = 126;
+		sh->exit_stat = 126;
 		return (0);
 	}
 	return (1);
@@ -98,7 +98,7 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 	return (status);
 }
 
-void	exec_cmd(char **args, char ***environ_cp, t_session *sesh)
+void	exec_cmd(char **args, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;
 	int		access;
@@ -107,21 +107,21 @@ void	exec_cmd(char **args, char ***environ_cp, t_session *sesh)
 
 	if (!args[0])
 		return ;
-	if (sesh->term->fc_flag)
+	if (sh->term->fc_flag)
 		print_args(args);
-	if (!ft_builtins(sesh, &args))
+	if (!ft_builtins(sh, &args))
 		return ;
 	hash = 0;
-	cmd = hash_check(sesh, args[0], &hash);
+	cmd = hash_check(sh, args[0], &hash);
 	if (!hash && !check_if_user_exe(args[0], &cmd))
 		cmd = search_bin(args[0], *environ_cp);
-	access = check_access(cmd, args, sesh);
+	access = check_access(cmd, args, sh);
 	status = ft_execve(&cmd, args, access, environ_cp);
 	if (access)
 	{
-		sesh->exit_stat = status >> 8;
+		sh->exit_stat = status >> 8;
 		if (!hash)
-			hash_init_struct(sesh, cmd, 1);
+			hash_init_struct(sh, cmd, 1);
 	}
 	ft_memdel((void **)&cmd);
 }

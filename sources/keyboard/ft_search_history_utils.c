@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 void	print_selector(char *color)
-{	
+{
 	if (!ft_strcmp("RED", color))
 		ft_printf("{RED}>{RESET}");
 	if (!ft_strcmp("BLUE", color))

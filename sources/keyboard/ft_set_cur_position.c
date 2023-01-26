@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_set_cur_position.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:30:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/10 10:30:21 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It sets the cursor position
  * to the position of the character at the current index
- * 
+ *
  * @param t the term structure
  */
 void	set_new_cur_pos(t_term *t)

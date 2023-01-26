@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:42:26 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/16 13:13:11 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 extern char	**environ;
 
@@ -55,25 +55,25 @@ static char	*ft_shlvl(char *shlvl)
 
 /**
  * It copies the environment variables from the global variable `environ` into
- * the `env` variable of the `t_session` structure
+ * the `env` variable of the `t_shell` structure
  *
- * @param sesh The session struct.
+ * @param sh The session struct.
  */
-void	ft_env_init(t_session *sesh)
+void	ft_env_init(t_shell *sh)
 {
 	int		i;
 
 	i = -1;
-	sesh->env = (char **)ft_memalloc(sizeof(char *) * (ft_arrlen(environ) + 1));
-	sesh->intr_vars = (char **)ft_memalloc(sizeof(char *) * 100);
+	sh->env = (char **)ft_memalloc(sizeof(char *) * (ft_arrlen(environ) + 1));
+	sh->intr_vars = (char **)ft_memalloc(sizeof(char *) * 100);
 	while (environ[++i])
 	{
 		if (ft_strstr(environ[i], "SHLVL="))
-			sesh->env[i] = ft_shlvl(environ[i]);
+			sh->env[i] = ft_shlvl(environ[i]);
 		else
-			sesh->env[i] = ft_strdup(environ[i]);
+			sh->env[i] = ft_strdup(environ[i]);
 	}
-	sesh->env[i] = NULL;
-	if (ft_env_get(sesh, "OLDPWD"))
-		ft_env_remove(sesh, "OLDPWD=");
+	sh->env[i] = NULL;
+	if (ft_env_get(sh, "OLDPWD"))
+		ft_env_remove(sh, "OLDPWD=");
 }

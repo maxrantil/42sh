@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expansion_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 13:38:31 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/12/29 12:06:12 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static void	ft_qoute_parse(char *buff, char *quote, int len)
 {
 	if (!len || buff[len - 1] != '\\' || !ft_bslash_check(buff, len))
-	{	
+	{
 		if (!(*quote))
 			*quote = buff[len];
 		else if (*quote == buff[len])
@@ -25,7 +25,7 @@ static void	ft_qoute_parse(char *buff, char *quote, int len)
 			ft_memmove((void *)&buff[len], (void *)&buff[len + 1], \
 			ft_strlen(&buff[len + 1]) + 1);
 		}
-	}	
+	}
 }
 
 static void	ft_blash_parse(char *buff, char *quote, int len)

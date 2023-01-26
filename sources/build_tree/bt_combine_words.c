@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bt_combine_words.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 15:45:48 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/12 14:34:18 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static char	*ft_trim_str_join_words(char **s1, char **s2)
 {

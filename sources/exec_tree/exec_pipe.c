@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/14 09:26:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 void	error_exit(char *msg)
 {
@@ -41,7 +41,7 @@ int	pipe_wrap(int pipefd[])
 }
 
 void	exec_pipe(t_pipenode *pipenode,
-		char ***environ_cp, char *terminal, t_session *sesh)
+		char ***environ_cp, char *terminal, t_shell *sh)
 {
 	int	pipefd[2];
 
@@ -52,7 +52,7 @@ void	exec_pipe(t_pipenode *pipenode,
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		exec_tree(pipenode->left, environ_cp, terminal, sesh);
+		exec_tree(pipenode->left, environ_cp, terminal, sh);
 		exit (1);
 	}
 	if (fork_wrap() == 0)
@@ -60,7 +60,7 @@ void	exec_pipe(t_pipenode *pipenode,
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
 		close(pipefd[1]);
-		exec_tree(pipenode->right, environ_cp, terminal, sesh);
+		exec_tree(pipenode->right, environ_cp, terminal, sh);
 		exit (1);
 	}
 	close(pipefd[0]);

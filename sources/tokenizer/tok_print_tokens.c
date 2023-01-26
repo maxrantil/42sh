@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tok_print_tokens.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:28:50 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/12 15:54:48 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /* Call this in main after tokens have been created I guess */
 void	print_tokens(t_token *tokens)

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_closefd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2022/12/14 21:33:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 void	exec_closefd(t_closefd *node, char ***environ_cp,
-		char *terminal, t_session *sesh)
+		char *terminal, t_shell *sh)
 {
 	close(node->close_fd);
 	if (node->cmd)
-		exec_tree(node->cmd, environ_cp, terminal, sesh);
+		exec_tree(node->cmd, environ_cp, terminal, sh);
 }

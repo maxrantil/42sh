@@ -6,11 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:03:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/25 15:32:04 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static int	get_var_len(char *input)
 {
@@ -29,19 +29,19 @@ static int	get_var_len(char *input)
 }
 
 
-static int find_env(t_session *sesh, char *cmd, int var_len, int *ret)
+static int find_env(t_shell *sh, char *cmd, int var_len, int *ret)
 {
 	int	i;
 
 	i = 0;
-	while (!*ret && sesh->env[i])
+	while (!*ret && sh->env[i])
 	{
-		if (ft_strncmp(sesh->env[i], cmd, var_len) == 0
-			&& sesh->env[i][var_len - 1] == '=')
+		if (ft_strncmp(sh->env[i], cmd, var_len) == 0
+			&& sh->env[i][var_len - 1] == '=')
 		{
 
-			ft_strdel(&sesh->env[i]);
-			sesh->env[i] = ft_strdup(cmd);
+			ft_strdel(&sh->env[i]);
+			sh->env[i] = ft_strdup(cmd);
 			*ret = 1;
 		}
 		i++;
@@ -49,26 +49,26 @@ static int find_env(t_session *sesh, char *cmd, int var_len, int *ret)
 	i = 0;
 	if (!*ret)
 	{
-		while(sesh->intr_vars[i])
+		while(sh->intr_vars[i])
 			i++;
-		sesh->intr_vars[i] = ft_strdup(cmd);
+		sh->intr_vars[i] = ft_strdup(cmd);
 	}
 	return (0);
 }
 
-int find_var(t_session *sesh, char *cmd, int var_len, int *ret)
+int find_var(t_shell *sh, char *cmd, int var_len, int *ret)
 {
 	int	i;
 
 	i = 0;
-	while (sesh->intr_vars[i])
+	while (sh->intr_vars[i])
 	{
-		ft_printf("var [%s] %c\n", sesh->intr_vars[i], sesh->intr_vars[i][var_len - 1]);
-		if (ft_strncmp(sesh->intr_vars[i], cmd, var_len) == 0
-			&& sesh->intr_vars[i][var_len - 1] == '=')
+		ft_printf("var [%s] %c\n", sh->intr_vars[i], sh->intr_vars[i][var_len - 1]);
+		if (ft_strncmp(sh->intr_vars[i], cmd, var_len) == 0
+			&& sh->intr_vars[i][var_len - 1] == '=')
 		{
-			ft_strdel(&sesh->intr_vars[i]);
-			sesh->intr_vars[i] = ft_strdup(cmd);
+			ft_strdel(&sh->intr_vars[i]);
+			sh->intr_vars[i] = ft_strdup(cmd);
 			*ret += 1;
 		}
 		i++;
@@ -76,7 +76,7 @@ int find_var(t_session *sesh, char *cmd, int var_len, int *ret)
 	return (*ret);
 }
 
-int add_var(t_session *sesh, char **cmd)
+int add_var(t_shell *sh, char **cmd)
 {
 	int var_len;
 	int	ret;
@@ -90,8 +90,8 @@ int add_var(t_session *sesh, char **cmd)
 	{
 		ret = 0;
 		var_len = get_var_len(cmd[k]);
-		find_var(sesh, cmd[k], var_len, &ret);
-		find_env(sesh, cmd[k], var_len, &ret);
+		find_var(sh, cmd[k], var_len, &ret);
+		find_env(sh, cmd[k], var_len, &ret);
 		i = 0;
 		k++;
 	}

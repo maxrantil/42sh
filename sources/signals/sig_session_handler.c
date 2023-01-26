@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sig_session_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 09:02:29 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 13:14:08 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:05 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-extern t_session	*g_session;
+extern t_shell	*g_session;
 
 /*
  * It's a signal handler that
@@ -21,7 +21,7 @@ extern t_session	*g_session;
  * @param num The signal number.
  */
 void	sig_session_handler(int num)
-{	
+{
 	if (num == SIGWINCH)
 		ft_window_size(g_session->term);
 	if (num == SIGINT)
@@ -29,7 +29,7 @@ void	sig_session_handler(int num)
 }
 
 void	sigwinch_inchild_handler(int num)
-{	
+{
 	struct winsize	size;
 
 	if (num == SIGWINCH)
@@ -45,7 +45,7 @@ void	sigwinch_inchild_handler(int num)
 }
 
 void	search_history_sigs(int num)
-{	
+{
 	struct winsize	size;
 	t_term			*term;
 

@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/25 16:40:13 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/26 10:00:21 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -86,7 +86,7 @@ HASH			= 	hash/
 
 SOURCE_COUNT = $(words $(FILES))
 
-H_FILES 	= 	ft_21sh \
+H_FILES 	= 	ft_42sh \
 				keyboard \
 
 FILES			= $(KEYBOARD)ft_add_nl_last_row \
