@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 11:20:49 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 21:19:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 /* For fc builtin */
 # define FC_FLAGS "srnl"
 # define FC_LEN 18
-# define PATH_MAX 2048
+# define SH_PATH_MAX 2048
 
 /* For print_tree */
 # define COUNT 10
@@ -354,7 +354,8 @@ void			ft_history_write_to_file(t_term *t);
 /*			  		 SIGNALS				*/
 void			set_signal_fork(int num);
 void			sig_session_handler(int num);
-void			sigwinch_inchild_handler(int num);
+void			signal_exec(int num);
+void			search_history_sigs(int num);
 
 /*			  		 FC						*/
 int				ft_fc(t_shell *sh, char ***cmd);
@@ -372,7 +373,6 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 /*				PARAM_FORM					*/
 int				param_format(t_shell *sh, char **cmd);
 
-void			search_history_sigs(int num);
 
 /*			  		 HASH					*/
 int				ft_hash(t_shell *sh, char **cmd);

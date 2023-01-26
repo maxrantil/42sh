@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_session_handler.c                              :+:      :+:    :+:   */
+/*   ft_signal_ign.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 09:02:29 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 21:06:48 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/26 21:03:12 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/26 21:13:02 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-extern t_shell	*g_session;
-
-/*
- * It's a signal handler that
- * handles the window size change and the interrupt signal
- *
- * @param num The signal number.
- */
-void	sig_session_handler(int num)
+void    ft_signal_ign(void)
 {
-	if (num == SIGWINCH)
-		ft_window_size(g_session->term);
-	if (num == SIGINT)
-		ft_restart_cycle(g_session->term);
+    int sig;
+
+    sig = 1;
+    while (sig < 32)
+        signal(sig++, SIG_IGN);
 }

@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/26 11:21:14 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/26 11:21:14by mbrantil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -236,8 +236,12 @@ FILES			= \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
 				$(PARAM_FORM)parameter_format \
-				$(SIGNALS)sig_session_handler \
+				$(SIGNALS)ft_signal_dfl \
+				$(SIGNALS)ft_signal_exec \
+				$(SIGNALS)ft_signal_ign \
+				$(SIGNALS)ft_signal_search_history \
 				$(SIGNALS)set_signal_fork \
+				$(SIGNALS)sig_session_handler \
 				$(TERMIOS)ft_getent \
 				$(TERMIOS)ft_raw_disable \
 				$(TERMIOS)ft_raw_enable \

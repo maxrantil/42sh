@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_signal_fork.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 09:24:56 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 21:07:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	set_signal_fork(int pid)
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		signal(SIGWINCH, sigwinch_inchild_handler);
+		signal(SIGWINCH, signal_exec);
 	}
 }
