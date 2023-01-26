@@ -6,37 +6,23 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:31:13 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:19:35 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-//make own file for this
-static int	is_not(char **arg)
-{
-	return (ft_strequ(arg[1], "!"));
-}
-
-// Make own file
-static int not_return_last(int not)
-{
-	if (not)
-    	return 0;
-	return 1;
-}
 
 // True if the strings s1 and s2 are identical.
 int	ft_test_equal(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && ft_strequ(arg[2], arg[4]))
 		return (1);
 	else if (ft_strequ(arg[1], arg[3]))
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 //	True if the integer n1 is algebraically less than or equal
@@ -45,12 +31,12 @@ int	ft_test_le(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) <= ft_atoi(arg[4]))
 		return (1);
 	else if (ft_atoi(arg[1]) <= ft_atoi(arg[3]))
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 //	True if the integer n1 is algebraically less than the
@@ -59,12 +45,12 @@ int	ft_test_lt(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) < ft_atoi(arg[4]))
 		return (1);
 	else if (ft_atoi(arg[1]) < ft_atoi(arg[3]))
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 //	True if the integer n1 is algebraically greater than or equal
@@ -73,12 +59,12 @@ int	ft_test_ge(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) >= ft_atoi(arg[4]))
 		return (1);
 	else if (ft_atoi(arg[1]) >= ft_atoi(arg[3]))
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 //	True if the integers n1 and n2 are not algebraically equal.
@@ -86,12 +72,12 @@ int	ft_test_ne(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) != ft_atoi(arg[4]))
 		return (1);
 	else if (ft_atoi(arg[1]) != ft_atoi(arg[3]))
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 //	True if the integer n1 is algebraically equal to the integer n2.
@@ -99,12 +85,12 @@ int	ft_test_eq(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) == ft_atoi(arg[4]))
 		return (1);
 	else if (ft_atoi(arg[1]) == ft_atoi(arg[3]))
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 // True if the strings s1 and s2 are not identical.
@@ -112,12 +98,12 @@ int	ft_test_not_equal(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && !ft_strequ(arg[2], arg[4]))
 		return (1);
 	else if (!ft_strequ(arg[1], arg[3]))
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 /*

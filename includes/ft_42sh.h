@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 10:37:40 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:20:49 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <sys/stat.h>
 
 # if __linux__
-#  include <signal.h> //FOR LINUX
-#  include <wait.h> //FOR LINUX
+#  include <signal.h>
+#  include <wait.h>
 #  include <sys/types.h>
 #  include <sys/wait.h>
 # endif
@@ -312,6 +312,8 @@ int				is_binary(char *str);
 int				is_unary(char *str);
 
 /*				BUILTIN TEST				*/
+int				ft_test_is_not(char **arg);
+int				ft_test_not_return_last(int not);
 int				ft_test_z(char **arg);
 int				ft_test_x(char **arg);
 int				ft_test_w(char **arg);
