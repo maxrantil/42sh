@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 21:38:50 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:28:37 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t	calc_chptr(char **arr)
 {
 	size_t	i;
 
-	if (!arr || !arr[0])
+	if (!arr /* || !arr[0] */)
 		return (0);
 	i = 0;
 	while (arr[i])
