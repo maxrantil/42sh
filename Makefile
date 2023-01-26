@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/26 10:30:34 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/26 10:35:55 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -211,6 +211,7 @@ FILES			= $(KEYBOARD)ft_add_nl_last_row \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)ft_bslash_check \
 				$(UTILITIES)free_node \
+				$(UTILITIES)calc_chptr \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
 				$(BUILTIN)ft_echo \
