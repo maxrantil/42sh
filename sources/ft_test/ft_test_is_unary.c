@@ -6,25 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:30:29 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:20:02 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_42sh.h"
-
-// Make own file
-static int	is_not(char **arg)
-{
-	return (ft_strequ(arg[1], "!"));
-}
-
-// Make own file
-static int not_return_last(int not)
-{
-	if (not)
-    	return 0;
-	return 1;
-}
 
 static char *get_file_path(char **arg, int not) // Do we need to have a check for '.' and '..'?
 {
@@ -61,12 +47,12 @@ int ft_test_z(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && ft_strlen(arg[3]) == 0)
 		return (1);
 	else if (ft_strlen(arg[2]) == 0)
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 //	True if file exists and is executable.  True indicates only
@@ -76,12 +62,12 @@ int ft_test_x(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && access(arg[3], X_OK) == 0)
 		return (1);
 	else if (access(arg[2], X_OK) == 0)
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 //	True if file exists and is writable.  True indicates only
@@ -91,12 +77,12 @@ int ft_test_w(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && access(arg[3], W_OK) == 0)
 		return (1);
 	else if (access(arg[2], W_OK) == 0)
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 //	True if file exists and its set user ID flag is set.
@@ -106,12 +92,12 @@ int ft_test_u(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
     if (stat(filepath, &file_info) != 0) {
         // in this case, the file does not exist
 		ft_strdel(&filepath);
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
     }
 	ft_strdel(&filepath);
     // check the SUID flag using the S_ISUID macro
@@ -122,7 +108,7 @@ int ft_test_u(char **arg)
 			return (1);
 		return 0; // On success
 	}
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 
 }
 
@@ -133,13 +119,13 @@ int ft_test_s(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
     }
 	ft_strdel(&filepath);
     if (file_info.st_size > 0)
@@ -148,7 +134,7 @@ int ft_test_s(char **arg)
 			return (1);
 		return (0); // On success
 	}
-    return (not_return_last(not));
+    return (ft_test_not_return_last(not));
 }
 
 // True if file exists and is a socket.
@@ -158,13 +144,13 @@ int ft_test_capital_s(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
     }
 	ft_strdel(&filepath);
     if (S_ISSOCK(file_info.st_mode))
@@ -173,7 +159,7 @@ int ft_test_capital_s(char **arg)
 			return (1);
 		return (0); // On success
 	}
-    return (not_return_last(not));
+    return (ft_test_not_return_last(not));
 }
 
 //True if file exists and is readable.
@@ -181,12 +167,12 @@ int	ft_test_r(char **arg)
 {
 	int		not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	if (not && access(arg[3], R_OK) == 0)
 		return (1);
 	else if (access(arg[2], R_OK) == 0)
 		return (0);
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 
@@ -197,13 +183,13 @@ int ft_test_p(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
 	}
 	ft_strdel(&filepath);
 	if (S_ISFIFO(file_info.st_mode))
@@ -212,7 +198,7 @@ int ft_test_p(char **arg)
 			return (1);
 		return (0); // On success
 	}
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 // True if file exists and is a symbolic link.
@@ -222,13 +208,13 @@ int ft_test_capital_l(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
 	}
 	ft_strdel(&filepath);
 	if (S_ISLNK(file_info.st_mode))
@@ -237,7 +223,7 @@ int ft_test_capital_l(char **arg)
 			return (1);
 		return (0); // On success
 	}
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 // True if file exists and its set group ID flag is set.
@@ -247,13 +233,13 @@ int ft_test_g(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
 	}
 	ft_strdel(&filepath);
 	if (S_ISGID & file_info.st_mode)
@@ -262,7 +248,7 @@ int ft_test_g(char **arg)
 			return (1);
 		return (0); // On success
 	}
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 // True if file exists and is a regular file.
@@ -272,13 +258,13 @@ int ft_test_f(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
 	}
 	ft_strdel(&filepath);
 	if (S_ISREG(file_info.st_mode))
@@ -287,7 +273,7 @@ int ft_test_f(char **arg)
 			return (1);
 		return (0); // On success
 	}
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 // True if file exists (regardless of type).
@@ -297,13 +283,13 @@ int ft_test_e(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
 	}
 	ft_strdel(&filepath);
 	if (not)
@@ -318,13 +304,13 @@ int ft_test_d(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
 	}
 	ft_strdel(&filepath);
 	if (S_ISDIR(file_info.st_mode))
@@ -333,7 +319,7 @@ int ft_test_d(char **arg)
 			return (1);
 		return (0); // On success
 	}
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 // True if file exists and is a character special file.
@@ -343,13 +329,13 @@ int ft_test_c(char **arg)
 	char		*filepath;
 	int			not;
 
-	not = is_not(arg);
+	not = ft_test_is_not(arg);
 	filepath = get_file_path(arg, not);
 	if (stat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		// in this case, the file does not exist
-		return (not_return_last(not));
+		return (ft_test_not_return_last(not));
 	}
 	ft_strdel(&filepath);
 	if (S_ISCHR(file_info.st_mode))
@@ -358,7 +344,7 @@ int ft_test_c(char **arg)
 			return (1);
 		return (0); // On success
 	}
-	return (not_return_last(not));
+	return (ft_test_not_return_last(not));
 }
 
 /*

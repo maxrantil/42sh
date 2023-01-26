@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:13:05 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int validate_input(t_shell *sh, char **cmd, int punctuation)
 		ft_err_print("test", cmd[1 + punctuation], "unary operator expected", 2);
 	else
 		return (0);
-	(void)sh; // fix return value later
+	sh->exit_stat = 2; // need more checks for integers vs strings
 	return (1);
 }
 
