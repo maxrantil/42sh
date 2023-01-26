@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:31:13 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 11:19:35 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:45:32 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ int	ft_test_equal(char **arg)
 int	ft_test_le(char **arg)
 {
 	int		not;
+	int		ret;
 
 	not = ft_test_is_not(arg);
+	ret = ft_test_check_int(arg, not);
+	if (ret)
+		return (ret);
 	if (not && ft_atoi(arg[2]) <= ft_atoi(arg[4]))
 		return (1);
 	else if (ft_atoi(arg[1]) <= ft_atoi(arg[3]))
@@ -44,7 +48,12 @@ int	ft_test_le(char **arg)
 int	ft_test_lt(char **arg)
 {
 	int		not;
+	int		ret;
 
+	not = ft_test_is_not(arg);
+	ret = ft_test_check_int(arg, not);
+	if (ret)
+		return (ret);
 	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) < ft_atoi(arg[4]))
 		return (1);
@@ -58,7 +67,12 @@ int	ft_test_lt(char **arg)
 int	ft_test_ge(char **arg)
 {
 	int		not;
+	int		ret;
 
+	not = ft_test_is_not(arg);
+	ret = ft_test_check_int(arg, not);
+	if (ret)
+		return (ret);
 	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) >= ft_atoi(arg[4]))
 		return (1);
@@ -71,7 +85,12 @@ int	ft_test_ge(char **arg)
 int	ft_test_ne(char **arg)
 {
 	int		not;
+	int		ret;
 
+	not = ft_test_is_not(arg);
+	ret = ft_test_check_int(arg, not);
+	if (ret)
+		return (ret);
 	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) != ft_atoi(arg[4]))
 		return (1);
@@ -84,7 +103,12 @@ int	ft_test_ne(char **arg)
 int	ft_test_eq(char **arg)
 {
 	int		not;
+	int		ret;
 
+	not = ft_test_is_not(arg);
+	ret = ft_test_check_int(arg, not);
+	if (ret)
+		return (ret);
 	not = ft_test_is_not(arg);
 	if (not && ft_atoi(arg[2]) == ft_atoi(arg[4]))
 		return (1);
@@ -97,7 +121,12 @@ int	ft_test_eq(char **arg)
 int	ft_test_not_equal(char **arg)
 {
 	int		not;
+	int		ret;
 
+	not = ft_test_is_not(arg);
+	ret = ft_test_check_int(arg, not);
+	if (ret)
+		return (ret);
 	not = ft_test_is_not(arg);
 	if (not && !ft_strequ(arg[2], arg[4]))
 		return (1);

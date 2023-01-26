@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 11:20:49 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 15:55:38 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "keyboard.h"
 # include "ft_printf.h"
 # include <sys/stat.h>
+# include <limits.h>
 
 # if __linux__
 #  include <signal.h>
@@ -57,7 +58,7 @@
 /* For fc builtin */
 # define FC_FLAGS "srnl"
 # define FC_LEN 18
-# define PATH_MAX 2048
+// # define PATH_MAX 2048
 
 /* For print_tree */
 # define COUNT 10
@@ -314,6 +315,8 @@ int				is_unary(char *str);
 /*				BUILTIN TEST				*/
 int				ft_test_is_not(char **arg);
 int				ft_test_not_return_last(int not);
+int				ft_test_check_int(char **arg, int not);
+int				ft_test_error_int_print(char *arg);
 int				ft_test_z(char **arg);
 int				ft_test_x(char **arg);
 int				ft_test_w(char **arg);
