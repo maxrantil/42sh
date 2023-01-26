@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 15:01:28 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	add_to_capped_history(t_term *t, char *command)
 	temp = (char **)malloc(sizeof(char *) * (MAX_HISTORY + 1));
 	if (!temp)
 	{
-		ft_putendl_fd("21sh: malloc error, add_to_capped_history()", 2);
+		ft_putendl_fd("42sh: malloc error, add_to_capped_history()", 2);
 		exit(1);
 	}
 	i = MAX_HISTORY / 2;
@@ -53,7 +53,7 @@ static void	increase_history_size(t_term *t)
 	}
 	else
 	{
-		ft_putendl_fd("21sh: malloc error, increase_history_size()", 2);
+		ft_putendl_fd("42sh: malloc error, increase_history_size()", 2);
 		exit(1);
 	}
 }

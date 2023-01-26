@@ -6,23 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:41:05 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/26 10:12:15 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:39:31 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-//add to libft
-static char	*ft_strupdate(char *s1, const char *s2)
-{
-	char	*ret;
-
-	ret = ft_strjoin(s1, s2);
-	if (!ret)
-		return (NULL);
-	ft_strdel(&s1);
-	return (ret);
-}
 
 static char	*get_editor(char **env)
 {
@@ -193,7 +181,7 @@ static int	no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd)
 	fc->ret_cmd = NULL;
 	if (!read_file(fc, &fc->ret_cmd))
 		return (0);
-	ft_freeda((void ***)cmd, calc_chptr(*cmd));
+	// ft_freeda((void ***)cmd, calc_chptr(*cmd));
 	overwrite_history(sh, fc->ret_cmd);
 
 	char		*new;

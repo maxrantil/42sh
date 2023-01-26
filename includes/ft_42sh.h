@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 09:57:29 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:20:49 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <sys/stat.h>
 
 # if __linux__
-#  include <signal.h> //FOR LINUX
-#  include <wait.h> //FOR LINUX
+#  include <signal.h>
+#  include <wait.h>
 #  include <sys/types.h>
 #  include <sys/wait.h>
 # endif
@@ -39,7 +39,7 @@
 # define LOGICAL_OR 11
 
 /* For error messages */
-# define SHELL_NAME "21sh"
+# define SHELL_NAME "42sh"
 
 /* limit for filedescriptors */
 # define SH_FD_MAX 255
@@ -288,7 +288,6 @@ void			exec_aggregate(t_aggregate *node, char ***environ_cp, char *terminal, t_s
 void			exec_closefd(t_closefd *node, char ***environ_cp, char *terminal, t_shell *sh);
 char			*search_bin(char *cmd, char **environ_cp);
 void			error_exit(char *msg);
-int				ft_freeda(void ***a, size_t row);
 size_t			calc_chptr(char **arr);
 int				fork_wrap(void);
 void			open_fd_if_needed(int fd, char *terminal);
@@ -313,6 +312,8 @@ int				is_binary(char *str);
 int				is_unary(char *str);
 
 /*				BUILTIN TEST				*/
+int				ft_test_is_not(char **arg);
+int				ft_test_not_return_last(int not);
 int				ft_test_z(char **arg);
 int				ft_test_x(char **arg);
 int				ft_test_w(char **arg);
