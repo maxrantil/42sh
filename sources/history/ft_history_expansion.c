@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:09:48 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/13 18:10:43 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:53:40 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,6 @@ static int	print_error(t_term *t, char *str, int prefix)
 	ft_putstr_fd(": event not found\n", 2);
 	t->total_row++;
 	return (0);
-}
-
-//add to libft
-static char	*ft_strjoin_three(char *s1, char *s2, char *s3)
-{
-	size_t	total;
-	char	*new;
-
-	if (!s1 || !s2 || !s3)
-		return (NULL);
-	total = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	new = ft_strnew(total);
-	if (new != NULL)
-	{
-		new = ft_strcpy(new, (const char *)s1);
-		new = ft_strcat(new, (const char *)s2);
-		new = ft_strcat(new, (const char *)s3);
-	}
-	return (new);
 }
 
 static int	expand(t_term *t, int i, int pos, int len)
