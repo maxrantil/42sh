@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	{
 		ft_printf("questionmark[%s]\n", var);
 		if (!*temp[0] && subst[1])
-			ft_printf("21sh: %s: %s\n", var + 1, subst + 1);
+			ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
 		else if (!*temp[0] && !subst[1])
-			ft_printf("21sh: %s: parameter null or unset\n", var + 1);
+			ft_printf("42sh: %s: parameter null or unset\n", var + 1);
 		else
 			expanded = ft_strdup(temp[0]);
 

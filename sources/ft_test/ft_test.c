@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /*
 	ERRORS:
 		If more than 3 params (two operands and operator I.E file1 -nt file2 is the max)
-			msg: 21sh: test: too many arguments
+			msg: 42sh: test: too many arguments
 		If 3 params, it is expected that second param is one of the binary operators, first and third are treated as operands. If not:
-			msg: 21sh: <second param>: binary operator expected
+			msg: 42sh: <second param>: binary operator expected
 		If 2 params, it is expected that first param is one of the unary operators, second one is treated as operand. If not:
-			msg: 21sh: <first param>: unary operator expected
+			msg: 42sh: <first param>: unary operator expected
 		Only one operator is allowed, so for example in: test -fe, -fe is treated as operand.
 */
 static int validate_input(t_shell *sh, char **cmd, int punctuation)

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:15:33 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	validity_check(char *line)
 		ptr = &line[ft_strlen(line) - 1];
 	if (ptr)
 	{
-		ft_putstr_fd("21sh: syntax error near unexpected token `", 2);
+		ft_putstr_fd("42sh: syntax error near unexpected token `", 2);
 		write(2, ptr, 1);
 		ft_putstr_fd("'\n", 2);
 		ft_strdel(&line);

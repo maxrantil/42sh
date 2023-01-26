@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 13:35:01 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void	delim_fetch_error(t_term *t, char *ptr)
 {
 	if (*ptr && ft_isseparator(*ptr))
 	{
-		ft_putstr_fd("\n21sh: syntax error near unexpected token `", 2);
+		ft_putstr_fd("\n42sh: syntax error near unexpected token `", 2);
 		write(2, ptr, 1);
 		ft_putstr_fd("'", 2);
 	}
 	else
-		ft_putstr_fd("\n21sh: syntax error near unexpected token `newline'", 2);
+		ft_putstr_fd("\n42sh: syntax error near unexpected token `newline'", 2);
 	ft_strclr(t->inp);
 	t->heredoc = 0;
 }

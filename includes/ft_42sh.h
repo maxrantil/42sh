@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 09:57:29 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define LOGICAL_OR 11
 
 /* For error messages */
-# define SHELL_NAME "21sh"
+# define SHELL_NAME "42sh"
 
 /* limit for filedescriptors */
 # define SH_FD_MAX 255
