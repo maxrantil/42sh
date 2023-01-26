@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_search_history.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:36:20 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:44:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ void	ft_search_history(t_term *t)
 	signal(SIGINT, search_history_sigs);
 	signal(SIGWINCH, search_history_sigs);
 	start_interface(t, &config);
+	/* DEBUG */
+	// ft_run_capability("sc");
+	// ft_setcursor(0, t->ws_row - 1);
+	// ft_run_capability("ce");
+	// config.index = config.index_max;
+	// ft_printf("index_max %d | index %d | to_show %d", config.index_max, config.index, config.to_show);
+	// ft_run_capability("rc");
+	/* DEBUG */
 	while (config.status)
 	{
 		config.inp = ft_get_input();
