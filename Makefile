@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/26 10:00:21 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/26 15:03:59 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-LEAK_CHECK			+=	-fsanitize=address
+#LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -243,6 +243,7 @@ FILES			= $(KEYBOARD)ft_add_nl_last_row \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
 				$(PARAM_FORM)parameter_format \
+				$(PARAM_FORM)substitute_or_create \
 				$(FT_TEST)ft_test \
 				$(FT_TEST)ft_test_is_unary \
 				$(FT_TEST)ft_test_is_binary \

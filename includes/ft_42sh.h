@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:54:53 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,6 +370,7 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 
 /*				PARAM_FORM					*/
 int				param_format(t_shell *sh, char **cmd);
+char 			*substitute_or_create(t_shell *sh, char *cmd);
 
 void			search_history_sigs(int num);
 
