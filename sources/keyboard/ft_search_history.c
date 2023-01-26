@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:36:20 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 11:44:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:47:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ static void	start_interface(t_term *t, t_search_history *config)
 	history_options(t, config);
 	ft_display_to_show(config);
 	ft_display_input(t, config);
-	ft_setcursor(0, config->row);
-	print_selector("RED");
+	if (config->to_show >= 0)
+	{
+		ft_setcursor(0, config->row);
+		print_selector("RED");
+	}
 	config->cursor = config->row;
 	config->index = config->index_max;
 	ft_setcursor(config->input_cur_col, config->input_term_row);
@@ -54,6 +57,11 @@ static void	up_and_down(t_term *t, t_search_history *config)
 	ft_run_capability("ve");
 }
 
+/**
+ * It's a function that allows the user to search through the history of commands
+ * 
+ * @param t the term structure
+ */
 void	ft_search_history(t_term *t)
 {
 	t_search_history	config;
@@ -62,14 +70,6 @@ void	ft_search_history(t_term *t)
 	signal(SIGINT, search_history_sigs);
 	signal(SIGWINCH, search_history_sigs);
 	start_interface(t, &config);
-	/* DEBUG */
-	// ft_run_capability("sc");
-	// ft_setcursor(0, t->ws_row - 1);
-	// ft_run_capability("ce");
-	// config.index = config.index_max;
-	// ft_printf("index_max %d | index %d | to_show %d", config.index_max, config.index, config.to_show);
-	// ft_run_capability("rc");
-	/* DEBUG */
 	while (config.status)
 	{
 		config.inp = ft_get_input();
@@ -77,7 +77,7 @@ void	ft_search_history(t_term *t)
 			up_and_down(t, &config);
 		else if (config.inp == '\n')
 			ft_select_history(t, &config);
-		else if ((ft_isprint(config.inp) || config.inp == BACKSPACE))
+		else if (ft_isprint(config.inp) || config.inp == BACKSPACE)
 			edit_input(t, &config);
 		else if (config.inp == 18)
 			return_to_shell(t, &config);
