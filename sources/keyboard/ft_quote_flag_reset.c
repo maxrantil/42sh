@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quote_flag_reset.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 09:23:06 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/17 12:55:20 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:05:43by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,19 @@ void	ft_quote_flag_reset(t_term *t)
 	t->q_qty = 0;
 	t->quote = 0;
 	t->heredoc = 0;
+	t->bracket = 0;
 	if (t->delim)
 		ft_strdel(&t->delim);
 	while (t->inp[++i])
 	{
 		if ((t->inp[i] == D_QUO || t->inp[i] == S_QUO) && !t->heredoc)
 		{
-			if (!ft_bslash_escape_check(t, i))
+			if (!special_char_check(t->inp, t->index - 1, '\\'))
 				ft_quote_handling(t, t->inp[i]);
 		}
-		if (t->inp[i] == '<' && !t->quote)
+		else if (t->inp[i] == '<' && !t->heredoc && !t->quote)
 			ft_heredoc_handling(t);
+		else if ((t->inp[i] == L_BRAC || t->inp[i] == R_BRAC) && !t->quote)
+			ft_bracket_handling(t, i);
 	}
 }

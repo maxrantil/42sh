@@ -31,21 +31,21 @@ size_t	ft_bslash_check(char *buff, ssize_t pos)
 	return (0);
 }
 
-// size_t	special_char_check(char *buff, ssize_t pos, char ch)
-// {
-// 	size_t	len;
-// 	ssize_t	count;
+size_t	special_char_check(char *buff, ssize_t pos, char ch)
+{
+	size_t	len;
+	ssize_t	count;
 
-// 	len = 0;
-// 	count = pos - 1;
-// 	while (buff[count] == ch)
-// 	{
-// 		len++;
-// 		if (!count)
-// 			break ;
-// 		count--;
-// 	}
-// 	if (len && (len % 2))
-// 		return (1);
-// 	return (0);
-// }
+	len = 0;
+	count = pos - 1;
+	while (buff[count] == ch)
+	{
+		len++;
+		if (!count)
+			break ;
+		count--;
+	}
+	if (len && (len % 2))
+		return (1);
+	return (0);
+}

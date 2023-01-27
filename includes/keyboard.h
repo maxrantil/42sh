@@ -6,12 +6,9 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 11:07:58 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:48:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #ifndef KEYBOARD_H
 # define KEYBOARD_H
@@ -199,5 +196,8 @@ void	ft_display_to_show(t_search_history *config);
 void	init_interface(t_term *t, t_search_history *config);
 void	ft_search_history_reset(t_term *t);
 void	edit_input(t_term *t, t_search_history *config);
+
+/*			  PROMPT LINE HANDLING			*/
+size_t	special_char_check(char *buff, ssize_t pos, char ch);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_deletion_shift.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:21:37 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/09 16:01:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:37:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ void	ft_deletion_shift(t_term *t, ssize_t index)
 	int	blash;
 	int	quote;
 	int	heredoc;
-
+	int bracket;
+	
+	bracket = 0;
 	quote = ft_inhibitor_catch(t, index, &blash, &heredoc);
+	if (t->inp[index] == L_BRAC || t->inp[index] == R_BRAC)
+		bracket = 1;
 	t->inp[index] = '\0';
 	while (&t->inp[index] < &t->inp[t->bytes])
 	{
@@ -57,6 +61,6 @@ void	ft_deletion_shift(t_term *t, ssize_t index)
 		if (!t->heredoc && t->delim)
 			ft_strdel(&t->delim);
 	}
-	else if (quote)
+	else if (quote || bracket)
 		ft_quote_flag_reset(t);
 }
