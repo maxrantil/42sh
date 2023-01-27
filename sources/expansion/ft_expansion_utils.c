@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 13:38:31 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 12:55:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:18:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_qoute_parse(char *buff, char *quote, int len)
 
 static void	ft_blash_parse(char *buff, char *quote, int len)
 {
-	if (!(*quote) && !special_char_check(buff, len + 1, '\\'))
+	if (!(*quote) && special_char_check(buff, len + 1, '\\'))
 	{
 		ft_memmove((void *)&buff[len], (void *)&buff[len + 1], \
 		ft_strlen(&buff[len + 1]) + 1);
@@ -54,7 +54,7 @@ void	ft_quote_blash_removal(char *buff)
 			ft_qoute_parse(buff, &quote, len);
 		else if (buff[len] == '\\')
 			ft_blash_parse(buff, &quote, len);
-		else if (buff[len] == '\n' && len && !special_char_check(buff, len, '\\'))
+		else if (buff[len] == '\n' && len && special_char_check(buff, len, '\\'))
 		{
 			ft_memmove((void *)&buff[len], (void *)&buff[len + 1], \
 			ft_strlen(&buff[len + 1]) + 1);
