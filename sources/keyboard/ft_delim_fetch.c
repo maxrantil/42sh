@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 13:35:01 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 20:15:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:47:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,15 @@ int	ft_delim_fetch(t_term *t)
 		while (*ptr && ft_isspace(*ptr))
 			ptr++;
 		end_q = ptr;
-		while (*end_q && !ft_isseparator(*end_q) && *end_q != '\n')
+		while (*end_q && !ft_isspace(*end_q) && !ft_isseparator(*end_q))
 			++end_q;
-		if (!(*end_q) || *end_q == '\n')
+		if (end_q > ptr)
 			t->delim = ft_strsub(ptr, 0, (size_t)(end_q - ptr));
 		else
 		{
-			ft_putstr(t->delim);
 			delim_fetch_error(t, ptr);
 			return (1);
 		}
-		ft_putstr(t->delim);
 	}
 	return (0);
 }
