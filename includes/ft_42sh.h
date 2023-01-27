@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 18:24:02 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 19:11:59 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,7 @@ int				ft_test_error_int_print(char *arg);
 int				ft_test_f(char **arg);
 int				ft_test_g(char **arg);
 int				ft_test_ge(char **arg);
+int				ft_test_gt(char **arg);
 char			*ft_test_get_file_path(char **arg, int not);
 int				ft_test_is_binary(char *str);
 int				ft_test_is_not(char **arg);
