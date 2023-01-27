@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 09:26:58 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 11:24:57 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 18:53:49 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_test_capital_l(char **arg)
 
 	not = ft_test_is_not(arg);
 	filepath = ft_test_get_file_path(arg, not);
-	if (stat(filepath, &file_info) != 0)
+	if (lstat(filepath, &file_info) != 0)
 	{
 		ft_strdel(&filepath);
 		return (ft_test_not_return_last(not));

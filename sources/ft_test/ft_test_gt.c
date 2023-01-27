@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_test_not_equal.c                                :+:      :+:    :+:   */
+/*   ft_test_gt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 09:20:42 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 19:03:12 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/27 19:10:20 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/27 19:11:29 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-// True if the strings s1 and s2 are not identical.
-int	ft_test_not_equal(char **arg)
+// True if the integer n1 is algebraically greater than the integer n2.
+int	ft_test_gt(char **arg)
 {
 	int		not;
+	int		ret;
 
 	not = ft_test_is_not(arg);
-	not = ft_test_is_not(arg);
-	if (not && !ft_strequ(arg[2], arg[4]))
+	ret = ft_test_check_int(arg, not);
+	if (ret)
+		return (ret);
+	if (not && ft_atoi(arg[2]) > ft_atoi(arg[4]))
 		return (1);
-	else if (!ft_strequ(arg[1], arg[3]))
+	else if (ft_atoi(arg[1]) > ft_atoi(arg[3]))
 		return (0);
 	return (ft_test_not_return_last(not));
 }
