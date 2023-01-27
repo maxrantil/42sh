@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:39:52 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,15 @@
 	free_rest(head);
 } */
 
+static void remove_shared_memory(t_shell *sh)
+{
+	if (shmctl(sh->shared_mem_id, IPC_RMID, NULL) < 0 || shmctl(sh->shared_mem_index, IPC_RMID, NULL) < 0)
+	{
+		ft_err_print(NULL, "shmctk", "failed to delete shared memory", 2);
+		exit (1);
+	}
+}
+
 void	exec_tree(t_treenode *head, char ***environ_cp,
 				char *terminal, t_shell *sh)
 {
@@ -77,7 +86,16 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		return ;
 	if (head->type == SEMICOLON)
 	{
+		//Fg things
+	sh->shared_mem_id = shmget(IPC_PRIVATE, sizeof(int) * 255, IPC_CREAT | 0666); //Move to appropriate place at merge
+	sh->shared_mem_index = shmget(IPC_PRIVATE, sizeof(int), IPC_CREAT | 0666); //Move to appropriate place at merge
+		if (sh->shared_mem_id < 0 || sh->shared_mem_index < 0) //Move these also
+	{
+		ft_err_print(NULL, "shmget", "no memory available", 2);
+		exit (1);
+	}
 		exec_tree((((t_semicolon *)head)->left), environ_cp, terminal, sh);
+		remove_shared_memory(sh);
 		reset_fd(terminal);
 		if (head && ((t_semicolon *)head)->right)
 			exec_tree((((t_semicolon *)head)->right), environ_cp, terminal, sh);
