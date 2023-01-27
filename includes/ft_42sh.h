@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 15:55:38 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 23:15:09 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "ft_printf.h"
 # include <sys/stat.h>
 # include <limits.h>
+# include <sys/shm.h>
 
 # if __linux__
 #  include <signal.h>
@@ -186,6 +187,8 @@ typedef struct session
 	char			*terminal;
 	char			**tmp_env_key;
 	struct termios	orig_termios;
+	int				shared_mem_id;//Get rid of this when mergin
+	int				shared_mem_index;
 }				t_shell;
 
 /*					HEADER					*/

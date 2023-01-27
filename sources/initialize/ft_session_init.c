@@ -33,4 +33,11 @@ void	ft_session_init(t_shell *sh)
 	sh->tmp_env_key = NULL;
 	sh->tokens = NULL;
 	hash_init(sh);
+	sh->shared_mem_id = shmget(IPC_PRIVATE, sizeof(int) * 255, IPC_CREAT | 0666); //Move to appropriate place at merge
+	sh->shared_mem_index = shmget(IPC_PRIVATE, sizeof(int), IPC_CREAT | 0666); //Move to appropriate place at merge
+	if (sh->shared_mem_id < 0 || sh->shared_mem_index < 0) //Move these also
+	{
+		ft_err_print(NULL, "shmget", "no memory available", 2);
+		exit (1);
+	}
 }
