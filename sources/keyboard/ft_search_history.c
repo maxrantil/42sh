@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:36:20 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 14:06:43 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:22:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	ft_search_history(t_term *t)
 	while (config.status)
 	{
 		config.inp = ft_get_input();
+		if (!config.status)
+			break ;
 		if (config.inp == 91)
 			up_and_down(t, &config);
 		else if (config.inp == '\n')
@@ -81,6 +83,6 @@ void	ft_search_history(t_term *t)
 	}
 	ft_memdel((void **)&config.ptr);
 	t->config = NULL;
-	signal(SIGINT, sig_session_handler);
-	signal(SIGWINCH, sig_session_handler);
+	signal(SIGINT, ft_signal_keyboard);
+	signal(SIGWINCH, ft_signal_keyboard);
 }

@@ -1,48 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_session_handler.c                              :+:      :+:    :+:   */
+/*   ft_signal_search_history.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 09:02:29 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:05 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/26 21:04:37 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/26 21:49:05 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 extern t_shell	*g_session;
-
-/*
- * It's a signal handler that
- * handles the window size change and the interrupt signal
- *
- * @param num The signal number.
- */
-void	sig_session_handler(int num)
-{
-	if (num == SIGWINCH)
-		ft_window_size(g_session->term);
-	if (num == SIGINT)
-		ft_restart_cycle(g_session->term);
-}
-
-void	sigwinch_inchild_handler(int num)
-{
-	struct winsize	size;
-
-	if (num == SIGWINCH)
-	{
-		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < 0)
-		{
-			ft_putstr_fd("could not get the terminal size", 2);
-			exit(1);
-		}
-		g_session->term->ws_col = size.ws_col;
-		g_session->term->ws_row = size.ws_row;
-	}
-}
 
 void	search_history_sigs(int num)
 {
@@ -52,10 +22,10 @@ void	search_history_sigs(int num)
 	term = g_session->term;
 	if (num == SIGWINCH)
 	{
-		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < 0)
+		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < -2)
 		{
-			ft_putstr_fd("could not get the terminal size", 2);
-			exit(1);
+			ft_putstr_fd("could not get the terminal size", 0);
+			exit(-1);
 		}
 		term->ws_col = size.ws_col;
 		term->ws_row = size.ws_row;
