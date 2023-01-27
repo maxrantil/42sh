@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 18:30:29 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 11:20:16 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 12:06:32 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 /*
 	These are mandatory:
-	-c, -d, -e, -f, -g, -L, -p, -r, -S, -s, -u, -w, -x, -z, !
+	-b -c, -d, -e, -f, -g, -L, -p, -r, -S, -s, -u, -w, -x, -z, !
 */
 int	ft_test_is_unary(char *str)
 {
-	return (ft_strequ(str, "-c") || ft_strequ(str, "-d")
+	return (ft_strequ(str, "-b") || ft_strequ(str, "-c") || ft_strequ(str, "-d")
 		|| ft_strequ(str, "-e") || ft_strequ(str, "-f")
 		|| ft_strequ(str, "-g") || ft_strequ(str, "-L")
 		|| ft_strequ(str, "-p") || ft_strequ(str, "-r")
