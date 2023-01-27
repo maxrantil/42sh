@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_signals.c                                  :+:      :+:    :+:   */
+/*   ft_bracket_handling.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 18:17:16 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:22:51 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/27 10:46:19 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/27 16:03:26 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/*
- * It initializes the signal handlers for the program
- */
-void	ft_init_signals(void)
+void	ft_bracket_handling(t_term *t, int pos)
 {
-	signal(SIGWINCH, ft_signal_keyboard);
-	signal(SIGINT, ft_signal_keyboard);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGSTOP, SIG_IGN);
+	if (t->bracket == 0 && t->inp[pos] == L_BRAC \
+	&& special_char_check(t->inp, pos, '$'))
+		t->bracket = L_BRAC;
+	else if (t->bracket == L_BRAC && t->inp[pos] == R_BRAC)
+		t->bracket = 0;
 }

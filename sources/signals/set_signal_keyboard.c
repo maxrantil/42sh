@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bslash_check.c                                  :+:      :+:    :+:   */
+/*   set_signal_keyboard.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 12:03:10 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/27 14:34:34 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/27 15:02:54 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-size_t	ft_bslash_check(char *buff, ssize_t pos)
+/**
+ * It sets the signal handler for all signals to the function ft_signal_keyboard
+ */
+void	set_signal_keyboard(void)
 {
-	size_t	len;
-	ssize_t	count;
+	int	sig;
 
-	len = 0;
-	count = pos - 1;
-	while (buff[count] == '\\')
-	{
-		len++;
-		if (!count)
-			break ;
-		count--;
-	}
-	if (len && (len % 2))
-		return (1);
-	return (0);
+	sig = -1;
+	while (++sig < 32)
+		signal(sig, ft_signal_keyboard);
 }

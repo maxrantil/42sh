@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -193,7 +193,6 @@ FILES			= \
 				$(HASH)hash_check \
 				$(HASH)hash_free \
 				$(INITIALIZE)ft_env_init \
-				$(INITIALIZE)ft_init_signals \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
 				$(INTERN_VARS)ft_variables \
@@ -208,7 +207,8 @@ FILES			= \
 				$(KEYBOARD)ft_alt_mv \
 				$(KEYBOARD)ft_arrow_input \
 				$(KEYBOARD)ft_backspace \
-				$(KEYBOARD)ft_bslash_escape_check \
+				$(KEYBOARD)ft_bracket_handling \
+				$(KEYBOARD)ft_special_char_check \
 				$(KEYBOARD)ft_copy \
 				$(KEYBOARD)ft_create_prompt_line \
 				$(KEYBOARD)ft_ctrl_d \
@@ -271,8 +271,14 @@ FILES			= \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
 				$(PARAM_FORM)parameter_format \
-				$(SIGNALS)sig_session_handler \
-				$(SIGNALS)set_signal_fork \
+				$(SIGNALS)handler_signal_exec \
+				$(SIGNALS)handler_signal_keyboard \
+				$(SIGNALS)handler_signal_search_history \
+				$(SIGNALS)set_signal_dfl \
+				$(SIGNALS)set_signal_exec \
+				$(SIGNALS)set_signal_ign \
+				$(SIGNALS)set_signal_keyboard \
+				$(SIGNALS)set_signal_search_history \
 				$(TERMIOS)ft_getent \
 				$(TERMIOS)ft_raw_disable \
 				$(TERMIOS)ft_raw_enable \
@@ -289,7 +295,6 @@ FILES			= \
 				$(TOKENIZER)tok_print_tokens \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
-				$(UTILITIES)ft_bslash_check \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
 

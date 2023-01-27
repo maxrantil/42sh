@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 15:45:11 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 11:31:13 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:01:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int his_index)
 
 	i = -1;
 	col = 10;
-	ft_printf("%2s%-5d%2s", "", his_index, "");
+	ft_printf("%2s%-5d%2s", "", his_index + 1, "");
 	while (his_arr[his_index][++i])
 	{
 		if (his_arr[his_index][i] != '\n')
@@ -70,7 +70,7 @@ void	history_options(t_term *t, t_search_history *config)
 
 	index = 0;
 	his_index = init_var_cpy(&row, &to_show, &dis_row, config);
-	while (row && his_index && t->history_arr[his_index] \
+	while (row && his_index >= 0 && t->history_arr[his_index] \
 		&& to_show && index < config->match)
 	{
 		if (ft_is_match(t->history_arr[his_index], \
