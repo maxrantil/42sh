@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quote_flag_reset.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 09:23:06 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 15:58:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:40:36 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * It resets the flags that are used to determine if the user is in a quote
  * or a heredoc
- * 
+ *
  * @param t the structure containing all the information about the current line
  */
 void	ft_quote_flag_reset(t_term *t)

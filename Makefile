@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/27 16:33:53 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/01/27 18:24:14 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,10 +141,20 @@ FILES			= \
 				$(EXPANSION)ft_expansion_dollar \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
-				$(FC)ft_fc \
-				$(FC)fc_print_error \
+				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_check_flags \
+				$(FC)fc_error_check_for_no_flag_or_e_flag \
+				$(FC)fc_get_start_and_end \
+				$(FC)fc_get_start_for_lists \
+				$(FC)fc_list_flags \
+				$(FC)fc_no_flag_or_e_flag \
+				$(FC)fc_open_editor \
 				$(FC)fc_overwrite_fc_cmd_with_prev_cmd \
+				$(FC)fc_print_error \
+				$(FC)fc_s_change \
+				$(FC)fc_s_flag \
+				$(FC)fc_update_history \
+				$(FC)ft_fc \
 				$(FT_TEST)ft_test_b \
 				$(FT_TEST)ft_test_c \
 				$(FT_TEST)ft_test_capital_l \
