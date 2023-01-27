@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 09:43:25 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 12:08:25 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,7 @@ int				ft_export(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
 
 /*				BUILTIN TEST				*/
+int				ft_test_b(char **arg);
 int				ft_test_c(char **arg);
 int				ft_test_capital_l(char **arg);
 int				ft_test_capital_s(char **arg);

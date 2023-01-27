@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/27 09:44:58 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/27 12:08:03 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -145,6 +145,7 @@ FILES			= \
 				$(FC)fc_print_error \
 				$(FC)fc_check_flags \
 				$(FC)fc_overwrite_fc_cmd_with_prev_cmd \
+				$(FT_TEST)ft_test_b \
 				$(FT_TEST)ft_test_c \
 				$(FT_TEST)ft_test_capital_l \
 				$(FT_TEST)ft_test_capital_s \
