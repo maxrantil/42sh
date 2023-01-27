@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fc_build_and_execute_tree.c                        :+:      :+:    :+:   */
+/*   fc_build_and_execute_new_tree.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:52:49 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 13:53:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 18:44:35 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void	ft_flag_reset(t_term *t, char *str)
 	{
 		if ((str[i] == D_QUO || str[i] == S_QUO) && !t->heredoc)
 		{
-			if (!ft_bslash_escape_check(t, i))
+			if (!special_char_check(str, t->index - 1, '\\'))
 				ft_quote_handling(t, str[i]);
 		}
 		if (str[i] == '<' && !t->quote)
