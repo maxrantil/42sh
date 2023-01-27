@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/26 15:43:30 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/27 09:44:58 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -145,13 +145,35 @@ FILES			= \
 				$(FC)fc_print_error \
 				$(FC)fc_check_flags \
 				$(FC)fc_overwrite_fc_cmd_with_prev_cmd \
-				$(FT_TEST)ft_test \
-				$(FT_TEST)ft_test_is_unary \
-				$(FT_TEST)ft_test_is_binary \
-				$(FT_TEST)ft_test_is_not \
-				$(FT_TEST)ft_test_not_return_last \
-				$(FT_TEST)ft_test_error_int_print \
+				$(FT_TEST)ft_test_c \
+				$(FT_TEST)ft_test_capital_l \
+				$(FT_TEST)ft_test_capital_s \
 				$(FT_TEST)ft_test_check_int \
+				$(FT_TEST)ft_test_d \
+				$(FT_TEST)ft_test_e \
+				$(FT_TEST)ft_test_eq \
+				$(FT_TEST)ft_test_equal \
+				$(FT_TEST)ft_test_error_int_print \
+				$(FT_TEST)ft_test_f \
+				$(FT_TEST)ft_test_g \
+				$(FT_TEST)ft_test_ge \
+				$(FT_TEST)ft_test_get_file_path \
+				$(FT_TEST)ft_test_is_binary \
+				$(FT_TEST)ft_test_is_unary \
+				$(FT_TEST)ft_test_is_not \
+				$(FT_TEST)ft_test_le \
+				$(FT_TEST)ft_test_lt \
+				$(FT_TEST)ft_test_ne \
+				$(FT_TEST)ft_test_not_equal \
+				$(FT_TEST)ft_test_not_return_last \
+				$(FT_TEST)ft_test_p \
+				$(FT_TEST)ft_test_r \
+				$(FT_TEST)ft_test_s \
+				$(FT_TEST)ft_test_u \
+				$(FT_TEST)ft_test_w \
+				$(FT_TEST)ft_test_x \
+				$(FT_TEST)ft_test_z \
+				$(FT_TEST)ft_test \
 				$(HASH)ft_hash \
 				$(HASH)hash_init \
 				$(HASH)hash_print \

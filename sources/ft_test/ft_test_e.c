@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_test_is_binary.c                                :+:      :+:    :+:   */
+/*   ft_test_e.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 18:31:13 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 11:20:25 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/27 09:27:56 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/27 11:22:13 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/*
-	!=, -eq, -ne, -ge, -lt, -le, =
-*/
-int	ft_test_is_binary(char *str)
+// True if file exists (regardless of type).
+int	ft_test_e(char **arg)
 {
-	return (ft_strequ(str, "!=") || ft_strequ(str, "-eq")
-		|| ft_strequ(str, "-ne") || ft_strequ(str, "-ge")
-		|| ft_strequ(str, "-lt") || ft_strequ(str, "-le")
-		|| ft_strequ(str, "="));
+	struct stat	file_info;
+	char		*filepath;
+	int			not;
+
+	not = ft_test_is_not(arg);
+	filepath = ft_test_get_file_path(arg, not);
+	if (stat(filepath, &file_info) != 0)
+	{
+		ft_strdel(&filepath);
+		return (ft_test_not_return_last(not));
+	}
+	ft_strdel(&filepath);
+	if (not)
+		return (1);
+	return (0);
 }

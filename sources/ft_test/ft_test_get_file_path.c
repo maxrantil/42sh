@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_test_is_binary.c                                :+:      :+:    :+:   */
+/*   ft_test_get_file_path.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 18:31:13 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 11:20:25 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/27 09:22:20 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/27 11:56:39 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/*
-	!=, -eq, -ne, -ge, -lt, -le, =
-*/
-int	ft_test_is_binary(char *str)
+char	*ft_test_get_file_path(char **arg, int not)
 {
-	return (ft_strequ(str, "!=") || ft_strequ(str, "-eq")
-		|| ft_strequ(str, "-ne") || ft_strequ(str, "-ge")
-		|| ft_strequ(str, "-lt") || ft_strequ(str, "-le")
-		|| ft_strequ(str, "="));
+	char		filepath[PATH_MAX];
+	char		*ret_path;
+	int			argc;
+
+	ret_path = NULL;
+	argc = ft_arrlen(arg);
+	if (argc > (2 + not) && arg[2 + not][0] != '/')
+	{
+		getcwd(filepath, sizeof(filepath));
+		ret_path = ft_strjoin_three(filepath, "/", arg[2 + not]);
+	}
+	else if (argc > (2 + not))
+		ret_path = ft_strdup(arg[2 + not]);
+	return (ret_path);
 }
