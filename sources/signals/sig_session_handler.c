@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sig_session_handler.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 09:02:29 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:05 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:16:34 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-extern t_shell	*g_session;
+extern t_shell	*g_sh;
 
 /*
  * It's a signal handler that
@@ -23,9 +23,9 @@ extern t_shell	*g_session;
 void	sig_session_handler(int num)
 {
 	if (num == SIGWINCH)
-		ft_window_size(g_session->term);
+		ft_window_size(g_sh->term);
 	if (num == SIGINT)
-		ft_restart_cycle(g_session->term);
+		ft_restart_cycle(g_sh->term);
 }
 
 void	sigwinch_inchild_handler(int num)
@@ -39,8 +39,8 @@ void	sigwinch_inchild_handler(int num)
 			ft_putstr_fd("could not get the terminal size", 2);
 			exit(1);
 		}
-		g_session->term->ws_col = size.ws_col;
-		g_session->term->ws_row = size.ws_row;
+		g_sh->term->ws_col = size.ws_col;
+		g_sh->term->ws_row = size.ws_row;
 	}
 }
 
@@ -49,7 +49,7 @@ void	search_history_sigs(int num)
 	struct winsize	size;
 	t_term			*term;
 
-	term = g_session->term;
+	term = g_sh->term;
 	if (num == SIGWINCH)
 	{
 		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < 0)

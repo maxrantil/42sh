@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:42:18 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	exec_pipe(t_pipenode *pipenode,
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
 	int	pipefd[2];
+	int local;
 
 	if (pipe_wrap(pipefd))
 		return ;
-	if (fork_wrap() == 0)
+	if ((local = fork_wrap()) == 0)
 	{
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[0]);
@@ -55,7 +56,10 @@ void	exec_pipe(t_pipenode *pipenode,
 		exec_tree(pipenode->left, environ_cp, terminal, sh);
 		exit (1);
 	}
-	if (fork_wrap() == 0)
+		ft_putstr_fd("PID_PIPE:", 2);
+		ft_putnbr_fd(local, 2);
+		ft_putstr_fd("\n", 2);
+	if ((local = fork_wrap()) == 0)
 	{
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
@@ -63,6 +67,9 @@ void	exec_pipe(t_pipenode *pipenode,
 		exec_tree(pipenode->right, environ_cp, terminal, sh);
 		exit (1);
 	}
+		ft_putstr_fd("PID_PIPE_TWO:", 2);
+		ft_putnbr_fd(local, 2);
+		ft_putstr_fd("\n", 2);
 	close(pipefd[0]);
 	close(pipefd[1]);
 	wait(0);

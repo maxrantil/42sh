@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 11:20:49 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:14:06 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@
 
 /* limit for filedescriptors */
 # define SH_FD_MAX 255
+
+/* Limit for jobs */
+# define JOBS_MAX 255
 
 /* Hash Table */
 # define HASH_SIZE 25
@@ -171,8 +174,18 @@ typedef struct s_hash
 	struct s_hash	*next;
 }					t_hash;
 
+/*				JOB CONTROL STRUCT			*/
+typedef struct s_job
+{
+	pid_t			pid;
+	int				fg_group[JOBS_MAX];
+	int				fg_group_size;
+	char			*cmd;
+	struct s_job	*next;
+}				t_job;
+
 /*				SESSION STRUCT				*/
-typedef struct session
+typedef struct s_shell
 {
 	char			*line;
 	t_treenode		*head;
@@ -185,6 +198,7 @@ typedef struct session
 	char			*terminal;
 	char			**tmp_env_key;
 	struct termios	orig_termios;
+	t_job			*jobs;
 }				t_shell;
 
 /*					HEADER					*/
@@ -202,6 +216,7 @@ void			ft_init_signals(void);
 void			init_window_size(t_term *term);
 void			ft_env_init(t_shell *sh);
 void			ft_session_init(t_shell *sh);
+t_job			*ft_init_jobs(int group_size);
 
 /*					LEXER					*/
 char			*ft_lexer(t_term *t);
@@ -382,5 +397,8 @@ size_t			hash_function(char *program);
 void			hash_init_struct(t_shell *sh, char *str, int hits);
 char			*hash_check(t_shell *sh, char *program, int *hash);
 void			hash_free(t_hash **ht);
+
+/*					JOBS					*/
+void			jobs_add(t_job *jobs);
 
 #endif

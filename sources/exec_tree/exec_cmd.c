@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:37:26 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+extern t_shell *g_sh;
 
 int	check_if_user_exe(char *cmd, char **dest)
 {
@@ -84,17 +86,29 @@ static void	print_args(char **args)
 static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 {
 	int		status;
+	int		local;
 
 	status = 0;
-	if (access && fork_wrap() == 0)
+	if (access)
 	{
-		if (!cmd || execve(*cmd, args, *environ_cp) < 0)
-			exe_fail(cmd, args, environ_cp);
-		exit (1);
+//		jobs_add(g_sh->jobs);
+		local = fork_wrap();
+		ft_putstr_fd("PID:", 2);
+		ft_putnbr_fd(local, 2);
+		ft_putstr_fd("\n", 2);
+		if (local == 0)
+		{
+			ft_putstr_fd("CHILD:", 2);
+			ft_putnbr_fd(local, 2);
+			ft_putstr_fd("\n", 2);
+			if (execve(*cmd, args, *environ_cp) < 0)
+				exe_fail(cmd, args, environ_cp);
+			exit (1);
+		}
+		wait(&status);
+		if (status & 0177)
+			ft_putchar('\n');
 	}
-	wait(&status);
-	if (status & 0177)
-		ft_putchar('\n');
 	return (status);
 }
 

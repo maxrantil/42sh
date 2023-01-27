@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:51:43 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		return ;
 	if (head->type == SEMICOLON)
 	{
+		print_tree((((t_semicolon *)head)->left));
 		exec_tree((((t_semicolon *)head)->left), environ_cp, terminal, sh);
 		reset_fd(terminal);
 		if (head && ((t_semicolon *)head)->right)

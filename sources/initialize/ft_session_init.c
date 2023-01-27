@@ -12,7 +12,7 @@
 
 #include "ft_42sh.h"
 
-t_shell	*g_session;
+t_shell		*g_sh;
 t_term		*g_t;
 
 /**
@@ -23,8 +23,9 @@ t_term		*g_t;
 void	ft_session_init(t_shell *sh)
 {
 	init_window_size(sh->term);
-	g_session = sh;
+	g_sh = sh;
 	g_t = sh->term;
+	sh->jobs = NULL;
 	sh->exit_stat = 0;
 	sh->line = NULL;
 	ft_env_init(sh);
