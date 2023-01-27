@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_test.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 12:12:23 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:06:50 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	operator_dispatcher_continue(char **cmd, int punctuation)
 static int	operator_dispatcher(char **cmd, int punctuation)
 {
 	if (ft_strequ(cmd[1 + punctuation], "-b"))
-		return (ft_test_c(cmd));
+		return (ft_test_b(cmd));
 	else if (ft_strequ(cmd[1 + punctuation], "-c"))
 		return (ft_test_c(cmd));
 	else if (ft_strequ(cmd[1 + punctuation], "-d"))
