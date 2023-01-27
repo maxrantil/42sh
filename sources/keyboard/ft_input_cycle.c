@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input_cycle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 11:46:24 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/25 15:03:20 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:19:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int	ft_isprint_or_enter(t_term *t)
 		delim_row = t->total_row;
 		while (delim_row && !ft_is_prompt_line(t, delim_row))
 			delim_row--;
-		if ((!t->bslash && !(t->q_qty % 2) && !t->delim) \
-			|| (t->delim && !ft_strcmp(t->nl_addr[delim_row], t->delim)))
+		// if ((!t->bslash && !(t->q_qty % 2) && !t->delim) || (t->delim && !ft_strcmp(t->nl_addr[delim_row], t->delim)))
+		if (!(t->q_qty % 2) && !t->bslash && !t->bracket && (!t->heredoc || (t->delim && !ft_strcmp(t->nl_addr[delim_row], t->delim))))
 		{
 			ft_end_cycle(t);
 			ft_setcursor(0, t->term_val[1] + t->total_row);

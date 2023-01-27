@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/26 15:43:30 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/27 11:10:04 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -175,6 +175,7 @@ FILES			= \
 				$(KEYBOARD)ft_alt_mv \
 				$(KEYBOARD)ft_arrow_input \
 				$(KEYBOARD)ft_backspace \
+				$(KEYBOARD)ft_bracket_handling \
 				$(KEYBOARD)ft_bslash_escape_check \
 				$(KEYBOARD)ft_copy \
 				$(KEYBOARD)ft_create_prompt_line \

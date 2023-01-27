@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 16:10:19 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:07:58 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define CTRL_R		18
 # define D_QUO		34
 # define S_QUO		39
+# define L_BRAC		123
+# define R_BRAC		125
 # define ESCAPE     27
 # define LINE_MV    49
 # define KEY_SHIFT  50
@@ -120,8 +122,9 @@ typedef struct s_term
 	char				quote;
 	t_clipboard			clipboard;
 	ssize_t				term_val[2];
-	bool		fc_flag;
+	bool				fc_flag;
 	t_search_history	*config;
+	char				bracket;
 }			t_term;
 
 int		ft_keyboard(t_term *t);
@@ -167,6 +170,7 @@ void	ft_quote_decrement(t_term *t, ssize_t index);
 void	ft_quote_flag_check(t_term *t, ssize_t index);
 void	ft_quote_flag_reset(t_term *t);
 void	ft_quote_handling(t_term *t, char ch);
+void    ft_bracket_handling(t_term *t, int pos);
 void	ft_remove_nl_addr(t_term *t, ssize_t row);
 void	ft_reset_nl_addr(t_term *t);
 void	ft_restart_cycle(t_term *t);
@@ -181,6 +185,7 @@ void	ft_window_size(t_term *t);
 void	ft_word_mv(t_term *t);
 void	ft_history_add_command(t_term *t, char *command);
 
+/*				SEARCH HISTORY				*/
 void	ft_select_history(t_term *t, t_search_history *config);
 void	ft_selector_up(t_term *t, t_search_history *config);
 void	ft_selector_do( t_term *t, t_search_history *config);
