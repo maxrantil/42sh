@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_fork.c                                  :+:      :+:    :+:   */
+/*   set_signal_dfl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 09:24:56 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/27 15:02:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	set_signal_fork(int pid)
+/**
+ * It sets all the signals to their default behavior
+ */
+void	ft_signal_dfl(void)
 {
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGWINCH, SIG_DFL);
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGWINCH, sigwinch_inchild_handler);
-	}
+	int	sig;
+
+	sig = 1;
+	while (sig < 32)
+		signal(sig++, SIG_DFL);
 }

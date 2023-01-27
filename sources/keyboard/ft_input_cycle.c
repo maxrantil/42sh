@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input_cycle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 11:46:24 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/25 15:03:20 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 13:35:12 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ static void	ft_backspace_or_escape(t_term *t)
  */
 static int	ft_isprint_or_enter(t_term *t)
 {
-	ssize_t	delim_row;
+	ssize_t	d_row;
 
 	if ((ft_isprint(t->ch) || t->ch == ENTER) && t->bytes < (BUFF_SIZE - 1))
 		ft_insertion(t);
 	if (t->ch == ENTER)
 	{
-		delim_row = t->total_row;
-		while (delim_row && !ft_is_prompt_line(t, delim_row))
-			delim_row--;
-		if ((!t->bslash && !(t->q_qty % 2) && !t->delim) \
-			|| (t->delim && !ft_strcmp(t->nl_addr[delim_row], t->delim)))
+		d_row = t->total_row;
+		while (d_row && !ft_is_prompt_line(t, d_row))
+			d_row--;
+		if (!(t->q_qty % 2) && !t->bslash && !t->bracket && \
+		(!t->heredoc || (t->delim && !ft_strcmp(t->nl_addr[d_row], t->delim))))
 		{
 			ft_end_cycle(t);
 			ft_setcursor(0, t->term_val[1] + t->total_row);

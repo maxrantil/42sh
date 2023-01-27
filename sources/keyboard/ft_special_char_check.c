@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bslash_escape_check.c                           :+:      :+:    :+:   */
+/*   ft_special_char_check.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 15:06:01 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/12/16 16:26:25 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/27 16:35:05 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/27 16:35:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "keyboard.h"
 
-int	ft_bslash_escape_check(t_term *t, ssize_t pos)
+size_t	special_char_check(char *buff, ssize_t pos, char ch)
 {
 	ssize_t	start;
 	ssize_t	count;
@@ -20,12 +20,12 @@ int	ft_bslash_escape_check(t_term *t, ssize_t pos)
 	if (!pos)
 		return (0);
 	start = pos - 1;
-	while (start && t->inp[start] == '\\')
+	while (start && buff[start] == ch)
 		start--;
 	if (start)
 		start++;
 	count = start;
-	while (count < t->bytes && t->inp[count] == '\\')
+	while (buff[count] && buff[count] == ch)
 		count++;
 	if ((count - start) % 2)
 		return (1);
