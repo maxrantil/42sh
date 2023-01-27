@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:36:20 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 13:47:51 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:06:43 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,8 @@ static void	start_interface(t_term *t, t_search_history *config)
 	history_options(t, config);
 	ft_display_to_show(config);
 	ft_display_input(t, config);
-	if (config->to_show >= 0)
-	{
-		ft_setcursor(0, config->row);
-		print_selector("RED");
-	}
+	ft_setcursor(0, config->row);
+	print_selector("RED");
 	config->cursor = config->row;
 	config->index = config->index_max;
 	ft_setcursor(config->input_cur_col, config->input_term_row);

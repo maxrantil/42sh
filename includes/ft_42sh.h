@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 15:55:38 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 16:32:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,6 @@ char			**ft_env_get(t_shell *sh, char *key);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);
-size_t			ft_bslash_check(char *buff, ssize_t pos);
 
 /*					EXECUTE_TREE			*/
 void			exec_tree(t_treenode *head, char ***environ_cp, char *terminal, t_shell *sh);
@@ -308,38 +307,38 @@ int				ft_set(t_shell *sh, char ***cmd);
 void			ft_exit(t_shell *sh, int status);
 int				ft_export(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
-int				ft_test(t_shell *sh, char **cmd);
-int				is_binary(char *str);
-int				is_unary(char *str);
 
 /*				BUILTIN TEST				*/
-int				ft_test_is_not(char **arg);
-int				ft_test_not_return_last(int not);
-int				ft_test_check_int(char **arg, int not);
-int				ft_test_error_int_print(char *arg);
-int				ft_test_z(char **arg);
-int				ft_test_x(char **arg);
-int				ft_test_w(char **arg);
-int				ft_test_u(char **arg);
-int				ft_test_s(char **arg);
-int				ft_test_capital_s(char **arg);
-int				ft_test_r(char **arg);
-int				ft_test_p(char **arg);
-int				ft_test_capital_l(char **arg);
-int				ft_test_g(char **arg);
-int				ft_test_f(char **arg);
-int				ft_test_e(char **arg);
-int				ft_test_d(char **arg);
+int				ft_test_b(char **arg);
 int				ft_test_c(char **arg);
+int				ft_test_capital_l(char **arg);
+int				ft_test_capital_s(char **arg);
+int				ft_test_check_int(char **arg, int not);
+int				ft_test_d(char **arg);
+int				ft_test_e(char **arg);
+int				ft_test_eq(char **arg);
 int				ft_test_equal(char **arg);
+int				ft_test_error_int_print(char *arg);
+int				ft_test_f(char **arg);
+int				ft_test_g(char **arg);
+int				ft_test_ge(char **arg);
+char			*ft_test_get_file_path(char **arg, int not);
+int				ft_test_is_binary(char *str);
+int				ft_test_is_not(char **arg);
+int				ft_test_is_unary(char *str);
 int				ft_test_le(char **arg);
 int				ft_test_lt(char **arg);
-int				ft_test_ge(char **arg);
 int				ft_test_ne(char **arg);
-int				ft_test_eq(char **arg);
 int				ft_test_not_equal(char **arg);
-int				is_unary(char *str);
-int				is_binary(char *str);
+int				ft_test_not_return_last(int not);
+int				ft_test_p(char **arg);
+int				ft_test_r(char **arg);
+int				ft_test_s(char **arg);
+int				ft_test_u(char **arg);
+int				ft_test_w(char **arg);
+int				ft_test_x(char **arg);
+int				ft_test_z(char **arg);
+int				ft_test(t_shell *sh, char **cmd);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_env_temp(t_shell *sh, char **cmd, int i);

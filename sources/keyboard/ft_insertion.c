@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 07:56:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 13:34:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:26:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static void	ft_insertion_char(t_term *t)
 	}
 	else if (t->inp[t->index - 1] == '\\')
 		ft_quote_flag_check(t, t->index - 1);
-	else if ((t->inp[t->index - 1] == L_BRAC || t->inp[t->index - 1] == R_BRAC) \
-		&& !t->quote)
+	else if ((t->inp[t->index - 1] == L_BRAC || t->inp[t->index - 1] == R_BRAC))
 		ft_bracket_handling(t, t->index - 1);
 }
 
@@ -61,7 +60,7 @@ static void	ft_insertion_enter(t_term *t)
 		return ;
 	}
 	if (!t->heredoc)
-		t->bslash = ft_bslash_escape_check(t, t->bytes);
+		t->bslash = special_char_check(t->inp, t->bytes, '\\');
 	delim_row = t->total_row;
 	while (delim_row && !ft_is_prompt_line(t, delim_row))
 		delim_row--;

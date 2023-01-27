@@ -6,24 +6,35 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:21:37 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 12:37:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:26:21 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "keyboard.h"
 
-static int	ft_inhibitor_catch(t_term *t, ssize_t index, int *bs, int *hd)
+struct s_p_flags
 {
-	*bs = 0;
-	*hd = 0;
+	int	blash;
+	int	quote;
+	int	heredoc;
+	int	bracket;
+};
+
+static void	ft_inhibitor_catch(t_term *t, ssize_t index, struct s_p_flags *fl)
+{
+	fl->blash = 0;
+	fl->quote = 0;
+	fl->bracket = 0;
+	fl->heredoc = 0;
 	if (t->inp[index] == '<')
-		*hd = 1;
+		fl->heredoc = 1;
 	else if (t->inp[index] == '\\')
-		*bs = 1;
+		fl->blash = 1;
 	else if ((t->inp[index] == D_QUO || t->inp[index] == S_QUO) \
-	&& !ft_bslash_escape_check(t, index))
-		return (1);
-	return (0);
+	&& !special_char_check(t->inp, index, '\\'))
+		fl->quote = 1;
+	if (t->inp[index] == L_BRAC || t->inp[index] == R_BRAC)
+		fl->bracket = 1;
 }
 
 /*
@@ -35,15 +46,9 @@ static int	ft_inhibitor_catch(t_term *t, ssize_t index, int *bs, int *hd)
  */
 void	ft_deletion_shift(t_term *t, ssize_t index)
 {
-	int	blash;
-	int	quote;
-	int	heredoc;
-	int bracket;
-	
-	bracket = 0;
-	quote = ft_inhibitor_catch(t, index, &blash, &heredoc);
-	if (t->inp[index] == L_BRAC || t->inp[index] == R_BRAC)
-		bracket = 1;
+	struct s_p_flags	fl[1];
+
+	ft_inhibitor_catch(t, index, fl);
 	t->inp[index] = '\0';
 	while (&t->inp[index] < &t->inp[t->bytes])
 	{
@@ -53,14 +58,14 @@ void	ft_deletion_shift(t_term *t, ssize_t index)
 		index++;
 	}
 	t->bytes--;
-	if (blash)
+	if (fl->blash)
 		ft_quote_flag_check(t, t->index);
-	else if (heredoc)
+	else if (fl->heredoc)
 	{
 		ft_heredoc_handling(t);
 		if (!t->heredoc && t->delim)
 			ft_strdel(&t->delim);
 	}
-	else if (quote || bracket)
+	else if (fl->quote || fl->bracket)
 		ft_quote_flag_reset(t);
 }

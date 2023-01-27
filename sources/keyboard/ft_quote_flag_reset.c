@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 09:23:06 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 13:31:47 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:58:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_quote_flag_reset(t_term *t)
 		}
 		else if (t->inp[i] == '<' && !t->heredoc && !t->quote)
 			ft_heredoc_handling(t);
-		else if ((t->inp[i] == L_BRAC || t->inp[i] == R_BRAC) && !t->quote)
+		else if ((t->inp[i] == L_BRAC || t->inp[i] == R_BRAC))
 			ft_bracket_handling(t, i);
 	}
 }

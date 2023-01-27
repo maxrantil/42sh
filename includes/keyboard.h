@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 11:48:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:32:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	ft_add_nl_mid_row(t_term *t, ssize_t row, ssize_t pos);
 void	ft_alt_mv(t_term *t);
 void	ft_arrow_input(t_term *t);
 void	ft_backspace(t_term *t);
-int		ft_bslash_escape_check(t_term *t, ssize_t pos);
+size_t	special_char_check(char *buff, ssize_t pos, char ch);
 void	ft_copy(t_term *t);
 void	ft_create_prompt_line(t_term *t, ssize_t loc);
 int		ctrl_d(t_term *t);
@@ -198,6 +198,6 @@ void	ft_search_history_reset(t_term *t);
 void	edit_input(t_term *t, t_search_history *config);
 
 /*			  PROMPT LINE HANDLING			*/
-size_t	special_char_check(char *buff, ssize_t pos, char ch);
+// size_t	special_char_check(char *buff, ssize_t pos, char ch);
 
 #endif
