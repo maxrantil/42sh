@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 11:15:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 12:12:23 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ static int	operator_dispatcher_continue(char **cmd, int punctuation)
 //	-c, -d, -e, -f, -g, -L, -p, -r, -S, -s, -u, -w, -x, -z, !
 static int	operator_dispatcher(char **cmd, int punctuation)
 {
-	if (ft_strequ(cmd[1 + punctuation], "-c"))
+	if (ft_strequ(cmd[1 + punctuation], "-b"))
+		return (ft_test_c(cmd));
+	else if (ft_strequ(cmd[1 + punctuation], "-c"))
 		return (ft_test_c(cmd));
 	else if (ft_strequ(cmd[1 + punctuation], "-d"))
 		return (ft_test_d(cmd));
