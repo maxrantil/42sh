@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 13:38:31 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 13:18:38 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:19:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	ft_qoute_parse(char *buff, char *quote, int len)
 {
-	// if (!len || buff[len - 1] != '\\' || !ft_bslash_check(buff, len))
 	if (!len || buff[len - 1] != '\\' || !special_char_check(buff, len, '\\'))
 	{
 		if (!(*quote))
