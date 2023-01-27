@@ -136,5 +136,8 @@ void	ft_arrclean(char **array);
 int		ft_freeda(void ***a, size_t row);
 char	*ft_strupdate(char *s1, const char *s2);
 char	*ft_strjoin_three(char *s1, char *s2, char *s3);
+int		ft_isdigit_loop(char *str);
+int		ft_intlen(long nbr);
+long	ft_atol(const char *nbr);
 
 #endif

@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal_dfl.c                                    :+:      :+:    :+:   */
+/*   ft_test_r.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 21:12:56 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/27 09:26:07 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/27 09:26:13 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void    ft_signal_dfl(void)
+//True if file exists and is readable.
+int	ft_test_r(char **arg)
 {
-    int sig;
+	int		not;
 
-    sig = 1;
-    while (sig < 32)
-        signal(sig++, SIG_DFL);
+	not = ft_test_is_not(arg);
+	if (not && access(arg[3], R_OK) == 0)
+		return (1);
+	else if (access(arg[2], R_OK) == 0)
+		return (0);
+	return (ft_test_not_return_last(not));
 }

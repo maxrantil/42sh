@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:34:50 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:10:04 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int is_semi_or_amp(char c)
+int	is_semi_or_amp(char c)
 {
 	return (c == ';' || c == '&');
 }

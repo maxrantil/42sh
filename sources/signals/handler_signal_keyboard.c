@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_session_handler.c                              :+:      :+:    :+:   */
+/*   ft_signal_keyboard.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -20,7 +20,7 @@ extern t_shell	*g_session;
  *
  * @param num The signal number.
  */
-void	sig_session_handler(int num)
+void	ft_signal_keyboard(int num)
 {
 	if (num == SIGWINCH)
 		ft_window_size(g_session->term);

@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_signals.c                                  :+:      :+:    :+:   */
+/*   ft_isdigit_loop.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 18:17:16 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:22:51 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/26 15:36:54 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/26 15:37:11 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_42sh.h"
+#include "libft.h"
 
-/*
- * It initializes the signal handlers for the program
- */
-void	ft_init_signals(void)
+int	ft_isdigit_loop(char *str)
 {
-	signal(SIGWINCH, ft_signal_keyboard);
-	signal(SIGINT, ft_signal_keyboard);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGSTOP, SIG_IGN);
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

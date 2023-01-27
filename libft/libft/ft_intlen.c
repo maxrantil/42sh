@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_signals.c                                  :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 18:17:16 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:22:51 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/26 17:29:15 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/26 17:29:38 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_42sh.h"
+#include "libft.h"
 
-/*
- * It initializes the signal handlers for the program
- */
-void	ft_init_signals(void)
+int	ft_intlen(long nbr)
 {
-	signal(SIGWINCH, ft_signal_keyboard);
-	signal(SIGINT, ft_signal_keyboard);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGSTOP, SIG_IGN);
+	int	c;
+
+	c = 1;
+	if (nbr < 0)
+	{
+		nbr *= -1;
+		if (nbr == 0)
+			c = 0;
+		c++;
+	}
+	while (nbr > 9)
+	{
+		nbr = nbr / 10;
+		c++;
+	}
+	return (c);
 }

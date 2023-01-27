@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 21:19:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:54:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "keyboard.h"
 # include "ft_printf.h"
 # include <sys/stat.h>
+# include <limits.h>
 
 # if __linux__
 #  include <signal.h>
@@ -58,6 +59,7 @@
 # define FC_FLAGS "srnl"
 # define FC_LEN 18
 # define SH_PATH_MAX 2048
+// # define PATH_MAX 2048
 
 /* For print_tree */
 # define COUNT 10
@@ -307,36 +309,38 @@ int				ft_set(t_shell *sh, char ***cmd);
 void			ft_exit(t_shell *sh, int status);
 int				ft_export(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
-int				ft_test(t_shell *sh, char **cmd);
-int				is_binary(char *str);
-int				is_unary(char *str);
 
 /*				BUILTIN TEST				*/
-int				ft_test_is_not(char **arg);
-int				ft_test_not_return_last(int not);
-int				ft_test_z(char **arg);
-int				ft_test_x(char **arg);
-int				ft_test_w(char **arg);
-int				ft_test_u(char **arg);
-int				ft_test_s(char **arg);
-int				ft_test_capital_s(char **arg);
-int				ft_test_r(char **arg);
-int				ft_test_p(char **arg);
-int				ft_test_capital_l(char **arg);
-int				ft_test_g(char **arg);
-int				ft_test_f(char **arg);
-int				ft_test_e(char **arg);
-int				ft_test_d(char **arg);
+int				ft_test_b(char **arg);
 int				ft_test_c(char **arg);
+int				ft_test_capital_l(char **arg);
+int				ft_test_capital_s(char **arg);
+int				ft_test_check_int(char **arg, int not);
+int				ft_test_d(char **arg);
+int				ft_test_e(char **arg);
+int				ft_test_eq(char **arg);
 int				ft_test_equal(char **arg);
+int				ft_test_error_int_print(char *arg);
+int				ft_test_f(char **arg);
+int				ft_test_g(char **arg);
+int				ft_test_ge(char **arg);
+char			*ft_test_get_file_path(char **arg, int not);
+int				ft_test_is_binary(char *str);
+int				ft_test_is_not(char **arg);
+int				ft_test_is_unary(char *str);
 int				ft_test_le(char **arg);
 int				ft_test_lt(char **arg);
-int				ft_test_ge(char **arg);
 int				ft_test_ne(char **arg);
-int				ft_test_eq(char **arg);
 int				ft_test_not_equal(char **arg);
-int				is_unary(char *str);
-int				is_binary(char *str);
+int				ft_test_not_return_last(int not);
+int				ft_test_p(char **arg);
+int				ft_test_r(char **arg);
+int				ft_test_s(char **arg);
+int				ft_test_u(char **arg);
+int				ft_test_w(char **arg);
+int				ft_test_x(char **arg);
+int				ft_test_z(char **arg);
+int				ft_test(t_shell *sh, char **cmd);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
@@ -352,10 +356,14 @@ int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);
 
 /*			  		 SIGNALS				*/
-void			set_signal_fork(int num);
-void			sig_session_handler(int num);
 void			signal_exec(int num);
+void			ft_signal_keyboard(int num);
 void			search_history_sigs(int num);
+void    		ft_signal_dfl(void);
+void			set_signal_exec(void);
+void    		ft_signal_ign(void);
+void    		set_signal_keyboard(void);
+void    		set_signal_search_history(void);
 
 /*			  		 FC						*/
 int				ft_fc(t_shell *sh, char ***cmd);

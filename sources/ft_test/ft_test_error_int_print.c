@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_signals.c                                  :+:      :+:    :+:   */
+/*   ft_test_error_int_print.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 18:17:16 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:22:51 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/26 15:27:42 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/26 15:29:29 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/*
- * It initializes the signal handlers for the program
- */
-void	ft_init_signals(void)
+int	ft_test_error_int_print(char *arg)
 {
-	signal(SIGWINCH, ft_signal_keyboard);
-	signal(SIGINT, ft_signal_keyboard);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGSTOP, SIG_IGN);
+	ft_putstr_fd("42sh: test: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putendl_fd(": integer expression expected", 2);
+	return (2);
 }
