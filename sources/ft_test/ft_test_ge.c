@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_test_is_binary.c                                :+:      :+:    :+:   */
+/*   ft_test_ge.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 18:31:13 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 11:20:25 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/27 09:19:28 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/27 11:21:02 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/*
-	!=, -eq, -ne, -ge, -lt, -le, =
-*/
-int	ft_test_is_binary(char *str)
+//	True if the integer n1 is algebraically greater than or equal
+//	to the integer n2.
+int	ft_test_ge(char **arg)
 {
-	return (ft_strequ(str, "!=") || ft_strequ(str, "-eq")
-		|| ft_strequ(str, "-ne") || ft_strequ(str, "-ge")
-		|| ft_strequ(str, "-lt") || ft_strequ(str, "-le")
-		|| ft_strequ(str, "="));
+	int		not;
+	int		ret;
+
+	not = ft_test_is_not(arg);
+	ret = ft_test_check_int(arg, not);
+	if (ret)
+		return (ret);
+	if (not && ft_atoi(arg[2]) >= ft_atoi(arg[4]))
+		return (1);
+	else if (ft_atoi(arg[1]) >= ft_atoi(arg[3]))
+		return (0);
+	return (ft_test_not_return_last(not));
 }
