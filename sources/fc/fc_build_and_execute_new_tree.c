@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_build_and_execute_new_tree.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:52:49 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 18:44:35 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 19:39:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@ static void	ft_heredoc_handling2(t_term *t, char *str)
 		t->heredoc = 1;
 	else
 		t->heredoc = 0;
-}
-
-static int	ft_isseparator(char c)
-{
-	if (c == '|' || c == ';' || c == '&' || c == '<' || c == '>')
-		return (1);
-	return (0);
 }
 
 static void	delim_fetch_error2(t_term *t, char *ptr, char *str)
