@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 12:12:23 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 14:43:47 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ static int	validate_input(t_shell *sh, char **cmd, int punctuation)
 
 static int	operator_dispatcher_continue(char **cmd, int punctuation)
 {
-	if (ft_strequ(cmd[1 + punctuation], "-w"))
+	if (ft_strequ(cmd[1 + punctuation], "-u"))
+		return (ft_test_u(cmd));
+	else if (ft_strequ(cmd[1 + punctuation], "-w"))
 		return (ft_test_w(cmd));
 	else if (ft_strequ(cmd[1 + punctuation], "-x"))
 		return (ft_test_x(cmd));
@@ -72,7 +74,7 @@ static int	operator_dispatcher_continue(char **cmd, int punctuation)
 	return (-1);
 }
 
-//	-c, -d, -e, -f, -g, -L, -p, -r, -S, -s, -u, -w, -x, -z, !
+//	-b, -c, -d, -e, -f, -g, -L, -p, -r, -S, -s, -u, -w, -x, -z, !
 static int	operator_dispatcher(char **cmd, int punctuation)
 {
 	if (ft_strequ(cmd[1 + punctuation], "-b"))
@@ -97,8 +99,6 @@ static int	operator_dispatcher(char **cmd, int punctuation)
 		return (ft_test_capital_s(cmd));
 	else if (ft_strequ(cmd[1 + punctuation], "-s"))
 		return (ft_test_s(cmd));
-	else if (ft_strequ(cmd[1 + punctuation], "-u"))
-		return (ft_test_u(cmd));
 	else
 		return (operator_dispatcher_continue(cmd, punctuation));
 }
