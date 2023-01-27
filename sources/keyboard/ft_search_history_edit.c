@@ -6,15 +6,15 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:24:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 13:33:40 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:41:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "keyboard.h"
 
-static void edit_mode(bool bs, t_term *t, t_search_history *config)
+static void	edit_mode(bool bs, t_term *t, t_search_history *config)
 {
-    if (bs)
+	if (bs)
 	{
 		ft_deletion_shift(t, --t->index);
 		--config->input_cur_col;
@@ -27,16 +27,16 @@ static void edit_mode(bool bs, t_term *t, t_search_history *config)
 	}
 }
 
-static void update_var_and_interface(t_term *t, t_search_history *config)
+static void	update_var_and_interface(t_term *t, t_search_history *config)
 {
-    config->history_index = t->history_size - 1;
+	config->history_index = t->history_size - 1;
 	config->match = count_matches(t, config);
 	config->to_show = config->match - 1;
 	history_options(t, config);
 	config->index = config->index_max;
 	ft_display_to_show(config);
 	ft_display_input(t, config);
-    if (config->to_show)
+	if (config->to_show >= 0)
 	{
 		ft_setcursor(0, config->row);
 		print_selector("RED");
@@ -60,8 +60,8 @@ void	edit_input(t_term *t, t_search_history *config)
 	config->cursor = config->row;
 	ft_setcursor(1, config->row);
 	ft_run_capability("cb");
-    edit_mode(bs, t, config);
-    update_var_and_interface(t, config);
+	edit_mode(bs, t, config);
+	update_var_and_interface(t, config);
 	if (bs)
 		ft_run_capability("ce");
 	ft_run_capability("ve");

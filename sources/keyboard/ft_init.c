@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 15:52:48 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/26 11:33:29 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/26 11:33:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "keyboard.h"
-
-// t_term	*g_t;
 
 /*
  * It initializes all the variables in the t_term structure to zero

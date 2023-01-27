@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_search_history.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:36:20 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:47:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ static void	start_interface(t_term *t, t_search_history *config)
 	history_options(t, config);
 	ft_display_to_show(config);
 	ft_display_input(t, config);
-	ft_setcursor(0, config->row);
-	print_selector("RED");
+	if (config->to_show >= 0)
+	{
+		ft_setcursor(0, config->row);
+		print_selector("RED");
+	}
 	config->cursor = config->row;
 	config->index = config->index_max;
 	ft_setcursor(config->input_cur_col, config->input_term_row);
@@ -54,6 +57,11 @@ static void	up_and_down(t_term *t, t_search_history *config)
 	ft_run_capability("ve");
 }
 
+/**
+ * It's a function that allows the user to search through the history of commands
+ * 
+ * @param t the term structure
+ */
 void	ft_search_history(t_term *t)
 {
 	t_search_history	config;
@@ -69,7 +77,7 @@ void	ft_search_history(t_term *t)
 			up_and_down(t, &config);
 		else if (config.inp == '\n')
 			ft_select_history(t, &config);
-		else if ((ft_isprint(config.inp) || config.inp == BACKSPACE))
+		else if (ft_isprint(config.inp) || config.inp == BACKSPACE)
 			edit_input(t, &config);
 		else if (config.inp == 18)
 			return_to_shell(t, &config);

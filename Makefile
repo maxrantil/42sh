@@ -6,7 +6,7 @@
 #    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/26 13:12:55 by jniemine         ###   ########.fr        #
+#    Updated: 2023/01/27 16:32:34 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,6 +151,8 @@ FILES			= \
 				$(FT_TEST)ft_test_is_binary \
 				$(FT_TEST)ft_test_is_not \
 				$(FT_TEST)ft_test_not_return_last \
+				$(FT_TEST)ft_test_error_int_print \
+				$(FT_TEST)ft_test_check_int \
 				$(HASH)ft_hash \
 				$(HASH)hash_init \
 				$(HASH)hash_print \

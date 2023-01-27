@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 13:14:06 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:34:27 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "keyboard.h"
 # include "ft_printf.h"
 # include <sys/stat.h>
+# include <limits.h>
+# include <sys/shm.h>
 
 # if __linux__
 #  include <signal.h>
@@ -60,7 +62,7 @@
 /* For fc builtin */
 # define FC_FLAGS "srnl"
 # define FC_LEN 18
-# define PATH_MAX 2048
+// # define PATH_MAX 2048
 
 /* For print_tree */
 # define COUNT 10
@@ -180,6 +182,8 @@ typedef struct s_job
 	pid_t			pid;
 	int				fg_group[JOBS_MAX];
 	int				fg_group_size;
+	int				shared_mem_id;
+	int				shared_mem_index;
 	char			*cmd;
 	struct s_job	*next;
 }				t_job;
@@ -329,6 +333,8 @@ int				is_unary(char *str);
 /*				BUILTIN TEST				*/
 int				ft_test_is_not(char **arg);
 int				ft_test_not_return_last(int not);
+int				ft_test_check_int(char **arg, int not);
+int				ft_test_error_int_print(char *arg);
 int				ft_test_z(char **arg);
 int				ft_test_x(char **arg);
 int				ft_test_w(char **arg);
