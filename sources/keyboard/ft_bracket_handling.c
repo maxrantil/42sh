@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bslash_check.c                                  :+:      :+:    :+:   */
+/*   ft_bracket_handling.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 12:03:10 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/27 10:46:19 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/27 16:03:26 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-size_t	ft_bslash_check(char *buff, ssize_t pos)
+void	ft_bracket_handling(t_term *t, int pos)
 {
-	size_t	len;
-	ssize_t	count;
-
-	len = 0;
-	count = pos - 1;
-	while (buff[count] == '\\')
-	{
-		len++;
-		if (!count)
-			break ;
-		count--;
-	}
-	if (len && (len % 2))
-		return (1);
-	return (0);
+	if (t->bracket == 0 && t->inp[pos] == L_BRAC \
+	&& special_char_check(t->inp, pos, '$'))
+		t->bracket = L_BRAC;
+	else if (t->bracket == L_BRAC && t->inp[pos] == R_BRAC)
+		t->bracket = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 14:54:19 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:32:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,6 @@ char			**ft_env_get(t_shell *sh, char *key);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);
-size_t			ft_bslash_check(char *buff, ssize_t pos);
 
 /*					EXECUTE_TREE			*/
 void			exec_tree(t_treenode *head, char ***environ_cp, char *terminal, t_shell *sh);
