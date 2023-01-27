@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/27 12:08:03 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/27 14:58:02 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -183,7 +183,6 @@ FILES			= \
 				$(HASH)hash_check \
 				$(HASH)hash_free \
 				$(INITIALIZE)ft_env_init \
-				$(INITIALIZE)ft_init_signals \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
 				$(INTERN_VARS)ft_variables \
@@ -261,8 +260,14 @@ FILES			= \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
 				$(PARAM_FORM)parameter_format \
-				$(SIGNALS)sig_session_handler \
-				$(SIGNALS)set_signal_fork \
+				$(SIGNALS)handler_signal_exec \
+				$(SIGNALS)handler_signal_keyboard \
+				$(SIGNALS)handler_signal_search_history \
+				$(SIGNALS)set_signal_dfl \
+				$(SIGNALS)set_signal_exec \
+				$(SIGNALS)set_signal_ign \
+				$(SIGNALS)set_signal_keyboard \
+				$(SIGNALS)set_signal_search_history \
 				$(TERMIOS)ft_getent \
 				$(TERMIOS)ft_raw_disable \
 				$(TERMIOS)ft_raw_enable \

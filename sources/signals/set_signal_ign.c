@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_signals.c                                  :+:      :+:    :+:   */
+/*   set_signal_ign.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 18:17:16 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:22:51 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/26 21:03:12 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/27 15:03:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/*
- * It initializes the signal handlers for the program
+/**
+ * It sets all signals to be ignored
  */
-void	ft_init_signals(void)
+void	ft_signal_ign(void)
 {
-	signal(SIGWINCH, ft_signal_keyboard);
-	signal(SIGINT, ft_signal_keyboard);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGSTOP, SIG_IGN);
+	int	sig;
+
+	sig = 1;
+	while (sig < 32)
+		signal(sig++, SIG_IGN);
 }

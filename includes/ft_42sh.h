@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 12:08:25 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 14:54:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 /* For fc builtin */
 # define FC_FLAGS "srnl"
 # define FC_LEN 18
+# define SH_PATH_MAX 2048
 // # define PATH_MAX 2048
 
 /* For print_tree */
@@ -355,9 +356,14 @@ int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);
 
 /*			  		 SIGNALS				*/
-void			set_signal_fork(int num);
-void			sig_session_handler(int num);
-void			sigwinch_inchild_handler(int num);
+void			signal_exec(int num);
+void			ft_signal_keyboard(int num);
+void			search_history_sigs(int num);
+void    		ft_signal_dfl(void);
+void			set_signal_exec(void);
+void    		ft_signal_ign(void);
+void    		set_signal_keyboard(void);
+void    		set_signal_search_history(void);
 
 /*			  		 FC						*/
 int				ft_fc(t_shell *sh, char ***cmd);
@@ -375,7 +381,6 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 /*				PARAM_FORM					*/
 int				param_format(t_shell *sh, char **cmd);
 
-void			search_history_sigs(int num);
 
 /*			  		 HASH					*/
 int				ft_hash(t_shell *sh, char **cmd);
