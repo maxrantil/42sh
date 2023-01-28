@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 14:42:18 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:48:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ void	exec_pipe(t_pipenode *pipenode,
 		exec_tree(pipenode->left, environ_cp, terminal, sh);
 		exit (1);
 	}
-		ft_putstr_fd("PID_PIPE:", 2);
-		ft_putnbr_fd(local, 2);
-		ft_putstr_fd("\n", 2);
 	if ((local = fork_wrap()) == 0)
 	{
 		dup2(pipefd[0], STDIN_FILENO);
@@ -67,9 +64,6 @@ void	exec_pipe(t_pipenode *pipenode,
 		exec_tree(pipenode->right, environ_cp, terminal, sh);
 		exit (1);
 	}
-		ft_putstr_fd("PID_PIPE_TWO:", 2);
-		ft_putnbr_fd(local, 2);
-		ft_putstr_fd("\n", 2);
 	close(pipefd[0]);
 	close(pipefd[1]);
 	wait(0);

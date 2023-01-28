@@ -6,7 +6,7 @@
 #    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/27 16:32:34 by jniemine         ###   ########.fr        #
+#    Updated: 2023/01/28 15:44:59 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -168,7 +168,10 @@ FILES			= \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
-				$(JOBS)jobs_add \
+				$(JOBS)jobs_attach_fg_grp \
+				$(JOBS)jobs_detach_and_remove_fg_grp \
+				$(JOBS)jobs_detach_fg_grp \
+				$(JOBS)jobs_reset_fg_grp \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \

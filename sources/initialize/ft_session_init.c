@@ -33,7 +33,6 @@ void	ft_session_init(t_shell *sh)
 	sh->head = NULL;
 	sh->tmp_env_key = NULL;
 	sh->tokens = NULL;
-	sh->jobs->shared_mem_id = -1;
-	sh->jobs->shared_mem_index = -1;
+	sh->jobs = ft_init_jobs();
 	hash_init(sh);
 }

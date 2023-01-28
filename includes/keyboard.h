@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 16:10:19 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:33:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #ifndef KEYBOARD_H
 # define KEYBOARD_H
@@ -23,7 +20,6 @@
 # include <sys/ioctl.h>
 
 # if __linux__
-#  include <term.h>
 #  include <curses.h>
 #  include <signal.h>
 #  include <limits.h>

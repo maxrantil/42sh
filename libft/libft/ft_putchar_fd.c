@@ -20,5 +20,7 @@
  */
 void	ft_putchar_fd(char c, int fd)
 {
-	write(fd, &c, 1);
+	int	ignore	__attribute__((unused));
+
+	ignore = write(fd, &c, 1);
 }

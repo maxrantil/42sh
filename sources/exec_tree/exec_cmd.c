@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/27 16:39:34 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/28 16:41:32 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 {
 	int		status;
 	int		pid;
-	int		*fg_pid_arr;
-	int		*fg_pid_arr_idx;
 
 	status = 0;
 	pid = -1;
@@ -103,35 +101,28 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 		}
 	}
 	wait(&status);
-		ft_putstr_fd("PID_BEFORE: ", 2);
-		ft_putnbr_fd(pid, 2);
-		ft_putstr_fd("\n", 2);
-		ft_putstr_fd(*cmd, 2);
-		ft_putstr_fd("\n", 2);
+		// ft_putstr_fd("PID_BEFORE: ", 2);
+		// ft_putnbr_fd(pid, 2);
+		// ft_putstr_fd("\n", 2);
+		// ft_putstr_fd(*cmd, 2);
+		// ft_putstr_fd("\n", 2);
 	// Attach to shared memory segmetn
-	fg_pid_arr = (int *)shmat(g_sh->jobs->shared_mem_id, NULL, 0);
-	fg_pid_arr_idx = (int *)shmat(g_sh->jobs->shared_mem_index, NULL, 0);
-	if (fg_pid_arr == (int *)-1 || fg_pid_arr_idx == (int *)-1)
-	{
-		ft_err_print(NULL, "shmat", "no memory available", 2);
-		exit (1);
-	}
-	fg_pid_arr[*fg_pid_arr_idx] = pid; //Remember to protect max size
-	*fg_pid_arr_idx += 1;
-	int i = 0;
-	while (i < *fg_pid_arr_idx)
-	{
-		ft_putstr_fd("PID: ", 2);
-		ft_putnbr_fd(fg_pid_arr[i], 2);
-		ft_putstr_fd("\n", 2);
-		++i;
-	}
-	//Detach from shared memory
-	if (shmdt(fg_pid_arr) < 0 || shmdt(fg_pid_arr_idx) < 0)
-	{
-		ft_err_print(NULL, "shmdt", "failed to detach from shared memory", 2);
-		exit (1);
-	}
+	attach_fg_grp();
+	if (*g_sh->jobs->shared_mem_idx_ptr < JOBS_MAX)
+		g_sh->jobs->shared_mem_ptr[(*g_sh->jobs->shared_mem_idx_ptr)++] = pid;
+	// int i = 0;
+		// ft_putstr_fd("\n", 2);
+	// while (i < *g_sh->jobs->shared_mem_idx_ptr)
+	// {
+		// ft_putstr_fd("PID: ", 2);
+		// ft_putnbr_fd(g_sh->jobs->shared_mem_ptr[i], 2);
+		// ft_putstr_fd(" CMD: ", 2);
+		// ft_putstr_fd(*cmd, 2);
+		// ft_putstr_fd("\n", 2);
+		// ++i;
+	// }
+		// ft_putstr_fd("\n", 2);
+	detach_fg_grp();
 	if (status & 0177)
 		ft_putchar('\n');
 	return (status);

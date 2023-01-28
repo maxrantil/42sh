@@ -20,5 +20,7 @@
 
 void	ft_putstr_fd(char const *s, int fd)
 {
-	write(fd, s, ft_strlen(s));
+	int	ignore	__attribute__((unused));
+
+	ignore = write(fd, s, ft_strlen(s));
 }
