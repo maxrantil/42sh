@@ -50,7 +50,7 @@ int	count_matches(t_term *t, t_search_history *config)
 	i = config->history_index;
 	if (*t->nl_addr[t->total_row] == '\0')
 		return (config->max_to_show);
-	while (i && to_show < config->max_to_show)
+	while (i >= 0 && to_show < config->max_to_show)
 	{
 		if (ft_is_match(t->history_arr[i], t->nl_addr[t->total_row]))
 		{

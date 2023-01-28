@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/26 20:52:25 by mviinika         ###   ########.fr        #
+#    Updated: 2023/01/28 10:48:15 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,37 +64,152 @@ INCLUDES		= 	includes/
 LIBRARIES 		= 	libft/
 BANNER			= 	banner/
 BUILDTREE		=	build_tree/
-BUILTIN			= 	builtins/
 BUILTIN_UTILS	= 	builtin_utils/
+BUILTIN			= 	builtins/
 EXECTREE		=	exec_tree/
 EXPANSION		=	expansion/
+FC				= 	fc/
+FT_TEST			=	ft_test/
+HASH			= 	hash/
 HISTORY			= 	history/
 INITIALIZE		=	initialize/
+INTERN_VARS		=	intern_variables/
 KEYBOARD		= 	keyboard/
 LEXER			= 	lexer/
 MAIN			= 	main/
+PARAM_FORM		=	parameter_formatting/
 SIGNALS			= 	signals/
-OBJECTS 		= 	objects
 TERMIOS			= 	termios/
 TOKENIZER		=	tokenizer/
 UTILITIES		=	utilities/
-FC				= 	fc/
-INTERN_VARS		=	intern_variables/
-PARAM_FORM		=	parameter_formatting/
-FT_TEST			=	ft_test/
-HASH			= 	hash/
+OBJECTS 		= 	objects
 
 SOURCE_COUNT = $(words $(FILES))
 
 H_FILES 	= 	ft_42sh \
 				keyboard \
 
-FILES			= $(KEYBOARD)ft_add_nl_last_row \
+FILES			= \
+				$(BANNER)ft_banner \
+				$(BUILDTREE)build_tree \
+				$(BUILDTREE)make_arg_array \
+				$(BUILDTREE)bt_utils \
+				$(BUILDTREE)bt_utils_2 \
+				$(BUILDTREE)bt_utils_more \
+				$(BUILDTREE)bt_create_pipe_node \
+				$(BUILDTREE)bt_create_semicolon_node \
+				$(BUILDTREE)bt_parse_redirections \
+				$(BUILDTREE)bt_choose_redir_type \
+				$(BUILDTREE)bt_if_closefd \
+				$(BUILDTREE)bt_if_redir \
+				$(BUILDTREE)bt_if_aggregation \
+				$(BUILDTREE)bt_error_tok \
+				$(BUILDTREE)bt_get_file \
+				$(BUILDTREE)bt_combine_words \
+				$(BUILDTREE)bt_print_tree \
+				$(BUILDTREE)bt_create_logicalop_tree \
+				$(BUILDTREE)bt_create_command_tree \
+				$(BUILDTREE)bt_create_ampersand_node \
+				$(BUILDTREE)bt_print_exec \
+				$(BUILDTREE)bt_check_type \
+				$(BUILTIN_UTILS)ft_cd_addr_check \
+				$(BUILTIN_UTILS)ft_dir_change \
+				$(BUILTIN_UTILS)ft_env_append \
+				$(BUILTIN_UTILS)ft_env_remove \
+				$(BUILTIN_UTILS)ft_env_replace \
+				$(BUILTIN_UTILS)ft_env_temp \
+				$(BUILTIN)ft_builtins \
+				$(BUILTIN)ft_cd \
+				$(BUILTIN)ft_echo \
+				$(BUILTIN)ft_set \
+				$(BUILTIN)ft_exit \
+				$(BUILTIN)ft_export \
+				$(BUILTIN)ft_unset \
+				$(EXECTREE)exe_fail \
+				$(EXECTREE)exec_tree \
+				$(EXECTREE)exec_cmd \
+				$(EXECTREE)exec_pipe \
+				$(EXECTREE)exec_redir \
+				$(EXECTREE)exec_closefd \
+				$(EXECTREE)exec_aggregation \
+				$(EXECTREE)search_bin \
+				$(EXECTREE)exe_open_fd_if_needed \
+				$(EXECTREE)exe_test_if_file \
+				$(EXECTREE)exe_logicalop \
+				$(EXPANSION)ft_expansion \
+				$(EXPANSION)ft_expansion_utils \
+				$(EXPANSION)ft_expansion_dollar \
+				$(EXPANSION)ft_expansion_tilde \
+				$(EXPANSION)ft_expansion_excla \
+				$(FC)fc_build_and_execute_new_tree \
+				$(FC)fc_check_flags \
+				$(FC)fc_error_check_for_no_flag_or_e_flag \
+				$(FC)fc_get_start_and_end \
+				$(FC)fc_get_start_for_lists \
+				$(FC)fc_list_flags \
+				$(FC)fc_no_flag_or_e_flag \
+				$(FC)fc_open_editor \
+				$(FC)fc_overwrite_fc_cmd_with_prev_cmd \
+				$(FC)fc_print_error \
+				$(FC)fc_s_change \
+				$(FC)fc_s_flag \
+				$(FC)fc_update_history \
+				$(FC)ft_fc \
+				$(FT_TEST)ft_test_b \
+				$(FT_TEST)ft_test_c \
+				$(FT_TEST)ft_test_capital_l \
+				$(FT_TEST)ft_test_capital_s \
+				$(FT_TEST)ft_test_check_int \
+				$(FT_TEST)ft_test_d \
+				$(FT_TEST)ft_test_e \
+				$(FT_TEST)ft_test_eq \
+				$(FT_TEST)ft_test_equal \
+				$(FT_TEST)ft_test_error_int_print \
+				$(FT_TEST)ft_test_f \
+				$(FT_TEST)ft_test_g \
+				$(FT_TEST)ft_test_ge \
+				$(FT_TEST)ft_test_gt \
+				$(FT_TEST)ft_test_get_file_path \
+				$(FT_TEST)ft_test_is_binary \
+				$(FT_TEST)ft_test_is_unary \
+				$(FT_TEST)ft_test_is_not \
+				$(FT_TEST)ft_test_le \
+				$(FT_TEST)ft_test_lt \
+				$(FT_TEST)ft_test_ne \
+				$(FT_TEST)ft_test_not_equal \
+				$(FT_TEST)ft_test_not_return_last \
+				$(FT_TEST)ft_test_p \
+				$(FT_TEST)ft_test_r \
+				$(FT_TEST)ft_test_s \
+				$(FT_TEST)ft_test_u \
+				$(FT_TEST)ft_test_w \
+				$(FT_TEST)ft_test_x \
+				$(FT_TEST)ft_test_z \
+				$(FT_TEST)ft_test \
+				$(HASH)ft_hash \
+				$(HASH)hash_init \
+				$(HASH)hash_print \
+				$(HASH)hash_function \
+				$(HASH)hash_init_struct \
+				$(HASH)hash_check \
+				$(HASH)hash_free \
+				$(INITIALIZE)ft_env_init \
+				$(INITIALIZE)ft_init_window_size \
+				$(INITIALIZE)ft_session_init \
+				$(INTERN_VARS)ft_variables \
+				$(INTERN_VARS)add_var \
+				$(INTERN_VARS)ft_var_get \
+				$(HISTORY)ft_history \
+				$(HISTORY)ft_history_get \
+				$(HISTORY)ft_history_expansion \
+				$(HISTORY)ft_history_write_to_file \
+				$(KEYBOARD)ft_add_nl_last_row \
 				$(KEYBOARD)ft_add_nl_mid_row \
 				$(KEYBOARD)ft_alt_mv \
 				$(KEYBOARD)ft_arrow_input \
 				$(KEYBOARD)ft_backspace \
-				$(KEYBOARD)ft_bslash_escape_check \
+				$(KEYBOARD)ft_bracket_handling \
+				$(KEYBOARD)ft_special_char_check \
 				$(KEYBOARD)ft_copy \
 				$(KEYBOARD)ft_create_prompt_line \
 				$(KEYBOARD)ft_ctrl_d \
@@ -153,12 +268,21 @@ FILES			= $(KEYBOARD)ft_add_nl_last_row \
 				$(KEYBOARD)ft_keyboard \
 				$(LEXER)ft_lexer \
 				$(LEXER)ft_heredoc \
-				$(BANNER)ft_banner \
 				$(MAIN)main \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
-				$(SIGNALS)sig_session_handler \
-				$(SIGNALS)set_signal_fork \
+				$(PARAM_FORM)parameter_format \
+				$(SIGNALS)handler_signal_exec \
+				$(SIGNALS)handler_signal_keyboard \
+				$(SIGNALS)handler_signal_search_history \
+				$(SIGNALS)set_signal_dfl \
+				$(SIGNALS)set_signal_exec \
+				$(SIGNALS)set_signal_ign \
+				$(SIGNALS)set_signal_keyboard \
+				$(SIGNALS)set_signal_search_history \
+				$(TERMIOS)ft_getent \
+				$(TERMIOS)ft_raw_disable \
+				$(TERMIOS)ft_raw_enable \
 				$(TOKENIZER)tokenizer \
 				$(TOKENIZER)token_utils \
 				$(TOKENIZER)tok_find_argument \
@@ -170,46 +294,8 @@ FILES			= $(KEYBOARD)ft_add_nl_last_row \
 				$(TOKENIZER)tok_error_after_tokenizing \
 				$(TOKENIZER)tok_errors \
 				$(TOKENIZER)tok_print_tokens \
-				$(BUILDTREE)build_tree \
-				$(BUILDTREE)make_arg_array \
-				$(BUILDTREE)bt_utils \
-				$(BUILDTREE)bt_utils_2 \
-				$(BUILDTREE)bt_utils_more \
-				$(BUILDTREE)bt_create_pipe_node \
-				$(BUILDTREE)bt_create_semicolon_node \
-				$(BUILDTREE)bt_parse_redirections \
-				$(BUILDTREE)bt_choose_redir_type \
-				$(BUILDTREE)bt_if_closefd \
-				$(BUILDTREE)bt_if_redir \
-				$(BUILDTREE)bt_if_aggregation \
-				$(BUILDTREE)bt_error_tok \
-				$(BUILDTREE)bt_get_file \
-				$(BUILDTREE)bt_combine_words \
-				$(BUILDTREE)bt_print_tree \
-				$(BUILDTREE)bt_create_logicalop_tree \
-				$(BUILDTREE)bt_create_command_tree \
-				$(BUILDTREE)bt_create_ampersand_node \
-				$(BUILDTREE)bt_print_exec \
-				$(BUILDTREE)bt_check_type \
-				$(EXECTREE)exe_fail \
-				$(EXECTREE)exec_tree \
-				$(EXECTREE)exec_cmd \
-				$(EXECTREE)exec_pipe \
-				$(EXECTREE)exec_redir \
-				$(EXECTREE)exec_closefd \
-				$(EXECTREE)exec_aggregation \
-				$(EXECTREE)search_bin \
-				$(EXECTREE)exe_open_fd_if_needed \
-				$(EXECTREE)exe_test_if_file \
-				$(EXECTREE)exe_logicalop \
-				$(EXPANSION)ft_expansion \
-				$(EXPANSION)ft_expansion_utils \
-				$(EXPANSION)ft_expansion_dollar \
-				$(EXPANSION)ft_expansion_tilde \
-				$(EXPANSION)ft_expansion_excla \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
-				$(UTILITIES)ft_bslash_check \
 				$(UTILITIES)free_node \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
@@ -254,6 +340,7 @@ FILES			= $(KEYBOARD)ft_add_nl_last_row \
 				$(HASH)hash_init_struct \
 				$(HASH)hash_check \
 				$(HASH)hash_free \
+				$(UTILITIES)calc_chptr \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
@@ -272,26 +359,26 @@ $(NAME): libft/libft.a $(OBJECTS) $(O_PATHS)
 
 $(OBJECTS):
 	@make -C $(LIBRARIES)
-	@mkdir -p $(OBJECTS)/$(KEYBOARD)
-	@mkdir -p $(OBJECTS)/$(LEXER)
 	@mkdir -p $(OBJECTS)/$(BANNER)
-	@mkdir -p $(OBJECTS)/$(MAIN)
-	@mkdir -p $(OBJECTS)/$(TOKENIZER)
 	@mkdir -p $(OBJECTS)/$(BUILDTREE)
+	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
+	@mkdir -p $(OBJECTS)/$(BUILTIN)
 	@mkdir -p $(OBJECTS)/$(EXECTREE)
 	@mkdir -p $(OBJECTS)/$(EXPANSION)
-	@mkdir -p $(OBJECTS)/$(INITIALIZE)
-	@mkdir -p $(OBJECTS)/$(UTILITIES)
-	@mkdir -p $(OBJECTS)/$(BUILTIN)
-	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
-	@mkdir -p $(OBJECTS)/$(TERMIOS)
-	@mkdir -p $(OBJECTS)/$(HISTORY)
-	@mkdir -p $(OBJECTS)/$(SIGNALS)
 	@mkdir -p $(OBJECTS)/$(FC)
-	@mkdir -p $(OBJECTS)/$(INTERN_VARS)
-	@mkdir -p $(OBJECTS)/$(PARAM_FORM)
 	@mkdir -p $(OBJECTS)/$(FT_TEST)
 	@mkdir -p $(OBJECTS)/$(HASH)
+	@mkdir -p $(OBJECTS)/$(HISTORY)
+	@mkdir -p $(OBJECTS)/$(INITIALIZE)
+	@mkdir -p $(OBJECTS)/$(INTERN_VARS)
+	@mkdir -p $(OBJECTS)/$(KEYBOARD)
+	@mkdir -p $(OBJECTS)/$(LEXER)
+	@mkdir -p $(OBJECTS)/$(MAIN)
+	@mkdir -p $(OBJECTS)/$(PARAM_FORM)
+	@mkdir -p $(OBJECTS)/$(SIGNALS)
+	@mkdir -p $(OBJECTS)/$(TERMIOS)
+	@mkdir -p $(OBJECTS)/$(TOKENIZER)
+	@mkdir -p $(OBJECTS)/$(UTILITIES)
 	@printf "$(GREEN)_________________________________________________________________\n$(RESET)"
 	@printf "$(NAME): $(GREEN)$(OBJECTS) directory was created.$(RESET)\n\n\n"
 
