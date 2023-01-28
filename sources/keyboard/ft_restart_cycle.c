@@ -34,6 +34,7 @@ static void	reset_values(t_term *t)
 	t->bytes = 0;
 	t->index = 0;
 	t->bslash = 0;
+	t->bracket = 0;
 	t->total_row = 0;
 	t->history_row = -1;
 	t->c_row = t->total_row;
