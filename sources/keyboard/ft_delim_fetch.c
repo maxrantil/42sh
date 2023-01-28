@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delim_fetch.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 13:35:01 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 20:47:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-static int	ft_isseparator(char c)
-{
-	if (c == '|' || c == ';' || c == '&' || c == '<' || c == '>')
-		return (1);
-	return (0);
-}
 
 static void	delim_fetch_error(t_term *t, char *ptr)
 {
@@ -67,13 +60,11 @@ int	ft_delim_fetch(t_term *t)
 		ptr = strdelim(t);
 		while (*ptr && ft_isspace(*ptr))
 			ptr++;
-		if (*ptr && !ft_isseparator(*ptr))
-		{
-			end_q = ptr;
-			while (*end_q && !ft_isspace(*end_q))
-				end_q++;
+		end_q = ptr;
+		while (*end_q && !ft_isspace(*end_q) && !ft_isseparator(*end_q))
+			++end_q;
+		if (end_q > ptr)
 			t->delim = ft_strsub(ptr, 0, (size_t)(end_q - ptr));
-		}
 		else
 		{
 			delim_fetch_error(t, ptr);

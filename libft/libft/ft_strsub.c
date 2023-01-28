@@ -32,12 +32,8 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 		if (ret)
 		{
 			i = 0;
-			while (i < len && start <= ft_strlen(s))
-			{
-				ret[i] = s[start];
-				i++;
-				start++;
-			}
+			while (i < len)
+				ret[i++] = s[start++];
 			ret[i] = '\0';
 			return (ret);
 		}

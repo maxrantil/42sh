@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:03:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 20:22:08 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int add_var(t_shell *sh, char **cmd)
 	int var_len;
 	int	ret;
 	int k;
-	int	i;
+	// int	i;
 
 	k = 0;
-	i = 0;
+	// i = 0;
 	ft_printf("add var%s\n", cmd[0]);
 	while (cmd[k] && is_var(cmd[k]))
 	{
@@ -92,7 +92,7 @@ int add_var(t_shell *sh, char **cmd)
 		var_len = get_var_len(cmd[k]);
 		find_var(sh, cmd[k], var_len, &ret);
 		find_env(sh, cmd[k], var_len, &ret);
-		i = 0;
+		// i = 0;
 		k++;
 	}
 	return (k);

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   fc_build_and_execute_new_tree.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:52:49 by mrantil           #+#    #+#             */
 /*   Updated: 2023/01/27 19:49:45 by mrantil          ###   ########.fr       */
