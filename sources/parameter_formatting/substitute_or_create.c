@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/27 16:03:04 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/28 10:41:35 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	}
 	else if (format == 1)
 	{
-		ft_printf("[%s]", var);
+		ft_printf("[%s]\n", var);
 		if (!*temp[0])
 		{
 			expanded = ft_strdup(subst + 1);
@@ -212,9 +212,9 @@ char *substitute_or_create(t_shell *sh, char *cmd)
 		expanded = ft_expansion_dollar(sh, strip);
 		ft_printf("tassa\n");
 	}
-//	ft_printf("expanded asdfasfasfasfd[%s]\n", expanded);
-	if (ft_strnequ(subs, "${", 2))
-		subs = substitute_or_create(sh, subs);
+	ft_printf("expanded asdfasfasfasfd[%s]\n", subs);
+	if (ft_strnequ(subs + 1, "${", 2))
+		subs = substitute_or_create(sh, subs + 1);
 	format = format_mode(op);
 	if (!*expanded)
 		expanded = subst_param(sh, var, subs, format);

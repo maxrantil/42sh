@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/27 15:57:04 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/28 10:11:24 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,24 @@ static char	*remove_braces(char *str)
 	return (new);
 }
 
+int is_legit(char flag)
+{
+	if (flag == '\0')
+		return (0);
+	return (flag == ':' || flag == '%' || flag == '#');
+}
+
+char *get_flag(char *cmd)
+{
+	if (ft_strchr(cmd, ':'))
+		return(ft_strchr(cmd, ':'));
+	else if (ft_strchr(cmd, '#'))
+		return(ft_strchr(cmd, '#'));
+	else if (ft_strchr(cmd, '%'))
+		return(ft_strchr(cmd, '%'));
+	return (NULL);
+}
+
 int	param_format(t_shell *sh, char **cmd)
 {
 	int		i;
@@ -185,6 +203,7 @@ int	param_format(t_shell *sh, char **cmd)
 	int		format;
 	char	**list;
 	char	*strip;
+	char	*flag;
 
 	i = -1;
 	k= 0;
@@ -200,14 +219,30 @@ int	param_format(t_shell *sh, char **cmd)
 		if (check_syntax(cmd[i]))
 		{
 			strip = remove_braces(cmd[i]);
-			ft_printf("stripped %s\n", cmd[i]);
-			subs = ft_strdup(ft_strchr(strip, ':') + 1);
-			ft_printf("not in subs %s\n", subs);
-			op = subs[0];
-			subs = (char *)ft_memmove(subs, subs + 1, ft_strlen(subs));
-			ft_printf("not in subs %s\n", subs);
-			var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)));
-			ft_printf("not in var %s\n", var);
+			flag = ft_strchr(strip, ':');
+			//ft_printf("flag %d\n", flag[1]);
+			if (flag && is_legit(flag[0]))
+			{
+				ft_printf("flag %d\n", flag[1]);
+				subs = ft_strdup(ft_strchr(strip, ':') + 1);
+				op = subs[0];
+				subs = (char *)ft_memmove(subs, subs + 1, ft_strlen(subs));
+				var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)));
+			}
+			else
+			{
+				ft_printf("flag %s\n", cmd[i]);
+				expanded = ft_expansion_dollar(sh, cmd[i]);
+				ft_printf("expanded %s\n", expanded);
+				ft_strdel(&cmd[i]);
+				cmd[i] = ft_strdup(expanded);
+				break ;
+			}
+			//ft_printf("not in subs %s\n", subs);
+			
+			//ft_printf("not in subs %s\n", subs);
+			
+			//ft_printf("not in var %s\n", var);
 			while (subs[j])
 			{
 				list[k++] = retokenize(sh, subs, &j);
@@ -223,48 +258,18 @@ int	param_format(t_shell *sh, char **cmd)
 				else
 					expanded = ft_strjoin(expanded, list[k++]);
 			}
-			ft_printf("final expand %s %s\n",var, expanded);
+		//	ft_printf("final expand %s %s\n",var, expanded);
 			ft_strdel(&subs);
 			subs = ft_strjoin(var, expanded);
-			ft_printf("variable %s final subst %s\n", var, subs);
+		//	ft_printf("variable %s final subst %s\n", var, subs);
 			ft_strdel(&expanded);
 			expanded = substitute_or_create(sh, subs);
-			ft_printf("final subst %s\n", expanded);
-			//expanded = substitute_or_create(sh, cmd[i]);
-			// if (ft_strnequ(cmd[i], "${#", 3))
-			// 	expanded = count_letters(sh, strip);
-			// else
-			// {
-			// 	if (ft_strchr(strip, ':'))
-			// 	{
-			// 		subs = ft_strdup(ft_strchr(strip, ':') + 1);
-			// 		op = subs[0];
-			// 		subs = (char *)ft_memmove(subs, subs + 1, ft_strlen(subs));
-			// 		if (ft_strnequ(subs, "${", 2))
-			// 			param_format(sh, &subs);
-			// 	}
-			// 	else if (ft_strchr(strip, '#'))
-			// 	{
-			// 		subs = ft_strdup(ft_strchr(strip, '#'));
-			// 		op = subs[0];
-			// 	}
-			// 	else if (ft_strchr(strip, '%'))
-			// 	{
-			// 		subs = ft_strdup(ft_strchr(strip, '%'));
-			// 		op = subs[0];
-			// 	}
-			// 	var = ft_strndup(strip, ft_strlen(strip) - ft_strlen(subs) - 1);
-			// 	format = format_mode(subs);
-			// }
-			// ft_printf("var %s subs %s format %d operator %c\n", var, subs, format, op);
+			if (!expanded || !*expanded)
+			{
+				ft_printf("42sh: %s: bad substution\n", var + 1);
+				return -1;
+			}
 				
-			// if (expanded == NULL)
-			// {
-			// 	return (-1);
-			// }
-			// else if (expanded[0] == '$')
-			// 	expanded = ft_expansion_dollar(sh, var);
-			// ft_printf("Expanded %s\n", expanded);
 			ft_strdel(&cmd[i]);
 			cmd[i] = ft_strdup(expanded);
 			ft_strdel(&var);
