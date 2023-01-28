@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 19:11:59 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/28 21:02:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ t_treenode		*build_tree(t_token **tokens);
 char			**make_arg_array(char *cmd);
 int				foreseer_of_tokens(t_token *tokens, \
 int mark, int start, int end);
-t_treenode		*create_pipe_node(t_token *tokens, int i_tok);
+t_treenode		*create_pipe_node(t_token *tokens, int i_tok, int end);
 t_treenode		*create_semicolon_node(t_token *tokens, int i_tok, int end);
 t_treenode		*parse_left_cmd(t_token *tokens, int i_tok);
 t_treenode		*parse_right_cmd(t_token *tokens, int i_tok);
@@ -408,7 +408,6 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 
 /*				PARAM_FORM					*/
 int				param_format(t_shell *sh, char **cmd);
-
 
 /*			  		 HASH					*/
 int				ft_hash(t_shell *sh, char **cmd);
