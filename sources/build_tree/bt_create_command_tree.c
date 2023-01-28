@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_command_tree.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:49:58 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/28 17:05:33 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
