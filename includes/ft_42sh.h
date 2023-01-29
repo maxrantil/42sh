@@ -235,7 +235,7 @@ t_treenode		*build_tree(t_token **tokens);
 char			**make_arg_array(char *cmd);
 int				foreseer_of_tokens(t_token *tokens, \
 int mark, int start, int end);
-t_treenode		*create_pipe_node(t_token *tokens, int i_tok);
+t_treenode		*create_pipe_node(t_token *tokens, int i_tok, int end);
 t_treenode		*create_semicolon_node(t_token *tokens, int i_tok, int end);
 t_treenode		*parse_left_cmd(t_token *tokens, int i_tok);
 t_treenode		*parse_right_cmd(t_token *tokens, int i_tok);
