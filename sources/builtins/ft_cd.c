@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:10:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 20:29:14 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/01/29 18:58:37 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ft_cd_expand(t_session *sesh, char **cmd, char **path)
 	int		ret;
 
 	ret = 0;
-	if (ft_arrlen(cmd) == 1 || !ft_strcmp(*(cmd + 1), "--"))
+	if (ft_arrlen(cmd) == 1 || !ft_strcmp(*(cmd + sesh->option_count + 1), "--"))
 	{
 		*path = env_path(sesh, "HOME");
 		ret = 1;
@@ -86,6 +86,12 @@ static int	cd_multi_command_validation(t_session *sesh, char **commands)
 		sesh->exit_stat = 1;
 		return (1);
 	}
+	if (validate_cd_options(sesh, commands) == 1)
+	{
+
+		sesh->exit_stat = 1;
+		return (1);
+	}
 	return (0);
 }
 
@@ -100,14 +106,15 @@ int	ft_cd(t_session *sesh, char **cmd)
 		if (cd_multi_command_validation(sesh, cmd) == 1)
 			return (0);
 	}
-	if (!ft_cd_expand(sesh, cmd, &path) && !ft_cd_addr_check(*(cmd + 1)))
+	if (!ft_cd_expand(sesh, cmd, &path) && !ft_cd_addr_check(*(cmd + sesh->option_count + 1)))
 	{
-		if (chdir(*(cmd + 1)))
+		if (chdir(*(cmd + sesh->option_count + 1)))
 			sesh->exit_stat = 1;
 		else
 			ft_dir_change(sesh);
 	}
 	else
 		sesh->exit_stat = 1;
+	sesh->option_count = 0;
 	return (0);
 }
