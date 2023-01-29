@@ -6,12 +6,13 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/28 16:41:32 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:15:39 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
+# include <stdio.h>
 extern t_shell *g_sh;
 
 int	check_if_user_exe(char *cmd, char **dest)
@@ -101,12 +102,6 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 		}
 	}
 	wait(&status);
-		// ft_putstr_fd("PID_BEFORE: ", 2);
-		// ft_putnbr_fd(pid, 2);
-		// ft_putstr_fd("\n", 2);
-		// ft_putstr_fd(*cmd, 2);
-		// ft_putstr_fd("\n", 2);
-	// Attach to shared memory segmetn
 	attach_fg_grp();
 	if (*g_sh->jobs->shared_mem_idx_ptr < JOBS_MAX)
 		g_sh->jobs->shared_mem_ptr[(*g_sh->jobs->shared_mem_idx_ptr)++] = pid;
@@ -115,13 +110,19 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 	// while (i < *g_sh->jobs->shared_mem_idx_ptr)
 	// {
 		// ft_putstr_fd("PID: ", 2);
+		// fflush(stdout);
 		// ft_putnbr_fd(g_sh->jobs->shared_mem_ptr[i], 2);
+		// fflush(stdout);
 		// ft_putstr_fd(" CMD: ", 2);
+		// fflush(stdout);
 		// ft_putstr_fd(*cmd, 2);
+		// fflush(stdout);
 		// ft_putstr_fd("\n", 2);
+		// fflush(stdout);
 		// ++i;
 	// }
 		// ft_putstr_fd("\n", 2);
+		// fflush(stdout);
 	detach_fg_grp();
 	if (status & 0177)
 		ft_putchar('\n');

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/28 16:35:03 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:06:24 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		exec_tree((((t_semicolon *)head)->left), environ_cp, terminal, sh);
 		delete_fg_group_shared_memory();
 		reset_fd(terminal);
-		ft_printf("WHAWHAT\n");
 		if (head && ((t_semicolon *)head)->right)
 			exec_tree((((t_semicolon *)head)->right), environ_cp, terminal, sh);
 		reset_fd(terminal);
