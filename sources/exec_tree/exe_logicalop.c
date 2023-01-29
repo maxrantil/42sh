@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 19:00:00 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 15:08:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:34:31 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	exe_logical_and(t_logicalop *logicalop, char ***environ_cp,
 {
 	exec_tree(logicalop->left, environ_cp, terminal, sh);
 	if (logicalop->right && logicalop->right->type == LOGICAL_OR)
+		exec_tree(logicalop->right, environ_cp, terminal, sh);
+	else if (logicalop->right && sh->exit_stat == 0 && logicalop->right->type == CMD)
 		exec_tree(logicalop->right, environ_cp, terminal, sh);
 }
 
