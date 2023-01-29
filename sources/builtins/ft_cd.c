@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:10:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/06 13:03:33 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/25 20:29:14 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,20 @@ static int	ft_cd_expand(t_session *sesh, char **cmd, char **path)
  * 
  * @return 0
  */
+
+// for now we assume -L or -- etc arent names of directories
+
+static int	cd_multi_command_validation(t_session *sesh, char **commands)
+{
+	if (commands[1][0] != '-')
+	{
+		ft_err_print(NULL, "cd", "too many arguments", 1);
+		sesh->exit_stat = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_cd(t_session *sesh, char **cmd)
 {
 	char	*path;
@@ -83,10 +97,10 @@ int	ft_cd(t_session *sesh, char **cmd)
 	sesh->exit_stat = 0;
 	if (ft_arrlen(cmd) > 2)
 	{
-		sesh->exit_stat = 1;
-		ft_err_print(NULL, "cd", "too many arguments", 1);
+		if (cd_multi_command_validation(sesh, cmd) == 1)
+			return (0);
 	}
-	else if (!ft_cd_expand(sesh, cmd, &path) && !ft_cd_addr_check(*(cmd + 1)))
+	if (!ft_cd_expand(sesh, cmd, &path) && !ft_cd_addr_check(*(cmd + 1)))
 	{
 		if (chdir(*(cmd + 1)))
 			sesh->exit_stat = 1;
