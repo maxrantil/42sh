@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 16:10:38 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:16:13 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  *
  * @return The return value of the builtin function.
  */
-int	ft_builtins(t_session *sesh, char ***cmd)
+int	ft_builtins(t_session *sesh, char ***cmd, char ***environ_cp)
 {
 	if (sesh && cmd)
 	{
@@ -54,7 +54,9 @@ int	ft_builtins(t_session *sesh, char ***cmd)
 		else if (!ft_strcmp(**cmd, "hash"))
 			return (ft_hash(sesh, *cmd));
 		else if (!ft_strcmp(**cmd, "exit"))
-			ft_exit(sesh, 0);
+			return (ft_exit(sesh, *cmd));
+		else if (!ft_strcmp(**cmd, "type"))
+			return (type_command(sesh, *cmd, *environ_cp));
 	}
 	return (1);
 }

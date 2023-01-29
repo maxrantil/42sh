@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/25 16:26:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/25 19:15:08 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	exec_cmd(char **args, char ***environ_cp, t_session *sesh)
 		return ;
 	if (sesh->term->fc_flag)
 		print_args(args);
-	if (!ft_builtins(sesh, &args))
+	if (!ft_builtins(sesh, &args, environ_cp))
 		return ;
 	hash = 0;
 	cmd = hash_check(sesh, args[0], &hash);

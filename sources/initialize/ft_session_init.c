@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 16:16:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/25 20:38:59 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,6 @@ void	ft_session_init(t_session *sesh)
 	sesh->tmp_env_key = NULL;
 	sesh->tokens = NULL;
 	hash_init(sesh);
+	sesh->is_flag_on = 0;
+	sesh->option_count = 0;
 }

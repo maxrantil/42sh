@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/25 16:40:13 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/25 19:23:37 by spuustin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -218,12 +218,15 @@ FILES			= $(KEYBOARD)ft_add_nl_last_row \
 				$(BUILTIN)ft_exit \
 				$(BUILTIN)ft_export \
 				$(BUILTIN)ft_unset \
+				$(BUILTIN)type_command \
 				$(BUILTIN_UTILS)ft_cd_addr_check \
 				$(BUILTIN_UTILS)ft_dir_change \
 				$(BUILTIN_UTILS)ft_env_append \
 				$(BUILTIN_UTILS)ft_env_remove \
 				$(BUILTIN_UTILS)ft_env_replace \
 				$(BUILTIN_UTILS)ft_env_temp \
+				$(BUILTIN_UTILS)flag_check \
+				$(BUILTIN_UTILS)builtin_usage \
 				$(TERMIOS)ft_getent \
 				$(TERMIOS)ft_raw_disable \
 				$(TERMIOS)ft_raw_enable \

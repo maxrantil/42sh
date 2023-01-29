@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_21sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 16:10:07 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/25 20:39:05 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,8 @@ typedef struct session
 	char			*terminal;
 	char			**tmp_env_key;
 	struct termios	orig_termios;
+	int				is_flag_on;
+	int				option_count;
 }				t_session;
 
 /*					HEADER					*/
@@ -322,16 +324,17 @@ int				check_if_user_exe(char *cmd, char **dest);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
 
 /*					BUILTIN					*/
-int				ft_builtins(t_session *sesh, char ***cmd);
+int				ft_builtins(t_session *sesh, char ***cmd, char ***environ_cp);
 int				ft_cd(t_session *sesh, char **cmd);
 int				ft_echo(t_session *sesh, char **cmd);
 int				ft_set(t_session *sesh, char ***cmd);
-void			ft_exit(t_session *sesh, int status);
+int				ft_exit(t_session *sesh, char **commands);
 int				ft_export(t_session *sesh, char **cmd);
 int				ft_unset(t_session *sesh, char **cmd);
 int				ft_test(t_session *sesh, char **cmd);
 int				is_binary(char *str);
 int				is_unary(char *str);
+int				type_command(t_session *sesh, char **commands, char **env);
 
 /*				BUILTIN TEST				*/
 int				ft_test_z(char **arg);
@@ -365,6 +368,9 @@ void			ft_env_remove(t_session *sesh, char *env_to_clean);
 int				ft_env_append(t_session *sesh, char **arg);
 int				ft_env_replace(t_session *sesh, char *envn, char **tmp_env);
 void			ft_dir_change(t_session *sesh);
+int				check_flag(t_session *session, char **commands, char flag);
+void			print_usage(char *command, char c);
+int				validate_cd_options(t_session *session, char **commands);
 
 /*			  		 HISTORY				*/
 int				ft_history(t_term *t, char **cmd);
