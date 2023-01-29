@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 10:17:44 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 16:09:07 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ int	fc_print_error(int check)
 		ft_putendl_fd("42sh: Could not open file for editing.", 2);
 	else if (check == 5)
 		ft_putendl_fd("42sh: fc: no command found", 2);
+	else if (check == 6)
+		ft_putendl_fd("42sh: fc: event not found", 2);
 	return (0);
 }

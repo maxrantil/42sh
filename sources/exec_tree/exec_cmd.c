@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/27 11:43:35 by jakken           ###   ########.fr       */
+/*   Updated: 2023/01/29 22:01:41 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+# include <stdio.h> //DELT
 extern t_shell *g_session;
 
 int	check_if_user_exe(char *cmd, char **dest)
@@ -102,11 +104,11 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 		}
 	}
 	wait(&status);
-		ft_putstr_fd("PID_BEFORE: ", 2);
-		ft_putnbr_fd(pid, 2);
-		ft_putstr_fd("\n", 2);
-		ft_putstr_fd(*cmd, 2);
-		ft_putstr_fd("\n", 2);
+		// ft_putstr_fd("PID_BEFORE: ", 2);
+		// ft_putnbr_fd(pid, 2);
+		// ft_putstr_fd("\n", 2);
+		// ft_putstr_fd(*cmd, 2);
+		// ft_putstr_fd("\n", 2);
 	// Attach to shared memory segmetn
 	fg_pid_arr = (int *)shmat(g_session->shared_mem_id, NULL, 0);
 	fg_pid_arr_idx = (int *)shmat(g_session->shared_mem_index, NULL, 0);
@@ -121,11 +123,11 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 	while (i < *fg_pid_arr_idx)
 	{
 		ft_putstr_fd("PID: ", 2);
-		fflush(stdout);
+		fflush(NULL);
 		ft_putnbr_fd(fg_pid_arr[i], 2);
-		fflush(stdout);
+		fflush(NULL);
 		ft_putstr_fd("\n", 2);
-		fflush(stdout);
+		fflush(NULL);
 		++i;
 	}
 	//Detach from shared memory

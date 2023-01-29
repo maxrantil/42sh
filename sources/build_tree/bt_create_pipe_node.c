@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_pipe_node.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 15:00:54 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/28 21:22:47 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_treenode	*init_pipe(t_treenode *left, t_treenode *right)
 	return (node);
 }
 
-t_treenode	*create_pipe_node(t_token *tokens, int i_tok)
+t_treenode	*create_pipe_node(t_token *tokens, int i_tok, int end)
 {
 	t_treenode	*left;
 	t_treenode	*right;
@@ -36,9 +36,9 @@ t_treenode	*create_pipe_node(t_token *tokens, int i_tok)
 	{
 		left = parse_left_cmd(tokens, i_tok - 1);
 		next_pipe = foreseer_of_tokens(tokens, PIPE, i_tok + 1,
-				calculate_tokens(tokens));
+				end);
 		if (next_pipe >= 0)
-			right = create_pipe_node(tokens, next_pipe);
+			right = create_pipe_node(tokens, next_pipe, end);
 		else
 			right = parse_right_cmd(tokens, i_tok + 1);
 		return (init_pipe(left, right));

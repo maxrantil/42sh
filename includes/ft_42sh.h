@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 23:15:09 by jakken           ###   ########.fr       */
+/*   Updated: 2023/01/29 21:58:00 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 /* For fc builtin */
 # define FC_FLAGS "srnl"
 # define FC_LEN 18
+# define SH_PATH_MAX 2048
 // # define PATH_MAX 2048
 
 /* For print_tree */
@@ -174,7 +175,7 @@ typedef struct s_hash
 }					t_hash;
 
 /*				SESSION STRUCT				*/
-typedef struct session
+typedef struct s_shell
 {
 	char			*line;
 	t_treenode		*head;
@@ -215,7 +216,8 @@ char			*ft_heredoc(t_term *t, char *str);
 t_token			*chop_line(char *line, t_token *args, size_t pointer_n);
 char			*find_argument(char *line, int *i, int *start, int *end);
 void			init_token(char *c, t_token *token, char *line, int cur);
-void			track_used_space(t_token **args, size_t current_pointer_n, size_t *max_pointer_n);
+void			track_used_space(t_token **args, size_t current_pointer_n, \
+size_t *max_pointer_n);
 int				test_if_error(char *str);
 char			*tok_if_redir(char *line, int *i, int *start, int *end);
 int				redir_error(char *str);
@@ -234,19 +236,25 @@ void			tok_quote_flag(char *line, int *end, char *quote_flag);
 /*					BUILDTREE				*/
 t_treenode		*build_tree(t_token **tokens);
 char			**make_arg_array(char *cmd);
-int				foreseer_of_tokens(t_token *tokens, int mark, int start, int end);
-t_treenode		*create_pipe_node(t_token *tokens, int i_tok);
+int				foreseer_of_tokens(t_token *tokens, \
+int mark, int start, int end);
+t_treenode		*create_pipe_node(t_token *tokens, int i_tok, int end);
 t_treenode		*create_semicolon_node(t_token *tokens, int i_tok, int end);
 t_treenode		*parse_left_cmd(t_token *tokens, int i_tok);
 t_treenode		*parse_right_cmd(t_token *tokens, int i_tok);
 t_treenode		*parse_redirections(t_token *tokens, int i_tok, int cmd);
 t_treenode		*init_cmd_node(char *cmd);
-t_treenode		*init_redir_wrap(char *filepath, t_treenode *cmd, int redir_type, int close_fd);
+t_treenode		*init_redir_wrap(char *filepath, t_treenode *cmd, \
+int redir_type, int close_fd);
 int				calculate_tokens(t_token *tokens);
-int				choose_redir_type(t_token *tokens, t_treenode **redir, int i_tok, int cmd);
-int				if_closefd(t_token *tokens, t_treenode **redir, int i_tok, int cmd);
-int				if_aggregation(t_token *tokens, t_treenode **redir, int i_tok, int cmd);
-int				if_redir(t_token *tokens, t_treenode **redir, int i_tok, int cmd);
+int				choose_redir_type(t_token *tokens, t_treenode **redir, \
+int i_tok, int cmd);
+int				if_closefd(t_token *tokens, t_treenode **redir, \
+int i_tok, int cmd);
+int				if_aggregation(t_token *tokens, t_treenode **redir, \
+int i_tok, int cmd);
+int				if_redir(t_token *tokens, t_treenode **redir, \
+int i_tok, int cmd);
 int				get_close_fd(char *value);
 void			traverse_node(t_treenode **head);
 char			*get_file(char *value);
@@ -258,15 +266,18 @@ void			print_tree(t_treenode *head);
 void			print_spaces(int lvl);
 int				is_semicolon_or_ampersand(int token);
 int				is_logicalop(int token);
-t_treenode		*create_logical_op_tree(t_token *tokens, int i_tok, int semicol);
+t_treenode		*create_logical_op_tree(t_token *tokens, \
+int i_tok, int semicol);
 void			rec_print_tree(t_treenode *root, int lvl);
-void			exec_logicalop(t_logicalop *logicalop, char ***environ_cp, char *terminal, t_shell *sh);
+void			exec_logicalop(t_logicalop *logicalop, char ***environ_cp, \
+char *terminal, t_shell *sh);
 //t_treenode		*create_ampersand_node(t_token *tokens, int i_tok, int end);
 t_treenode		*init_ampersand_node(void);
 t_treenode		*init_semicolon(void);
 void			print_exec(t_treenode *node);
 void			check_type(t_treenode *root);
-int				next_semicolon_or_ampersand(t_token *tokens, int i_tok, int end);
+int				next_semicolon_or_ampersand(t_token *tokens, \
+int i_tok, int end);
 
 /*					EXPANSION				*/
 void			ft_expansion(t_shell *sh, char **cmd);
@@ -281,15 +292,20 @@ char			**ft_env_get(t_shell *sh, char *key);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);
-size_t			ft_bslash_check(char *buff, ssize_t pos);
+int				ft_isseparator(char c);
 
 /*					EXECUTE_TREE			*/
-void			exec_tree(t_treenode *head, char ***environ_cp, char *terminal, t_shell *sh);
+void			exec_tree(t_treenode *head, char ***environ_cp, \
+char *terminal, t_shell *sh);
 void			exec_cmd(char **args, char ***environ_cp, t_shell *sh);
-void			exec_pipe(t_pipenode *pipenode, char ***environ_cp, char *terminal, t_shell *sh);
-void			exec_redir(t_redir *node, char ***environ_cp, char *terminal, t_shell *sh);
-void			exec_aggregate(t_aggregate *node, char ***environ_cp, char *terminal, t_shell *sh);
-void			exec_closefd(t_closefd *node, char ***environ_cp, char *terminal, t_shell *sh);
+void			exec_pipe(t_pipenode *pipenode, char ***environ_cp, \
+char *terminal, t_shell *sh);
+void			exec_redir(t_redir *node, char ***environ_cp, \
+char *terminal, t_shell *sh);
+void			exec_aggregate(t_aggregate *node, char ***environ_cp, \
+char *terminal, t_shell *sh);
+void			exec_closefd(t_closefd *node, char ***environ_cp, \
+char *terminal, t_shell *sh);
 char			*search_bin(char *cmd, char **environ_cp);
 void			error_exit(char *msg);
 size_t			calc_chptr(char **arr);
@@ -311,38 +327,39 @@ int				ft_set(t_shell *sh, char ***cmd);
 void			ft_exit(t_shell *sh, int status);
 int				ft_export(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
-int				ft_test(t_shell *sh, char **cmd);
-int				is_binary(char *str);
-int				is_unary(char *str);
 
 /*				BUILTIN TEST				*/
-int				ft_test_is_not(char **arg);
-int				ft_test_not_return_last(int not);
-int				ft_test_check_int(char **arg, int not);
-int				ft_test_error_int_print(char *arg);
-int				ft_test_z(char **arg);
-int				ft_test_x(char **arg);
-int				ft_test_w(char **arg);
-int				ft_test_u(char **arg);
-int				ft_test_s(char **arg);
-int				ft_test_capital_s(char **arg);
-int				ft_test_r(char **arg);
-int				ft_test_p(char **arg);
-int				ft_test_capital_l(char **arg);
-int				ft_test_g(char **arg);
-int				ft_test_f(char **arg);
-int				ft_test_e(char **arg);
-int				ft_test_d(char **arg);
+int				ft_test_b(char **arg);
 int				ft_test_c(char **arg);
+int				ft_test_capital_l(char **arg);
+int				ft_test_capital_s(char **arg);
+int				ft_test_check_int(char **arg, int not);
+int				ft_test_d(char **arg);
+int				ft_test_e(char **arg);
+int				ft_test_eq(char **arg);
 int				ft_test_equal(char **arg);
+int				ft_test_error_int_print(char *arg);
+int				ft_test_f(char **arg);
+int				ft_test_g(char **arg);
+int				ft_test_ge(char **arg);
+int				ft_test_gt(char **arg);
+char			*ft_test_get_file_path(char **arg, int not);
+int				ft_test_is_binary(char *str);
+int				ft_test_is_not(char **arg);
+int				ft_test_is_unary(char *str);
 int				ft_test_le(char **arg);
 int				ft_test_lt(char **arg);
-int				ft_test_ge(char **arg);
 int				ft_test_ne(char **arg);
-int				ft_test_eq(char **arg);
 int				ft_test_not_equal(char **arg);
-int				is_unary(char *str);
-int				is_binary(char *str);
+int				ft_test_not_return_last(int not);
+int				ft_test_p(char **arg);
+int				ft_test_r(char **arg);
+int				ft_test_s(char **arg);
+int				ft_test_u(char **arg);
+int				ft_test_w(char **arg);
+int				ft_test_x(char **arg);
+int				ft_test_z(char **arg);
+int				ft_test(t_shell *sh, char **cmd);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
@@ -358,27 +375,43 @@ int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);
 
 /*			  		 SIGNALS				*/
-void			set_signal_fork(int num);
-void			sig_session_handler(int num);
-void			sigwinch_inchild_handler(int num);
+void			signal_exec(int num);
+void			ft_signal_keyboard(int num);
+void			search_history_sigs(int num);
+void    		ft_signal_dfl(void);
+void			set_signal_exec(void);
+void    		ft_signal_ign(void);
+void    		set_signal_keyboard(void);
+void    		set_signal_search_history(void);
 
 /*			  		 FC						*/
-int				ft_fc(t_shell *sh, char ***cmd);
+void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
 int				fc_check_flags(t_shell *sh, char ***cmd);
-void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, char ***cmd, int y);
+int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
+t_fc *fc, char ***cmd);
+int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_get_start_for_lists(t_shell *sh, char ***cmd);
+int				fc_list_flags(t_shell *sh, char ***cmd);
+int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
+void			fc_open_editor(char *editor, t_shell *sh, \
+t_fc *fc, char ***cmd);
+void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, \
+char ***cmd, int y);
 int				fc_print_error(int check);
+int				fc_s_change(t_shell *sh, char ***cmd);
+int				fc_s_flag(t_shell *sh, char ***cmd);
+void			fc_update_history(t_shell *sh, char ***cmd);
+int				ft_fc(t_shell *sh, char ***cmd);
 
 /*			  	INTERN VARIABLES			*/
 int				ft_variables(t_shell *sh, char ***cmd);
 int				add_var(t_shell *sh, char **cmd);
-int 			is_var(char *cmd);
-int 			find_var(t_shell *sh, char *cmd, int var_len, int *ret);
+int				is_var(char *cmd);
+int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
 
 /*				PARAM_FORM					*/
 int				param_format(t_shell *sh, char **cmd);
-
-void			search_history_sigs(int num);
 
 /*			  		 HASH					*/
 int				ft_hash(t_shell *sh, char **cmd);
