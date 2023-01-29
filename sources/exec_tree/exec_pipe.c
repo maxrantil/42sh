@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/28 15:48:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:07:45 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	fork_wrap(void)
 	pid = fork();
 	if (pid == -1)
 		error_exit("fork failed\n");
-	set_signal_fork(pid);
+	if (pid == 0)
+		ft_signal_dfl();
+	else
+		set_signal_exec();
 	return (pid);
 }
 

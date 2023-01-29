@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:17:16 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 14:22:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
  */
 void	ft_init_signals(void)
 {
-	signal(SIGWINCH, sig_session_handler);
-	signal(SIGINT, sig_session_handler);
+	signal(SIGWINCH, ft_signal_keyboard);
+	signal(SIGINT, ft_signal_keyboard);
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGSTOP, SIG_IGN);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_semicolon_node.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:43:28 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:59:54 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

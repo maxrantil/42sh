@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 15:40:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/26 17:40:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 19:17:29 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	check_validity(char *arg)
 
 	arg_long = ft_atol(arg);
 	len = ft_intlen(arg_long);
-	if (!ft_isdigit_loop(arg) || len > 10 || arg_long < INT_MIN || arg_long > INT_MAX)
+	if (!ft_isdigit_loop(arg) || len > 10 \
+		|| arg_long < INT_MIN || arg_long > INT_MAX)
 		return (ft_test_error_int_print(arg));
 	return (0);
 }

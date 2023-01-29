@@ -14,12 +14,12 @@
 
 /**
  * ft_putchar() writes a single character to the standard output
- * 
+ *
  * @param c the character to print
  */
 void	ft_putchar(char c)
 {
-	int	ignore	__attribute__((unused));
+	int ignore	__attribute__((unused));
 
 	ignore = write(1, &c, 1);
 }

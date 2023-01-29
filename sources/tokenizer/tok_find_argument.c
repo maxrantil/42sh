@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_find_argument.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:39 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 20:23:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ static int	test_operator_error(char *line, int *end)
 char	*find_argument(char *line, int *i, int *start, int *end)
 {
 	char	*ret;
-	int		digits;
+	// int		digits;
 	char	quote;
 
 	quote = 0;
-	digits = 1;
+	// digits = 1;
 	ret = if_redir_or_logical(line, i, start, end);
 	if (*end == -1)
 		return (NULL);

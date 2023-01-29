@@ -14,13 +14,13 @@
 
 /**
  * This function writes the character c to the file descriptor fd
- * 
+ *
  * @param c The character to print.
  * @param fd file descriptor
  */
 void	ft_putchar_fd(char c, int fd)
 {
-	int	ignore	__attribute__((unused));
+	int ignore	__attribute__((unused));
 
 	ignore = write(fd, &c, 1);
 }

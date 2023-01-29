@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 11:40:10 by jakken           ###   ########.fr       */
+/*   Updated: 2023/01/29 22:07:50 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	main_loop(t_shell *sh)
 	sh->term->clipboard.buff = NULL;
 	while (status)
 	{
-		ft_init_signals();
+		// ft_init_signals();
+		set_signal_keyboard();
 		sh->orig_termios = ft_raw_enable();
 		if (ft_keyboard(sh->term) == 1)
 		{
