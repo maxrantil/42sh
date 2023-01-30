@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/28 16:08:35 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:57:26 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ static void	ft_reset_tmp_env(t_shell *sh)
 	}
 }
 
+static void	check_hash(t_shell *sh)
+{
+	if (!ft_env_get(sh, "PATH"))
+		hash_clear(sh->ht);
+}
+
 /**
  * It resets the tokens and sets the return value to 0
  *
@@ -52,5 +58,6 @@ void	shell_end_cycle(t_shell *sh)
 	free_tokens(&sh->tokens);
 	reset_fd(sh->terminal);
 	ft_reset_tmp_env(sh);
+	check_hash(sh);
 	// detach_and_remove();
 }

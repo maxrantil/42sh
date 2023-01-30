@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/30 10:32:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:43:35 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,7 +310,7 @@ int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);
 int				ft_isseparator(char c);
-void    		ft_env_last_command(t_shell *sh, char **cmd);
+void			ft_env_last_command(t_shell *sh, char **cmd);
 
 /*					EXECUTE_TREE			*/
 void			exec_tree(t_treenode *head, char ***environ_cp, \
@@ -396,11 +396,11 @@ void			ft_history_write_to_file(t_term *t);
 void			signal_exec(int num);
 void			ft_signal_keyboard(int num);
 void			search_history_sigs(int num);
-void    		ft_signal_dfl(void);
+void			ft_signal_dfl(void);
 void			set_signal_exec(void);
-void    		ft_signal_ign(void);
-void    		set_signal_keyboard(void);
-void    		set_signal_search_history(void);
+void			ft_signal_ign(void);
+void			set_signal_keyboard(void);
+void			set_signal_search_history(void);
 
 /*			  		 FC						*/
 void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
@@ -433,12 +433,13 @@ int				param_format(t_shell *sh, char **cmd);
 
 /*			  		 HASH					*/
 int				ft_hash(t_shell *sh, char **cmd);
-void			hash_init(t_shell *sh);
-void			hash_print(t_hash **ht);
+char			*hash_check(t_shell *sh, char *program, int *hash);
+void			hash_clear(t_hash **ht);
+void			hash_free(t_hash **ht);
 size_t			hash_function(char *program);
 void			hash_init_struct(t_shell *sh, char *str, int hits);
-char			*hash_check(t_shell *sh, char *program, int *hash);
-void			hash_free(t_hash **ht);
+void			hash_init(t_shell *sh);
+void			hash_print(t_hash **ht);
 
 /*					JOBS					*/
 void			attach_fg_grp(void);
