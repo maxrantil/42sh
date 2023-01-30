@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/30 10:30:36 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/01/30 12:05:01 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -188,12 +188,13 @@ FILES			= \
 				$(FT_TEST)ft_test_z \
 				$(FT_TEST)ft_test \
 				$(HASH)ft_hash \
-				$(HASH)hash_init \
-				$(HASH)hash_print \
+				$(HASH)hash_check \
+				$(HASH)hash_clear \
+				$(HASH)hash_free \
 				$(HASH)hash_function \
 				$(HASH)hash_init_struct \
-				$(HASH)hash_check \
-				$(HASH)hash_free \
+				$(HASH)hash_init \
+				$(HASH)hash_print \
 				$(INITIALIZE)ft_env_init \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
