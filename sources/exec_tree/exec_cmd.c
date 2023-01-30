@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/29 22:15:39 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+# include <stdio.h>
+extern t_shell *g_sh;
 
 int	check_if_user_exe(char *cmd, char **dest)
 {
@@ -84,15 +87,43 @@ static void	print_args(char **args)
 static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 {
 	int		status;
+	int		pid;
 
 	status = 0;
-	if (access && fork_wrap() == 0)
+	pid = -1;
+	if (access)
 	{
-		if (!cmd || execve(*cmd, args, *environ_cp) < 0)
-			exe_fail(cmd, args, environ_cp);
-		exit (1);
+		pid = fork_wrap();
+		if (pid == 0)
+		{
+			if (!cmd || execve(*cmd, args, *environ_cp) < 0)
+				exe_fail(cmd, args, environ_cp);
+			exit (1);
+		}
 	}
 	wait(&status);
+	attach_fg_grp();
+	if (*g_sh->jobs->shared_mem_idx_ptr < JOBS_MAX)
+		g_sh->jobs->shared_mem_ptr[(*g_sh->jobs->shared_mem_idx_ptr)++] = pid;
+	// int i = 0;
+		// ft_putstr_fd("\n", 2);
+	// while (i < *g_sh->jobs->shared_mem_idx_ptr)
+	// {
+		// ft_putstr_fd("PID: ", 2);
+		// fflush(stdout);
+		// ft_putnbr_fd(g_sh->jobs->shared_mem_ptr[i], 2);
+		// fflush(stdout);
+		// ft_putstr_fd(" CMD: ", 2);
+		// fflush(stdout);
+		// ft_putstr_fd(*cmd, 2);
+		// fflush(stdout);
+		// ft_putstr_fd("\n", 2);
+		// fflush(stdout);
+		// ++i;
+	// }
+		// ft_putstr_fd("\n", 2);
+		// fflush(stdout);
+	detach_fg_grp();
 	if (status & 0177)
 		ft_putchar('\n');
 	return (status);

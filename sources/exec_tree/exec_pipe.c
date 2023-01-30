@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/27 14:52:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:07:45 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ void	exec_pipe(t_pipenode *pipenode,
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
 	int	pipefd[2];
+	int local;
 
 	if (pipe_wrap(pipefd))
 		return ;
-	if (fork_wrap() == 0)
+	if ((local = fork_wrap()) == 0)
 	{
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[0]);
@@ -58,7 +59,7 @@ void	exec_pipe(t_pipenode *pipenode,
 		exec_tree(pipenode->left, environ_cp, terminal, sh);
 		exit (1);
 	}
-	if (fork_wrap() == 0)
+	if ((local = fork_wrap()) == 0)
 	{
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);

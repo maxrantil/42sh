@@ -14,7 +14,7 @@
 
 /**
  * This function writes the character c to the file descriptor fd
- * 
+ *
  * @param c The character to print.
  * @param fd file descriptor
  */

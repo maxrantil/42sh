@@ -12,7 +12,7 @@
 
 #include "ft_42sh.h"
 
-extern t_shell	*g_session;
+extern t_shell	*g_sh;
 
 /*
  * It's a signal handler that
@@ -23,7 +23,7 @@ extern t_shell	*g_session;
 void	ft_signal_keyboard(int num)
 {
 	if (num == SIGWINCH)
-		ft_window_size(g_session->term);
+		ft_window_size(g_sh->term);
 	if (num == SIGINT)
-		ft_restart_cycle(g_session->term);
+		ft_restart_cycle(g_sh->term);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_print_tree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 20:22:15 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/28 14:34:17 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	rec_print_tree(t_treenode *root, int lvl)
 
 void	print_tree(t_treenode *head)
 {
-	write(1, "\n------------------ TREE PRINT ------------------\n", 51);
+	ft_putstr("\n------------------ TREE PRINT ------------------\n");
 	if (head)
 		rec_print_tree(head, 0);
-	write(1, "\n------------------ TREE PRINT ------------------\n\n", 52);
+	ft_putstr("\n------------------ TREE PRINT ------------------\n\n");
 }

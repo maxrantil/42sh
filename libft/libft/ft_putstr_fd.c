@@ -13,7 +13,7 @@
 #include "libft.h"
 /**
  * ft_putstr_fd() writes a string to a file descriptor
- * 
+ *
  * @param s The string to output.
  * @param fd file descriptor
  */

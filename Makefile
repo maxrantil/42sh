@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
+#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/27 19:48:17 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/01/29 22:06:46 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ HASH			= 	hash/
 HISTORY			= 	history/
 INITIALIZE		=	initialize/
 INTERN_VARS		=	intern_variables/
+JOBS			= 	jobs/
 KEYBOARD		= 	keyboard/
 LEXER			= 	lexer/
 MAIN			= 	main/
@@ -196,9 +197,14 @@ FILES			= \
 				$(INITIALIZE)ft_env_init \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
+				$(INITIALIZE)ft_init_jobs \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
+				$(JOBS)jobs_attach_fg_grp \
+				$(JOBS)jobs_detach_and_remove_fg_grp \
+				$(JOBS)jobs_detach_fg_grp \
+				$(JOBS)jobs_reset_fg_grp \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \
@@ -329,6 +335,7 @@ $(OBJECTS):
 	@mkdir -p $(OBJECTS)/$(HISTORY)
 	@mkdir -p $(OBJECTS)/$(INITIALIZE)
 	@mkdir -p $(OBJECTS)/$(INTERN_VARS)
+	@mkdir -p $(OBJECTS)/$(JOBS)
 	@mkdir -p $(OBJECTS)/$(KEYBOARD)
 	@mkdir -p $(OBJECTS)/$(LEXER)
 	@mkdir -p $(OBJECTS)/$(MAIN)

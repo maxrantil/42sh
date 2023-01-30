@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_signal_exec.c                              :+:      :+:    :+:   */
+/*   jobs_detach_fg_grp.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 21:06:21 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/29 22:10:58 by jniemine         ###   ########.fr       */
+/*   Created: 2023/01/28 13:24:38 by jniemine          #+#    #+#             */
+/*   Updated: 2023/01/29 22:24:38 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-extern t_shell	*g_sh;
+extern t_shell *g_sh;
 
-void	signal_exec(int num)
+/* Detach foreground group from shared memory */
+void	detach_fg_grp(void)
 {
-	struct winsize	size;
-
-	if (num == SIGWINCH)
+	if (!g_sh->jobs->shared_mem_ptr || !g_sh->jobs->shared_mem_idx_ptr)
+		return ;
+	if (shmdt(g_sh->jobs->shared_mem_ptr) < 0 || shmdt(g_sh->jobs->shared_mem_idx_ptr) < 0)
 	{
-		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < -1)
-		{
-			ft_putstr_fd("could not get the terminal size", 1);
-			exit(0);
-		}
-		g_sh->term->ws_col = size.ws_col;
-		g_sh->term->ws_row = size.ws_row;
+		ft_err_print(NULL, "shmdt", "failed to detach from shared memory", 2);
+		exit (1);
 	}
+	g_sh->jobs->shared_mem_ptr = NULL;
+	g_sh->jobs->shared_mem_idx_ptr = NULL;
 }

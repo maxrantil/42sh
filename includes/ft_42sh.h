@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 19:47:34 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:07:03 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 # include "ft_printf.h"
 # include <sys/stat.h>
 # include <limits.h>
+# include <sys/shm.h>
 
+# if __gnu_linux__
+#  include <fcntl.h>
+# endif
 # if __linux__
 #  include <signal.h>
 #  include <wait.h>
@@ -44,6 +48,9 @@
 
 /* limit for filedescriptors */
 # define SH_FD_MAX 255
+
+/* Limit for jobs */
+# define JOBS_MAX 255
 
 /* Hash Table */
 # define HASH_SIZE 25
@@ -173,6 +180,17 @@ typedef struct s_hash
 	struct s_hash	*next;
 }					t_hash;
 
+/*				JOB CONTROL STRUCT			*/
+typedef struct s_job
+{
+	pid_t			pid;
+	int				*shared_mem_ptr;
+	int				*shared_mem_idx_ptr;
+	int				shared_mem_id;
+	int				shared_mem_index;
+	char			*cmd;
+}				t_job;
+
 /*				SESSION STRUCT				*/
 typedef struct s_shell
 {
@@ -187,6 +205,7 @@ typedef struct s_shell
 	char			*terminal;
 	char			**tmp_env_key;
 	struct termios	orig_termios;
+	t_job			*jobs;
 }				t_shell;
 
 /*					HEADER					*/
@@ -204,6 +223,7 @@ void			ft_init_signals(void);
 void			init_window_size(t_term *term);
 void			ft_env_init(t_shell *sh);
 void			ft_session_init(t_shell *sh);
+t_job			*ft_init_jobs(void);
 
 /*					LEXER					*/
 char			*ft_lexer(t_term *t);
@@ -418,5 +438,12 @@ size_t			hash_function(char *program);
 void			hash_init_struct(t_shell *sh, char *str, int hits);
 char			*hash_check(t_shell *sh, char *program, int *hash);
 void			hash_free(t_hash **ht);
+
+/*					JOBS					*/
+void			attach_fg_grp(void);
+void			detach_fg_grp(void);
+void			reset_fg_grp();
+void			detach_and_remove(void);
+void			delete_fg_group_shared_memory(void);
 
 #endif

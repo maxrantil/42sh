@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal_search_history.c                         :+:      :+:    :+:   */
+/*   handler_signal_search_history.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:04:37 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 21:49:05 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:08:47 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-extern t_shell	*g_session;
+extern t_shell	*g_sh;
 
 void	search_history_sigs(int num)
 {
 	struct winsize	size;
 	t_term			*term;
 
-	term = g_session->term;
+	term = g_sh->term;
 	if (num == SIGWINCH)
 	{
 		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < -2)
