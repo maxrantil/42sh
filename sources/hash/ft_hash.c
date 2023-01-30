@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:33:14 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/30 11:41:02 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/30 12:17:48 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	hash_set(t_shell *sh, char **arg)
 			}
 			ft_strdel(&exepath);
 		}
-		else if (hash_error_print(arg[i]) == -1)
-			return ;
+		else
+			hash_error_print(arg[i]);
 	}
 }
 
