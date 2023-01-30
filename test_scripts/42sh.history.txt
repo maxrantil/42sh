@@ -1,0 +1,18 @@
+$> echo hello world
+hello world
+$> !! | cat -e
+hello world$
+$> !echo
+{{ Optionnal rewrite of the executed command: echo hello world }}
+hello world
+$> fc -ln
+{{ Last commands listed without indexes }}
+$> fc -lr
+{{ Last commands listed in reverse order }}
+$> !-1
+{{ Optionnal rewrite of the executed command: fc -lr }}
+{{ Last commands listed in reverse order }}
+$> ls DOESNOTEXIST
+ls: DOESNOTEXIST: No such file or directory
+$> fc -s -- -1 2>/dev/null
+$>
