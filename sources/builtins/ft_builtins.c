@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/30 10:34:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "ft_42sh.h"
 
@@ -30,6 +27,7 @@ int	ft_builtins(t_shell *sh, char ***cmd)
 	if (sh && cmd)
 	{
 		ft_expansion(sh, *cmd);
+		ft_env_last_command(sh, *cmd);
 		if (param_format(sh, *cmd) == -1)
 			return (0);
 		*(cmd) += ft_variables(sh, cmd);

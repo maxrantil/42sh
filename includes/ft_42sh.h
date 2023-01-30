@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/29 22:07:03 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/30 10:32:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,7 @@ int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);
 int				ft_isseparator(char c);
+void    		ft_env_last_command(t_shell *sh, char **cmd);
 
 /*					EXECUTE_TREE			*/
 void			exec_tree(t_treenode *head, char ***environ_cp, \

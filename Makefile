@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/29 22:06:46 by jniemine         ###   ########.fr        #
+#    Updated: 2023/01/30 10:30:36 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -305,6 +305,7 @@ FILES			= \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
 				$(UTILITIES)ft_isseparator \
+				$(UTILITIES)ft_last_command_update \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
