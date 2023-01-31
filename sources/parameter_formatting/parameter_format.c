@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/28 10:11:24 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/31 09:56:14 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,9 +204,11 @@ int	param_format(t_shell *sh, char **cmd)
 	char	**list;
 	char	*strip;
 	char	*flag;
+	int		ret;
 
+	ret = 0;
 	i = -1;
-	k= 0;
+	k = 0;
 	subs = ft_strnew(1);
 	expanded = ft_strnew(1);
 	var = ft_strnew(1);
@@ -254,16 +256,18 @@ int	param_format(t_shell *sh, char **cmd)
 			while (list[k])
 			{
 				if (ft_strnequ(list[k], "${", 2))
-					expanded = ft_strjoin(expanded, substitute_or_create(sh, list[k++]));
+					expanded = ft_strjoin(expanded, substitute_or_create(sh, list[k++], &ret));
 				else
 					expanded = ft_strjoin(expanded, list[k++]);
+				if (ret == -1)
+					return (1);
 			}
 		//	ft_printf("final expand %s %s\n",var, expanded);
 			ft_strdel(&subs);
 			subs = ft_strjoin(var, expanded);
 		//	ft_printf("variable %s final subst %s\n", var, subs);
 			ft_strdel(&expanded);
-			expanded = substitute_or_create(sh, subs);
+			expanded = substitute_or_create(sh, subs, &ret);
 			if (!expanded || !*expanded)
 			{
 				ft_printf("42sh: %s: bad substution\n", var + 1);

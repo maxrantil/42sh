@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/28 10:41:35 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/31 09:54:32 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,15 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 		{
 			ft_printf("temp %s plus sign[%s] %s\n",temp[0], var, subst);
 			if (subst && *subst)
-				expanded = ft_strdup(subst + 1);
+			{
+				if (subst[0] == '+')
+					expanded = ft_strdup(subst + 1);
+				else
+					expanded = ft_strdup(subst);
+			}
 			else
 				expanded = ft_strnew(1);
+			ft_printf("expanded plus %s\n", expanded);
 		}
 		else
 			expanded = ft_strnew(1);
@@ -152,7 +158,21 @@ int	format_mode(char op)
 	return (format);
 }
 
-char *substitute_or_create(t_shell *sh, char *cmd)
+static int check_vari(char *var)
+{
+	int	i;
+	
+	i = 1;
+	if (ft_isalpha(var[0]) || (!ft_isalpha(var[0]) && var[0] != '_'))
+		return (1);
+	// while(var[i])
+	// {
+		
+	// }
+	return (0);
+}
+
+char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 {
 	int		i;
 	int		k;
@@ -186,7 +206,14 @@ char *substitute_or_create(t_shell *sh, char *cmd)
 		ft_printf("substitution [%s]\n",subs);
 		op = subs[0];
 		ft_printf("substitution [%s]\n",subs);
-		var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)) - 1);
+		var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)));
+		if (!check_vari(var))
+		{
+			*ret = -1;
+			return (var);
+		}
+		else
+			var[ft_strlen(var - 1)] = '\0';
 		ft_printf("var [%s] substitution [%s]\n", var, subs);
 		// while (subs[i])
 		// {
@@ -214,7 +241,7 @@ char *substitute_or_create(t_shell *sh, char *cmd)
 	}
 	ft_printf("expanded asdfasfasfasfd[%s]\n", subs);
 	if (ft_strnequ(subs + 1, "${", 2))
-		subs = substitute_or_create(sh, subs + 1);
+		subs = substitute_or_create(sh, subs + 1, ret);
 	format = format_mode(op);
 	if (!*expanded)
 		expanded = subst_param(sh, var, subs, format);
