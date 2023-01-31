@@ -6,11 +6,32 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/30 10:34:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:59:24 by mike_baru        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static int	print_fg_node(t_shell *sh)
+{
+	pid_t	*tmp;
+	char	***ptr;
+	char	**dbl;
+
+	ft_printf("gpid %d\n", sh->fg_node.gpid);
+	tmp = sh->fg_node.pid;
+	while (tmp && *tmp)
+		ft_printf("pid: %d\n", *(tmp++));
+	ptr = sh->fg_node.cmd;
+	while (ptr && *ptr)
+	{
+		dbl = *ptr;
+		while (*dbl)
+			ft_printf("cmd: %s\n", *(dbl++));
+		ptr++;
+	}
+	return (0);
+}
 
 /**
  * It takes a session and a command, expands the command, and then checks if
@@ -53,6 +74,8 @@ int	ft_builtins(t_shell *sh, char ***cmd)
 			return (ft_hash(sh, *cmd));
 		else if (!ft_strcmp(**cmd, "exit"))
 			ft_exit(sh, 0);
+		else if (!ft_strcmp(**cmd, "nd"))
+			return (print_fg_node(sh));
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 16:12:40 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:16:43 by mike_baru        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,5 +477,13 @@ void			detach_fg_grp(void);
 void			reset_fg_grp();
 void			detach_and_remove(void);
 void			delete_fg_group_shared_memory(void);
+
+
+/*				  JOBS NEW					*/
+void	init_fgnode(t_shell *sh);
+void	append_pid_arr(t_fg_job fg_node, pid_t pid);
+void	reset_fgnode(t_shell *sh);
+// void	update_fg_job(t_shell *sh, pid_t pid, char **cmd);
+void	update_fg_job(t_shell *sh, pid_t pid);
 
 #endif

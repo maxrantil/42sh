@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/31 16:13:51 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:07:00 by mike_baru        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void	ft_session_init(t_shell *sh)
 	sh->tokens = NULL;
 	sh->jobs = ft_init_jobs();
 	hash_init(sh);
+	init_fgnode(sh);
 }

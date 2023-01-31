@@ -6,7 +6,7 @@
 /*   By: mike_barutel <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:49:28 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/01/31 13:32:09 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/01/31 17:08:30 by mike_baru        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,21 @@ static void	realloc_cmd(char ***cmd_arr, char **cmd)
 
 static char **dup_dbl_pointer(char **cmd)
 {
-	
+	int	len;
+	int	dup_arr;
+
+	len = ft_arrlen(cmd);
+	dup_arr = (char **)ft_memalloc(sizeof(char *) * (len + 1));
+	dup_arr[len] = NULL;
+	while (--len)
+		dup_arr[len] = ft_strdup(cmd[len]);
 }
 
 static void alloc_cmd(char ***cmd_arr, char **cmd)
 {
 	cmd_arr = (char ***)ft_memalloc(sizeof(char **cmd) * 2);
-	cmd_arr = pid;
-	cmd_arr = NULL;
+	*cmd_arr = dup_dbl_pointer(cmd);
+	(*cmd_arr) + 1 = NULL;
 }
 
 void	append_cmd_arr(t_fgnode fg_node, char **cmd)

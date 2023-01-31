@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/30 12:05:01 by mrantil          ###   ########.fr        #
+#    Updated: 2023/01/31 18:11:37 by mike_baru        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ HISTORY			= 	history/
 INITIALIZE		=	initialize/
 INTERN_VARS		=	intern_variables/
 JOBS			= 	jobs/
+JOBS_UTILS		= 	jobs_utils/
 KEYBOARD		= 	keyboard/
 LEXER			= 	lexer/
 MAIN			= 	main/
@@ -206,6 +207,9 @@ FILES			= \
 				$(JOBS)jobs_detach_and_remove_fg_grp \
 				$(JOBS)jobs_detach_fg_grp \
 				$(JOBS)jobs_reset_fg_grp \
+				$(JOBS_UTILS)reset_fgnode \
+				$(JOBS_UTILS)update_fg_job \
+				$(JOBS_UTILS)append_pid_arr \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \
@@ -338,6 +342,7 @@ $(OBJECTS):
 	@mkdir -p $(OBJECTS)/$(INITIALIZE)
 	@mkdir -p $(OBJECTS)/$(INTERN_VARS)
 	@mkdir -p $(OBJECTS)/$(JOBS)
+	@mkdir -p $(OBJECTS)/$(JOBS_UTILS)
 	@mkdir -p $(OBJECTS)/$(KEYBOARD)
 	@mkdir -p $(OBJECTS)/$(LEXER)
 	@mkdir -p $(OBJECTS)/$(MAIN)

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/31 16:14:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:28:53 by mike_baru        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,10 @@ static int    ft_execve(char **cmd, char **args, int access, char ***environ_cp)
     if (access)
     {
         pid = fork_wrap();
+		// Creation of fg_node happens here
+		// update_fg_job(g_sh, pid, cmd);
+		if (pid)
+			update_fg_job(g_sh, pid);
         if (pid == -1)
             ft_err_print(NULL, NULL, "Fork failed", 2);
         if (pid == 0)
