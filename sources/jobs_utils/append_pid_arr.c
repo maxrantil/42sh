@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append_pid_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mike_barutel <marvin@42.fr>                +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:12:46 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/01/31 18:30:05 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/01/31 20:44:34 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,21 @@ static void	realloc_pid(pid_t **pid_arr, pid_t pid)
 	*pid_arr = new_arr;
 }
 
-static void alloc_pid(pid_t **pid_arr, pid_t pid)
+static pid_t *alloc_pid(pid_t pid)
 {
-	ft_printf("allocation happens\n");
-	*pid_arr = (pid_t *)ft_memalloc(sizeof(pid_t) * 2);
-	**pid_arr = pid;
-	*(*pid_arr + 1) = 0;
+    pid_t   *pid_arr;
+
+	pid_arr = (pid_t *)ft_memalloc(sizeof(pid_t) * 2);
+	*pid_arr = pid;
+	*(pid_arr + 1) = 0;
+    return (pid_arr);
 }
 
-void	append_pid_arr(t_fg_job fg_node, pid_t pid)
+void	append_pid_arr(t_fg_job *fg_node, pid_t pid)
 {
-	if (!fg_node.pid)
-		alloc_pid(&fg_node.pid, pid);
+	if (!fg_node->pid)
+        fg_node->pid = alloc_pid(pid);
 	else
-		realloc_pid(&fg_node.pid, pid);
+		realloc_pid(&fg_node->pid, pid);
 }
 

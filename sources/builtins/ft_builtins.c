@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 17:59:24 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/01/31 20:44:34 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,20 @@ static int	print_fg_node(t_shell *sh)
 	char	***ptr;
 	char	**dbl;
 
-	ft_printf("gpid %d\n", sh->fg_node.gpid);
-	tmp = sh->fg_node.pid;
-	while (tmp && *tmp)
+	ft_printf("gpid %d\n", sh->fg_node->gpid);
+	tmp = sh->fg_node->pid;
+	while (*tmp)
 		ft_printf("pid: %d\n", *(tmp++));
-	ptr = sh->fg_node.cmd;
-	while (ptr && *ptr)
+	ptr = sh->fg_node->cmd;
+	while (*ptr)
 	{
 		dbl = *ptr;
 		while (*dbl)
-			ft_printf("cmd: %s\n", *(dbl++));
-		ptr++;
+        {
+			ft_printf("cmd: %s\n", *dbl);
+            dbl++;
+        }
+        ptr++;
 	}
 	return (0);
 }

@@ -207,9 +207,10 @@ FILES			= \
 				$(JOBS)jobs_detach_and_remove_fg_grp \
 				$(JOBS)jobs_detach_fg_grp \
 				$(JOBS)jobs_reset_fg_grp \
+				$(JOBS_UTILS)append_pid_arr \
+				$(JOBS_UTILS)append_cmd_arr \
 				$(JOBS_UTILS)reset_fgnode \
 				$(JOBS_UTILS)update_fg_job \
-				$(JOBS_UTILS)append_pid_arr \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \

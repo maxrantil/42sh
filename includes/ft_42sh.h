@@ -233,7 +233,7 @@ typedef struct s_shell
 	char			**tmp_env_key;
 	struct termios	orig_termios;
 	t_job			*jobs;
-    t_fg_job        fg_node;
+    t_fg_job        fg_node[1];
    	t_bg_jobs       *bg_node;
 	bool			ampersand;
 }				t_shell;
@@ -481,9 +481,9 @@ void			delete_fg_group_shared_memory(void);
 
 /*				  JOBS NEW					*/
 void	init_fgnode(t_shell *sh);
-void	append_pid_arr(t_fg_job fg_node, pid_t pid);
+void	append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void	reset_fgnode(t_shell *sh);
-// void	update_fg_job(t_shell *sh, pid_t pid, char **cmd);
-void	update_fg_job(t_shell *sh, pid_t pid);
+void	append_cmd_arr(t_fg_job *fg_node, char **cmd);
+void	update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 
 #endif

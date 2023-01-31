@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset_fgnode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mike_barutel <marvin@42.fr>                +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:26:45 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/01/31 18:06:10 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/01/31 20:44:34 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ static void	reset_cmd(char ***cmd)
 void	reset_fgnode(t_shell *sh)
 {
 	ft_printf("THIS HAPPENS");
-    sh->fg_node.gpid = 0;
-    if (sh->fg_node.pid)
-        ft_memdel((void **)&sh->fg_node.pid);
+    sh->fg_node->gpid = 0;
+    if (sh->fg_node->pid)
+        ft_memdel((void **)&sh->fg_node->pid);
 	else
-		sh->fg_node.pid = NULL;
-	if (sh->fg_node.cmd)
-		reset_cmd(sh->fg_node.cmd);
+		sh->fg_node->pid = NULL;
+	if (sh->fg_node->cmd)
+		reset_cmd(sh->fg_node->cmd);
 	else
-		sh->fg_node.cmd = NULL;
+		sh->fg_node->cmd = NULL;
 }
 
 void	init_fgnode(t_shell *sh)
 {
-    sh->fg_node.gpid = 0;
-	sh->fg_node.pid = NULL;
-	sh->fg_node.cmd = NULL;
+    sh->fg_node->gpid = 0;
+	sh->fg_node->pid = NULL;
+	sh->fg_node->cmd = NULL;
 }

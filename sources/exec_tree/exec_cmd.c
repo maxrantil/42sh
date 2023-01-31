@@ -102,7 +102,7 @@ static int    ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 		// Creation of fg_node happens here
 		// update_fg_job(g_sh, pid, cmd);
 		if (pid)
-			update_fg_job(g_sh, pid);
+			update_fg_job(g_sh, pid, cmd);
         if (pid == -1)
             ft_err_print(NULL, NULL, "Fork failed", 2);
         if (pid == 0)
