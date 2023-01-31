@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/31 09:56:14 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:43:54 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,15 @@ char *get_flag(char *cmd)
 	return (NULL);
 }
 
+static int is_good_var(char *var)
+{
+	if ((var[1] && !ft_isalpha(var[1])) 
+		|| (!ft_isalpha(var[1]) && var[1] != '_')
+		|| (!ft_isalpha(var[1]) && var[1] != '!'))
+		return (-1);
+	return (1);
+}
+
 int	param_format(t_shell *sh, char **cmd)
 {
 	int		i;
@@ -215,21 +224,21 @@ int	param_format(t_shell *sh, char **cmd)
 	op = 0;
 	format = -1;
 	list = (char **)ft_memalloc(sizeof(char *) * 100);
-	// strip = remove_braces(cmd);
 	while (cmd[++i])
 	{
 		if (check_syntax(cmd[i]))
 		{
-			strip = remove_braces(cmd[i]);
-			flag = ft_strchr(strip, ':');
-			//ft_printf("flag %d\n", flag[1]);
+			flag = get_flag(cmd[i]);
 			if (flag && is_legit(flag[0]))
 			{
-				ft_printf("flag %d\n", flag[1]);
-				subs = ft_strdup(ft_strchr(strip, ':') + 1);
+				strip = ft_strdup(cmd[i]);
+				remove_braces(strip);
+				ft_printf("flag %c\n", flag[0]);
+				subs = ft_strdup(get_flag(strip + 1));
 				op = subs[0];
 				subs = (char *)ft_memmove(subs, subs + 1, ft_strlen(subs));
 				var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)));
+				ft_printf("var %s\n", var);
 			}
 			else
 			{
@@ -240,11 +249,6 @@ int	param_format(t_shell *sh, char **cmd)
 				cmd[i] = ft_strdup(expanded);
 				break ;
 			}
-			//ft_printf("not in subs %s\n", subs);
-			
-			//ft_printf("not in subs %s\n", subs);
-			
-			//ft_printf("not in var %s\n", var);
 			while (subs[j])
 			{
 				list[k++] = retokenize(sh, subs, &j);
@@ -262,23 +266,21 @@ int	param_format(t_shell *sh, char **cmd)
 				if (ret == -1)
 					return (1);
 			}
-		//	ft_printf("final expand %s %s\n",var, expanded);
 			ft_strdel(&subs);
 			subs = ft_strjoin(var, expanded);
-		//	ft_printf("variable %s final subst %s\n", var, subs);
 			ft_strdel(&expanded);
 			expanded = substitute_or_create(sh, subs, &ret);
 			if (!expanded || !*expanded)
 			{
-				ft_printf("42sh: %s: bad substution\n", var + 1);
+				ft_printf("42sh: %s: bad substitution\n", cmd[i]);
 				return -1;
 			}
-				
 			ft_strdel(&cmd[i]);
 			cmd[i] = ft_strdup(expanded);
 			ft_strdel(&var);
 			ft_strdel(&subs);
 			ft_strdel(&expanded);
+			ft_strdel(&strip);
 			
 		}
 	}

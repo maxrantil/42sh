@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/31 09:54:32 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/31 13:55:42 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,14 +206,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 		ft_printf("substitution [%s]\n",subs);
 		op = subs[0];
 		ft_printf("substitution [%s]\n",subs);
-		var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)));
-		if (!check_vari(var))
-		{
-			*ret = -1;
-			return (var);
-		}
-		else
-			var[ft_strlen(var - 1)] = '\0';
+		var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)) - 1);
 		ft_printf("var [%s] substitution [%s]\n", var, subs);
 		// while (subs[i])
 		// {
