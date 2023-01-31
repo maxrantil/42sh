@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 13:32:23 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/01/31 16:12:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@
 # define FC_LEN 18
 # define SH_PATH_MAX 2048
 // # define PATH_MAX 2048
+
+/* Jobs States */
+# define RUNNING 1
+# define STOPPED 2
+# define DONE 3
+# define TERMINATED 4
+# define SUSPENDED 5
 
 /* For print_tree */
 # define COUNT 10
@@ -193,15 +200,15 @@ typedef struct s_job
 
 
 /*			FOREGROUND JOB NODES				*/
-typedef struct fg_node
+typedef struct s_fg_job
 {
     pid_t   gpid;
     pid_t   *pid;
     char    ***cmd;
-}   t_fgnode;
+}   t_fg_job;
 
 /*			BACKGROUND JOB NODES				*/
-typedef struct bg_node
+typedef struct s_bg_jobs
 {
     pid_t           gpid;
     pid_t           *pid;
@@ -209,7 +216,7 @@ typedef struct bg_node
     int             status;
     int             index;
     struct bg_node *next;
-}   t_bgnode;
+}   t_bg_jobs;
 
 /*				SESSION STRUCT				*/
 typedef struct s_shell
@@ -226,8 +233,9 @@ typedef struct s_shell
 	char			**tmp_env_key;
 	struct termios	orig_termios;
 	t_job			*jobs;
-    t_fgnode        fg_node;
-    t_bgnode        *bg_node;
+    t_fg_job        fg_node;
+   	t_bg_jobs       *bg_node;
+	bool			ampersand;
 }				t_shell;
 
 /*					HEADER					*/

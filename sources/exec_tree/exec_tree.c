@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/31 11:55:30 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/01/31 16:13:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		exec_logicalop(((t_logicalop *)head), environ_cp, terminal, sh);
 	else if (head->type == AMPERSAND)
 	{
+		sh->ampersand = true;
 		ft_printf("ampersand happens\n");
 		exec_tree((((t_ampersand *)head)->left), environ_cp, terminal, sh);
+		sh->ampersand = false;
 		reset_fd(terminal);
 		exec_tree((((t_ampersand *)head)->right), environ_cp, terminal, sh);
 		reset_fd(terminal);
