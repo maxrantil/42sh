@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/31 16:14:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:25:29 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,37 +84,37 @@ static void	print_args(char **args)
 	ft_putchar('\n');
 }
 
-static void    put_to_bg(int pid, int status/* , char **cmd */)
+static void    put_to_bg(int pid, int status)
 {
+	transfer_to_bg_node(pid, status);
     waitpid(pid, &status, WNOHANG);
 }
 
 static int    ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 {
-    int        status;
-    int        pid;
+	int		status;
+	int		pid;
 
-    status = 0;
-    pid = -1;
-    if (access)
-    {
-        pid = fork_wrap();
-        if (pid == -1)
-            ft_err_print(NULL, NULL, "Fork failed", 2);
-        if (pid == 0)
-        {
-            if (!cmd || execve(*cmd, args, *environ_cp) < 0)
-                exe_fail(cmd, args, environ_cp);
-            exit (1);
-        }
-    }
-    if (g_sh->ampersand)
-        put_to_bg(pid, status/* , cmd */);
-    else if (!g_sh->ampersand)
-        waitpid(pid, &status, WUNTRACED);
-    if (status & 0177)
-        ft_putchar('\n');
-    return (status);
+	status = 0;
+	pid = -1;
+	if (access)
+	{
+		pid = fork_wrap();
+		//create fg_node
+		if (pid == 0)
+		{
+			if (!cmd || execve(*cmd, args, *environ_cp) < 0)
+				exe_fail(cmd, args, environ_cp);
+			exit (1);
+		}
+	}
+	if (g_sh->ampersand)
+		put_to_bg(pid, status);
+	else if (!g_sh->ampersand)
+		waitpid(pid, &status, WUNTRACED);
+	if (status & 0177)
+		ft_putchar('\n');
+	return (status);
 }
 
 void	exec_cmd(char **args, char ***environ_cp, t_shell *sh)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 16:12:40 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:04:57 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ typedef struct s_fg_job
     pid_t   gpid;
     pid_t   *pid;
     char    ***cmd;
-}   t_fg_job;
+}   		t_fg_job;
 
 /*			BACKGROUND JOB NODES				*/
 typedef struct s_bg_jobs
@@ -216,7 +216,7 @@ typedef struct s_bg_jobs
     int             status;
     int             index;
     struct bg_node *next;
-}   t_bg_jobs;
+}   				t_bg_jobs;
 
 /*				SESSION STRUCT				*/
 typedef struct s_shell
@@ -233,7 +233,7 @@ typedef struct s_shell
 	char			**tmp_env_key;
 	struct termios	orig_termios;
 	t_job			*jobs;
-    t_fg_job        fg_node;
+    t_fg_job        fg_job;
    	t_bg_jobs       *bg_node;
 	bool			ampersand;
 }				t_shell;
