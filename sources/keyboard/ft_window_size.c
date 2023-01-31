@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_window_size.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 17:25:07 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/17 13:01:44 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:48:12 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "keyboard.h"
+// #include "keyboard.h"
+#include "ft_42sh.h"
+
+extern t_shell	*g_sh;
 
 static void	reset_screen(t_term *t)
 {
@@ -35,6 +38,7 @@ void	ft_window_size(t_term *t)
 	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < 0)
 	{
 		ft_putstr_fd("could not get the terminal size", 2);
+		ft_raw_disable(g_sh->orig_termios);
 		exit(1);
 	}
 	t->ws_col = size.ws_col;
