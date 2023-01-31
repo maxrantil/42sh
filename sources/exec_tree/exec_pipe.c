@@ -6,11 +6,13 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/31 01:19:11 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:09:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+extern t_shell *g_sh;
 
 void	error_exit(char *msg)
 {
@@ -49,14 +51,13 @@ void	 exec_pipe(t_pipenode *pipenode,
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
 	// int	pipefd[2];
-	int local;
 
 	if (pipe_wrap(sh->pipe->pipefd))
 		return ;
 	// if ((local = fork_wrap()) == 0)
 	// {
 		sh->pipe->write_to_pipe = 1;
-		// dup2(((t_cmdnode *)pipenode->left)->pipefd[1], STDOUT_FILENO); 
+		// dup2(((t_cmdnode *)pipenode->left)->pipefd[1], STDOUT_FILENO);
 		// close(((t_cmdnode *)pipenode->left)->pipefd[0]);
 		// close(((t_cmdnode *)pipenode->left)->pipefd[1]);
 		 exec_tree(pipenode->left, environ_cp, terminal, sh);
@@ -67,7 +68,11 @@ void	 exec_pipe(t_pipenode *pipenode,
 		// dup2(pipefd[0], STDIN_FILENO);
 		// close(pipefd[0]);
 		// close(pipefd[1]);
-		 exec_tree(pipenode->right, environ_cp, terminal, sh);
+		if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
+			ft_err_print("dup2", NULL, "failed", 2);
+		exec_tree(pipenode->right, environ_cp, terminal, sh);
+		// if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
+			// ft_err_print("dup2", NULL, "failed", 2);
 		// exit (1);
 	// }
 	// close(pipefd[0]);

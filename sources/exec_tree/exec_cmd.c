@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/31 12:38:38 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:17:10 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,21 @@ static void	print_args(char **args)
 
 #include <errno.h>
 
+/* If there is next pipe op. Connect process output to pipe, else connect it into stdout */
 int	pipe_handler(int pid)
 {
+	pid = 0;
+
 	if (g_sh->pipe->read_from_pipe)
 	{
-	ft_putstr_fd("read: ", 2);
-	ft_putnbr_fd(g_sh->pipe->pipefd[0], 2);
-	ft_putstr_fd("\n", 2);
-	ft_putstr_fd("PIPECPY: ", 2);
-	ft_putnbr_fd(g_sh->pipe->stdoutcpy, 2);
-	ft_putstr_fd("\n", 2);
-	// close(g_sh->pipe->pipefd[1]);
+	// ft_putstr_fd("read: ", 2);
+	// ft_putnbr_fd(g_sh->pipe->pipefd[0], 2);
+	// ft_putstr_fd("\n", 2);
+	// ft_putstr_fd("PIPECPY: ", 2);
+	// ft_putnbr_fd(g_sh->pipe->stdoutcpy, 2);
+	// ft_putstr_fd("\n", 2);
+	 	close(g_sh->pipe->pipefd[1]);
+		g_sh->pipe->stdincpy = dup(STDIN_FILENO);
 		if (dup2(g_sh->pipe->stdoutcpy, STDOUT_FILENO) < 0)
 		{
 			perror(strerror(errno));
@@ -110,20 +114,20 @@ int	pipe_handler(int pid)
 			//exit(1); when dup fails dummy
 		}
 		g_sh->pipe->read_from_pipe = 0;
-		ft_putstr_fd("FUUFUFUF\n", 2);
 		close(g_sh->pipe->pipefd[1]);
 		close(g_sh->pipe->pipefd[0]);
 	}
 	else if (g_sh->pipe->write_to_pipe)
 	{
-	ft_putstr_fd("write: ", 2);
-	ft_putnbr(g_sh->pipe->pipefd[1]);
-	ft_putstr_fd("\n", 2);
+	// ft_putstr_fd("write: ", 2);
+	// ft_putnbr(g_sh->pipe->pipefd[1]);
+	// ft_putstr_fd("\n", 2);
 		g_sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 		if (dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
 			ft_err_print("dup2", NULL, "failed", 2);
 		g_sh->pipe->write_to_pipe = 0;
-		close(g_sh->pipe->pipefd[0]);
+		g_sh->pipe->read_from_pipe = 1;
+		// close(g_sh->pipe->pipefd[0]);
 		close(g_sh->pipe->pipefd[1]);
 	}
 	return (1);
@@ -138,9 +142,9 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	args = head->cmd;
 	status = 0;
 	pid = -1;
-	ft_putstr_fd("cmd: ", 2);
-	ft_putstr_fd(*cmd, 2);
-	ft_putstr_fd("\n", 2);
+	// ft_putstr_fd("cmd: ", 2);
+	// ft_putstr_fd(*cmd, 2);
+	// ft_putstr_fd("\n", 2);
 	if (access)
 	{
 		pipe_handler(pid);
@@ -154,7 +158,8 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 		}
 	}
 	wait(&status);
-	g_sh->pipe->read_from_pipe = 1;
+
+	// g_sh->pipe->read_from_pipe = 1;
 	// attach_fg_grp();
 	// if (*g_sh->jobs->shared_mem_idx_ptr < JOBS_MAX)
 		// g_sh->jobs->shared_mem_ptr[(*g_sh->jobs->shared_mem_idx_ptr)++] = pid;

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 12:23:19 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:53:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ typedef struct s_pipe
 {
 	int		pipefd[2];
 	int		stdoutcpy;
+	int		stdincpy;
 	int		write_to_pipe;
 	int		read_from_pipe;
 }			t_pipe;
