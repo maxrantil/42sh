@@ -34,5 +34,8 @@ void	ft_session_init(t_shell *sh)
 	sh->tmp_env_key = NULL;
 	sh->tokens = NULL;
 	sh->jobs = ft_init_jobs();
+	sh->pipe = ft_memalloc(sizeof(t_pipe));
+	sh->pipe->write_to_pipe = 0;
+	sh->pipe->read_from_pipe = 0;
 	hash_init(sh);
 }

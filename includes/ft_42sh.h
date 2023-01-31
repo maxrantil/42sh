@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/29 22:07:03 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:23:19 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct s_cmdnode
 {
 	int		type;
 	char	**cmd;
+
 }	t_cmdnode;
 
 /*					CLOSEFD STRUCT			*/
@@ -191,6 +192,15 @@ typedef struct s_job
 	char			*cmd;
 }				t_job;
 
+/*				PIPE STRUCT					*/
+typedef struct s_pipe
+{
+	int		pipefd[2];
+	int		stdoutcpy;
+	int		write_to_pipe;
+	int		read_from_pipe;
+}			t_pipe;
+
 /*				SESSION STRUCT				*/
 typedef struct s_shell
 {
@@ -206,6 +216,7 @@ typedef struct s_shell
 	char			**tmp_env_key;
 	struct termios	orig_termios;
 	t_job			*jobs;
+	t_pipe			*pipe;
 }				t_shell;
 
 /*					HEADER					*/
@@ -314,7 +325,7 @@ int				ft_isseparator(char c);
 /*					EXECUTE_TREE			*/
 void			exec_tree(t_treenode *head, char ***environ_cp, \
 char *terminal, t_shell *sh);
-void			exec_cmd(char **args, char ***environ_cp, t_shell *sh);
+void			exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh);
 void			exec_pipe(t_pipenode *pipenode, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_redir(t_redir *node, char ***environ_cp, \
