@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_exec.c                                  :+:      :+:    :+:   */
+/*   jobs_create_shared_memory.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 09:24:56 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/30 16:12:36 by jniemine         ###   ########.fr       */
+/*   Created: 2023/01/28 11:40:51 by jniemine          #+#    #+#             */
+/*   Updated: 2023/01/30 15:39:20 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	set_signal_exec(void)
-{
-	int	sig;
+extern	t_shell *g_sh;
 
-	sig = -1;
-	while (++sig < 32)
-		signal(sig, signal_exec);
-	signal(SIGCHLD, child_exit);
+int		create_fg_group_shared_memory(size_t size)
+{
+	int		shm_id;
+
+	shm_id = shmget(IPC_PRIVATE, size, IPC_CREAT | 0666);
+	if (shm_id < 0)
+	{
+		ft_err_print(NULL, "shmget", "no memory available", 2);
+		exit(1);
+	}
+	return (shm_id);
 }

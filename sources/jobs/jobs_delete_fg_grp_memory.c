@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jobs_reset_fg_grp.c                                :+:      :+:    :+:   */
+/*   jobs_detach_and_remove_fg_grp.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 11:40:51 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/28 16:07:04 by jniemine         ###   ########.fr       */
+/*   Created: 2023/01/28 13:35:51 by jniemine          #+#    #+#             */
+/*   Updated: 2023/01/30 15:27:51 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 extern	t_shell *g_sh;
 
-void	reset_fg_grp()
+void delete_fg_group_shared_memory(void)
 {
-	// if (g_sh->jobs->shared_mem_id > -1 && g_sh->jobs->shared_mem_index > -1)
-		// detach_and_remove();
-	g_sh->jobs->shared_mem_id = shmget(IPC_PRIVATE, sizeof(int) * 255, IPC_CREAT | 0666);
-	g_sh->jobs->shared_mem_index = shmget(IPC_PRIVATE, sizeof(int), IPC_CREAT | 0666);
-	if (g_sh->jobs->shared_mem_id < 0 || g_sh->jobs->shared_mem_index < 0)
+	if (shmctl(g_sh->jobs->shared_mem_id, IPC_RMID, NULL) < 0 || shmctl(g_sh->jobs->shared_mem_index, IPC_RMID, NULL) < 0)
 	{
-		ft_err_print(NULL, "shmget", "no memory available", 2);
-		exit(1);
+		ft_err_print(NULL, "shmctk", "failed to delete shared memory", 2);
+		exit (1);
 	}
+	g_sh->jobs->shared_mem_id = -1;
+	g_sh->jobs->shared_mem_index = -1;
 }

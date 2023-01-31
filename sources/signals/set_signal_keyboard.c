@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_signal_keyboard.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:34:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 15:02:54 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:05:06 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	set_signal_keyboard(void)
 	sig = -1;
 	while (++sig < 32)
 		signal(sig, ft_signal_keyboard);
+	signal(SIGCHLD, child_exit);
 }

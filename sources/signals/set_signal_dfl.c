@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_signal_dfl.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 15:02:31 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:11:40 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	ft_signal_dfl(void)
 	sig = 1;
 	while (sig < 32)
 		signal(sig++, SIG_DFL);
+	signal(SIGCHLD, SIG_IGN);
 }

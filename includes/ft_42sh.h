@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/29 22:07:03 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:19:33 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,12 +183,14 @@ typedef struct s_hash
 /*				JOB CONTROL STRUCT			*/
 typedef struct s_job
 {
+	//Collect the statuts after the job is done
 	pid_t			pid;
 	int				*shared_mem_ptr;
 	int				*shared_mem_idx_ptr;
 	int				shared_mem_id;
 	int				shared_mem_index;
 	char			*cmd;
+// state
 }				t_job;
 
 /*				SESSION STRUCT				*/
@@ -400,6 +402,7 @@ void			set_signal_exec(void);
 void    		ft_signal_ign(void);
 void    		set_signal_keyboard(void);
 void    		set_signal_search_history(void);
+void			child_exit(int num);
 
 /*			  		 FC						*/
 void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
@@ -442,8 +445,9 @@ void			hash_free(t_hash **ht);
 /*					JOBS					*/
 void			attach_fg_grp(void);
 void			detach_fg_grp(void);
-void			reset_fg_grp();
+void			create_fg_grp_memory();
 void			detach_and_remove(void);
 void			delete_fg_group_shared_memory(void);
+int				create_fg_group_shared_memory(size_t size);
 
 #endif

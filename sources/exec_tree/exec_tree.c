@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/29 22:06:24 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:41:32 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		return ;
 	if (head->type == SEMICOLON)
 	{
-		reset_fg_grp();
+		create_fg_grp_memory();
 		exec_tree((((t_semicolon *)head)->left), environ_cp, terminal, sh);
 		delete_fg_group_shared_memory();
 		reset_fd(terminal);

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/29 22:15:39 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:54:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,28 +101,55 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 			exit (1);
 		}
 	}
-	wait(&status);
+	if (pid)
+	{
+		// ft_printf("pid %d - command %s\n", pid, *cmd);
+		fflush(stderr);
+		ft_putstr_fd("pid ", 2);
+		fflush(stderr);
+		ft_putnbr_fd(pid, 2);
+		fflush(stderr);
+		ft_putstr_fd(" - command ", 2);
+		fflush(stderr);
+		ft_putstr_fd(*cmd, 2);
+		fflush(stderr);
+		ft_putchar_fd('\n', 2);
+		fflush(stderr);
+	}
+	// wait(&status);
 	attach_fg_grp();
 	if (*g_sh->jobs->shared_mem_idx_ptr < JOBS_MAX)
 		g_sh->jobs->shared_mem_ptr[(*g_sh->jobs->shared_mem_idx_ptr)++] = pid;
+	waitpid(pid, &status, WUNTRACED);
+		ft_putstr_fd("EXIT pid ", 2);
+		fflush(stderr);
+		ft_putnbr_fd(pid, 2);
+		fflush(stderr);
+		ft_putchar_fd('\n', 2);
+		fflush(stderr);
 	// int i = 0;
 		// ft_putstr_fd("\n", 2);
+		// fflush(stderr);
+		// ft_putstr_fd("---------------------------\n", 2);
+		// fflush(stderr);
 	// while (i < *g_sh->jobs->shared_mem_idx_ptr)
 	// {
 		// ft_putstr_fd("PID: ", 2);
-		// fflush(stdout);
+		// fflush(stderr);
 		// ft_putnbr_fd(g_sh->jobs->shared_mem_ptr[i], 2);
-		// fflush(stdout);
+		// fflush(stderr);
 		// ft_putstr_fd(" CMD: ", 2);
-		// fflush(stdout);
+		// fflush(stderr);
 		// ft_putstr_fd(*cmd, 2);
-		// fflush(stdout);
+		// fflush(stderr);
 		// ft_putstr_fd("\n", 2);
-		// fflush(stdout);
+		// fflush(stderr);
 		// ++i;
 	// }
+		// ft_putstr_fd("---------------------------\n", 2);
+		// fflush(stderr);
 		// ft_putstr_fd("\n", 2);
-		// fflush(stdout);
+		// fflush(stderr);
 	detach_fg_grp();
 	if (status & 0177)
 		ft_putchar('\n');
