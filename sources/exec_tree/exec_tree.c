@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/29 22:06:24 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/31 11:55:30 by mike_baru        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		exec_logicalop(((t_logicalop *)head), environ_cp, terminal, sh);
 	else if (head->type == AMPERSAND)
 	{
+		ft_printf("ampersand happens\n");
 		exec_tree((((t_ampersand *)head)->left), environ_cp, terminal, sh);
 		reset_fd(terminal);
 		exec_tree((((t_ampersand *)head)->right), environ_cp, terminal, sh);

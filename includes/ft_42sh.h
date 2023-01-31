@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/30 11:43:35 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/31 13:32:23 by mike_baru        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,26 @@ typedef struct s_job
 	char			*cmd;
 }				t_job;
 
+
+/*			FOREGROUND JOB NODES				*/
+typedef struct fg_node
+{
+    pid_t   gpid;
+    pid_t   *pid;
+    char    ***cmd;
+}   t_fgnode;
+
+/*			BACKGROUND JOB NODES				*/
+typedef struct bg_node
+{
+    pid_t           gpid;
+    pid_t           *pid;
+    char            ***cmd;
+    int             status;
+    int             index;
+    struct bg_node *next;
+}   t_bgnode;
+
 /*				SESSION STRUCT				*/
 typedef struct s_shell
 {
@@ -206,6 +226,8 @@ typedef struct s_shell
 	char			**tmp_env_key;
 	struct termios	orig_termios;
 	t_job			*jobs;
+    t_fgnode        fg_node;
+    t_bgnode        *bg_node;
 }				t_shell;
 
 /*					HEADER					*/
