@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   reset_fgnode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:26:45 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/01 10:50:09 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/02/01 18:38:44 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void	reset_cmd(char ****cmd)
+void	reset_cmd(char ****cmd)
 {
 	char	***tofree;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 15:25:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:40:06 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,21 +203,22 @@ typedef struct s_job
 /*			FOREGROUND JOB NODES				*/
 typedef struct s_fg_job
 {
-    pid_t   gpid;
-    pid_t   *pid;
-    char    ***cmd;
-}   t_fg_job;
+	pid_t	gpid;
+	pid_t	*pid;
+	char	***cmd;
+}			t_fg_job;
 
 /*			BACKGROUND JOB NODES				*/
 typedef struct s_bg_jobs
 {
-    pid_t           gpid;
-    pid_t           *pid;
-    char            ***cmd;
-    int             status;
-    int             index;
-    struct s_bg_jobs *next;
-}   t_bg_jobs;
+	pid_t				gpid;
+	pid_t				*pid;
+	char				***cmd;
+	int					status;
+	int					index;
+	struct s_bg_jobs	*prev;
+	struct s_bg_jobs	*next;
+}						t_bg_jobs;
 
 /*				PIPE STRUCT					*/
 typedef struct s_pipe
@@ -230,20 +231,22 @@ typedef struct s_shell
 {
 	pid_t			pgid;
 	t_term			term[1];
+	int				process_queue[256];
 	struct termios	orig_termios;
 	t_hash			**ht;
 	t_treenode		*head;
 	t_token			*tokens;
 	t_job			*jobs;
 	t_pipe			*pipe;
+	t_fg_job		fg_node[1];
+	t_bg_jobs		*bg_node;
 	char			**intr_vars;
 	char			**env;
 	char			**tmp_env_key;
 	char			*line;
 	char			*terminal;
+	int				process_count;
 	int				exit_stat;
-    t_fg_job        fg_node[1];
-   	t_bg_jobs       *bg_node;
 	bool			ampersand;
 }				t_shell;
 
@@ -507,5 +510,8 @@ int				ft_isseparator(char c);
 void			display_process_node(t_bg_jobs  *job);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
+
+void	bg_node_delete(t_shell *sh, t_bg_jobs **curr);
+void	reset_cmd(char ****cmd);
 
 #endif

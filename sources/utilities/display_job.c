@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_job.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:05:12 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 15:33:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:16:59 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,32 @@ static void	display_state(int status)
 		ft_printf("%2s%-24s", "", "Running");
 }
 
-void	display_process_node(t_bg_jobs  *job)
+static void	print_queue(int index)
 {
-    char    ***cmd;
+	if (g_sh->process_queue[0] == index)
+		ft_putchar('+');
+	else if (g_sh->process_queue[1] == index)
+		ft_putchar('-');
+	else
+		ft_putchar(' ');
+}
 
-    cmd = NULL;  
+void	display_process_node(t_bg_jobs *job)
+{
+	char	***cmd;
+
+	cmd = NULL;
 	if (job)
 	{
 		ft_printf("[%d]", job->index + 1);
+		print_queue(job->index);
 		display_state(job->status);
-        cmd = job->cmd;
-        while (*cmd)
-            ft_print_dbl_array(*(cmd++));
+		cmd = job->cmd;
+		while (*cmd)
+			ft_print_dbl_array(*(cmd++));
 		ft_printf("\n");
 	}
+	if (job->status == DONE)
+		bg_node_delete(g_sh, &job);
+
 }

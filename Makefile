@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 15:26:28 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/01 18:18:38 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -209,6 +209,7 @@ FILES			= \
 				$(JOBS)jobs_detach_fg_grp \
 				$(JOBS)jobs_reset_fg_grp \
 				$(JOBS_UTILS)append_pid_arr \
+				$(JOBS_UTILS)bg_node_delete \
 				$(JOBS_UTILS)append_cmd_arr \
 				$(JOBS_UTILS)dup_dbl_ptr \
 				$(JOBS_UTILS)reset_fgnode \
