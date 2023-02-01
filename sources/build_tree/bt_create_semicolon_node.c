@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_semicolon_node.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:43:28 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/28 16:59:54 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:09:46 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	next_semicolon_or_ampersand(t_token *tokens, int i_tok, int end)
 	return (next_ampersand);
 }
 
-static int init_values(int next_semi_or_amp,
+static int	init_values(int next_semi_or_amp,
 		t_token *tokens, int i_tok, t_treenode **semi_or_amp)
 {
 	int	type;
