@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 10:43:28 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/01 12:50:00 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -273,6 +273,7 @@ FILES			= \
 				$(MAIN)reset_fd \
 				$(PARAM_FORM)add_var_to_list \
 				$(PARAM_FORM)parameter_format \
+				$(PARAM_FORM)retokenize \
 				$(PARAM_FORM)substitute_or_create \
 				$(SIGNALS)handler_signal_exec \
 				$(SIGNALS)handler_signal_keyboard \

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 10:23:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:51:38 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,9 +420,9 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 
 /*				PARAM_FORM					*/
 void			add_var_to_list(t_shell *sh, char *var, char *subst);
-int				param_format(t_shell *sh, char **cmd);
+char			*retokenize(char *subst, int *i);
+int				param_format(char **cmd);
 char			*substitute_or_create(t_shell *sh, char *cmd, int *ret);
-
 
 /*			  		 HASH					*/
 int				ft_hash(t_shell *sh, char **cmd);

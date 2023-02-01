@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/01 10:52:14 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:51:10 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,44 +101,6 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 			expanded = ft_strnew(1);
 	}
 	return (expanded);
-}
-
-char	*retokenize(t_shell *sh, char *subst, int *i)
-{
-	char 	*trimmed;
-	int		k;
-	int		j;
-	int		open;
-	char	*fresh;
-
-	k = 0;
-	j = 0;
-	open = 0;
-	(void)sh;
-	trimmed = ft_strtrim(subst);
-	fresh = ft_strnew(ft_strlen(subst));
-	while (trimmed[*i])
-	{
-		fresh[k++] = trimmed[(*i)++];
-		if (fresh[0] == '$')
-		{
-			if (trimmed[*i] == '{')
-				open += 1;
-		}
-		if (trimmed[*i] == '}')
-		{
-			open -= 1;
-			if (open == 0)
-			{
-				fresh[k++] = trimmed[(*i)++];
-				break ;
-			}
-		}
-		if (trimmed[*i] == '$' && !open)
-			break ;
-	}
-	ft_strdel(&trimmed);
-	return (fresh);
 }
 
 int	format_mode(char op)
