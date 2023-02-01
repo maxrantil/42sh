@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/01 12:55:13 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:02:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,6 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 		pid = fork_wrap();
 		if (pid)
 			update_fg_job(g_sh, pid, args);
-		if (pid == -1)
-			ft_err_print(NULL, NULL, "Fork failed", 2);
 		if (pid == 0)
 		{
 			ft_signal_dfl();
