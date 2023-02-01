@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/30 11:57:26 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 08:46:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void	shell_end_cycle(t_shell *sh)
 	reset_fd(sh->terminal);
 	ft_reset_tmp_env(sh);
 	check_hash(sh);
+    // reset_fgnode(sh);
 	// detach_and_remove();
 }

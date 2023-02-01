@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 20:44:34 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 08:48:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static int	print_fg_node(t_shell *sh)
 
 	ft_printf("gpid %d\n", sh->fg_node->gpid);
 	tmp = sh->fg_node->pid;
-	while (*tmp)
+	while (tmp && *tmp)
 		ft_printf("pid: %d\n", *(tmp++));
 	ptr = sh->fg_node->cmd;
-	while (*ptr)
+	while (ptr && *ptr)
 	{
 		dbl = *ptr;
 		while (*dbl)
@@ -33,6 +33,7 @@ static int	print_fg_node(t_shell *sh)
         }
         ptr++;
 	}
+	reset_fgnode(sh);
 	return (0);
 }
 
