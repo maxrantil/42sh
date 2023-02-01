@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:05:12 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 17:32:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 17:57:36 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ static void	display_state(int status)
 		ft_printf("%2s%-24s", "", "Running");
 }
 
+static void	print_queue(int index)
+{
+	if (g_sh->process_queue[0] == index)
+		ft_putchar('+');
+	else if (g_sh->process_queue[1] == index)
+		ft_putchar('-');
+	else
+		ft_putchar(' ');
+}
+
 void	display_process_node(t_bg_jobs *job)
 {
 	char	***cmd;
@@ -36,12 +46,7 @@ void	display_process_node(t_bg_jobs *job)
 	if (job)
 	{
 		ft_printf("[%d]", job->index + 1);
-		if (g_sh->process_queue[0] == job->index)
-			ft_putchar('+');
-		else if (g_sh->process_queue[1] == job->index)
-			ft_putchar('-');
-		else
-			ft_putchar(' ');
+		print_queue(job->index);
 		display_state(job->status);
 		cmd = job->cmd;
 		while (*cmd)

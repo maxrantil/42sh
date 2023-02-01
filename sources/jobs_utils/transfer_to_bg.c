@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/01 17:20:43 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 18:00:28 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,21 @@ void	transfer_to_bg(t_shell *sh, int status)
 {
 	t_bg_jobs	*job;
 
-	sh->process_count++;
-	if (!sh->bg_node)
+	if (++sh->process_count < JOBS_MAX)
 	{
-		sh->bg_node = init_bg_node(sh, status, 0, NULL);
+		if (!sh->bg_node)
+		{
+			sh->bg_node = init_bg_node(sh, status, 0, NULL);
+			return ;
+		}
+		job = sh->bg_node;
+		while (job->next)
+			job = job->next;
+		job->next = init_bg_node(sh, status, job->index + 1, job);
+	}
+	else
+	{
+		ft_putendl_fd("42sh: too many jobs\n", 2);
 		return ;
 	}
-	job = sh->bg_node;
-	while (job->next)
-		job = job->next;
-	job->next = init_bg_node(sh, status, job->index + 1, job);
 }
