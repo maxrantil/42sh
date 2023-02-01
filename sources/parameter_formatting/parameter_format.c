@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/31 20:43:54 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:43:33 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,14 +190,14 @@ char *get_flag(char *cmd)
 	return (NULL);
 }
 
-static int is_good_var(char *var)
-{
-	if ((var[1] && !ft_isalpha(var[1])) 
-		|| (!ft_isalpha(var[1]) && var[1] != '_')
-		|| (!ft_isalpha(var[1]) && var[1] != '!'))
-		return (-1);
-	return (1);
-}
+// static int is_good_var(char *var)
+// {
+// 	if ((var[1] && !ft_isalpha(var[1])) 
+// 		|| (!ft_isalpha(var[1]) && var[1] != '_')
+// 		|| (!ft_isalpha(var[1]) && var[1] != '!'))
+// 		return (-1);
+// 	return (1);
+// }
 
 int	param_format(t_shell *sh, char **cmd)
 {
@@ -259,17 +259,29 @@ int	param_format(t_shell *sh, char **cmd)
 			k = 0;
 			while (list[k])
 			{
-				if (ft_strnequ(list[k], "${", 2))
+				
+				if (ft_strnequ(list[k], "${", 2) && op == ':')
 					expanded = ft_strjoin(expanded, substitute_or_create(sh, list[k++], &ret));
+				else if ((ft_strnequ(list[k], "${", 2) && op == '%')
+					|| (ft_strnequ(list[k], "${", 2) && op == '#'))
+					expanded = ft_strjoin(expanded, search_from_var(sh, list[k++], &ret));
 				else
 					expanded = ft_strjoin(expanded, list[k++]);
+				
 				if (ret == -1)
 					return (1);
 			}
 			ft_strdel(&subs);
 			subs = ft_strjoin(var, expanded);
 			ft_strdel(&expanded);
-			expanded = substitute_or_create(sh, subs, &ret);
+			if (op == ':')
+				expanded = substitute_or_create(sh, subs, &ret);
+			else if (flag[0] == '%' || flag[0] == '#')
+			{
+				ft_printf("%s\n", subs);
+				expanded = search_from_var(sh, subs, &ret);
+			}
+				
 			if (!expanded || !*expanded)
 			{
 				ft_printf("42sh: %s: bad substitution\n", cmd[i]);
@@ -281,7 +293,6 @@ int	param_format(t_shell *sh, char **cmd)
 			ft_strdel(&subs);
 			ft_strdel(&expanded);
 			ft_strdel(&strip);
-			
 		}
 	}
 	return (0);

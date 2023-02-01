@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 09:39:07 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:20:57 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,6 +409,7 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 /*				PARAM_FORM					*/
 int				param_format(t_shell *sh, char **cmd);
 char			*substitute_or_create(t_shell *sh, char *cmd, int *ret);
+char			*search_from_var(t_shell *sh, char *cmd, int *ret);
 
 
 /*			  		 HASH					*/
