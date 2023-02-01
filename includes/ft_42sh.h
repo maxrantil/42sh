@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 11:51:45 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 15:24:26 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,7 @@ int				check_if_user_exe(char *cmd, char **dest);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
 
 /*					EXPANSION				*/
+void			ft_catinate_expansion(t_shell *sh, char **splits, char **buff);
 void			ft_expansion(t_shell *sh, char **cmd);
 char			*ft_expansion_dollar(t_shell *sh, char *str);
 char			*ft_expansion_tilde(t_shell *sh, char *str);
