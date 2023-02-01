@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 02:25:47 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/01 03:34:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,13 +196,6 @@ typedef struct s_job
 typedef struct s_pipe
 {
 	int		pipefd[2];
-	int		pipefd2[2];
-	int		stdoutcpy;
-	int		stdincpy;
-	int		write_to_pipe;
-	int		read_from_pipe;
-	int		write_to_pipe2;
-	int		read_from_pipe2;
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
