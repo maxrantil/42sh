@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 14:45:22 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:25:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,7 @@ int				ft_env_append(t_shell *sh, char **arg);
 int				ft_env_replace(t_shell *sh, char *envn, char **tmp_env);
 void			ft_dir_change(t_shell *sh);
 
+
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sh, char ***cmd);
 int				ft_cd(t_shell *sh, char **cmd);
@@ -310,6 +311,7 @@ int				ft_echo(t_shell *sh, char **cmd);
 int				ft_set(t_shell *sh, char ***cmd);
 void			ft_exit(t_shell *sh, int status);
 int				ft_export(t_shell *sh, char **cmd);
+int				ft_jobs(t_shell *sh);
 int				ft_unset(t_shell *sh, char **cmd);
 
 /*					EXEC_TREE			*/
@@ -502,6 +504,8 @@ int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);
 int				ft_isseparator(char c);
+void			display_process_node(t_bg_jobs  *job);
 void			ft_env_last_command(t_shell *sh, char **cmd);
+void			ft_print_dbl_array(char **cmd);
 
 #endif

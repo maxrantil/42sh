@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 14:27:18 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/01 15:26:28 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,6 +126,7 @@ FILES			= \
 				$(BUILTIN)ft_set \
 				$(BUILTIN)ft_exit \
 				$(BUILTIN)ft_export \
+				$(BUILTIN)ft_jobs \
 				$(BUILTIN)ft_unset \
 				$(EXECTREE)exe_fail \
 				$(EXECTREE)exec_tree \
@@ -315,8 +316,10 @@ FILES			= \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
+				$(UTILITIES)display_job \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
+				$(UTILITIES)ft_print_dbl_array \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
