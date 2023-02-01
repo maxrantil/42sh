@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/31 16:13:22 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:27:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		return ;
 	if (head->type == SEMICOLON)
 	{
-		reset_fg_grp();
+		// reset_fg_grp();
 		exec_tree((((t_semicolon *)head)->left), environ_cp, terminal, sh);
-		delete_fg_group_shared_memory();
+		// delete_fg_group_shared_memory();
 		reset_fd(terminal);
 		if (head && ((t_semicolon *)head)->right)
 			exec_tree((((t_semicolon *)head)->right), environ_cp, terminal, sh);
@@ -36,13 +36,12 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 	else if (head->type == CLOSEFD)
 		exec_closefd((t_closefd *)head, environ_cp, terminal, sh);
 	else if (head->type == CMD)
-		exec_cmd(((t_cmdnode *)head)->cmd, environ_cp, sh);
+		exec_cmd(((t_cmdnode *)head), environ_cp, sh);
 	else if (head->type == LOGICAL_AND || head->type == LOGICAL_OR)
 		exec_logicalop(((t_logicalop *)head), environ_cp, terminal, sh);
 	else if (head->type == AMPERSAND)
 	{
 		sh->ampersand = true;
-		ft_printf("ampersand happens\n");
 		exec_tree((((t_ampersand *)head)->left), environ_cp, terminal, sh);
 		sh->ampersand = false;
 		reset_fd(terminal);

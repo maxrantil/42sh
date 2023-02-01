@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/01 08:42:44 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:30:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,45 +89,85 @@ static void    put_to_bg(int pid, int status/* , char **cmd */)
     waitpid(pid, &status, WNOHANG);
 }
 
-static int    ft_execve(char **cmd, char **args, int access, char ***environ_cp)
-{
-    int        status;
-    int        pid;
+// static int    ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
+// {
+//     int        status;
+//     int        pid;
+// 	// char	**args;
 
-    status = 0;
-    pid = -1;
-    if (access)
-    {
-        pid = fork_wrap();
-		// Creation of fg_node happens here
-		// update_fg_job(g_sh, pid, cmd);
+//     status = 0;
+//     pid = -1;
+//     if (access)
+//     {
+//         pid = fork_wrap();
+// 		// Creation of fg_node happens here
+// 		// update_fg_job(g_sh, pid, cmd);
+// 		if (pid)
+// 			update_fg_job(g_sh, pid, cmd);
+//         if (pid == -1)
+//             ft_err_print(NULL, NULL, "Fork failed", 2);
+//         if (pid == 0)
+//         {
+//             if (!cmd || execve(*cmd, cmd, *environ_cp) < 0)
+//                 exe_fail(cmd, cmd, environ_cp);
+//             exit (1);
+//         }
+//     }
+//     if (g_sh->ampersand)
+//         put_to_bg(pid, status/* , cmd */);
+//     else if (!g_sh->ampersand)
+//         waitpid(pid, &status, WUNTRACED);
+//     if (status & 0177)
+//         ft_putchar('\n');
+//     return (status);
+// }
+
+static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
+{
+	int		status;
+	int		pid;
+	char	**args;
+
+	args = head->cmd;
+	status = 0;
+	pid = -1;
+	if (access)
+	{
+		pid = fork_wrap();
 		if (pid)
 			update_fg_job(g_sh, pid, args);
-        if (pid == -1)
-            ft_err_print(NULL, NULL, "Fork failed", 2);
-        if (pid == 0)
-        {
-            if (!cmd || execve(*cmd, args, *environ_cp) < 0)
-                exe_fail(cmd, args, environ_cp);
-            exit (1);
-        }
-    }
-    if (g_sh->ampersand)
+		if (pid == -1)
+			ft_err_print(NULL, NULL, "Fork failed", 2);
+		if (pid == 0)
+		{
+			if (g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
+			{
+				ft_err_print("dup2", NULL, "failed", 2);
+				exit (1);
+			}
+			if (!cmd || execve(*cmd, args, *environ_cp) < 0)
+				exe_fail(cmd, args, environ_cp);
+			exit (1);
+		}
+	}
+	if (g_sh->ampersand)
         put_to_bg(pid, status/* , cmd */);
-    else if (!g_sh->ampersand)
+    else
         waitpid(pid, &status, WUNTRACED);
-    if (status & 0177)
-        ft_putchar('\n');
-    return (status);
+	if (status & 0177)
+		ft_putchar('\n');
+	return (status);
 }
 
-void	exec_cmd(char **args, char ***environ_cp, t_shell *sh)
+void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;
 	int		access;
 	int		status;
 	int		hash;
+	char 	**args;
 
+	args = head->cmd;
 	if (!args[0])
 		return ;
 	if (sh->term->fc_flag)
@@ -139,7 +179,7 @@ void	exec_cmd(char **args, char ***environ_cp, t_shell *sh)
 	if (!hash && !check_if_user_exe(args[0], &cmd))
 		cmd = search_bin(args[0], *environ_cp);
 	access = check_access(cmd, args, sh);
-	status = ft_execve(&cmd, args, access, environ_cp);
+	status = ft_execve(&cmd, head, access, environ_cp);
 	if (access)
 	{
 		sh->exit_stat = status >> 8;

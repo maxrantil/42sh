@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   append_cmd_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:49:28 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/01 08:45:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:59:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static size_t   array_len(void **arr)
+static size_t   array_len(char ***arr)
 {
     size_t len;
 
     len = 0;
     while (*(arr + len))
-	{
         len++;
-	}
     return (len);
 }
 
@@ -39,7 +37,7 @@ static char **dup_dbl_pointer(char **cmd)
 	char	**dup_arr;
 
 	// print_dbl_arr(cmd);
-	len = array_len((void **)cmd);
+	len = ft_arrlen(cmd);
 	dup_arr = (char **)ft_memalloc(sizeof(char *) * (len + 1));
 	dup_arr[len] = NULL;
 	while (--len >= 0)
@@ -52,12 +50,11 @@ static char ***realloc_cmd(char ***cmd_arr, char **cmd)
 	char	***new_arr;
 	int		len;
 
-	len = array_len((void **)&cmd_arr);
-    ft_printf("len : %d\n", len);
+	len = array_len(cmd_arr);
 	new_arr = (char ***)ft_memalloc(sizeof(char **) * (len + 2));
 	new_arr[len + 1] = NULL;
-	new_arr[len--] = dup_dbl_pointer(cmd);	
-	while (len)
+	new_arr[len] = dup_dbl_pointer(cmd);	
+	while (--len >= 0)
 		new_arr[len] = cmd_arr[len];
 	ft_memdel((void **)&cmd_arr);
     return (new_arr);

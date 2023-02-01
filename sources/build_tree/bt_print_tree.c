@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_print_tree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 20:22:15 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/28 14:34:17 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/31 15:18:08 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	split_print_tree_again(t_treenode *root, int lvl)
 		rec_print_tree(((t_aggregate *)root)->cmd, lvl);
 	else if (root->type == AMPERSAND)
 	{
-		rec_print_tree(((t_ampersand *)root)->left, lvl);
+		rec_print_tree(((t_ampersand *)root)->right, lvl);
 		print_spaces(lvl);
 		check_type(root);
 		ft_printf("\n");
-		rec_print_tree(((t_ampersand *)root)->right, lvl);
+		rec_print_tree(((t_ampersand *)root)->left, lvl);
 	}
 	else if (root->type == CMD)
 	{
@@ -35,19 +35,19 @@ void	split_print_tree(t_treenode *root, int lvl)
 {
 	if (root->type == LOGICAL_AND || root->type == LOGICAL_OR)
 	{
-		rec_print_tree(((t_logicalop *)root)->left, lvl);
+		rec_print_tree(((t_logicalop *)root)->right, lvl);
 		print_spaces(lvl);
 		check_type(root);
 		ft_printf("\n");
-		rec_print_tree(((t_logicalop *)root)->right, lvl);
+		rec_print_tree(((t_logicalop *)root)->left, lvl);
 	}
 	else if (root->type == SEMICOLON)
 	{
-		rec_print_tree(((t_semicolon *)root)->left, lvl);
+		rec_print_tree(((t_semicolon *)root)->right, lvl);
 		print_spaces(lvl);
 		check_type(root);
 		ft_printf("\n");
-		rec_print_tree(((t_semicolon *)root)->right, lvl);
+		rec_print_tree(((t_semicolon *)root)->left, lvl);
 	}
 	split_print_tree_again(root, lvl);
 }
@@ -59,11 +59,11 @@ void	rec_print_tree(t_treenode *root, int lvl)
 	lvl += COUNT;
 	if (root->type == PIPE)
 	{
-		rec_print_tree(((t_pipenode *)root)->left, lvl);
+		rec_print_tree(((t_pipenode *)root)->right, lvl);
 		print_spaces(lvl);
 		check_type(root);
 		ft_printf("\n");
-		rec_print_tree(((t_pipenode *)root)->right, lvl);
+		rec_print_tree(((t_pipenode *)root)->left, lvl);
 	}
 	else if (root->type == REDIR)
 	{

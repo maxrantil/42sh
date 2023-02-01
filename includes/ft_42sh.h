@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 18:16:43 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/02/01 11:40:37 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_cmdnode
 {
 	int		type;
 	char	**cmd;
+
 }	t_cmdnode;
 
 /*					CLOSEFD STRUCT			*/
@@ -218,67 +219,35 @@ typedef struct s_bg_jobs
     struct bg_node *next;
 }   t_bg_jobs;
 
+/*				PIPE STRUCT					*/
+typedef struct s_pipe
+{
+	int		pipefd[2];
+}			t_pipe;
+
 /*				SESSION STRUCT				*/
 typedef struct s_shell
 {
-	char			*line;
-	t_treenode		*head;
 	t_term			term[1];
-	char			**env;
-	char			**intr_vars;
-	t_hash			**ht;
-	t_token			*tokens;
-	int				exit_stat;
-	char			*terminal;
-	char			**tmp_env_key;
 	struct termios	orig_termios;
+	t_hash			**ht;
+	t_treenode		*head;
+	t_token			*tokens;
 	t_job			*jobs;
+	t_pipe			*pipe;
+	char			**intr_vars;
+	char			**env;
+	char			**tmp_env_key;
+	char			*line;
+	char			*terminal;
+	int				exit_stat;
     t_fg_job        fg_node[1];
    	t_bg_jobs       *bg_node;
 	bool			ampersand;
 }				t_shell;
 
-/*					HEADER					*/
+/*					BANNER					*/
 void			banner_print(void);
-
-/*				   MAIN LOOP				*/
-void			shell_end_cycle(t_shell *sh);
-void			reset_fd(char *terminal);
-struct termios	ft_raw_enable(void);
-int				ft_getent(void);
-void			ft_raw_disable(struct termios orig_termios);
-
-/*				  INITIALIZE				*/
-void			ft_init_signals(void);
-void			init_window_size(t_term *term);
-void			ft_env_init(t_shell *sh);
-void			ft_session_init(t_shell *sh);
-t_job			*ft_init_jobs(void);
-
-/*					LEXER					*/
-char			*ft_lexer(t_term *t);
-char			*ft_heredoc(t_term *t, char *str);
-
-/*					TOKENIZER				*/
-t_token			*chop_line(char *line, t_token *args, size_t pointer_n);
-char			*find_argument(char *line, int *i, int *start, int *end);
-void			init_token(char *c, t_token *token, char *line, int cur);
-void			track_used_space(t_token **args, size_t current_pointer_n, \
-size_t *max_pointer_n);
-int				test_if_error(char *str);
-char			*tok_if_redir(char *line, int *i, int *start, int *end);
-int				redir_error(char *str);
-int				test_if_error(char *str);
-char			*tok_if_logical(char *line, int *i, int *start, int *end);
-void			print_tokens(t_token *tokens);
-int				validate_tokens(t_token *tokens);
-
-/*					TOKENIZER UTILS			*/
-int				is_semi_or_amp(char c);
-void			free_tokens(t_token **tokens);
-int				is_nl(char c);
-int				is_seperator(char c);
-void			tok_quote_flag(char *line, int *end, char *quote_flag);
 
 /*					BUILDTREE				*/
 t_treenode		*build_tree(t_token **tokens);
@@ -326,26 +295,26 @@ void			check_type(t_treenode *root);
 int				next_semicolon_or_ampersand(t_token *tokens, \
 int i_tok, int end);
 
-/*					EXPANSION				*/
-void			ft_expansion(t_shell *sh, char **cmd);
-char			*ft_expansion_dollar(t_shell *sh, char *str);
-char			*ft_expansion_tilde(t_shell *sh, char *str);
-char			*ft_expansion_excla(char *str, int i);
-void			ft_quote_blash_removal(char *buff);
+/*				BUILTIN UTILITIES			*/
+int				ft_env_temp(t_shell *sh, char **cmd, int i);
+void			ft_env_remove(t_shell *sh, char *env_to_clean);
+int				ft_env_append(t_shell *sh, char **arg);
+int				ft_env_replace(t_shell *sh, char *envn, char **tmp_env);
+void			ft_dir_change(t_shell *sh);
 
-/*					UTILITIES				*/
-int				ft_cd_addr_check(char *file);
-char			**ft_env_get(t_shell *sh, char *key);
-int				increment_whitespace(char **line);
-void			free_node(t_treenode *head);
-int				ft_err_print(char *file, char *cmd, char *msg, int fd);
-int				ft_isseparator(char c);
-void			ft_env_last_command(t_shell *sh, char **cmd);
+/*					BUILTIN					*/
+int				ft_builtins(t_shell *sh, char ***cmd);
+int				ft_cd(t_shell *sh, char **cmd);
+int				ft_echo(t_shell *sh, char **cmd);
+int				ft_set(t_shell *sh, char ***cmd);
+void			ft_exit(t_shell *sh, int status);
+int				ft_export(t_shell *sh, char **cmd);
+int				ft_unset(t_shell *sh, char **cmd);
 
-/*					EXECUTE_TREE			*/
+/*					EXEC_TREE			*/
 void			exec_tree(t_treenode *head, char ***environ_cp, \
 char *terminal, t_shell *sh);
-void			exec_cmd(char **args, char ***environ_cp, t_shell *sh);
+void			exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh);
 void			exec_pipe(t_pipenode *pipenode, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_redir(t_redir *node, char ***environ_cp, \
@@ -367,16 +336,33 @@ int				check_access(char *cmd, char **args, t_shell *sh);
 int				check_if_user_exe(char *cmd, char **dest);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
 
-/*					BUILTIN					*/
-int				ft_builtins(t_shell *sh, char ***cmd);
-int				ft_cd(t_shell *sh, char **cmd);
-int				ft_echo(t_shell *sh, char **cmd);
-int				ft_set(t_shell *sh, char ***cmd);
-void			ft_exit(t_shell *sh, int status);
-int				ft_export(t_shell *sh, char **cmd);
-int				ft_unset(t_shell *sh, char **cmd);
+/*					EXPANSION				*/
+void			ft_expansion(t_shell *sh, char **cmd);
+char			*ft_expansion_dollar(t_shell *sh, char *str);
+char			*ft_expansion_tilde(t_shell *sh, char *str);
+char			*ft_expansion_excla(char *str, int i);
+void			ft_quote_blash_removal(char *buff);
 
-/*				BUILTIN TEST				*/
+/*			  		 FC						*/
+void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
+int				fc_check_flags(t_shell *sh, char ***cmd);
+int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
+t_fc *fc, char ***cmd);
+int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_get_start_for_lists(t_shell *sh, char ***cmd);
+int				fc_list_flags(t_shell *sh, char ***cmd);
+int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
+void			fc_open_editor(char *editor, t_shell *sh, \
+t_fc *fc, char ***cmd);
+void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, \
+char ***cmd, int y);
+int				fc_print_error(int check);
+int				fc_s_change(t_shell *sh, char ***cmd);
+int				fc_s_flag(t_shell *sh, char ***cmd);
+void			fc_update_history(t_shell *sh, char ***cmd);
+int				ft_fc(t_shell *sh, char ***cmd);
+
+/*				FT_TEST				*/
 int				ft_test_b(char **arg);
 int				ft_test_c(char **arg);
 int				ft_test_capital_l(char **arg);
@@ -409,18 +395,64 @@ int				ft_test_x(char **arg);
 int				ft_test_z(char **arg);
 int				ft_test(t_shell *sh, char **cmd);
 
-/*				BUILTIN UTILITIES			*/
-int				ft_env_temp(t_shell *sh, char **cmd, int i);
-void			ft_env_remove(t_shell *sh, char *env_to_clean);
-int				ft_env_append(t_shell *sh, char **arg);
-int				ft_env_replace(t_shell *sh, char *envn, char **tmp_env);
-void			ft_dir_change(t_shell *sh);
+/*			  		 HASH					*/
+int				ft_hash(t_shell *sh, char **cmd);
+char			*hash_check(t_shell *sh, char *program, int *hash);
+void			hash_clear(t_hash **ht);
+void			hash_free(t_hash **ht);
+size_t			hash_function(char *program);
+void			hash_init_struct(t_shell *sh, char *str, int hits);
+void			hash_init(t_shell *sh);
+void			hash_print(t_hash **ht);
 
 /*			  		 HISTORY				*/
 int				ft_history(t_term *t, char **cmd);
 void			ft_history_get(t_term *t);
 int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);
+
+/*				  INITIALIZE				*/
+void			ft_init_signals(void);
+void			init_window_size(t_term *term);
+void			ft_env_init(t_shell *sh);
+void			ft_session_init(t_shell *sh);
+t_job			*ft_init_jobs(void);
+
+/*			  	INTERN VARIABLES			*/
+int				ft_variables(t_shell *sh, char ***cmd);
+int				add_var(t_shell *sh, char **cmd);
+int				is_var(char *cmd);
+int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
+char			**ft_var_get(t_shell *sh, char *key, int *count);
+
+/*					JOBS					*/
+void			attach_fg_grp(void);
+void			detach_fg_grp(void);
+void			reset_fg_grp(void);
+void			detach_and_remove(void);
+void			delete_fg_group_shared_memory(void);
+
+
+/*				  JOBS NEW					*/
+void	init_fgnode(t_shell *sh);
+void	append_pid_arr(t_fg_job *fg_node, pid_t pid);
+void	reset_fgnode(t_shell *sh);
+void	append_cmd_arr(t_fg_job *fg_node, char **cmd);
+void	update_fg_job(t_shell *sh, pid_t pid, char **cmd);
+void	set_process_group(t_shell *sh, pid_t pid);
+
+/*		KEYYBOARD HAS IT'S OWN H-FILE		*/
+
+/*					LEXER					*/
+char			*ft_lexer(t_term *t);
+char			*ft_heredoc(t_term *t, char *str);
+
+/*				   MAIN 					*/
+void			shell_end_cycle(t_shell *sh);
+void			reset_fd(char *terminal);
+
+/*				PARAM_FORM					*/
+int				param_format(t_shell *sh, char **cmd);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);
@@ -432,58 +464,39 @@ void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
 void			set_signal_search_history(void);
 
-/*			  		 FC						*/
-void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
-int				fc_check_flags(t_shell *sh, char ***cmd);
-int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
-t_fc *fc, char ***cmd);
-int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
-int				fc_get_start_for_lists(t_shell *sh, char ***cmd);
-int				fc_list_flags(t_shell *sh, char ***cmd);
-int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
-void			fc_open_editor(char *editor, t_shell *sh, \
-t_fc *fc, char ***cmd);
-void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, \
-char ***cmd, int y);
-int				fc_print_error(int check);
-int				fc_s_change(t_shell *sh, char ***cmd);
-int				fc_s_flag(t_shell *sh, char ***cmd);
-void			fc_update_history(t_shell *sh, char ***cmd);
-int				ft_fc(t_shell *sh, char ***cmd);
+/*					TERMIOS				*/
+int				ft_getent(void);
+void			ft_raw_enable(t_shell *sh);
+void			ft_raw_disable(struct termios orig_termios);
 
-/*			  	INTERN VARIABLES			*/
-int				ft_variables(t_shell *sh, char ***cmd);
-int				add_var(t_shell *sh, char **cmd);
-int				is_var(char *cmd);
-int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
-char			**ft_var_get(t_shell *sh, char *key, int *count);
+/*					TOKENIZER				*/
+t_token			*chop_line(char *line, t_token *args, size_t pointer_n);
+char			*find_argument(char *line, int *i, int *start, int *end);
+void			init_token(char *c, t_token *token, char *line, int cur);
+void			track_used_space(t_token **args, size_t current_pointer_n, \
+size_t *max_pointer_n);
+int				test_if_error(char *str);
+char			*tok_if_redir(char *line, int *i, int *start, int *end);
+int				redir_error(char *str);
+int				test_if_error(char *str);
+char			*tok_if_logical(char *line, int *i, int *start, int *end);
+void			print_tokens(t_token *tokens);
+int				validate_tokens(t_token *tokens);
 
-/*				PARAM_FORM					*/
-int				param_format(t_shell *sh, char **cmd);
+/*					TOKENIZER UTILS			*/
+int				is_semi_or_amp(char c);
+void			free_tokens(t_token **tokens);
+int				is_nl(char c);
+int				is_seperator(char c);
+void			tok_quote_flag(char *line, int *end, char *quote_flag);
 
-/*			  		 HASH					*/
-int				ft_hash(t_shell *sh, char **cmd);
-char			*hash_check(t_shell *sh, char *program, int *hash);
-void			hash_clear(t_hash **ht);
-void			hash_free(t_hash **ht);
-size_t			hash_function(char *program);
-void			hash_init_struct(t_shell *sh, char *str, int hits);
-void			hash_init(t_shell *sh);
-void			hash_print(t_hash **ht);
-
-/*					JOBS					*/
-void			attach_fg_grp(void);
-void			detach_fg_grp(void);
-void			reset_fg_grp();
-void			detach_and_remove(void);
-void			delete_fg_group_shared_memory(void);
-
-
-/*				  JOBS NEW					*/
-void	init_fgnode(t_shell *sh);
-void	append_pid_arr(t_fg_job *fg_node, pid_t pid);
-void	reset_fgnode(t_shell *sh);
-void	append_cmd_arr(t_fg_job *fg_node, char **cmd);
-void	update_fg_job(t_shell *sh, pid_t pid, char **cmd);
+/*					UTILITIES				*/
+int				ft_cd_addr_check(char *file);
+char			**ft_env_get(t_shell *sh, char *key);
+int				increment_whitespace(char **line);
+void			free_node(t_treenode *head);
+int				ft_err_print(char *file, char *cmd, char *msg, int fd);
+int				ft_isseparator(char c);
+void			ft_env_last_command(t_shell *sh, char **cmd);
 
 #endif

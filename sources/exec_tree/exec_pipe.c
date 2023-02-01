@@ -6,11 +6,13 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/29 22:07:45 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/01 03:38:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+extern t_shell *g_sh;
 
 void	error_exit(char *msg)
 {
@@ -43,32 +45,18 @@ int	pipe_wrap(int pipefd[])
 	return (0);
 }
 
-void	exec_pipe(t_pipenode *pipenode,
+void	 exec_pipe(t_pipenode *pipenode,
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
-	int	pipefd[2];
-	int local;
-
-	if (pipe_wrap(pipefd))
+	if (pipe_wrap(sh->pipe->pipefd))
 		return ;
-	if ((local = fork_wrap()) == 0)
+	exec_tree(pipenode->left, environ_cp, terminal, sh);
+	if (dup2(sh->pipe->pipefd[0], STDIN_FILENO) < 0)
 	{
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		exec_tree(pipenode->left, environ_cp, terminal, sh);
+		ft_err_print("dup2", NULL, "failed", 2);
 		exit (1);
 	}
-	if ((local = fork_wrap()) == 0)
-	{
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		exec_tree(pipenode->right, environ_cp, terminal, sh);
-		exit (1);
-	}
-	close(pipefd[0]);
-	close(pipefd[1]);
-	wait(0);
-	wait(0);
+	close (sh->pipe->pipefd[1]);
+	sh->pipe->pipefd[1] = -1;
+	exec_tree(pipenode->right, environ_cp, terminal, sh);
 }
