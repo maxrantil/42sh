@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/01 11:30:51 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:55:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			ft_err_print(NULL, NULL, "Fork failed", 2);
 		if (pid == 0)
 		{
+			ft_signal_dfl();
 			if (g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
 			{
 				ft_err_print("dup2", NULL, "failed", 2);

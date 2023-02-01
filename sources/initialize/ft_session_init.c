@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 12:21:28 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:52:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_term		*g_t;
  */
 void	ft_session_init(t_shell *sh)
 {
+	set_signal_keyboard();
 	sh->pgid = getpid();
 	init_window_size(sh->term);
 	sh->ampersand = false;

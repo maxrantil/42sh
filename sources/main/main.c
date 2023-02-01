@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 12:43:08 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:52:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	main_loop(t_shell *sh)
 	while (status)
 	{
 		// ft_init_signals();
-		set_signal_keyboard();
+		// set_signal_keyboard();
 		ft_raw_enable(sh);
 		if (ft_keyboard(sh->term) == 1)
 		{
