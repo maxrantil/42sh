@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/01 13:02:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:55:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ static void	print_args(char **args)
 
 static void    put_to_bg(int pid, int status/* , char **cmd */)
 {
+	transfer_to_bg(g_sh, RUNNING);
+	reset_fgnode(g_sh);
     waitpid(pid, &status, WNOHANG);
 }
 

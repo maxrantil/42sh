@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/01 14:49:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:55:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ static t_bg_jobs	*init_bg_node(t_shell *sh, int status, int index)
 
 void	transfer_to_bg(t_shell *sh, int status)
 {
+	t_bg_jobs *job;
+	
 	if (!sh->bg_node)
 	{
 		sh->bg_node = init_bg_node(sh, status, 0);
 		return ;
 	}
-	// while (sh->bg_node)
-	// 	sh->bg_node = g_sh->bg_node->next;
-	// sh->bg_node->next = init_bg_node(pid, status, g_sh->bg_node->index + 1);
+	job = sh->bg_node;
+	while (job->next)
+		job = job->next;
+	job->next = init_bg_node(sh, status, job->index + 1);
 }

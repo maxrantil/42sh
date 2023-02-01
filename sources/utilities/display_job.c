@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:05:12 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 15:13:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 15:33:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	display_process_node(t_bg_jobs  *job)
     cmd = NULL;  
 	if (job)
 	{
-		ft_printf("[%d]", job->index);
+		ft_printf("[%d]", job->index + 1);
 		display_state(job->status);
         cmd = job->cmd;
         while (*cmd)
