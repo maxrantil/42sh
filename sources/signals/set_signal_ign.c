@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:03:12 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 15:03:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:27:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	ft_signal_ign(void)
 	sig = 1;
 	while (sig < 32)
 		signal(sig++, SIG_IGN);
+	signal(SIGCHLD, handler_sigchild);
 }

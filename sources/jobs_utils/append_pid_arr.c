@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:12:46 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/01 11:59:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:03:12 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ static pid_t	*realloc_pid(pid_t **pid_arr, pid_t pid)
 	new_arr[len + 1] = 0;
 	new_arr[len] = pid;	
 	while (--len >= 0)
-	{
 		new_arr[len] = (*pid_arr)[len];
-		ft_printf("new_arr + len -> %d\n", new_arr[len]);
-	}
 	ft_memdel((void **)&(*pid_arr));
 	return (new_arr);
 }
@@ -64,14 +61,6 @@ void	append_pid_arr(t_fg_job *fg_node, pid_t pid)
 	if (!fg_node->pid)
         fg_node->pid = alloc_pid(pid);
 	else
-	{
 		fg_node->pid = realloc_pid(&fg_node->pid, pid);
-		// pid_t *tmp = fg_node->pid;
-
-		// while (*tmp)
-		// 	ft_printf("tmp %d'\n", *(tmp++));
-		// if (fg_node->pid)
-		// 	ft_printf("pid arr not empty\n");
-	}
 }
 

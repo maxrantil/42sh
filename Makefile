@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 11:46:57 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/01 12:16:18 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -285,6 +285,7 @@ FILES			= \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
 				$(PARAM_FORM)parameter_format \
+				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_exec \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/01 11:39:47 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:42:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ void	set_process_group(t_shell *sh, pid_t pid)
 	{
 		setpgid(pid, 0); // This sets up the pid as its own pgid
 		sh->fg_node->gpid = pid;
+		if (!sh->ampersand)
+		{
+			if (ioctl(STDIN_FILENO, TIOCSPGRP, &sh->fg_node->gpid) == -1)
+				exit (1); // this needs to be proper exit
+		}
 	}
 	else
-		setpgid(pid, sh->fg_node->gpid);
-	// Append pid to array of pids
-	// Append command to array of **cmd
+		setpgid(pid, sh->fg_node->gpid);	
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/31 18:07:00 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/02/01 12:21:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_term		*g_t;
  */
 void	ft_session_init(t_shell *sh)
 {
+	sh->pgid = getpid();
 	init_window_size(sh->term);
 	sh->ampersand = false;
 	g_sh = sh;

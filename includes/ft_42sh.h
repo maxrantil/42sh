@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 11:40:37 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:32:26 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include <sys/stat.h>
 # include <limits.h>
 # include <sys/shm.h>
+# include <signal.h>
 
 # if __gnu_linux__
 #  include <fcntl.h>
 # endif
 # if __linux__
-#  include <signal.h>
 #  include <wait.h>
 #  include <sys/types.h>
 #  include <sys/wait.h>
@@ -228,6 +228,7 @@ typedef struct s_pipe
 /*				SESSION STRUCT				*/
 typedef struct s_shell
 {
+	pid_t			pgid;
 	t_term			term[1];
 	struct termios	orig_termios;
 	t_hash			**ht;
@@ -463,6 +464,7 @@ void			set_signal_exec(void);
 void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
 void			set_signal_search_history(void);
+void 			handler_sigchild(int num);
 
 /*					TERMIOS				*/
 int				ft_getent(void);
