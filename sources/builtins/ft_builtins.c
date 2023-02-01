@@ -6,11 +6,67 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 12:58:19 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:47:03 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static int	print_fg_node(t_shell *sh)
+{
+	pid_t	*tmp;
+	char	***ptr;
+	char	**dbl;
+
+	ft_printf("gpid %d\n", sh->fg_node->gpid);
+	tmp = sh->fg_node->pid;
+	while (tmp && *tmp)
+		ft_printf("pid: %d\n", *(tmp++));
+	ptr = sh->fg_node->cmd;
+	while (ptr && *ptr)
+	{
+		dbl = *ptr;
+		while (*dbl)
+        {
+			ft_printf("cmd: %s\n", *dbl);
+            dbl++;
+        }
+        ptr++;
+	}
+	return (0);
+}
+
+static int	ft_jobs(t_shell *sh)
+{
+	t_bg_jobs *job;
+	pid_t	*tmp;
+	char	***ptr;
+	char	**dbl;
+
+	job = sh->bg_node;
+	while (job)
+	{
+		ft_printf("index %d\n", job->index);
+		ft_printf("status %d\n", job->status);
+		ft_printf("gpid %d\n", job->gpid);
+		tmp = job->pid;
+		while (tmp && *tmp)
+			ft_printf("pid: %d\n", *(tmp++));
+		ptr = job->cmd;
+		while (ptr && *ptr)
+		{
+			dbl = *ptr;
+			while (*dbl)
+			{
+				ft_printf("cmd: %s\n", *dbl);
+				dbl++;
+			}
+			ptr++;
+		}
+		job = job->next;
+	}	
+	return (0);
+}
 
 /**
  * It takes a session and a command, expands the command, and then checks if
@@ -53,6 +109,10 @@ int	ft_builtins(t_shell *sh, char ***cmd)
 			return (ft_hash(sh, *cmd));
 		else if (!ft_strcmp(**cmd, "exit"))
 			ft_exit(sh, 0);
+		else if (!ft_strcmp(**cmd, "fg"))
+			return (print_fg_node(sh));
+		else if (!ft_strcmp(**cmd, "jobs"))
+			return (ft_jobs(sh));
 	}
 	return (1);
 }

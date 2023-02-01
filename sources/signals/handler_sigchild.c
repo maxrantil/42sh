@@ -6,38 +6,13 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 12:58:49 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:50:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 extern t_shell	*g_sh;
-
-static int	print_fg_node(t_shell *sh)
-{
-	pid_t	*tmp;
-	char	***ptr;
-	char	**dbl;
-
-	ft_printf("gpid %d\n", sh->fg_node->gpid);
-	tmp = sh->fg_node->pid;
-	while (tmp && *tmp)
-		ft_printf("pid: %d\n", *(tmp++));
-	ptr = sh->fg_node->cmd;
-	while (ptr && *ptr)
-	{
-		dbl = *ptr;
-		while (*dbl)
-        {
-			ft_printf("cmd: %s\n", *dbl);
-            dbl++;
-        }
-        ptr++;
-	}
-	reset_fgnode(sh);
-	return (0);
-}
 
 void handler_sigchild(int num)
 {
@@ -57,6 +32,10 @@ void handler_sigchild(int num)
            ft_printf("PROCESS COMPLETED\n"); 
 		else //if suspended it goes here
             ft_printf("PROCESS SUSPENDED\n");
-		print_fg_node(g_sh);
+		// print_fg_node(g_sh);
+		transfer_to_bg(g_sh, SUSPENDED);
+		reset_fgnode(g_sh);
+		// transfer fg struct to a bg node along the list
+		// reset the fg node
 	}
 }

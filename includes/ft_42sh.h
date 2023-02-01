@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 12:32:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:45:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ typedef struct s_bg_jobs
     char            ***cmd;
     int             status;
     int             index;
-    struct bg_node *next;
+    struct s_bg_jobs *next;
 }   t_bg_jobs;
 
 /*				PIPE STRUCT					*/
@@ -441,6 +441,9 @@ void	reset_fgnode(t_shell *sh);
 void	append_cmd_arr(t_fg_job *fg_node, char **cmd);
 void	update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void	set_process_group(t_shell *sh, pid_t pid);
+size_t   triple_ptr_len(char ***arr);
+char    **dup_dbl_ptr(char **cmd);
+void	transfer_to_bg(t_shell *sh, int status);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 

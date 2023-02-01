@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 12:52:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:09:50 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_session_init(t_shell *sh)
 	g_sh = sh;
 	g_t = sh->term;
 	sh->jobs = NULL;
+	sh->bg_node = NULL;
 	sh->exit_stat = 0;
 	sh->line = NULL;
 	ft_env_init(sh);
