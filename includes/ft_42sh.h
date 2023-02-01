@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 12:46:44 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 03:34:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct s_cmdnode
 {
 	int		type;
 	char	**cmd;
+
 }	t_cmdnode;
 
 /*					CLOSEFD STRUCT			*/
@@ -191,6 +192,12 @@ typedef struct s_job
 	char			*cmd;
 }				t_job;
 
+/*				PIPE STRUCT					*/
+typedef struct s_pipe
+{
+	int		pipefd[2];
+}			t_pipe;
+
 /*				SESSION STRUCT				*/
 typedef struct s_shell
 {
@@ -200,6 +207,7 @@ typedef struct s_shell
 	t_treenode		*head;
 	t_token			*tokens;
 	t_job			*jobs;
+	t_pipe			*pipe;
 	char			**intr_vars;
 	char			**env;
 	char			**tmp_env_key;
@@ -276,7 +284,7 @@ int				ft_unset(t_shell *sh, char **cmd);
 /*					EXEC_TREE			*/
 void			exec_tree(t_treenode *head, char ***environ_cp, \
 char *terminal, t_shell *sh);
-void			exec_cmd(char **args, char ***environ_cp, t_shell *sh);
+void			exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh);
 void			exec_pipe(t_pipenode *pipenode, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_redir(t_redir *node, char ***environ_cp, \
