@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/01 12:53:56 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 21:18:27 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-extern t_shell *g_sh;
+extern t_shell	*g_sh;
 
 void	error_exit(char *msg)
 {
@@ -41,7 +41,7 @@ int	pipe_wrap(int pipefd[])
 	return (0);
 }
 
-void	 exec_pipe(t_pipenode *pipenode,
+void	exec_pipe(t_pipenode *pipenode, \
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
 	if (pipe_wrap(sh->pipe->pipefd))

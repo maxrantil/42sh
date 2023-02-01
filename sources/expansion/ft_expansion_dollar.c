@@ -28,7 +28,7 @@ static int	ft_special_ch_split_len(char *str)
 	len = 0;
 	while (str[++i])
 	{
-		if (!i || (ft_isspecial(str[i]) && str[i] != '_'))
+		if (!i || (ft_isspecial(str[i]) && str[i] != '_' && str[i] != '?'))
 			len++;
 	}
 	return (len);
@@ -54,80 +54,16 @@ static char	**ft_special_ch_split(char *str)
 	while (*str)
 	{
 		i = 0;
-		if (ft_isspecial(str[i]) && str[i] != '_')
+		if (ft_isspecial(str[i]) && str[i] != '_' && str[i] != '?')
 			i++;
-		while (str[i] && (!ft_isspecial(str[i]) || str[i] == '_'))
+		while (str[i] \
+			&& (!ft_isspecial(str[i]) || str[i] == '_' || str[i] == '?'))
 			i++;
 		ret[j++] = ft_strsub(str, 0, i);
 		str += i;
 	}
 	ret[j] = NULL;
 	return (ret);
-}
-
-/**
- * It takes a string, finds the first instance of a dollar sign, and replaces
- * it with the value of the environment variable that follows the dollar sign
- *
- * @param sh the session struct
- * @param buff the buffer to write to
- * @param arg the string to be parsed
- */
-static char	*ft_find_env(t_shell *sh, char *arg)
-{
-	char	*ret;
-	char	*key;
-	char	**env;
-	int		key_len;
-
-	ret = NULL;
-	key_len = 0;
-	while (arg[key_len] && !ft_isspace(arg[key_len]))
-		key_len++;
-	key = ft_strsub(arg, 1, key_len - 1);
-	env = ft_env_get(sh, key);
-	if (env)
-		ret = ft_strdup(ft_strchr(*env, '=') + 1);
-	else
-		ret = ft_strnew(1);
-	if (arg[key_len])
-		ret = strjoin_head(ret, arg + key_len);
-	ft_strdel(&key);
-	return (ret);
-}
-
-/**
- * It takes a string, splits it on the '$' character, and then catinates the
- * expansion of the split strings.
- *
- * @param sh the session struct
- * @param split_dollar This is the string that is being split by the dollar sign.
- * @param buff This is the buffer that will be returned.
- */
-static void	catinate_expansion(t_shell *sh, char **splits, char **buff)
-{
-	char	*tofree;
-
-	tofree = NULL;
-	if (**splits == '$' && ft_strlen(*splits) > 1)
-	{
-		if (!*buff)
-			*buff = ft_find_env(sh, *splits);
-		else
-		{
-			tofree = ft_find_env(sh, *splits);
-			*buff = strjoin_head(*buff, tofree);
-			ft_strdel(&tofree);
-		}
-	}
-	else
-	{
-		if (!*buff)
-			*buff = ft_strdup(*splits);
-		else
-			*buff = strjoin_head(*buff, *splits);
-	}
-	ft_strdel(splits);
 }
 
 /**
@@ -149,11 +85,9 @@ char	*ft_expansion_dollar(t_shell *sh, char *str)
 	buff = NULL;
 	if (!ft_strcmp(str, "$$"))
 		return (ft_itoa(getpid()));
-	if (!ft_strcmp(str, "$?"))
-		return (ft_itoa(sh->exit_stat));
 	split_dollar = ft_special_ch_split(str);
 	while (split_dollar[++i])
-		catinate_expansion(sh, &split_dollar[i], &buff);
+		ft_catinate_expansion(sh, &split_dollar[i], &buff);
 	ft_memdel((void **)&split_dollar);
 	return (buff);
 }

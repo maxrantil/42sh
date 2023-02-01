@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 18:18:38 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/01 21:16:55 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,6 +128,8 @@ FILES			= \
 				$(BUILTIN)ft_export \
 				$(BUILTIN)ft_jobs \
 				$(BUILTIN)ft_unset \
+				$(EXECTREE)check_access \
+				$(EXECTREE)check_if_user_exe \
 				$(EXECTREE)exe_fail \
 				$(EXECTREE)exec_tree \
 				$(EXECTREE)exec_cmd \
@@ -139,6 +141,7 @@ FILES			= \
 				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
 				$(EXECTREE)exe_logicalop \
+				$(EXPANSION)ft_catinate_expansion \
 				$(EXPANSION)ft_expansion \
 				$(EXPANSION)ft_expansion_utils \
 				$(EXPANSION)ft_expansion_dollar \

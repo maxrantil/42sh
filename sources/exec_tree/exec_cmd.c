@@ -3,71 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/01 15:55:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 21:18:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-# include <stdio.h>
-extern t_shell *g_sh;
-
-int	check_if_user_exe(char *cmd, char **dest)
-{
-	*dest = NULL;
-	if (ft_strchr(cmd, '/'))
-	{
-		*dest = ft_strdup(cmd);
-		return (1);
-	}
-	return (0);
-}
-
-static int	check_file_validity(struct stat *buff, char *cmd)
-{
-	if (S_ISDIR(buff->st_mode))
-	{
-		ft_err_print(NULL, cmd, "Is a directory", 2);
-		return (0);
-	}
-	else if (access(cmd, X_OK) < 0)
-	{
-		ft_err_print(NULL, cmd, "Permission denied", 2);
-		return (0);
-	}
-	return (1);
-}
-
-int	check_access(char *cmd, char **args, t_shell *sh)
-{
-	struct stat	buf;
-
-	if (((cmd && ft_strchr(cmd, '/')) && access(cmd, F_OK) < 0))
-	{
-		ft_err_print(NULL, args[0], "No such file or directory", 2);
-		sh->exit_stat = 127;
-		return (0);
-	}
-	else if (!cmd || !ft_strchr(cmd, '/'))
-	{
-		if (ft_env_get(sh, "PATH"))
-			ft_err_print(NULL, args[0], "command not found", 2);
-		else
-			ft_err_print(NULL, args[0], "No such file or directory", 2);
-		sh->exit_stat = 127;
-		return (0);
-	}
-	stat(cmd, &buf);
-	if (!check_file_validity(&buf, cmd))
-	{
-		sh->exit_stat = 126;
-		return (0);
-	}
-	return (1);
-}
+extern t_shell	*g_sh;
 
 static void	print_args(char **args)
 {
@@ -144,11 +89,11 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			if (g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
 			{
 				ft_err_print("dup2", NULL, "failed", 2);
-				exit (1);
+				exit(1);
 			}
 			if (!cmd || execve(*cmd, args, *environ_cp) < 0)
 				exe_fail(cmd, args, environ_cp);
-			exit (1);
+			exit(1);
 		}
 	}
 	if (g_sh->ampersand)
@@ -166,7 +111,7 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 	int		access;
 	int		status;
 	int		hash;
-	char 	**args;
+	char	**args;
 
 	args = head->cmd;
 	if (!args[0])

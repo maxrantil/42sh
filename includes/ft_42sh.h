@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 18:40:06 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 21:17:02 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,6 +318,7 @@ int				ft_jobs(t_shell *sh);
 int				ft_unset(t_shell *sh, char **cmd);
 
 /*					EXEC_TREE			*/
+int				check_access(char *cmd, char **args, t_shell *sh);
 void			exec_tree(t_treenode *head, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh);
@@ -343,6 +344,7 @@ int				check_if_user_exe(char *cmd, char **dest);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
 
 /*					EXPANSION				*/
+void			ft_catinate_expansion(t_shell *sh, char **splits, char **buff);
 void			ft_expansion(t_shell *sh, char **cmd);
 char			*ft_expansion_dollar(t_shell *sh, char *str);
 char			*ft_expansion_tilde(t_shell *sh, char *str);
