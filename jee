@@ -1,0 +1,8 @@
+#!/bin/bash
+
+k=$(ps aux | grep 42sh | awk '{print $2}')
+p=$(ps aux | grep 42sh | head -n 1 | awk '{print $2}')
+echo $k
+echo $p
+kill -9 $k
+kill -9 $p

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/28 10:57:42 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/01 10:43:28 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -271,6 +271,7 @@ FILES			= \
 				$(MAIN)main \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
+				$(PARAM_FORM)add_var_to_list \
 				$(PARAM_FORM)parameter_format \
 				$(PARAM_FORM)substitute_or_create \
 				$(SIGNALS)handler_signal_exec \
@@ -299,49 +300,6 @@ FILES			= \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
-				# $(BUILTIN)ft_builtins \
-				# $(BUILTIN)ft_cd \
-				# $(BUILTIN)ft_echo \
-				# $(BUILTIN)ft_set \
-				# $(BUILTIN)ft_exit \
-				# $(BUILTIN)ft_export \
-				# $(BUILTIN)ft_unset \
-				# $(BUILTIN_UTILS)ft_cd_addr_check \
-				# $(BUILTIN_UTILS)ft_dir_change \
-				# $(BUILTIN_UTILS)ft_env_append \
-				# $(BUILTIN_UTILS)ft_env_remove \
-				# $(BUILTIN_UTILS)ft_env_replace \
-				# $(BUILTIN_UTILS)ft_env_temp \
-				# $(TERMIOS)ft_getent \
-				# $(TERMIOS)ft_raw_disable \
-				# $(TERMIOS)ft_raw_enable \
-				# $(INITIALIZE)ft_env_init \
-				# $(INITIALIZE)ft_init_signals \
-				# $(INITIALIZE)ft_init_window_size \
-				# $(INITIALIZE)ft_session_init \
-				# $(HISTORY)ft_history \
-				# $(HISTORY)ft_history_get \
-				# $(HISTORY)ft_history_expansion \
-				# $(HISTORY)ft_history_write_to_file \
-				# $(FC)ft_fc \
-				# $(FC)fc_print_error \
-				# $(FC)fc_check_flags \
-				# $(FC)fc_overwrite_fc_cmd_with_prev_cmd \
-				# $(INTERN_VARS)ft_variables \
-				# $(INTERN_VARS)add_var \
-				# $(INTERN_VARS)ft_var_get \
-				# $(PARAM_FORM)parameter_format \
-				# $(PARAM_FORM)substitute_or_create \
-				# $(FT_TEST)ft_test \
-				# $(FT_TEST)ft_test_is_unary \
-				# $(FT_TEST)ft_test_is_binary \
-				# $(HASH)ft_hash \
-				# $(HASH)hash_init \
-				# $(HASH)hash_print \
-				# $(HASH)hash_function \
-				# $(HASH)hash_init_struct \
-				# $(HASH)hash_check \
-				# $(HASH)hash_free
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
