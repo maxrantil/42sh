@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 17:11:18 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 18:40:06 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -510,5 +510,8 @@ int				ft_isseparator(char c);
 void			display_process_node(t_bg_jobs  *job);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
+
+void	bg_node_delete(t_shell *sh, t_bg_jobs **curr);
+void	reset_cmd(char ****cmd);
 
 #endif

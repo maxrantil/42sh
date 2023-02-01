@@ -6,13 +6,23 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 17:33:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 18:14:34 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 extern t_shell	*g_sh;
+
+static void    change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
+{
+    t_bg_jobs    *job;
+
+    job = bg_node;
+    while (job && job->gpid != pid)
+        job = job->next;
+    job->status = status;
+}
 
 void handler_sigchild(int num)
 {

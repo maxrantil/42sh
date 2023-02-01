@@ -6,13 +6,13 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/01 18:00:28 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 18:22:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void init_pid(t_shell *sh, t_bg_jobs *bg_node)
+static void	init_pid(t_shell *sh, t_bg_jobs *bg_node)
 {
 	int	i;
 	int	len;
@@ -27,7 +27,7 @@ static void init_pid(t_shell *sh, t_bg_jobs *bg_node)
 		bg_node->pid[len] = sh->fg_node->pid[len];
 }
 
-static void init_cmd(t_shell *sh, t_bg_jobs *bg_node)
+static void	init_cmd(t_shell *sh, t_bg_jobs *bg_node)
 {
 	int	len;
 

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:05:12 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 17:57:36 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 18:16:59 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,7 @@ void	display_process_node(t_bg_jobs *job)
 			ft_print_dbl_array(*(cmd++));
 		ft_printf("\n");
 	}
+	if (job->status == DONE)
+		bg_node_delete(g_sh, &job);
+
 }

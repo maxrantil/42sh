@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 22:10:49 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 17:18:41 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 18:41:45 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ static void	remove_node(t_bg_jobs **curr)
 	int		i;
 
 	i = -1;
-	while ((*curr)->cmd[++i])
-		ft_strdel(&(*curr)->cmd[i]);
-	ft_memdel((void **)&(*curr)->cmd);
-	ft_memdel((void **)&(*curr));
+	reset_cmd(&(*curr)->cmd);
+	ft_memdel((void **)&(*curr)->pid);
 }
 
 void	bg_node_delete(t_shell *sh, t_bg_jobs **curr)
