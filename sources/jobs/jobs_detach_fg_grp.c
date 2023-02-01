@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 13:24:38 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/28 14:51:56 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:24:38 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,6 @@ void	detach_fg_grp(void)
 		ft_err_print(NULL, "shmdt", "failed to detach from shared memory", 2);
 		exit (1);
 	}
+	g_sh->jobs->shared_mem_ptr = NULL;
+	g_sh->jobs->shared_mem_idx_ptr = NULL;
 }

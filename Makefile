@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/29 22:06:46 by jniemine         ###   ########.fr        #
+#    Updated: 2023/01/30 12:10:36 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -188,12 +188,13 @@ FILES			= \
 				$(FT_TEST)ft_test_z \
 				$(FT_TEST)ft_test \
 				$(HASH)ft_hash \
-				$(HASH)hash_init \
-				$(HASH)hash_print \
+				$(HASH)hash_check \
+				$(HASH)hash_clear \
+				$(HASH)hash_free \
 				$(HASH)hash_function \
 				$(HASH)hash_init_struct \
-				$(HASH)hash_check \
-				$(HASH)hash_free \
+				$(HASH)hash_init \
+				$(HASH)hash_print \
 				$(INITIALIZE)ft_env_init \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
@@ -305,6 +306,7 @@ FILES			= \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
 				$(UTILITIES)ft_isseparator \
+				$(UTILITIES)ft_last_command_update \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))

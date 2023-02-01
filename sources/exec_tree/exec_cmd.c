@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
 /*   Updated: 2023/02/01 03:39:15 by jniemine         ###   ########.fr       */
@@ -96,6 +96,8 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	if (access)
 	{
 		pid = fork_wrap();
+		if (pid == -1)
+			ft_err_print(NULL, NULL, "Fork failed", 2);
 		if (pid == 0)
 		{
 			if (g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)

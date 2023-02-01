@@ -1,0 +1,12 @@
+(echo 123; echo 456|cat -e;)
+(echo aaa; exit 42; echo bbb;)|cat -e; echo ccc
+(ls /) | (cat -e) | (cat -e)
+(ls /| cat -e) | (cat -e | cat -e) | (cat -e | cat -e)
+(echo foo; echo bar >out; ls DO_NOT_EXIST) >out 2>err
+cat out
+cat err
+(export ABC=def; env|grep ABC); env|grep ABC|cat -e
+{ export ABC=def; env|grep ABC; }; env|grep ABC|cat -e
+{ echo baz; echo buz >out2; } >out
+cat out
+cat out2

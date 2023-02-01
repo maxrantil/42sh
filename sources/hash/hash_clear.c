@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash_free.c                                        :+:      :+:    :+:   */
+/*   hash_clear.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 12:07:03 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/30 12:07:25 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/30 11:40:46 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/30 11:41:12 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	hash_free(t_hash **ht)
+void	hash_clear(t_hash **ht)
 {
 	t_hash	*tmp;
+	t_hash	*tmp2;
 	int		i;
 
-	i = 0;
-	while (i < HASH_SIZE)
+	i = -1;
+	while (++i < HASH_SIZE)
 	{
 		if (ht[i])
 		{
 			tmp = ht[i];
 			while (tmp)
 			{
-				ft_strdel(&tmp->program);
-				ft_strdel(&tmp->path);
-				ft_memdel((void **)tmp);
-				tmp = tmp->next;
+				tmp2 = tmp->next;
+				tmp->hits = 0;
+				free(tmp->program);
+				free(tmp->path);
+				free(tmp);
+				tmp = tmp2;
 			}
+			ht[i] = NULL;
 		}
-		i++;
 	}
-	free(ht);
 }
