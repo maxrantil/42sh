@@ -35,7 +35,11 @@ void	ft_session_init(t_shell *sh)
 	sh->tokens = NULL;
 	sh->jobs = ft_init_jobs();
 	sh->pipe = ft_memalloc(sizeof(t_pipe));
-	sh->pipe->write_to_pipe = 0;
+	sh->pipe->write_to_pipe = 1;
 	sh->pipe->read_from_pipe = 0;
+	sh->pipe->pipefd[0] = -1;
+	sh->pipe->pipefd[1] = -1;
+	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	hash_init(sh);
 }

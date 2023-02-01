@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/31 16:09:08 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/01 03:30:11 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,41 +42,18 @@ int	pipe_wrap(int pipefd[])
 		ft_err_print(NULL, "pipe failed", "exec_pipe", 2);
 		return (1);
 	}
-	ft_printf("pipefd[0] = %d", pipefd[0]);
-	ft_printf("pipefd[1] = %d", pipefd[1]);
 	return (0);
 }
 
 void	 exec_pipe(t_pipenode *pipenode,
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
-	// int	pipefd[2];
-
 	if (pipe_wrap(sh->pipe->pipefd))
 		return ;
-	// if ((local = fork_wrap()) == 0)
-	// {
-		sh->pipe->write_to_pipe = 1;
-		// dup2(((t_cmdnode *)pipenode->left)->pipefd[1], STDOUT_FILENO);
-		// close(((t_cmdnode *)pipenode->left)->pipefd[0]);
-		// close(((t_cmdnode *)pipenode->left)->pipefd[1]);
-		 exec_tree(pipenode->left, environ_cp, terminal, sh);
-		// exit (1);
-	// }
-	// if ((local = fork_wrap()) == 0)
-	// {
-		// dup2(pipefd[0], STDIN_FILENO);
-		// close(pipefd[0]);
-		// close(pipefd[1]);
-		if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
-			ft_err_print("dup2", NULL, "failed", 2);
-		exec_tree(pipenode->right, environ_cp, terminal, sh);
-		// if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
-			// ft_err_print("dup2", NULL, "failed", 2);
-		// exit (1);
-	// }
-	// close(pipefd[0]);
-	// close(pipefd[1]);
-	// wait(0);
-	// wait(0);
+	exec_tree(pipenode->left, environ_cp, terminal, sh);
+	if (dup2(sh->pipe->pipefd[0], STDIN_FILENO) < 0)
+		ft_err_print("dup2", "PARENT", "failed", 2);
+	close (sh->pipe->pipefd[1]);
+	sh->pipe->pipefd[1] = -1;
+	exec_tree(pipenode->right, environ_cp, terminal, sh);
 }
