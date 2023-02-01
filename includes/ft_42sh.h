@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 03:34:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/01 11:51:45 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,7 @@ int				ft_export(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
 
 /*					EXEC_TREE			*/
+int				check_access(char *cmd, char **args, t_shell *sh);
 void			exec_tree(t_treenode *head, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh);

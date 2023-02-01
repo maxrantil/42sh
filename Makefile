@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/30 12:10:36 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/01 11:54:45 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -126,6 +126,8 @@ FILES			= \
 				$(BUILTIN)ft_exit \
 				$(BUILTIN)ft_export \
 				$(BUILTIN)ft_unset \
+				$(EXECTREE)check_access \
+				$(EXECTREE)check_if_user_exe \
 				$(EXECTREE)exe_fail \
 				$(EXECTREE)exec_tree \
 				$(EXECTREE)exec_cmd \
