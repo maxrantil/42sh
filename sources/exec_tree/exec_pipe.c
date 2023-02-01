@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/01 11:19:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 21:52:09 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exec_pipe(t_pipenode *pipenode, \
 	if (pipe_wrap(sh->pipe->pipefd))
 		return ;
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
-	if (dup2(sh->pipe->pipefd[0], STDIN_FILENO) < 0)
+	if (sh->pipe->pipefd[0] >= 0 && dup2(sh->pipe->pipefd[0], STDIN_FILENO) < 0)
 	{
 		ft_err_print("dup2", NULL, "failed", 2);
 		exit (1);
@@ -59,4 +59,11 @@ void	exec_pipe(t_pipenode *pipenode, \
 	close (sh->pipe->pipefd[1]);
 	sh->pipe->pipefd[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
+	wait (0);
+	wait (0);
+	reset_fd(terminal);
+	close(sh->pipe->pipefd[0]);
+	close(sh->pipe->pipefd[1]);
+	sh->pipe->pipefd[0] = -1;
+	sh->pipe->pipefd[1] = -1;
 }
