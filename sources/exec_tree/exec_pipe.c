@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/01 03:30:11 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/01 03:38:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	 exec_pipe(t_pipenode *pipenode,
 		return ;
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
 	if (dup2(sh->pipe->pipefd[0], STDIN_FILENO) < 0)
-		ft_err_print("dup2", "PARENT", "failed", 2);
+	{
+		ft_err_print("dup2", NULL, "failed", 2);
+		exit (1);
+	}
 	close (sh->pipe->pipefd[1]);
 	sh->pipe->pipefd[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
