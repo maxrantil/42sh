@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 18:46:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:15:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void    change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
     job = bg_node;
     while (job && job->gpid != pid)
         job = job->next;
-    job->status = status;
+	if (job)
+		job->status = status;
 }
 
 void handler_sigchild(int num)
@@ -40,17 +41,16 @@ void handler_sigchild(int num)
 		pid = waitpid(-1, &status, WNOHANG);
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
-			ft_printf("PROCESS COMPLETED\n");
+			// ft_printf("PROCESS COMPLETED\n");
+			if (g_sh->fg_node->gpid && g_sh->fg_node->gpid == pid)
+				reset_fgnode(g_sh);
 			change_process_status(g_sh->bg_node, pid, DONE);
 		}
 		else //if suspended it goes here
 		{
+			// ft_printf("PROCESS SUSPENDED\n");
 			transfer_to_bg(g_sh, SUSPENDED);
 			reset_fgnode(g_sh);
-			ft_printf("PROCESS SUSPENDED\n");
 		}
-		// print_fg_node(g_sh);
-		// transfer fg struct to a bg node along the list
-		// reset the fg node
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_job.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:05:12 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 18:16:59 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:57:50 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ void	display_process_node(t_bg_jobs *job)
 		display_state(job->status);
 		cmd = job->cmd;
 		while (*cmd)
+		{
 			ft_print_dbl_array(*(cmd++));
-		ft_printf("\n");
+			if (*(cmd))
+				ft_putstr(" | ");
+		}
+// 	reset_fgnode(g_sh);
+		ft_printf(" &\n");
 	}
 	if (job->status == DONE)
 		bg_node_delete(g_sh, &job);

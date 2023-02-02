@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/01 12:42:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:22:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	set_process_group(t_shell *sh, pid_t pid)
 		}
 	}
 	else
-		setpgid(pid, sh->fg_node->gpid);	
+		setpgid(pid, sh->fg_node->gpid);
 }
 
