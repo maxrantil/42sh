@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 12:52:11 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:27:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void handler_sigchild(int num)
 		else //if suspended it goes here
 		{
 			ft_printf("PROCESS SUSPENDED\n");
-			transfer_to_bg(g_sh, SUSPENDED);
+			transfer_to_bg(g_sh, STOPPED);
 			reset_fgnode(g_sh);
 		}
 	}
