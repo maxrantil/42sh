@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:22:46 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 21:25:58 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 		if (job->status == STOPPED || job->status == SUSPENDED)
 			killpg(job->gpid, SIGCONT);
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &job->gpid) == -1)
-				exit (1); // this needs to be proper exit
+				exit (1); // this needs to be proper exit // error here
 		transfer_to_fg(sh, job);
 		waitpid(job->gpid, &status, WUNTRACED);
 		if (job->status == DONE)

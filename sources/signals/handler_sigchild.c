@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 21:15:29 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 21:23:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void handler_sigchild(int num)
 
 	if (num == SIGCHLD)
 	{
+		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1) // this should only be in fg?
+				ft_exit(g_sh, 1);
 		pid = waitpid(-1, &status, WNOHANG);
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
-			// if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1) // this should only be in fg?
-				// 	ft_exit(g_sh, 1);
 			if (g_sh->fg_node->gpid && g_sh->fg_node->gpid == pid)
 				reset_fgnode(g_sh);
 			change_process_status(g_sh->bg_node, pid, DONE);
@@ -45,6 +45,11 @@ void handler_sigchild(int num)
 		}
 		else //if suspended it goes here
 		{	
+			if (g_sh->fg_node->gpid == g_sh->pgid)
+			{
+				setpgid(*g_sh->fg_node->pid, 0);
+				g_sh->fg_node->gpid = *g_sh->fg_node->pid;	
+			}
 			transfer_to_bg(g_sh, STOPPED);
 			reset_fgnode(g_sh);
 		}
