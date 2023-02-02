@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/02 11:47:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:01:34 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,9 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			exit(1);
 		}
 		if (g_sh->ampersand)
-		{
-			// ft_printf("This happens %s\n", *(args + 1));
-			// put_to_bg(pid, status/* , cmd */);
 			waitpid(pid, &status, WNOHANG);
-		}
 		else
 			waitpid(pid, &status, WUNTRACED);
-		// if (!g_sh->ampersand)
-		// 	put_to_bg(pid, status/* , cmd */);
 	}
 	if (status & 0177)
 		ft_putchar('\n');

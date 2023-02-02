@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 21:17:02 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:16:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,6 +451,7 @@ void	set_process_group(t_shell *sh, pid_t pid);
 size_t   triple_ptr_len(char ***arr);
 char    **dup_dbl_ptr(char **cmd);
 void	transfer_to_bg(t_shell *sh, int status);
+void    tansfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 21:16:55 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/02 13:16:07 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -217,6 +217,7 @@ FILES			= \
 				$(JOBS_UTILS)dup_dbl_ptr \
 				$(JOBS_UTILS)reset_fgnode \
 				$(JOBS_UTILS)set_process_group \
+				$(JOBS_UTILS)transfer_to_fg \
 				$(JOBS_UTILS)transfer_to_bg \
 				$(JOBS_UTILS)triple_ptr_len \
 				$(JOBS_UTILS)update_fg_job \
