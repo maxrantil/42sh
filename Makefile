@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/02 13:18:40 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/02 14:32:56 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,6 +120,8 @@ FILES			= \
 				$(BUILTIN_UTILS)ft_env_remove \
 				$(BUILTIN_UTILS)ft_env_replace \
 				$(BUILTIN_UTILS)ft_env_temp \
+				$(BUILTIN_UTILS)bg_fetch_node \
+				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
 				$(BUILTIN)ft_echo \

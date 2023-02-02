@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 12:27:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 14:39:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	ft_builtins(t_shell *sh, char ***cmd)
 			ft_exit(sh, 0);
 		else if (!ft_strcmp(**cmd, "fg"))
 			return (ft_fg(sh, *cmd));
+		else if (!ft_strcmp(**cmd, "bg"))
+			return (ft_bg(sh, *cmd));
 		else if (!ft_strcmp(**cmd, "jobs"))
 			return (ft_jobs(sh));
 	}

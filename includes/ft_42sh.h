@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 13:53:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:37:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ int				next_semicolon_or_ampersand(t_token *tokens, \
 int i_tok, int end);
 
 /*				BUILTIN UTILITIES			*/
+t_bg_jobs    	*bg_fetch_node(t_bg_jobs *head, char *cmd);
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
 void			ft_env_remove(t_shell *sh, char *env_to_clean);
 int				ft_env_append(t_shell *sh, char **arg);
@@ -308,6 +309,7 @@ void			ft_dir_change(t_shell *sh);
 
 
 /*					BUILTIN					*/
+int 			ft_bg(t_shell *sh, char **cmd);
 int				ft_builtins(t_shell *sh, char ***cmd);
 int				ft_cd(t_shell *sh, char **cmd);
 int				ft_echo(t_shell *sh, char **cmd);
