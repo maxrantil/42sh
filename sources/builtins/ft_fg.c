@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 13:19:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:43:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ int	ft_fg(t_shell *sh, char **cmd)
 	{
 		ft_print_dbl_array(*job->cmd);
 		ft_putchar('\n');
-		if (job->status == SUSPENDED)
+		if (job->status == STOPPED || job->status == SUSPENDED)
 			killpg(job->gpid, SIGCONT);
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &job->gpid) == -1)
 				exit (1); // this needs to be proper exit
+		transfer_to_fg(sh, job);
 		waitpid(job->gpid, &status, WUNTRACED);
 	}
 	return (0);

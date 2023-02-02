@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 13:13:20 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:51:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static void    delete_from_queue(t_shell *sh, t_bg_jobs *process)
+{
+    int    i;
+
+    i = 0;
+    while (i < sh->process_count)
+    {
+        if (process->index == sh->process_queue[i])
+        {
+            ft_memmove(&sh->process_queue[i], &sh->process_queue[i + 1], \
+            (sh->process_count - 1 - i) * sizeof(int));
+            sh->process_count--;
+            break ;
+        }
+        i++;
+    }
+}
 
 static void	init_pid(t_shell *sh, t_bg_jobs *bg_node)
 {
@@ -69,11 +87,14 @@ void	transfer_to_bg(t_shell *sh, int status)
 			return ;
 		}
 		job = sh->bg_node;
-		while (job->next)
+		while (job)
 		{
 			if (sh->fg_node->gpid == job->gpid)
 			{
-				ft_printf("42sh: job %d already in background\n", job->index);
+				// ft_printf("42sh: job %d already in background\n", job->index);
+				job->status = STOPPED;
+				delete_from_queue(sh, job);
+				reset_fgnode(sh);
 				return ;
 			}
 			job = job->next;

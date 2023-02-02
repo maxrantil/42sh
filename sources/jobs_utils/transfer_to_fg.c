@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:01:10 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 13:34:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:47:33 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ static char ***dup_cmd(char ***cmd)
 	return (new_cmd);
 }
 
-void    tansfer_to_fg(t_shell *sh, t_bg_jobs *bg_node)
+void    transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node)
 {
-    sh->fg_node->gpid = bg_node->gpid; 
+    sh->fg_node->gpid = bg_node->gpid;
+	// ft_printf("here %d\n", sh->fg_node->gpid);
     sh->fg_node->pid = dup_pid(bg_node->pid);
     sh->fg_node->cmd = dup_cmd(bg_node->cmd);
 }
