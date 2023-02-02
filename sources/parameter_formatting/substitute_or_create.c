@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/02 13:02:11 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:04:11 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,12 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 		ft_printf("tassa\n");
 	}
 	ft_printf("expanded asdfasfasfasfd[%s]\n", subs);
-	if (ft_strnequ(subs + 1, "${", 2))
+	if (ft_strnequ(subs + 1, "${", 2) && ft_strchr(subs , ':'))
+		subs = substitute_or_create(sh, subs + 1, ret);
+	else if ((ft_strnequ(subs + 1, "${", 2) && ft_strchr(subs , '#'))
+		|| (ft_strnequ(subs + 1, "${", 2) && ft_strchr(subs , '%')))
+		subs = search_from_var(sh, subs + 1, ret);
+	else if (ft_strnequ(subs + 1, "${", 2))
 		subs = substitute_or_create(sh, subs + 1, ret);
 	format = format_mode(op);
 	if (!*expanded)
