@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 14:27:25 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:15:31 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,17 @@ void	transfer_to_bg(t_shell *sh, int status)
 		{
 			if (sh->fg_node->gpid == job->gpid)
 			{
-				// ft_printf("42sh: job %d already in background\n", job->index);
 				job->status = STOPPED;
 				delete_from_queue(sh, job);
+				ft_memmove(&sh->process_queue[1], \
+				&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
+				sh->process_queue[0] = job->index;
 				reset_fgnode(sh);
 				return ;
 			}
-			// ft_printf("This happens %d\n", job->index);
 			prev = job;
 			job = job->next;
 		}
-		// ft_printf("This happens %d %p\n", prev->index + 1, prev);
 		prev->next = init_bg_node(sh, status, prev->index + 1, prev);
 	}
 	else

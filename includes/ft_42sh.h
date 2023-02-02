@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 14:37:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:48:52 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,6 +446,7 @@ void			delete_fg_group_shared_memory(void);
 
 
 /*				  JOBS NEW					*/
+void	close_all_bg_processes(t_shell *sh);
 void	bg_node_delete(t_shell *sh, t_bg_jobs **curr);
 void	init_fgnode(t_shell *sh);
 void	append_pid_arr(t_fg_job *fg_node, pid_t pid);

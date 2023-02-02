@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 13:43:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:22:46 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	ft_fg(t_shell *sh, char **cmd)
 				exit (1); // this needs to be proper exit
 		transfer_to_fg(sh, job);
 		waitpid(job->gpid, &status, WUNTRACED);
+		if (job->status == DONE)
+			bg_node_delete(sh, &job);
 	}
 	return (0);
 }

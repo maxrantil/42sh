@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 12:52:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:49:32 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(void)
 	ft_history_get(sh->term);
 	main_loop(sh);
 	hash_free(sh->ht);
+	close_all_bg_processes(sh);
 	ft_strdel(&sh->terminal);
 	//exit(0);
 	return (0);
