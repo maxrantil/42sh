@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 10:57:49 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:09 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	swap_pwd(t_shell *sh, char *cwd)
 	char	**pwd;
 	char	*new_pwd;
 
-	pwd = ft_env_get(sh, "PWD");
+	pwd = ft_env_get(sh, "PWD", sh->env);
 	new_pwd = ft_strjoin("PWD=", cwd);
 	if (pwd)
 	{
@@ -47,8 +47,8 @@ static void	swap_oldpwd(t_shell *sh)
 	char	**pwd;
 	char	**oldpwd;
 
-	pwd = ft_env_get(sh, "PWD");
-	oldpwd = ft_env_get(sh, "OLDPWD");
+	pwd = ft_env_get(sh, "PWD", sh->env);
+	oldpwd = ft_env_get(sh, "OLDPWD", sh->env);
 	if (oldpwd && pwd)
 	{
 		ft_strdel(oldpwd);
@@ -68,7 +68,7 @@ void	ft_dir_change(t_shell *sh)
 	char	cwd[BUFF_SIZE];
 
 	oldpwd = "OLDPWD=";
-	if (!ft_env_get(sh, "OLDPWD"))
+	if (!ft_env_get(sh, "OLDPWD", sh->env))
 		ft_env_append(sh, &oldpwd);
 	swap_oldpwd(sh);
 	swap_pwd(sh, getcwd(cwd, sizeof(cwd)));

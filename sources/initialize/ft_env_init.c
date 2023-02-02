@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:42:26 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:53 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ void	ft_env_init(t_shell *sh)
 			sh->env[i] = ft_strdup(environ[i]);
 	}
 	sh->env[i] = NULL;
-	if (ft_env_get(sh, "OLDPWD"))
+	if (ft_env_get(sh, "OLDPWD", sh->env))
 		ft_env_remove(sh, "OLDPWD=");
 }

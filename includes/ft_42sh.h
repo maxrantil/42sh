@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 13:05:41 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:06:02 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -459,7 +459,7 @@ void			tok_quote_flag(char *line, int *end, char *quote_flag);
 
 /*					UTILITIES				*/
 int				ft_cd_addr_check(char *file);
-char			**ft_env_get(t_shell *sh, char *key);
+char			**ft_env_get(t_shell *sh, char *key, char **from_array);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);

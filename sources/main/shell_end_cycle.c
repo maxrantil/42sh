@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/01 21:44:32 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:05:01 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_reset_tmp_env(t_shell *sh)
 			{
 				key = ft_strsub(sh->tmp_env_key[i], 0, key - \
 					sh->tmp_env_key[i]);
-				env = ft_env_get(sh, key);
+				env = ft_env_get(sh, key, sh->env);
 				ft_strdel(env);
 				*env = ft_strdup(sh->tmp_env_key[i]);
 				ft_strdel(&key);
@@ -43,7 +43,7 @@ static void	ft_reset_tmp_env(t_shell *sh)
 
 static void	check_hash(t_shell *sh)
 {
-	if (!ft_env_get(sh, "PATH"))
+	if (!ft_env_get(sh, "PATH", sh->env))
 		hash_clear(sh->ht);
 }
 
