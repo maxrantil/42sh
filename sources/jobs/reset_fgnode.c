@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset_fgnode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:26:45 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/02 16:20:44 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:45:30 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,3 @@ void	reset_fgnode(t_shell *sh)
 	if (sh->fg_node->cmd)
 		reset_cmd(&sh->fg_node->cmd);
 }
-

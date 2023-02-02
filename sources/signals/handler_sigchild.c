@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 13:27:33 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:10:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,19 @@ void handler_sigchild(int num)
 	{
 		set_signal_keyboard();
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
-		{
-			ft_printf("error here\n");
-			exit (1); // this needs to be proper exit
-		}
+			ft_exit(g_sh, 1); // this needs to be proper exit
 		pid = waitpid(-1, &status, WNOHANG);
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
-			// ft_printf("PROCESS COMPLETED\n");
 			if (g_sh->fg_node->gpid && g_sh->fg_node->gpid == pid)
 				reset_fgnode(g_sh);
 			change_process_status(g_sh->bg_node, pid, DONE);
+			if (WIFSIGNALED(status))
+				ft_putchar('\n');
 		}
 		else //if suspended it goes here
 		{
-			ft_printf("PROCESS SUSPENDED\n");
+			ft_putchar('\n');
 			transfer_to_bg(g_sh, STOPPED);
 			reset_fgnode(g_sh);
 		}

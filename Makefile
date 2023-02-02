@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/02 16:22:36 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/02 17:07:59 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -296,12 +296,9 @@ FILES			= \
 				$(MAIN)reset_fd \
 				$(PARAM_FORM)parameter_format \
 				$(SIGNALS)handler_sigchild \
-				$(SIGNALS)handler_signal_exec \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \
-				$(SIGNALS)set_signal_exec \
-				$(SIGNALS)set_signal_ign \
 				$(SIGNALS)set_signal_keyboard \
 				$(SIGNALS)set_signal_search_history \
 				$(TERMIOS)ft_getent \

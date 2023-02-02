@@ -6,20 +6,11 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:49:28 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/01 14:27:33 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:45:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-// static void print_dbl_arr(char **cmd)
-// {
-// 	int i;
-
-// 	i = -1;
-// 	while (cmd[++i])
-// 		ft_printf("cmd -> %s\n", cmd[i]);
-// }
 
 static char ***realloc_cmd(char ***cmd_arr, char **cmd)
 {
@@ -53,4 +44,3 @@ void	append_cmd_arr(t_fg_job *fg_node, char **cmd)
     else
 		fg_node->cmd = realloc_cmd(fg_node->cmd, cmd);
 }
-

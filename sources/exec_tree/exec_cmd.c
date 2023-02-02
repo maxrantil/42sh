@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/02 13:01:34 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:09:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,46 +28,6 @@ static void	print_args(char **args)
 	}
 	ft_putchar('\n');
 }
-
-// static void    put_to_bg(int pid, int status/* , char **cmd */)
-// {
-// 	transfer_to_bg(g_sh, RUNNING);
-// 	reset_fgnode(g_sh);
-//     waitpid(pid, &status, WNOHANG);
-// }
-
-// static int    ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
-// {
-//     int        status;
-//     int        pid;
-// 	// char	**args;
-
-//     status = 0;
-//     pid = -1;
-//     if (access)
-//     {
-//         pid = fork_wrap();
-// 		// Creation of fg_node happens here
-// 		// update_fg_job(g_sh, pid, cmd);
-// 		if (pid)
-// 			update_fg_job(g_sh, pid, cmd);
-//         if (pid == -1)
-//             ft_err_print(NULL, NULL, "Fork failed", 2);
-//         if (pid == 0)
-//         {
-//             if (!cmd || execve(*cmd, cmd, *environ_cp) < 0)
-//                 exe_fail(cmd, cmd, environ_cp);
-//             exit (1);
-//         }
-//     }
-//     if (g_sh->ampersand)
-//         put_to_bg(pid, status/* , cmd */);
-//     else if (!g_sh->ampersand)
-//         waitpid(pid, &status, WUNTRACED);
-//     if (status & 0177)
-//         ft_putchar('\n');
-//     return (status);
-// }
 
 static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
 {
@@ -100,8 +60,6 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 		else
 			waitpid(pid, &status, WUNTRACED);
 	}
-	if (status & 0177)
-		ft_putchar('\n');
 	return (status);
 }
 

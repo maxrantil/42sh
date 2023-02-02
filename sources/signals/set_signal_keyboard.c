@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:34:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 12:44:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:56:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,16 @@ void	set_signal_keyboard(void)
 {
 	int	sig;
 
-	sig = -1;
+	sig = 0;
 	while (++sig < 32)
-		signal(sig, ft_signal_keyboard);
-	signal(SIGCHLD, handler_sigchild);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
+	{
+		if (sig == SIGCHLD)
+			signal(sig, handler_sigchild);
+		else if (sig == SIGTTIN)
+			signal(sig, SIG_IGN);
+		else if (sig == SIGTTOU)
+			signal(sig, SIG_IGN);
+		else
+			signal(sig, ft_signal_keyboard);
+	}
 }
