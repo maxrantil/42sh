@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 13:16:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:18:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,7 @@ int				ft_cd(t_shell *sh, char **cmd);
 int				ft_echo(t_shell *sh, char **cmd);
 int				ft_set(t_shell *sh, char ***cmd);
 void			ft_exit(t_shell *sh, int status);
+int				ft_fg(t_shell *sh, char **cmd);
 int				ft_export(t_shell *sh, char **cmd);
 int				ft_jobs(t_shell *sh);
 int				ft_unset(t_shell *sh, char **cmd);
@@ -441,7 +442,9 @@ void			detach_and_remove(void);
 void			delete_fg_group_shared_memory(void);
 
 
+
 /*				  JOBS NEW					*/
+void	bg_node_delete(t_shell *sh, t_bg_jobs **curr);
 void	init_fgnode(t_shell *sh);
 void	append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void	reset_fgnode(t_shell *sh);
@@ -513,8 +516,6 @@ int				ft_isseparator(char c);
 void			display_process_node(t_bg_jobs  *job);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
-
-void	bg_node_delete(t_shell *sh, t_bg_jobs **curr);
-void	reset_cmd(char ****cmd);
+void			reset_cmd(char ****cmd);
 
 #endif

@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 15:06:59 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:27:58 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static int	print_fg_node(t_shell *sh)
+/* static int	print_fg_node(t_shell *sh)
 {
 	pid_t	*tmp;
 	char	***ptr;
 	char	**dbl;
 
-	ft_printf("gpid %d\n", sh->fg_node->gpid);
 	tmp = sh->fg_node->pid;
 	while (tmp && *tmp)
 		ft_printf("pid: %d\n", *(tmp++));
@@ -34,7 +33,7 @@ static int	print_fg_node(t_shell *sh)
         ptr++;
 	}
 	return (0);
-}
+} */
 
 
 
@@ -80,7 +79,7 @@ int	ft_builtins(t_shell *sh, char ***cmd)
 		else if (!ft_strcmp(**cmd, "exit"))
 			ft_exit(sh, 0);
 		else if (!ft_strcmp(**cmd, "fg"))
-			return (print_fg_node(sh));
+			return (ft_fg(sh, *cmd));
 		else if (!ft_strcmp(**cmd, "jobs"))
 			return (ft_jobs(sh));
 	}
