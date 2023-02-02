@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/01 10:10:40 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:02:11 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,45 +100,8 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 		else
 			expanded = ft_strnew(1);
 	}
+	ft_printf("expanded plus %s\n", expanded);
 	return (expanded);
-}
-
-char	*retokenize(t_shell *sh, char *subst, int *i)
-{
-	char 	*trimmed;
-	int		k;
-	int		j;
-	int		open;
-	char	*fresh;
-
-	k = 0;
-	j = 0;
-	open = 0;
-	(void)sh;
-	trimmed = ft_strtrim(subst);
-	fresh = ft_strnew(ft_strlen(subst));
-	while (trimmed[*i])
-	{
-		fresh[k++] = trimmed[(*i)++];
-		if (fresh[0] == '$')
-		{
-			if (trimmed[*i] == '{')
-				open += 1;
-		}
-		if (trimmed[*i] == '}')
-		{
-			open -= 1;
-			if (open == 0)
-			{
-				fresh[k++] = trimmed[(*i)++];
-				break ;
-			}
-		}
-		if (trimmed[*i] == '$' && !open)
-			break ;
-	}
-	ft_strdel(&trimmed);
-	return (fresh);
 }
 
 int	format_mode(char op)
@@ -158,20 +121,6 @@ int	format_mode(char op)
 	return (format);
 }
 
-// static int check_vari(char *var)
-// {
-// 	int	i;
-	
-// 	i = 1;
-// 	if (ft_isalpha(var[0]) || (!ft_isalpha(var[0]) && var[0] != '_'))
-// 		return (1);
-// 	// while(var[i])
-// 	// {
-		
-// 	// }
-// 	return (0);
-// }
-
 char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 {
 	int		i;
@@ -190,10 +139,10 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	op = 0;
 	k = 0;
 	format = -1;
+	ft_printf("sisaantuleva matsku %s\n", cmd);
 	strip = remove_braces(cmd);
 	// if (ft_strnequ(cmd, "${#", 3))
 	// 		expanded = count_letters(sh, strip);
-	ft_printf("sisaantuleva matsku [%s]\n", strip);
 	ft_printf("sisaantuleva matsku [%s]\n", cmd);
 	if (ft_strchr(strip, ':'))
 	{
@@ -206,25 +155,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 		ft_printf("substitution [%s]\n",subs);
 		var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)) - 1);
 		ft_printf("var [%s] substitution [%s]\n", var, subs);
-		// while (subs[i])
-		// {
-		// 	list[k++] = retokenize(sh, subs, &i);
-		// }
-		// k = 0;
-		// while (list[k])
-		// 	ft_printf("list %s\n", list[k++]);
-		// exit(1);
 	}
-	// else if (ft_strchr(strip, '#'))
-	// {
-	// 	subs = ft_strdup(ft_strchr(strip, '#'));
-	// 	op = subs[0];
-	// }
-	// else if (ft_strchr(strip, '%'))
-	// {
-	// 	subs = ft_strdup(ft_strchr(strip, '%'));
-	// 	op = subs[0];
-	// }
 	else
 	{
 		expanded = ft_expansion_dollar(sh, strip);
@@ -236,6 +167,6 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	format = format_mode(op);
 	if (!*expanded)
 		expanded = subst_param(sh, var, subs, format);
-	//ft_printf("expanded [%s]\n", expanded);
+	ft_printf("expanded taaaaaallllaaa[%s]\n", expanded);
 	return (expanded);
 }

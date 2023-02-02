@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/31 20:23:16 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:39:14 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	ft_builtins(t_shell *sh, char ***cmd)
 {
 	if (sh && cmd)
 	{
-		if (param_format(sh, *cmd) == -1)
+		if (param_format(*cmd) == -1)
 			return (0);
 		ft_expansion(sh, *cmd);
-		
+
 		*(cmd) += ft_variables(sh, cmd);
 		if (**cmd == NULL)
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 11:20:57 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:56:58 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,18 @@ typedef struct s_pipenode
 	t_treenode	*left;
 	t_treenode	*right;
 }	t_pipenode;
+
+/*				PARAM STRUCT				    */
+typedef struct s_param
+{
+	char	**list;
+	char	*expanded;
+	char	*var;
+	char	*subs;
+	char	*strip;
+	char	*flag;
+	char	op;
+}	t_param;
 
 /*					TREE UNION				*/
 union u_treenode
@@ -407,10 +419,11 @@ int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
 
 /*				PARAM_FORM					*/
-int				param_format(t_shell *sh, char **cmd);
+void			add_var_to_list(t_shell *sh, char *var, char *subst);
+char			*retokenize(char *subst, int *i);
+int				param_format(char **cmd);
 char			*substitute_or_create(t_shell *sh, char *cmd, int *ret);
 char			*search_from_var(t_shell *sh, char *cmd, int *ret);
-
 
 /*			  		 HASH					*/
 int				ft_hash(t_shell *sh, char **cmd);

@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 11:27:33 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/01 14:01:59 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -271,7 +271,9 @@ FILES			= \
 				$(MAIN)main \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
+				$(PARAM_FORM)add_var_to_list \
 				$(PARAM_FORM)parameter_format \
+				$(PARAM_FORM)retokenize \
 				$(PARAM_FORM)substitute_or_create \
 				$(PARAM_FORM)search_from_var \
 				$(SIGNALS)handler_signal_exec \
@@ -299,7 +301,7 @@ FILES			= \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)free_node \
-				$(UTILITIES)calc_chptr
+				$(UTILITIES)calc_chptr \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
