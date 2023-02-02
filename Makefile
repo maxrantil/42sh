@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 21:16:55 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/02 12:27:42 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,6 +123,7 @@ FILES			= \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
 				$(BUILTIN)ft_echo \
+				$(BUILTIN)ft_fg \
 				$(BUILTIN)ft_set \
 				$(BUILTIN)ft_exit \
 				$(BUILTIN)ft_export \

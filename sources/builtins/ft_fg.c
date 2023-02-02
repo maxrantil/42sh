@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 17:23:13 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:42:15 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static t_bg_jobs    *fg_parsing(t_bg_jobs *head, char *cmd)
     t_bg_jobs   *ptr;
 
     index = 0;
-    index = ft_atoi(cmd);
+    index = ft_atoi(cmd) - 1; // make a check for negative or and owerflow
     ptr = head;
-    if (index)
+    if (index >= 0)
     {
         while (ptr && index != ptr->index)
             ptr = ptr->next;
@@ -52,7 +52,10 @@ int	ft_fg(t_shell *sh, char **cmd)
 	{
 		ft_print_dbl_array(*job->cmd);
 		ft_putchar('\n');
-		killpg(job->gpid, SIGCONT);
+		if (job->status == SUSPENDED)
+			killpg(job->gpid, SIGCONT);
+		if (ioctl(STDIN_FILENO, TIOCSPGRP, &job->gpid) == -1)
+				exit (1); // this needs to be proper exit
 		waitpid(job->gpid, &status, WUNTRACED);
 	}
 	return (0);
