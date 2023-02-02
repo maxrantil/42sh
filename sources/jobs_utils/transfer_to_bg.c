@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 13:55:38 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:27:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,14 @@ int index, t_bg_jobs *prev)
 void	transfer_to_bg(t_shell *sh, int status)
 {
 	t_bg_jobs	*job;
+	t_bg_jobs	*prev;
 
 	if (++sh->process_count < JOBS_MAX)
 	{
+		prev = NULL;
 		if (!sh->bg_node)
 		{
-			sh->bg_node = init_bg_node(sh, status, 0, NULL);
+			sh->bg_node = init_bg_node(sh, status, 0, prev);
 			return ;
 		}
 		job = sh->bg_node;
@@ -97,10 +99,12 @@ void	transfer_to_bg(t_shell *sh, int status)
 				reset_fgnode(sh);
 				return ;
 			}
+			// ft_printf("This happens %d\n", job->index);
+			prev = job;
 			job = job->next;
-
 		}
-		job->next = init_bg_node(sh, status, job->index + 1, job);
+		// ft_printf("This happens %d %p\n", prev->index + 1, prev);
+		prev->next = init_bg_node(sh, status, prev->index + 1, prev);
 	}
 	else
 	{
