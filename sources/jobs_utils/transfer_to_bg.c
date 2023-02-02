@@ -6,11 +6,29 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 13:13:20 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:32:13 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static void	delete_from_queue(t_shell *sh, t_bg_jobs *process)
+{
+	int	i;
+
+	i = 0;
+	while (i < sh->process_count)
+	{
+		if (process->index == sh->process_queue[i])
+		{
+			ft_memmove(&sh->process_queue[i], &sh->process_queue[i + 1], \
+			(sh->process_count - 1 - i) * sizeof(int));
+			sh->process_count--;
+			break ;
+		}
+		i++;
+	}
+}
 
 static void	init_pid(t_shell *sh, t_bg_jobs *bg_node)
 {
@@ -73,7 +91,9 @@ void	transfer_to_bg(t_shell *sh, int status)
 		{
 			if (sh->fg_node->gpid == job->gpid)
 			{
-				ft_printf("42sh: job %d already in background\n", job->index);
+				job->status = STOPPED;
+				/* edit_queue(sh, job); */
+				delete_from_queue(sh, job);
 				return ;
 			}
 			job = job->next;

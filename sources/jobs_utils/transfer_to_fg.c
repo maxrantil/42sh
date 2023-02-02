@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tansfer_to_fg.c                                    :+:      :+:    :+:   */
+/*   transfer_to_fg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:01:10 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 13:15:18 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:33:05 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char ***dup_cmd(char ***cmd)
 
 void    tansfer_to_fg(t_shell *sh, t_bg_jobs *bg_node)
 {
-    sh->fg_node->gpid = bg_node->gpid; 
+    sh->fg_node->gpid = bg_node->gpid;
     sh->fg_node->pid = dup_pid(bg_node->pid);
     sh->fg_node->cmd = dup_cmd(bg_node->cmd);
 }
