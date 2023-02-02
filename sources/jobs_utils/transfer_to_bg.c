@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/01 18:22:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:13:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,15 @@ void	transfer_to_bg(t_shell *sh, int status)
 		}
 		job = sh->bg_node;
 		while (job->next)
+		{
+			if (sh->fg_node->gpid == job->gpid)
+			{
+				ft_printf("42sh: job %d already in background\n", job->index);
+				return ;
+			}
 			job = job->next;
+
+		}
 		job->next = init_bg_node(sh, status, job->index + 1, job);
 	}
 	else
