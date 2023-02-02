@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:01:10 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 13:33:05 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:35:00 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char ***dup_cmd(char ***cmd)
 	new_cmd[len] = NULL;
 	while (--len >= 0)
 		new_cmd[len] = dup_dbl_ptr(cmd[len]);
+	return (new_cmd);
 }
 
 void    tansfer_to_fg(t_shell *sh, t_bg_jobs *bg_node)
