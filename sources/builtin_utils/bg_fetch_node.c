@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_fetch_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:15 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 17:21:44 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 19:42:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_bg_jobs    *bg_fetch_node(t_bg_jobs *head, char *cmd)
 	// if (ft_isdigit(*cmd))
 	// 	return (process_getpid(ft_atoi(cmd) - 1, /* NULL, */ 0, head));
 	// return (process_getpid(0, cmd, /* 0, */ head));
-	if (ft_isdigit(*cmd))
+	if (*cmd && ft_isdigit(*cmd))
 		return (process_getpid(ft_atoi(cmd) - 1, head));
 	return (process_getpid(0, head));
 }

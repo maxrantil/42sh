@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/02 17:09:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 21:03:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	{
 		pid = fork_wrap();
 		if (pid)
+		{
+			set_signal_ign();
 			update_fg_job(g_sh, pid, args);
+		}
 		if (pid == 0)
 		{
 			ft_signal_dfl();

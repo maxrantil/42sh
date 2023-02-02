@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 15:15:31 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 20:25:56 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ static void    delete_from_queue(t_shell *sh, t_bg_jobs *process)
 
 static void	init_pid(t_shell *sh, t_bg_jobs *bg_node)
 {
-	int	i;
 	int	len;
 
-	i = 0;
 	len = 0;
 	while (sh->fg_node->pid[len])
 		len++;
@@ -80,7 +78,7 @@ void	transfer_to_bg(t_shell *sh, int status)
 	t_bg_jobs	*job;
 	t_bg_jobs	*prev;
 
-	if (++sh->process_count < JOBS_MAX)
+	if (++sh->process_count < JOBS_MAX  && sh->fg_node->gpid)
 	{
 		prev = NULL;
 		if (!sh->bg_node)
@@ -106,9 +104,18 @@ void	transfer_to_bg(t_shell *sh, int status)
 		}
 		prev->next = init_bg_node(sh, status, prev->index + 1, prev);
 	}
+	else if (!sh->fg_node->gpid)
+	{
+		t_bg_jobs	*ptr;
+
+		ptr = sh->bg_node;
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->status = status;
+	}
 	else
 	{
 		ft_putendl_fd("42sh: too many jobs\n", 2);
-		return ;
+		return ;	
 	}
 }

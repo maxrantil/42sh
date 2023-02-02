@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/02 17:19:04 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/02 20:42:19 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -299,6 +299,7 @@ FILES			= \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \
+				$(SIGNALS)set_signal_ign \
 				$(SIGNALS)set_signal_keyboard \
 				$(SIGNALS)set_signal_search_history \
 				$(TERMIOS)ft_getent \

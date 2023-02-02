@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 16:24:41 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 20:42:00 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -470,6 +470,7 @@ void			ft_signal_dfl(void);
 void			set_signal_exec(void);
 void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
+void			set_signal_ign(void);
 void			set_signal_search_history(void);
 void 			handler_sigchild(int num);
 
