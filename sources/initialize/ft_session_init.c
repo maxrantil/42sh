@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 14:09:50 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:18:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	ft_session_init(t_shell *sh)
 	sh->pipe->pipefd[0] = -1;
 	sh->pipe->pipefd[1] = -1;
 	hash_init(sh);
-	init_fgnode(sh);
+	ft_init_fg_node(sh);
 }

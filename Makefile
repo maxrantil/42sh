@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/02 15:49:13 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/02 16:22:36 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,6 @@ HISTORY			= 	history/
 INITIALIZE		=	initialize/
 INTERN_VARS		=	intern_variables/
 JOBS			= 	jobs/
-JOBS_UTILS		= 	jobs_utils/
 KEYBOARD		= 	keyboard/
 LEXER			= 	lexer/
 MAIN			= 	main/
@@ -204,27 +203,25 @@ FILES			= \
 				$(HASH)hash_init \
 				$(HASH)hash_print \
 				$(INITIALIZE)ft_env_init \
+				$(INITIALIZE)ft_init_fg_node \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
 				$(INITIALIZE)ft_init_jobs \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
-				$(JOBS)jobs_attach_fg_grp \
-				$(JOBS)jobs_detach_and_remove_fg_grp \
-				$(JOBS)jobs_detach_fg_grp \
-				$(JOBS)jobs_reset_fg_grp \
-				$(JOBS_UTILS)close_all_bg_processes \
-				$(JOBS_UTILS)append_pid_arr \
-				$(JOBS_UTILS)bg_node_delete \
-				$(JOBS_UTILS)append_cmd_arr \
-				$(JOBS_UTILS)dup_dbl_ptr \
-				$(JOBS_UTILS)reset_fgnode \
-				$(JOBS_UTILS)set_process_group \
-				$(JOBS_UTILS)transfer_to_fg \
-				$(JOBS_UTILS)transfer_to_bg \
-				$(JOBS_UTILS)triple_ptr_len \
-				$(JOBS_UTILS)update_fg_job \
+				$(JOBS)close_all_bg_processes \
+				$(JOBS)append_cmd_arr \
+				$(JOBS)append_pid_arr \
+				$(JOBS)bg_node_delete \
+				$(JOBS)dup_dbl_ptr \
+				$(JOBS)reset_fgnode \
+				$(JOBS)reset_cmd \
+				$(JOBS)set_process_group \
+				$(JOBS)transfer_to_fg \
+				$(JOBS)transfer_to_bg \
+				$(JOBS)triple_ptr_len \
+				$(JOBS)update_fg_job \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \
@@ -325,7 +322,6 @@ FILES			= \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
-				$(UTILITIES)display_job \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
@@ -360,7 +356,6 @@ $(OBJECTS):
 	@mkdir -p $(OBJECTS)/$(INITIALIZE)
 	@mkdir -p $(OBJECTS)/$(INTERN_VARS)
 	@mkdir -p $(OBJECTS)/$(JOBS)
-	@mkdir -p $(OBJECTS)/$(JOBS_UTILS)
 	@mkdir -p $(OBJECTS)/$(KEYBOARD)
 	@mkdir -p $(OBJECTS)/$(LEXER)
 	@mkdir -p $(OBJECTS)/$(MAIN)

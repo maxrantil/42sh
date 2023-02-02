@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 15:48:52 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:24:41 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,7 +307,6 @@ int				ft_env_append(t_shell *sh, char **arg);
 int				ft_env_replace(t_shell *sh, char *envn, char **tmp_env);
 void			ft_dir_change(t_shell *sh);
 
-
 /*					BUILTIN					*/
 int 			ft_bg(t_shell *sh, char **cmd);
 int				ft_builtins(t_shell *sh, char ***cmd);
@@ -424,6 +423,7 @@ void			ft_history_write_to_file(t_term *t);
 
 /*				  INITIALIZE				*/
 void			ft_init_signals(void);
+void			ft_init_fg_node(t_shell *sh);
 void			init_window_size(t_term *term);
 void			ft_env_init(t_shell *sh);
 void			ft_session_init(t_shell *sh);
@@ -437,27 +437,17 @@ int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
 
 /*					JOBS					*/
-void			attach_fg_grp(void);
-void			detach_fg_grp(void);
-void			reset_fg_grp(void);
-void			detach_and_remove(void);
-void			delete_fg_group_shared_memory(void);
-
-
-
-/*				  JOBS NEW					*/
-void	close_all_bg_processes(t_shell *sh);
-void	bg_node_delete(t_shell *sh, t_bg_jobs **curr);
-void	init_fgnode(t_shell *sh);
-void	append_pid_arr(t_fg_job *fg_node, pid_t pid);
-void	reset_fgnode(t_shell *sh);
-void	append_cmd_arr(t_fg_job *fg_node, char **cmd);
-void	update_fg_job(t_shell *sh, pid_t pid, char **cmd);
-void	set_process_group(t_shell *sh, pid_t pid);
-size_t   triple_ptr_len(char ***arr);
-char    **dup_dbl_ptr(char **cmd);
-void	transfer_to_bg(t_shell *sh, int status);
-void    transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
+void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
+void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
+void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
+void			close_all_bg_processes(t_shell *sh);
+char    		**dup_dbl_ptr(char **cmd);
+void			reset_fgnode(t_shell *sh);
+void			set_process_group(t_shell *sh, pid_t pid);
+void			transfer_to_bg(t_shell *sh, int status);
+void    		transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
+size_t  		triple_ptr_len(char ***arr);
+void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 
@@ -516,7 +506,6 @@ int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);
 int				ft_isseparator(char c);
-void			display_process_node(t_bg_jobs  *job);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
 void			reset_cmd(char ****cmd);
