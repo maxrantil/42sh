@@ -1,0 +1,35 @@
+$> cd / && cd ~ && pwd
+{{ Print the path to the user home directory }}
+$> unset HOME && cd / && cd ~; pwd
+{{ Print an error message }}
+/
+$> cd / && cd ~trololo; pwd
+{{ Print an error message }}
+/
+$> unset foo 2>&-; echo ${foo:-bar} ${foo}
+bar
+$> foo=foo; echo ${foo:-bar} ${foo}
+foo foo
+$> unset foo 2>&-; echo ${foo:=bar} ${foo}
+bar bar
+$> foo=foo; echo ${foo:=bar} ${foo}
+foo foo
+$> unset foo 2>&-; echo ${foo:?bar}
+{{ Print an error message indicating 'foo' and 'bar' }}
+$> foo=foo; echo ${foo:?bar}
+foo
+$> unset foo 2>&-; echo ${foo:+bar} ${foo}
+$> foo=foo; echo ${foo:=bar} ${foo}
+bar foo
+$> unset foo 2>&-; echo ${#foo}
+0
+$> foo=foo; echo ${#foo}
+3
+$> foo=foobarfoo; echo ${foo%foo}
+foobar
+$> foo=foobarfoo; echo ${foo%%o*}
+f
+$> NEWPATH=$PATH:$HOME/.bin; echo ${NEWPATH#"$PATH:$HOME/"}
+.bin
+$> x=/one/two/three; echo ${x##*/}
+three

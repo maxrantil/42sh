@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:15:33 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/31 15:14:55 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_token	*chop_line(char *line, t_token *args, size_t pointer_n)
 		while (ft_isspace(line[cur]))
 			++cur;
 	}
-	//print_tokens(args);
+	// print_tokens(args);
 	ft_strdel(&line);
 	return (args);
 }

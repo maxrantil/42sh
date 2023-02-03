@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:03:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/02 19:25:37 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:38:49 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,18 @@ int add_var(t_shell *sh, char **cmd)
 	int var_len;
 	int	ret;
 	int k;
-	int	i;
+	// int	i;
 
 	k = 0;
-	i = 0;
+	// i = 0;
+	ft_printf("add var%s\n", cmd[0]);
 	while (cmd[k] && is_var(cmd[k]))
 	{
 		ret = 0;
 		var_len = get_var_len(cmd[k]);
 		find_var(sh, cmd[k], var_len, &ret);
 		find_env(sh, cmd[k], var_len, &ret);
-		i = 0;
+		// i = 0;
 		k++;
 	}
 	return (k);

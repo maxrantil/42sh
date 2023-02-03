@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 16:32:28 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/01 16:09:25 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/01 16:09:28 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/ioctl.h>
 
 # if __linux__
-#  include <term.h>
 #  include <curses.h>
 #  include <signal.h>
 #  include <limits.h>
@@ -94,12 +93,15 @@ typedef struct s_term
 {
 	char				inp[BUFF_SIZE];
 	char				history_buff[BUFF_SIZE];
+	t_clipboard			clipboard;
+	t_search_history	*config;
 	char				**history_arr;
-	size_t				history_size;
 	char				**nl_addr;
 	char				*history_file;
 	char				*input_cpy;
 	char				*delim;
+	ssize_t				term_val[2];
+	size_t				history_size;
 	ssize_t				ws_col;
 	ssize_t				ws_row;
 	ssize_t				index;
@@ -116,11 +118,8 @@ typedef struct s_term
 	ssize_t				heredoc;
 	ssize_t				his;
 	int					ch;
-	char				quote;
-	t_clipboard			clipboard;
-	ssize_t				term_val[2];
 	bool				fc_flag;
-	t_search_history	*config;
+	char				quote;
 	char				bracket;
 }			t_term;
 
@@ -167,7 +166,7 @@ void	ft_quote_decrement(t_term *t, ssize_t index);
 void	ft_quote_flag_check(t_term *t, ssize_t index);
 void	ft_quote_flag_reset(t_term *t);
 void	ft_quote_handling(t_term *t, char ch);
-void    ft_bracket_handling(t_term *t, int pos);
+void	ft_bracket_handling(t_term *t, int pos);
 void	ft_remove_nl_addr(t_term *t, ssize_t row);
 void	ft_reset_nl_addr(t_term *t);
 void	ft_restart_cycle(t_term *t);

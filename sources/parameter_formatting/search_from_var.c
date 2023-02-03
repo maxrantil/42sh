@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/02 20:28:37 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:26:59 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ char *get_needle_and_op(char *strip, char *op, char *cmd)
 
 	k = -1;
 	needle = NULL;
+	ft_printf("cmd %s\n", cmd);
 	if (ft_strchr(cmd, '#'))
 	{
 		needle = ft_strdup(ft_strchr(strip, '#'));
@@ -228,17 +229,32 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	char	*haystack;
 	char	op[3];
 	char	*strip;
+	char	*temp;
 
 	strip = remove_braces(cmd);
+	temp = NULL;
 	ft_memset(&op, '\0', 3);
 	needle = get_needle_and_op(strip, op, cmd);
-	if (needle == NULL)
-		return (NULL);
+	ft_printf(" needle [%s] \n", needle);
+	if (ft_strnequ(needle, "${", 2) && ft_strchr(needle , ':'))
+		temp = substitute_or_create(sh, needle, ret);
+	else if ((ft_strnequ(needle, "${", 2) && ft_strchr(needle , '#'))
+		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle , '%')))
+		temp = search_from_var(sh, needle, ret);
+	else if (ft_strnequ(needle, "${", 2))
+		temp = substitute_or_create(sh, needle, ret);
 	haystack = ft_strndup(strip, ft_strlen(strip) - ft_strlen(needle) - 1);
 	haystack = ft_expansion_dollar(sh, &haystack[0]);
+	ft_printf(" temp [%s] haystack [%s] [%s]\n", temp, haystack, op);
+	if (temp != NULL)
+	{
+		ft_strdel(&needle);
+		needle = ft_strdup(temp);
+		ft_printf(" needle [%s] \n", needle);
+		ft_strdel(&temp);
+	}
 	(void)sh;
 	(void)*ret;
-	ft_printf(" needle [%s] haystack [%s] [%s]\n", needle, haystack, op);
 	expanded = ft_find_word(haystack, needle, op);
 	if (!expanded || !*expanded)
 		expanded = ft_strdup(" ");

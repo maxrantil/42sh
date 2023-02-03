@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:10:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int	ft_chdir_expanded(t_shell *sh, char **path)
 {
-	chdir(*path);
+	int	ignore	__attribute__((unused));
+
+	ignore = chdir(*path);
 	ft_dir_change(sh);
 	ft_strdel(path);
 	return (1);
@@ -34,7 +36,7 @@ static char	*env_path(t_shell *sh, char *key)
 	char	**env;
 	char	*path;
 
-	env = ft_env_get(sh, key);
+	env = ft_env_get(sh, key, sh->env);
 	if (env)
 		path = ft_strdup(ft_strchr(*env, '=') + 1);
 	else
@@ -56,7 +58,7 @@ static int	ft_cd_expand(t_shell *sh, char **cmd, char **path)
 	{
 		*path = env_path(sh, "OLDPWD");
 		if (*path)
-			ft_putendl(ft_strchr(*ft_env_get(sh, "OLDPWD"), '=') + 1);
+			ft_putendl(ft_strchr(*ft_env_get(sh, "OLDPWD", sh->env), '=') + 1);
 		ret = 1;
 	}
 	if (*path)

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:05:01 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_reset_tmp_env(t_shell *sh)
 			{
 				key = ft_strsub(sh->tmp_env_key[i], 0, key - \
 					sh->tmp_env_key[i]);
-				env = ft_env_get(sh, key);
+				env = ft_env_get(sh, key, sh->env);
 				ft_strdel(env);
 				*env = ft_strdup(sh->tmp_env_key[i]);
 				ft_strdel(&key);
@@ -39,6 +39,12 @@ static void	ft_reset_tmp_env(t_shell *sh)
 		}
 		ft_memdel((void **)&sh->tmp_env_key);
 	}
+}
+
+static void	check_hash(t_shell *sh)
+{
+	if (!ft_env_get(sh, "PATH", sh->env))
+		hash_clear(sh->ht);
 }
 
 /**
@@ -52,4 +58,5 @@ void	shell_end_cycle(t_shell *sh)
 	free_tokens(&sh->tokens);
 	reset_fd(sh->terminal);
 	ft_reset_tmp_env(sh);
+	check_hash(sh);
 }

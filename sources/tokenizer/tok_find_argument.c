@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_find_argument.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:39 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/30 15:20:46 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,23 @@ static int	test_operator_error(char *line, int *end)
 	return (0);
 }
 
+static void	if_redir_with_fd_go_backwards(char *line, int *end)
+{
+	if ((line[*end] == '>' || line[*end] == '<')
+		&& *end > 0 && ft_isdigit(line[*end - 1]))
+	{
+		--(*end);
+		while (*end > 0 && ft_isdigit(line[*end]))
+			--(*end);
+	}
+}
+
 char	*find_argument(char *line, int *i, int *start, int *end)
 {
 	char	*ret;
-	int		digits;
 	char	quote;
 
 	quote = 0;
-	digits = 1;
 	ret = if_redir_or_logical(line, i, start, end);
 	if (*end == -1)
 		return (NULL);
@@ -70,6 +79,7 @@ char	*find_argument(char *line, int *i, int *start, int *end)
 	{
 		while (line[*end] && (!is_seperator(line[*end]) || quote))
 			tok_quote_flag(line, end, &quote);
+		if_redir_with_fd_go_backwards(line, end);
 	}
 	else
 	{

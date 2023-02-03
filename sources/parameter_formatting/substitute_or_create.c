@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/02 14:04:11 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:27:55 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	expanded = NULL;
 	temp = (char **)ft_memalloc(sizeof(char *) * 2);
 	temp[0] = ft_expansion_dollar(sh, var);
-	//ft_printf("temp [%s]\n", temp[0]);
+	ft_printf("temp [%s]\n", temp[0]);
 	temp[1] = NULL;
 	if (format == 0)
 	{
@@ -57,7 +57,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	}
 	else if (format == 1)
 	{
-		ft_printf("[%s]\n", var);
+		ft_printf("jee  [%s]\n", var);
 		if (!*temp[0])
 		{
 			expanded = ft_strdup(subst + 1);
@@ -158,10 +158,10 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	}
 	else
 	{
+		ft_printf("tassa %s\n", strip);
 		expanded = ft_expansion_dollar(sh, strip);
-		ft_printf("tassa\n");
 	}
-	ft_printf("expanded asdfasfasfasfd[%s]\n", subs);
+	//ft_printf("expanded asdfasfasfasfd[%s]\n", subs);
 	if (ft_strnequ(subs + 1, "${", 2) && ft_strchr(subs , ':'))
 		subs = substitute_or_create(sh, subs + 1, ret);
 	else if ((ft_strnequ(subs + 1, "${", 2) && ft_strchr(subs , '#'))
@@ -170,6 +170,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	else if (ft_strnequ(subs + 1, "${", 2))
 		subs = substitute_or_create(sh, subs + 1, ret);
 	format = format_mode(op);
+	ft_printf("%s %s %d\n",var, subs, format);
 	if (!*expanded)
 		expanded = subst_param(sh, var, subs, format);
 	ft_printf("expanded taaaaaallllaaa[%s]\n", expanded);

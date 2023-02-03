@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 14:56:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:04:59 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	main_loop(t_shell *sh)
 	{
 		// ft_init_signals();
 		set_signal_keyboard();
-		sh->orig_termios = ft_raw_enable();
+		ft_raw_enable(sh);
 		if (ft_keyboard(sh->term) == 1)
 		{
 			ft_history_write_to_file(sh->term);
@@ -52,5 +52,6 @@ int	main(void)
 	main_loop(sh);
 	hash_free(sh->ht);
 	ft_strdel(&sh->terminal);
+	//exit(0);
 	return (0);
 }

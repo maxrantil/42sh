@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:51:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:06:44 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@
  *
  * @return A pointer to the environment variable.
  */
-char	**ft_env_get(t_shell *sh, char *key)
+char	**ft_env_get(t_shell *sh, char *key, char **from_array)
 {
 	char	**env;
 	char	*key_full;
 
-	env = sh->env;
+	(void)sh;
+	env = from_array;
 	key_full = ft_strjoin(key, "=");
 	while (*env)
 	{

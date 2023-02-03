@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 20:21:30 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static void	delete_var(t_shell *sh, int *i)
 static int find_var_key(t_shell *sh, char *cmd, int var_len)
 {
 	int	i;
-	int	k;
+	// int	k;
 	int ret;
 
 	i = 0;
 	ret = 0;
-	k = 0;
+	// k = 0;
 	while (sh->intr_vars[i])
 	{
 		if (ft_strncmp(sh->intr_vars[i], cmd, var_len) == 0

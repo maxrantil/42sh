@@ -14,7 +14,7 @@
 
 /**
  * ft_putchar() writes a single character to the standard output
- * 
+ *
  * @param c the character to print
  */
 void	ft_putchar(char c)

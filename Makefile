@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 14:01:59 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/03 11:40:36 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ HASH			= 	hash/
 HISTORY			= 	history/
 INITIALIZE		=	initialize/
 INTERN_VARS		=	intern_variables/
+JOBS			= 	jobs/
 KEYBOARD		= 	keyboard/
 LEXER			= 	lexer/
 MAIN			= 	main/
@@ -125,6 +126,8 @@ FILES			= \
 				$(BUILTIN)ft_exit \
 				$(BUILTIN)ft_export \
 				$(BUILTIN)ft_unset \
+				$(EXECTREE)check_access \
+				$(EXECTREE)check_if_user_exe \
 				$(EXECTREE)exe_fail \
 				$(EXECTREE)exec_tree \
 				$(EXECTREE)exec_cmd \
@@ -136,6 +139,7 @@ FILES			= \
 				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
 				$(EXECTREE)exe_logicalop \
+				$(EXPANSION)ft_catinate_expansion \
 				$(EXPANSION)ft_expansion \
 				$(EXPANSION)ft_expansion_utils \
 				$(EXPANSION)ft_expansion_dollar \
@@ -187,18 +191,24 @@ FILES			= \
 				$(FT_TEST)ft_test_z \
 				$(FT_TEST)ft_test \
 				$(HASH)ft_hash \
-				$(HASH)hash_init \
-				$(HASH)hash_print \
+				$(HASH)hash_check \
+				$(HASH)hash_clear \
+				$(HASH)hash_free \
 				$(HASH)hash_function \
 				$(HASH)hash_init_struct \
-				$(HASH)hash_check \
-				$(HASH)hash_free \
+				$(HASH)hash_init \
+				$(HASH)hash_print \
 				$(INITIALIZE)ft_env_init \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
+				$(INITIALIZE)ft_init_jobs \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
+				$(JOBS)jobs_attach_fg_grp \
+				$(JOBS)jobs_detach_and_remove_fg_grp \
+				$(JOBS)jobs_detach_fg_grp \
+				$(JOBS)jobs_reset_fg_grp \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \
@@ -302,6 +312,8 @@ FILES			= \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
+				$(UTILITIES)ft_isseparator \
+				$(UTILITIES)ft_last_command_update \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
@@ -332,6 +344,7 @@ $(OBJECTS):
 	@mkdir -p $(OBJECTS)/$(HISTORY)
 	@mkdir -p $(OBJECTS)/$(INITIALIZE)
 	@mkdir -p $(OBJECTS)/$(INTERN_VARS)
+	@mkdir -p $(OBJECTS)/$(JOBS)
 	@mkdir -p $(OBJECTS)/$(KEYBOARD)
 	@mkdir -p $(OBJECTS)/$(LEXER)
 	@mkdir -p $(OBJECTS)/$(MAIN)

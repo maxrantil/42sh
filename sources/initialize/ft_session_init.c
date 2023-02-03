@@ -12,8 +12,7 @@
 
 #include "ft_42sh.h"
 
-t_shell	*g_session;
-t_shell	*g_sh;
+t_shell		*g_sh;
 t_term		*g_t;
 
 /**
@@ -24,9 +23,9 @@ t_term		*g_t;
 void	ft_session_init(t_shell *sh)
 {
 	init_window_size(sh->term);
-	g_session = sh;
-	g_t = sh->term;
 	g_sh = sh;
+	g_t = sh->term;
+	sh->jobs = NULL;
 	sh->exit_stat = 0;
 	sh->line = NULL;
 	ft_env_init(sh);
@@ -34,5 +33,11 @@ void	ft_session_init(t_shell *sh)
 	sh->head = NULL;
 	sh->tmp_env_key = NULL;
 	sh->tokens = NULL;
+	sh->jobs = ft_init_jobs();
+	sh->pipe = ft_memalloc(sizeof(t_pipe));
+	sh->pipe->pipefd[0] = -1;
+	sh->pipe->pipefd[1] = -1;
+	sh->pipe->stdincpy = dup(STDIN_FILENO);
+	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	hash_init(sh);
 }
