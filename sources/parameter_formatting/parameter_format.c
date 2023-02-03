@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/03 13:51:18 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:30:46 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ static char	*get_flag(char *cmd, int *ret)
 
 	i = 2;
 	(void)ret;
-	ft_printf("getting flag %s\n",cmd);
-	// if (!cmd[1])
-	// 	return (NULL);
+	//ft_printf("getting flag %s\n",cmd);
+	if (!cmd[1])
+		return (NULL);
 	while (ft_isalnum(cmd[i]))
 		i++;
 	// if (!check_flag(cmd[i]))
@@ -146,7 +146,7 @@ static int expander(t_param *pa, int ret)
 		pa->flag = get_flag(pa->list[i], &ret);
 		if (!pa->flag)
 			pa->expanded = ft_strnew(1);
-		ft_printf("pa list %s  [%c]\n",  pa->list[i], pa->flag[0]);
+		//ft_printf("pa list %s  [%c]\n",  pa->list[i], pa->flag[0]);
 		if (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == ':')
 			pa->expanded = ft_strupdate(pa->expanded, \
 			substitute_or_create(g_sh, pa->list[i], &ret));
