@@ -6,9 +6,10 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/03 15:47:31 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/03 17:06:41 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef FT_42SH_H
 # define FT_42SH_H
@@ -343,6 +344,7 @@ int				ft_test_error_int_print(char *arg);
 int				ft_test_f(char **arg);
 int				ft_test_g(char **arg);
 int				ft_test_ge(char **arg);
+int				ft_test_gt(char **arg);
 char			*ft_test_get_file_path(char **arg, int not);
 int				ft_test_is_binary(char *str);
 int				ft_test_is_not(char **arg);
