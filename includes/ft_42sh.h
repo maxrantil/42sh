@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/03 12:56:12 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:19:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,6 +443,7 @@ void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
 void			close_all_bg_processes(t_shell *sh);
 char    		**dup_dbl_ptr(char **cmd);
 void			display_bg_job(t_shell *sh);
+void    		display_suspended_job(t_shell *sh);
 void			reset_fgnode(t_shell *sh);
 void			set_process_group(t_shell *sh, pid_t pid);
 void			transfer_to_bg(t_shell *sh, int status);

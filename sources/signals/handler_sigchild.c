@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 12:01:58 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:23:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ void handler_sigchild(int num)
 
 	if (num == SIGCHLD)
 	{
-		set_signal_keyboard();
-		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
-			ft_exit(g_sh, 1); // this needs to be proper exit
 		pid = waitpid(-1, &status, WNOHANG);
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
@@ -46,11 +43,12 @@ void handler_sigchild(int num)
 		}
 		else //if suspended it goes here
 		{
-			if (g_sh->fg_node->gpid)
-				ft_putchar('\n');
 			transfer_to_bg(g_sh, STOPPED);
 			reset_fgnode(g_sh);
-			// ft_printf("reaches here\n");
+			display_suspended_job(g_sh);
 		}
+		set_signal_keyboard();
+		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
+			ft_exit(g_sh, 1); // this needs to be proper exit
 	}
 }
