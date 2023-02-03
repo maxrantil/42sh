@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 08:23:30 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:49:40 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,8 @@ void	ft_exit(t_shell *sh, int status)
 	if (sh->term->clipboard.buff)
 		ft_strdel(&sh->term->clipboard.buff);
 	shell_end_cycle(sh);
+	hash_free(sh->ht);
+	close_all_bg_processes(sh);
+	ft_strdel(&sh->terminal);
 	exit(status);
 }

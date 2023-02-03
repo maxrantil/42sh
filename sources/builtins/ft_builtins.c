@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 21:08:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:05:07 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+
+
 
 /**
  * It takes a session and a command, expands the command, and then checks if
@@ -54,6 +57,12 @@ int	ft_builtins(t_shell *sh, char ***cmd)
 			return (ft_hash(sh, *cmd));
 		else if (!ft_strcmp(**cmd, "exit"))
 			ft_exit(sh, 0);
+		else if (!ft_strcmp(**cmd, "fg"))
+			return (ft_fg(sh, *cmd));
+		else if (!ft_strcmp(**cmd, "bg"))
+			return (ft_bg(sh, *cmd));
+		else if (!ft_strcmp(**cmd, "jobs"))
+			return (ft_jobs(sh));
 	}
 	return (1);
 }

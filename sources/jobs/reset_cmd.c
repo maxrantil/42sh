@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_dfl.c                                   :+:      :+:    :+:   */
+/*   reset_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 17:02:25 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/02 16:20:34 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/02 16:20:51 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It sets all the signals to their default behavior
- */
-void	ft_signal_dfl(void)
+void	reset_cmd(char ****cmd)
 {
-	int	sig;
+	char	***tofree;
 
-	sig = 0;
-	while (++sig < 32)
-	{
-		if (sig == SIGCHLD)
-			signal(SIGCHLD, SIG_IGN);
-		else
-			signal(sig, SIG_DFL);
-	}
+    tofree = *cmd;
+    while (*tofree)
+    {
+        ft_arrclean(*tofree);
+        ++tofree;
+    }
+    ft_memdel((void **)&(*cmd));
 }

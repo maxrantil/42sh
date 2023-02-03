@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 15:06:02 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/03 14:33:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include <sys/stat.h>
 # include <limits.h>
 # include <sys/shm.h>
+# include <signal.h>
 
 # if __gnu_linux__
 #  include <fcntl.h>
 # endif
 # if __linux__
-#  include <signal.h>
 #  include <wait.h>
 #  include <sys/types.h>
 #  include <sys/wait.h>
@@ -67,6 +67,13 @@
 # define FC_LEN 18
 # define SH_PATH_MAX 2048
 // # define PATH_MAX 2048
+
+/* Jobs States */
+# define RUNNING 1
+# define STOPPED 2
+# define DONE 3
+# define TERMINATED 4
+# define SUSPENDED 5
 
 /* For print_tree */
 # define COUNT 10
@@ -193,6 +200,27 @@ typedef struct s_job
 	char			*cmd;
 }				t_job;
 
+
+/*			FOREGROUND JOB NODES				*/
+typedef struct s_fg_job
+{
+	pid_t	gpid;
+	pid_t	*pid;
+	char	***cmd;
+}			t_fg_job;
+
+/*			BACKGROUND JOB NODES				*/
+typedef struct s_bg_jobs
+{
+	pid_t				gpid;
+	pid_t				*pid;
+	char				***cmd;
+	int					status;
+	int					index;
+	struct s_bg_jobs	*prev;
+	struct s_bg_jobs	*next;
+}						t_bg_jobs;
+
 /*				PIPE STRUCT					*/
 typedef struct s_pipe
 {
@@ -205,19 +233,25 @@ typedef struct s_pipe
 /*				SESSION STRUCT				*/
 typedef struct s_shell
 {
+	pid_t			pgid;
 	t_term			term[1];
+	int				process_queue[256];
 	struct termios	orig_termios;
 	t_hash			**ht;
 	t_treenode		*head;
 	t_token			*tokens;
 	t_job			*jobs;
 	t_pipe			*pipe;
+	t_fg_job		fg_node[1];
+	t_bg_jobs		*bg_node;
 	char			**intr_vars;
 	char			**env;
 	char			**tmp_env_key;
 	char			*line;
 	char			*terminal;
+	int				process_count;
 	int				exit_stat;
+	bool			ampersand;
 }				t_shell;
 
 /*					BANNER					*/
@@ -270,6 +304,7 @@ int				next_semicolon_or_ampersand(t_token *tokens, \
 int i_tok, int end);
 
 /*				BUILTIN UTILITIES			*/
+t_bg_jobs    	*bg_fetch_node(t_bg_jobs *head, char *cmd);
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
 void			ft_env_remove(t_shell *sh, char *env_to_clean);
 int				ft_env_append(t_shell *sh, char **arg);
@@ -277,12 +312,15 @@ int				ft_env_replace(t_shell *sh, char *envn, char **tmp_env);
 void			ft_dir_change(t_shell *sh);
 
 /*					BUILTIN					*/
+int 			ft_bg(t_shell *sh, char **cmd);
 int				ft_builtins(t_shell *sh, char ***cmd);
 int				ft_cd(t_shell *sh, char **cmd);
 int				ft_echo(t_shell *sh, char **cmd);
 int				ft_set(t_shell *sh, char ***cmd);
 void			ft_exit(t_shell *sh, int status);
+int				ft_fg(t_shell *sh, char **cmd);
 int				ft_export(t_shell *sh, char **cmd);
+int				ft_jobs(t_shell *sh);
 int				ft_unset(t_shell *sh, char **cmd);
 
 /*					EXEC_TREE			*/
@@ -389,6 +427,7 @@ void			ft_history_write_to_file(t_term *t);
 
 /*				  INITIALIZE				*/
 void			ft_init_signals(void);
+void			ft_init_fg_node(t_shell *sh);
 void			init_window_size(t_term *term);
 void			ft_env_init(t_shell *sh);
 void			ft_session_init(t_shell *sh);
@@ -402,11 +441,20 @@ int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
 
 /*					JOBS					*/
-void			attach_fg_grp(void);
-void			detach_fg_grp(void);
-void			reset_fg_grp(void);
-void			detach_and_remove(void);
-void			delete_fg_group_shared_memory(void);
+void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
+void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
+void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
+void			close_all_bg_processes(t_shell *sh);
+char    		**dup_dbl_ptr(char **cmd);
+void			display_bg_job(t_shell *sh);
+void    		display_suspended_job(t_shell *sh);
+void    		display_pipeline_cmd(t_bg_jobs *job);
+void			reset_fgnode(t_shell *sh);
+void			set_process_group(t_shell *sh, pid_t pid);
+void			transfer_to_bg(t_shell *sh, int status);
+void    		transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
+size_t  		triple_ptr_len(char ***arr);
+void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 
@@ -430,6 +478,7 @@ void			set_signal_exec(void);
 void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
 void			set_signal_search_history(void);
+void 			handler_sigchild(int num);
 
 /*					TERMIOS				*/
 int				ft_getent(void);
@@ -465,5 +514,7 @@ void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);
 int				ft_isseparator(char c);
 void			ft_env_last_command(t_shell *sh, char **cmd);
+void			ft_print_dbl_array(char **cmd);
+void			reset_cmd(char ****cmd);
 
 #endif

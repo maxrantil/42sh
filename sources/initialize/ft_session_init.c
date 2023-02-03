@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shell_init.c                                  :+:      :+:    :+:   */
+/*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:18:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ t_term		*g_t;
  */
 void	ft_session_init(t_shell *sh)
 {
+	set_signal_keyboard();
+	sh->pgid = getpid();
 	init_window_size(sh->term);
+	sh->ampersand = false;
 	g_sh = sh;
 	g_t = sh->term;
 	sh->jobs = NULL;
+	sh->bg_node = NULL;
 	sh->exit_stat = 0;
 	sh->line = NULL;
 	ft_env_init(sh);
@@ -40,4 +44,5 @@ void	ft_session_init(t_shell *sh)
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	hash_init(sh);
+	ft_init_fg_node(sh);
 }

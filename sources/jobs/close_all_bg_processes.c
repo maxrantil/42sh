@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_dfl.c                                   :+:      :+:    :+:   */
+/*   close_all_bg_processes.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 17:02:25 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/02 15:48:03 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/02 15:48:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It sets all the signals to their default behavior
- */
-void	ft_signal_dfl(void)
+void	close_all_bg_processes(t_shell *sh)
 {
-	int	sig;
+	t_bg_jobs	*bg_node;
 
-	sig = 0;
-	while (++sig < 32)
+	bg_node = sh->bg_node;
+	while (bg_node)
 	{
-		if (sig == SIGCHLD)
-			signal(SIGCHLD, SIG_IGN);
-		else
-			signal(sig, SIG_DFL);
+		killpg(bg_node->gpid, SIGKILL);
+		bg_node = bg_node->next;
 	}
 }

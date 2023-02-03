@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_dfl.c                                   :+:      :+:    :+:   */
+/*   set_process_group.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 17:02:25 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
+/*   Updated: 2023/02/03 11:49:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It sets all the signals to their default behavior
- */
-void	ft_signal_dfl(void)
+void	set_process_group(t_shell *sh, pid_t pid)
 {
-	int	sig;
-
-	sig = 0;
-	while (++sig < 32)
+	if (!sh->fg_node->gpid)
 	{
-		if (sig == SIGCHLD)
-			signal(SIGCHLD, SIG_IGN);
-		else
-			signal(sig, SIG_DFL);
+		setpgid(pid, 0); // This sets up the pid as its own pgid
+		sh->fg_node->gpid = pid;
+		if (!sh->ampersand)
+		{
+			if (ioctl(STDIN_FILENO, TIOCSPGRP, &sh->fg_node->gpid) == -1)
+				ft_exit(sh, 1); // this needs to be proper exit
+		}
 	}
+	else
+		setpgid(pid, sh->fg_node->gpid);
 }

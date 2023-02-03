@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/01 15:30:23 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/03 12:55:09 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-LEAK_CHECK			+=	-fsanitize=address
+# LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -119,12 +119,16 @@ FILES			= \
 				$(BUILTIN_UTILS)ft_env_remove \
 				$(BUILTIN_UTILS)ft_env_replace \
 				$(BUILTIN_UTILS)ft_env_temp \
+				$(BUILTIN_UTILS)bg_fetch_node \
+				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
 				$(BUILTIN)ft_echo \
+				$(BUILTIN)ft_fg \
 				$(BUILTIN)ft_set \
 				$(BUILTIN)ft_exit \
 				$(BUILTIN)ft_export \
+				$(BUILTIN)ft_jobs \
 				$(BUILTIN)ft_unset \
 				$(EXECTREE)check_access \
 				$(EXECTREE)check_if_user_exe \
@@ -199,16 +203,26 @@ FILES			= \
 				$(HASH)hash_init \
 				$(HASH)hash_print \
 				$(INITIALIZE)ft_env_init \
+				$(INITIALIZE)ft_init_fg_node \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
 				$(INITIALIZE)ft_init_jobs \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
-				$(JOBS)jobs_attach_fg_grp \
-				$(JOBS)jobs_detach_and_remove_fg_grp \
-				$(JOBS)jobs_detach_fg_grp \
-				$(JOBS)jobs_reset_fg_grp \
+				$(JOBS)close_all_bg_processes \
+				$(JOBS)append_cmd_arr \
+				$(JOBS)append_pid_arr \
+				$(JOBS)bg_node_delete \
+				$(JOBS)dup_dbl_ptr \
+				$(JOBS)job_info_display \
+				$(JOBS)reset_fgnode \
+				$(JOBS)reset_cmd \
+				$(JOBS)set_process_group \
+				$(JOBS)transfer_to_fg \
+				$(JOBS)transfer_to_bg \
+				$(JOBS)triple_ptr_len \
+				$(JOBS)update_fg_job \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \
@@ -282,12 +296,10 @@ FILES			= \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
 				$(PARAM_FORM)parameter_format \
-				$(SIGNALS)handler_signal_exec \
+				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \
-				$(SIGNALS)set_signal_exec \
-				$(SIGNALS)set_signal_ign \
 				$(SIGNALS)set_signal_keyboard \
 				$(SIGNALS)set_signal_search_history \
 				$(TERMIOS)ft_getent \
@@ -310,6 +322,7 @@ FILES			= \
 				$(UTILITIES)calc_chptr \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
+				$(UTILITIES)ft_print_dbl_array \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
