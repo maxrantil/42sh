@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_node_delete.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 22:10:49 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 18:41:45 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/03 15:57:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	remove_node(t_bg_jobs **curr)
 	i = -1;
 	reset_cmd(&(*curr)->cmd);
 	ft_memdel((void **)&(*curr)->pid);
+	ft_memdel((void **)&(*curr));
 }
 
 void	bg_node_delete(t_shell *sh, t_bg_jobs **curr)

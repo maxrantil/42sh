@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 14:16:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:01:38 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 		ft_putstr("fg: no such job\n");
 	else
 	{
-		ft_print_dbl_array(*job->cmd); // this is wrong
-		ft_putchar('\n');
+		display_pipeline_cmd(job);
 		if (job->status == STOPPED || job->status == SUSPENDED)
 			killpg(job->gpid, SIGCONT);
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &job->gpid) == -1)

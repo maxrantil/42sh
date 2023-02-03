@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:49:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 13:22:30 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:33:56 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,18 @@ void    display_suspended_job(t_shell *sh) // This needs to updated
     while (*cmd)
         ft_print_dbl_array(*(cmd++));
     ft_putchar('\n');
+}
+
+void    display_pipeline_cmd(t_bg_jobs *job)
+{
+    char ***cmd;
+
+    cmd = job->cmd;
+    while (*cmd)
+    {
+        ft_print_dbl_array(*(cmd++));
+        if (*(cmd))
+            ft_putstr(" | ");
+    }
+    ft_printf(" &\n");
 }
