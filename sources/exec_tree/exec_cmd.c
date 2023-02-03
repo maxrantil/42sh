@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/02 13:43:50 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:44:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 		pid = fork_wrap();
 		if (pid == 0)
 		{
-			//We only want to pipe stdout if we are not redirecting
 			if (!g_sh->pipe->redirecting && g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
 			{
 				ft_err_print("dup2", NULL, "failed", 2);
@@ -61,6 +60,17 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	return (status);
 }
 
+/* Only wait if builtin, currently handled where called */
+static int exit_if_child(t_shell *sh)
+{
+	wait(0);
+	if (sh->pipe->pid == 0 && sh->pipe->pipefd[0] >= 0)
+		exit(0);
+	close (sh->pipe->pipefd[1]);
+	sh->pipe->pipefd[1] = -1;
+	return (1);
+}
+
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;
@@ -74,7 +84,7 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 		return ;
 	if (sh->term->fc_flag)
 		print_args(args);
-	if (!ft_builtins(sh, &args))
+	if (!ft_builtins(sh, &args) && exit_if_child(sh))
 		return ;
 	hash = 0;
 	cmd = hash_check(sh, args[0], &hash);

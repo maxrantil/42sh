@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
 /*   Updated: 2023/02/02 15:06:02 by mrantil          ###   ########.fr       */
@@ -193,9 +193,10 @@ typedef struct s_job
 	char			*cmd;
 }				t_job;
 
-/*				PIPE STRUCT					*/
+/*				PIPE DATA					*/
 typedef struct s_pipe
 {
+	int		pid;
 	int		pipefd[2];
 	int		redirecting;
 	int		stdincpy;

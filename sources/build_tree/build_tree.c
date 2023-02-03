@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:21:00 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/01 19:00:08 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:36:02 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ t_treenode	*build_tree(t_token **tokens)
 		return (NULL);
 	}
 	head = create_semicolon_node(*tokens, 0, calculate_tokens(*tokens));
-	//print_tree(head);
+	// print_tree(head);
 	return (head);
 }
