@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/27 18:24:14 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/03 15:18:49 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,6 +144,7 @@ FILES			= \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_check_flags \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
+				$(FC)fc_get_flags \
 				$(FC)fc_get_start_and_end \
 				$(FC)fc_get_start_for_lists \
 				$(FC)fc_list_flags \

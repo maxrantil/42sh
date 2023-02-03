@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/27 18:24:02 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/03 15:47:31 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,13 @@ typedef struct s_fc
 	char	*ret_cmd;
 	int		start;
 	int		end;
+	int		flags;
 	int		e;
-}	t_fc;
+	bool	s;
+	bool	r;
+	bool	n;
+	bool	l;
+}			t_fc;
 
 /*					TOKEN STRUCT			*/
 typedef struct s_token
@@ -385,6 +390,7 @@ int				fc_check_flags(t_shell *sh, char ***cmd);
 int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
 t_fc *fc, char ***cmd);
 int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_get_flags(t_fc *fc, char **cmd);
 int				fc_get_start_for_lists(t_shell *sh, char ***cmd);
 int				fc_list_flags(t_shell *sh, char ***cmd);
 int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
@@ -394,7 +400,7 @@ void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, \
 char ***cmd, int y);
 int				fc_print_error(int check);
 int				fc_s_change(t_shell *sh, char ***cmd);
-int				fc_s_flag(t_shell *sh, char ***cmd);
+int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_update_history(t_shell *sh, char ***cmd);
 int				ft_fc(t_shell *sh, char ***cmd);
 
