@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/25 19:15:08 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:15:52 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,16 @@ static int	ft_execve(char **cmd, char **args, int access, char ***environ_cp)
 	if (status & 0177)
 		ft_putchar('\n');
 	return (status);
+}
+
+void	tulosta_lista(char **lista)
+{
+	int i = 0;
+	while (lista[i])
+	{
+		ft_printf("%s\n", lista[i]);
+		i++;
+	}
 }
 
 void	exec_cmd(char **args, char ***environ_cp, t_session *sesh)

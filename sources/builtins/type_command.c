@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:32:14 by spuustin          #+#    #+#             */
-/*   Updated: 2023/01/29 17:04:04 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:29:03 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,25 @@ static int	is_built_in(char *command)
 		}
 		i++;
 	}
+	return (0);
+}
+
+static int	is_alias(char *command, t_session *session)
+{
+	int		i;
+
+	i = 0;
+	(void)session;//
+	(void)command;//
+	// while(session->aliases[i])
+	// {
+	// 	if (ft_strequ(command, "<alias key>") == 1)
+	// 	{
+	// 		ft_printf("%s is aliased to '%s'\n", command, "<alias value>");
+	// 		return (1);
+	// 	}
+	// 	i++;
+	// }
 	return (0);
 }
 
@@ -70,7 +89,7 @@ int	type_command(t_session *session, char **commands, char **env)
 		return (0);
 	while (commands[i])
 	{
-		if (!is_built_in(commands[i]))
+		if (!is_built_in(commands[i]) && !is_alias(commands[i], session))
 		{
 			is_hashed = is_hash(session->ht);
 			bin = search_bin(commands[i], env);

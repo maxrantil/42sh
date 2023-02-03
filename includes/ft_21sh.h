@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 20:39:05 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:15:05 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,7 +290,7 @@ char			*ft_expansion_excla(char *str, int i);
 void			ft_quote_blash_removal(char *buff);
 
 /*					UTILITIES				*/
-int				ft_cd_addr_check(char *file);
+int				ft_cd_addr_check(char *file, int p_option, t_session *session);
 char			**ft_env_get(t_session *sesh, char *key);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);

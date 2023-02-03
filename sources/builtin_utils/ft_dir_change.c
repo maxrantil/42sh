@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dir_change.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 10:57:49 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/06 12:55:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/01 18:39:02 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	ft_dir_change(t_session *sesh)
 {
 	char	*oldpwd;
 	char	cwd[BUFF_SIZE];
-
 	oldpwd = "OLDPWD=";
 	if (!ft_env_get(sesh, "OLDPWD"))
 		ft_env_append(sesh, &oldpwd);

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:10:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/30 18:52:17 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/01 20:54:02 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static char	*env_path(t_session *sesh, char *key)
 static int	ft_cd_expand(t_session *sesh, char **cmd, char **path)
 {
 	int		ret;
-
 	ret = 0;
 	if (ft_arrlen(cmd) == 1 || !ft_strcmp(*(cmd + sesh->option_count + 1), "--"))
 	{
@@ -106,7 +105,7 @@ int	ft_cd(t_session *sesh, char **cmd)
 		if (cd_multi_command_validation(sesh, cmd) == 1)
 			return (0);
 	}
-	if (!ft_cd_expand(sesh, cmd, &path) && !ft_cd_addr_check(*(cmd + sesh->option_count + 1)))
+	if (!ft_cd_expand(sesh, cmd, &path) && !ft_cd_addr_check(*(cmd + sesh->option_count + 1), sesh->is_flag_on, sesh))
 	{
 		if (chdir(*(cmd + sesh->option_count + 1)))
 			sesh->exit_stat = 1;
@@ -116,5 +115,6 @@ int	ft_cd(t_session *sesh, char **cmd)
 	else
 		sesh->exit_stat = 1;
 	sesh->option_count = 0;
+	sesh->is_flag_on = 0;
 	return (0);
 }
