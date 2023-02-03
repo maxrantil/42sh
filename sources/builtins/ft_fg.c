@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:22:46 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/03 14:16:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 		ft_putstr("fg: no such job\n");
 	else
 	{
-		ft_print_dbl_array(*job->cmd);
+		ft_print_dbl_array(*job->cmd); // this is wrong
 		ft_putchar('\n');
 		if (job->status == STOPPED || job->status == SUSPENDED)
 			killpg(job->gpid, SIGCONT);

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:50:23 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/01 11:52:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:34 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_access(char *cmd, char **args, t_shell *sh)
 	}
 	else if (!cmd || !ft_strchr(cmd, '/'))
 	{
-		if (ft_env_get(sh, "PATH"))
+		if (ft_env_get(sh, "PATH", sh->env))
 			ft_err_print(NULL, args[0], "command not found", 2);
 		else
 			ft_err_print(NULL, args[0], "No such file or directory", 2);

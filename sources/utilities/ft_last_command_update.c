@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_last_command_update.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:24:16 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/30 10:38:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:05:04 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_env_last_command(t_shell *sh, char **cmd)
 	char	**last_arg;
 
 	join = NULL;
-	env = ft_env_get(sh, "_");
+	env = ft_env_get(sh, "_", sh->env);
 	last_arg = get_last_arg(cmd);
 	if (last_arg)
 	{

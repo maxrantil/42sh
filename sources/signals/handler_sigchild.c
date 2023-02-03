@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 13:23:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:20:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ void handler_sigchild(int num)
 			transfer_to_bg(g_sh, STOPPED);
 			reset_fgnode(g_sh);
 			display_suspended_job(g_sh);
+			if (g_sh->pipe->pipefd[0] > -1 || g_sh->pipe->pipefd[1] > -1)
+			{
+				g_sh->pipe->redirecting = 0;
+				reset_fd(g_sh->terminal);
+				close(g_sh->pipe->pipefd[0]);
+				close(g_sh->pipe->pipefd[1]);
+				g_sh->pipe->pipefd[0] = -1;
+			}
 		}
 		set_signal_keyboard();
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)

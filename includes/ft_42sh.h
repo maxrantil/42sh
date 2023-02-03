@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/03 13:19:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:57:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_logicalop
 typedef struct s_cmdnode
 {
 	int		type;
+	int 	redirecting;
 	char	**cmd;
 
 }	t_cmdnode;
@@ -224,6 +225,9 @@ typedef struct s_bg_jobs
 typedef struct s_pipe
 {
 	int		pipefd[2];
+	int		redirecting;
+	int		stdincpy;
+	int		stdoutcpy;
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -503,7 +507,7 @@ void			tok_quote_flag(char *line, int *end, char *quote_flag);
 
 /*					UTILITIES				*/
 int				ft_cd_addr_check(char *file);
-char			**ft_env_get(t_shell *sh, char *key);
+char			**ft_env_get(t_shell *sh, char *key, char **from_array);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);

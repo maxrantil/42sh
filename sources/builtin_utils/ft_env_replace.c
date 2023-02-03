@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:12:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:12 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_env_replace(t_shell *sh, char *envn, char **tmp_env)
 
 	ret = 0;
 	key = ft_strsub(envn, 0, ft_strchr(envn, '=') - envn);
-	envp = ft_env_get(sh, key);
+	envp = ft_env_get(sh, key, sh->env);
 	if (envp)
 	{
 		if (tmp_env)
