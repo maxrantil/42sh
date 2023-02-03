@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 16:01:29 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:57:34 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,13 @@ void handler_sigchild(int num)
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
 			check_pipeline(g_sh, pid);
-			change_process_status(g_sh->bg_node, pid, DONE);
 			if (WIFSIGNALED(status))
-				ft_putchar('\n');
+			{
+				if (WTERMSIG(status))
+					change_process_status(g_sh->bg_node, pid, TERMINATED);
+			}
+			else
+				change_process_status(g_sh->bg_node, pid, DONE);
 		}
 		else //if suspended it goes here
 		{
@@ -98,6 +102,6 @@ void handler_sigchild(int num)
 		}
 		set_signal_keyboard();
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
-			ft_exit(g_sh, 1); // this needs to be proper exit
+			ft_exit(g_sh, 1);
 	}
 }
