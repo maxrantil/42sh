@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 13:56:58 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/03 10:08:33 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct s_param
 	char	*strip;
 	char	*flag;
 	char	op;
+	char	*oper;
 }	t_param;
 
 /*					TREE UNION				*/
