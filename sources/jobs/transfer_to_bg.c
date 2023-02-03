@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 15:15:31 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/03 12:00:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,23 +88,35 @@ void	transfer_to_bg(t_shell *sh, int status)
 			sh->bg_node = init_bg_node(sh, status, 0, prev);
 			return ;
 		}
-		job = sh->bg_node;
-		while (job)
+		if (sh->fg_node->gpid == 0)
 		{
-			if (sh->fg_node->gpid == job->gpid)
+			job = sh->bg_node;
+			while (job->next)
+				job = job->next;
+			// ft_printf("job %d\n", job->gpid);
+			job->status = STOPPED;
+			return ;
+		}	
+		else
+		{
+			job = sh->bg_node;
+			while (job)
 			{
-				job->status = STOPPED;
-				delete_from_queue(sh, job);
-				ft_memmove(&sh->process_queue[1], \
-				&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
-				sh->process_queue[0] = job->index;
-				reset_fgnode(sh);
-				return ;
+				if (sh->fg_node->gpid == job->gpid)
+				{
+					job->status = STOPPED;
+					delete_from_queue(sh, job);
+					ft_memmove(&sh->process_queue[1], \
+					&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
+					sh->process_queue[0] = job->index;
+					reset_fgnode(sh);
+					return ;
+				}
+				prev = job;
+				job = job->next;
 			}
-			prev = job;
-			job = job->next;
+			prev->next = init_bg_node(sh, status, prev->index + 1, prev);
 		}
-		prev->next = init_bg_node(sh, status, prev->index + 1, prev);
 	}
 	else
 	{

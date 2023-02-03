@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 17:10:59 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 12:01:58 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ void handler_sigchild(int num)
 		}
 		else //if suspended it goes here
 		{
-			ft_putchar('\n');
+			if (g_sh->fg_node->gpid)
+				ft_putchar('\n');
 			transfer_to_bg(g_sh, STOPPED);
 			reset_fgnode(g_sh);
+			// ft_printf("reaches here\n");
 		}
 	}
 }

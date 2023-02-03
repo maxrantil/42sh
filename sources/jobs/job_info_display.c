@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_process_group.c                                :+:      :+:    :+:   */
+/*   job_info_display.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/03 11:49:35 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/03 12:49:07 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/03 12:58:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	set_process_group(t_shell *sh, pid_t pid)
+void    display_bg_job(t_shell *sh)
 {
-	if (!sh->fg_node->gpid)
-	{
-		setpgid(pid, 0); // This sets up the pid as its own pgid
-		sh->fg_node->gpid = pid;
-		if (!sh->ampersand)
-		{
-			if (ioctl(STDIN_FILENO, TIOCSPGRP, &sh->fg_node->gpid) == -1)
-				ft_exit(sh, 1); // this needs to be proper exit
-		}
-	}
-	else
-		setpgid(pid, sh->fg_node->gpid);
+    t_bg_jobs   *ptr;
+
+    ptr = sh->bg_node;
+    while (ptr->next)
+        ptr = ptr->next;
+    ft_printf("[%d] %d\n", ptr->index + 1, ptr->gpid);
 }
