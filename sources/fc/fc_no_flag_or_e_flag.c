@@ -12,13 +12,14 @@
 
 #include "ft_42sh.h"
 
-static char	*get_editor(char **env)
+static char	*get_editor(t_fc *fc, char **env)
 {
 	char	*editor;
 
-	editor = getenv("FCEDIT");
+	fc->e = 0;
+	editor = search_bin(getenv("FCEDIT"), env);
 	if (!editor)
-		editor = getenv("EDITOR");
+		editor = search_bin(getenv("EDITOR"), env);
 	if (!editor)
 		editor = search_bin("vim", env);
 	if (!editor)
@@ -51,6 +52,8 @@ static int	fc_read_file(t_fc *fc, char **ret_cmd)
 	}
 	ft_strdel(&new_cmd);
 	close(fd);
+	if (!(*ret_cmd))
+		return (0);
 	return (1);
 }
 
@@ -68,22 +71,34 @@ static void	fc_overwrite_history(t_shell *sh, char *ret_cmd)
 	ft_freeda((void ***)&args, calc_chptr(args));
 }
 
+static int	empty_in_editor(t_shell *sh, t_fc *fc)
+{
+	fc_free(fc);
+	ft_strdel(&sh->term->history_arr[sh->term->history_size - 1]);
+	sh->term->history_size--;
+	return (0);
+}
+
 int	fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd)
 {
 	char	*editor;
 
-	if ((*cmd && (*cmd)[1] && ft_strnequ((*cmd)[1], "-e", 2) && (*cmd)[2]))
-		editor = search_bin((*cmd)[2], sh->env);
+	if (!(*cmd)[fc->flags] || fc_no_flags(fc))
+		editor = get_editor(fc, sh->env);
 	else
-		editor = get_editor(sh->env);
+	{
+		editor = search_bin((*cmd)[fc->flags], sh->env);
+		if (ft_strnequ((*cmd)[fc->flags + 1], "--", 2))
+			fc->flags++;
+	}
 	if (!editor)
-		return (fc_print_error(1));
+		return (fc_print_error(5));
 	fc_open_editor(editor, sh, fc, cmd);
 	if (!fc->filename)
 		return (0);
 	fc->ret_cmd = NULL;
 	if (!fc_read_file(fc, &fc->ret_cmd))
-		return (0);
+		return (empty_in_editor(sh, fc));
 	fc_overwrite_history(sh, fc->ret_cmd);
 	fc_build_and_execute_new_tree(sh, fc);
 	return (0);

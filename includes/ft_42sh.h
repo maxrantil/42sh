@@ -6,9 +6,10 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/03 14:33:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:06:41 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef FT_42SH_H
 # define FT_42SH_H
@@ -87,8 +88,13 @@ typedef struct s_fc
 	char	*ret_cmd;
 	int		start;
 	int		end;
+	int		flags;
 	int		e;
-}	t_fc;
+	bool	s;
+	bool	r;
+	bool	n;
+	bool	l;
+}			t_fc;
 
 /*					TOKEN STRUCT			*/
 typedef struct s_token
@@ -425,13 +431,36 @@ void			ft_history_get(t_term *t);
 int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);
 
-/*				  INITIALIZE				*/
-void			ft_init_signals(void);
-void			ft_init_fg_node(t_shell *sh);
-void			init_window_size(t_term *term);
-void			ft_env_init(t_shell *sh);
-void			ft_session_init(t_shell *sh);
-t_job			*ft_init_jobs(void);
+/*			  		 SIGNALS				*/
+void			signal_exec(int num);
+void			ft_signal_keyboard(int num);
+void			search_history_sigs(int num);
+void    		ft_signal_dfl(void);
+void			set_signal_exec(void);
+void    		ft_signal_ign(void);
+void    		set_signal_keyboard(void);
+void    		set_signal_search_history(void);
+
+/*			  		 FC						*/
+void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
+int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
+t_fc *fc, char ***cmd);
+void			fc_free(t_fc *fc);
+int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_get_flags(t_fc *fc, char **cmd);
+int				fc_lflag_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_list_flags(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_no_flags(t_fc *fc);
+void			fc_open_editor(char *editor, t_shell *sh, \
+t_fc *fc, char ***cmd);
+void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, \
+char ***cmd, int y);
+int				fc_print_error(int check);
+int				fc_s_change(t_shell *sh, char ***cmd);
+int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
+void			fc_update_history(t_shell *sh, char ***cmd);
+int				ft_fc(t_shell *sh, char ***cmd);
 
 /*			  	INTERN VARIABLES			*/
 int				ft_variables(t_shell *sh, char ***cmd);

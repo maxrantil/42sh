@@ -27,12 +27,10 @@ static void	delete_var(t_shell *sh, int *i)
 static int find_var_key(t_shell *sh, char *cmd, int var_len)
 {
 	int	i;
-	// int	k;
 	int ret;
 
 	i = 0;
 	ret = 0;
-	// k = 0;
 	while (sh->intr_vars[i])
 	{
 		if (ft_strncmp(sh->intr_vars[i], cmd, var_len) == 0

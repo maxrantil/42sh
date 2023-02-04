@@ -55,7 +55,8 @@ void	fc_open_editor(char *editor, t_shell *sh, t_fc *fc, char ***cmd)
 	print_to_file(sh, fc, cmd, fd);
 	if (fork_wrap() == 0)
 	{
-		execve(editor, fc->filename, sh->env);
+		if (execve(editor, fc->filename, sh->env) == -1)
+			ft_putendl_fd("42sh: Error execve, fc_open_editor() from ft_fc().", 2);
 		exit(1);
 	}
 	wait(0);
