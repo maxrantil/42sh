@@ -370,7 +370,7 @@ int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
 t_fc *fc, char ***cmd);
 int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_get_start_for_lists(t_shell *sh, char ***cmd);
-int				fc_list_flags(t_shell *sh, char ***cmd);
+int				fc_list_flags(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_open_editor(char *editor, t_shell *sh, \
 t_fc *fc, char ***cmd);
@@ -378,7 +378,7 @@ void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, \
 char ***cmd, int y);
 int				fc_print_error(int check);
 int				fc_s_change(t_shell *sh, char ***cmd);
-int				fc_s_flag(t_shell *sh, char ***cmd);
+int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_update_history(t_shell *sh, char ***cmd);
 int				ft_fc(t_shell *sh, char ***cmd);
 
@@ -431,15 +431,13 @@ void			ft_history_get(t_term *t);
 int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);
 
-/*			  		 SIGNALS				*/
-void			signal_exec(int num);
-void			ft_signal_keyboard(int num);
-void			search_history_sigs(int num);
-void    		ft_signal_dfl(void);
-void			set_signal_exec(void);
-void    		ft_signal_ign(void);
-void    		set_signal_keyboard(void);
-void    		set_signal_search_history(void);
+/*				  INITIALIZE				*/
+void			ft_init_signals(void);
+void			ft_init_fg_node(t_shell *sh);
+void			init_window_size(t_term *term);
+void			ft_env_init(t_shell *sh);
+void			ft_session_init(t_shell *sh);
+t_job			*ft_init_jobs(void);
 
 /*			  		 FC						*/
 void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);

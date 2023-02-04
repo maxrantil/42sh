@@ -32,9 +32,6 @@ static void	delete_from_queue(t_shell *sh, t_bg_jobs *process)
 
 static void	remove_node(t_bg_jobs **curr)
 {
-	int		i;
-
-	i = -1;
 	reset_cmd(&(*curr)->cmd);
 	ft_memdel((void **)&(*curr)->pid);
 	ft_memdel((void **)&(*curr));

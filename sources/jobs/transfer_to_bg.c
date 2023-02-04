@@ -32,10 +32,8 @@ static void    delete_from_queue(t_shell *sh, t_bg_jobs *process)
 
 static void	init_pid(t_shell *sh, t_bg_jobs *bg_node)
 {
-	int	i;
 	int	len;
 
-	i = 0;
 	len = 0;
 	while (sh->fg_node->pid[len])
 		len++;
@@ -96,7 +94,7 @@ void	transfer_to_bg(t_shell *sh, int status)
 			// ft_printf("job %d\n", job->gpid);
 			job->status = STOPPED;
 			return ;
-		}	
+		}
 		else
 		{
 			job = sh->bg_node;
