@@ -26,13 +26,13 @@ static void	print_n_ell(t_shell *sh, t_fc *fc)
 
 static void	print_r_ell(t_shell *sh, t_fc *fc)
 {
-	while (--fc->end && fc->start < fc->end)
+	while (--fc->end && fc->start < fc->end - 1)
 		ft_printf("%-8d %s\n", fc->end, sh->term->history_arr[fc->end - 1]);
 }
 
 static void	print_nr_ell(t_shell *sh, t_fc *fc)
 {
-	while (--fc->end && fc->start < fc->end)
+	while (--fc->end && fc->start < fc->end - 1)
 		ft_printf("\t %s\n", sh->term->history_arr[fc->end - 1]);
 }
 
