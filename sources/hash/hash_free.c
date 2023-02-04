@@ -15,6 +15,7 @@
 void	hash_free(t_hash **ht)
 {
 	t_hash	*tmp;
+	t_hash	*tmp2;
 	int		i;
 
 	i = 0;
@@ -27,8 +28,9 @@ void	hash_free(t_hash **ht)
 			{
 				ft_strdel(&tmp->program);
 				ft_strdel(&tmp->path);
-				ft_memdel((void **)tmp);
-				tmp = tmp->next;
+				tmp2 = tmp->next;
+				free(tmp);
+				tmp = tmp2;
 			}
 		}
 		i++;

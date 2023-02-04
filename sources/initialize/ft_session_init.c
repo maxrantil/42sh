@@ -30,6 +30,7 @@ void	ft_session_init(t_shell *sh)
 	g_t = sh->term;
 	sh->jobs = NULL;
 	sh->bg_node = NULL;
+	sh->process_count = 0;
 	sh->exit_stat = 0;
 	sh->line = NULL;
 	ft_env_init(sh);
