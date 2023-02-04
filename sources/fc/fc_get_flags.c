@@ -14,7 +14,7 @@
 
 static int usage(void)
 {
-	ft_putstr_fd("42sh: fc: invalid option", 2);
+	ft_putendl_fd("42sh: fc: invalid option", 2);
 	ft_putstr_fd("fc: usage: fc [-e ename] [-lnr] ", 2);
 	ft_putendl_fd("[first] [last] or fc -s [pat=rep] [command]", 2);
 	return (0);
@@ -35,7 +35,7 @@ static int	turn_on_flags(t_fc *fc, char *str)
 		else if (*str == 'n')
 			fc->n = true;
 		else if (*str == 'e')
-			fc->e = 2;
+			fc->e = 1;
 		else
 			return (usage());
 		str++;
@@ -57,7 +57,7 @@ int	fc_get_flags(t_fc *fc, char **cmd)
 			j++;
 			if (cmd[i] && cmd[i][j] == '-')
 			{
-				fc->flags = ++i;
+				++i;
 				break ;
 			}
 			if (!turn_on_flags(fc, &cmd[i][j]))

@@ -56,11 +56,9 @@ static int	test_operator_error(char *line, int *end)
 char	*find_argument(char *line, int *i, int *start, int *end)
 {
 	char	*ret;
-	int		digits;
 	char	quote;
 
 	quote = 0;
-	digits = 1;
 	ret = if_redir_or_logical(line, i, start, end);
 	if (*end == -1)
 		return (NULL);

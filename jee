@@ -1,0 +1,4 @@
+#!/bin/bash
+
+k=$(ps aux | grep 42sh | awk '{print $2}')
+kill -9 $k

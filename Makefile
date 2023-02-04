@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -142,13 +142,14 @@ FILES			= \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
 				$(FC)fc_build_and_execute_new_tree \
-				$(FC)fc_check_flags \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
+				$(FC)fc_free \
 				$(FC)fc_get_flags \
 				$(FC)fc_get_start_and_end \
-				$(FC)fc_get_start_for_lists \
+				$(FC)fc_lflag_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
+				$(FC)fc_no_flags \
 				$(FC)fc_open_editor \
 				$(FC)fc_overwrite_fc_cmd_with_prev_cmd \
 				$(FC)fc_print_error \

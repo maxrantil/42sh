@@ -388,14 +388,15 @@ void    		set_signal_search_history(void);
 
 /*			  		 FC						*/
 void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
-int				fc_check_flags(t_shell *sh, char ***cmd);
 int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
 t_fc *fc, char ***cmd);
+void			fc_free(t_fc *fc);
 int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_get_flags(t_fc *fc, char **cmd);
-int				fc_get_start_for_lists(t_shell *sh, char ***cmd);
-int				fc_list_flags(t_shell *sh, char ***cmd);
+int				fc_lflag_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_list_flags(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
+int				fc_no_flags(t_fc *fc);
 void			fc_open_editor(char *editor, t_shell *sh, \
 t_fc *fc, char ***cmd);
 void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, \

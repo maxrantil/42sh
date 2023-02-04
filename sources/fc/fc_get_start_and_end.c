@@ -20,51 +20,51 @@ static void	no_argument(t_shell *sh, t_fc *fc)
 
 static void	one_argument(t_shell *sh, t_fc *fc, char ***cmd)
 {
-	if ((*cmd)[1 + fc->e][0] == '-')
+	if ((*cmd)[fc->flags + fc->e][0] == '-')
 	{
 		fc->start = (int)sh->term->history_size \
-		+ ft_atoi((*cmd)[1 + fc->e]) - 2;
+		+ ft_atoi((*cmd)[fc->flags + fc->e]) - 2;
 		fc->end = fc->start + 2;
 	}
 	else
 	{
-		fc->start = ft_atoi((*cmd)[1 + fc->e]) - 2;
-		fc->end = ft_atoi((*cmd)[1 + fc->e]);
+		fc->start = ft_atoi((*cmd)[fc->flags + fc->e]) - 2;
+		fc->end = ft_atoi((*cmd)[fc->flags + fc->e]);
 	}
 }
 
 static void	two_argument(t_shell *sh, t_fc *fc, char ***cmd)
 {
-	if ((*cmd)[1 + fc->e][0] == '-')
+	if ((*cmd)[fc->flags + fc->e][0] == '-')
 		fc->start = (int)sh->term->history_size \
-		+ ft_atoi((*cmd)[1 + fc->e]);
+		+ ft_atoi((*cmd)[fc->flags + fc->e]);
 	else
-		fc->start = ft_atoi((*cmd)[1 + fc->e]) - 2;
-	if ((*cmd)[2 + fc->e][0] == '-')
+		fc->start = ft_atoi((*cmd)[fc->flags + fc->e]) - 2;
+	if ((*cmd)[fc->flags + 1 + fc->e][0] == '-')
 	{
-		if ((*cmd)[1 + fc->e][0] == '-')
+		if ((*cmd)[fc->flags + fc->e][0] == '-')
 			fc->end = (int)sh->term->history_size \
-			+ ft_atoi((*cmd)[2 + fc->e]) - 2;
+			+ ft_atoi((*cmd)[fc->flags + 1 + fc->e]) - 2;
 		else
 			fc->end = (int)sh->term->history_size \
-			+ ft_atoi((*cmd)[2 + fc->e]) - 1;
+			+ ft_atoi((*cmd)[fc->flags + 1 + fc->e]) - 1;
 	}
 	else
 	{
-		if ((*cmd)[1 + fc->e][0] == '-')
-			fc->end = ft_atoi((*cmd)[2 + fc->e]) - 2;
+		if ((*cmd)[fc->flags + fc->e][0] == '-')
+			fc->end = ft_atoi((*cmd)[fc->flags + 1 + fc->e]) - 2;
 		else
-			fc->end = ft_atoi((*cmd)[2 + fc->e]);
+			fc->end = ft_atoi((*cmd)[fc->flags + 1 + fc->e]);
 	}
 }
 
 int	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 {
-	if (!(*cmd)[1 + fc->e])
+	if (!(*cmd)[fc->flags + fc->e])
 		no_argument(sh, fc);
-	else if ((*cmd)[1 + fc->e] && !(*cmd)[2 + fc->e])
+	else if ((*cmd)[fc->flags + fc->e] && !(*cmd)[fc->flags + 1 + fc->e])
 		one_argument(sh, fc, cmd);
-	else if ((*cmd)[1 + fc->e] && (*cmd)[2 + fc->e])
+	else if ((*cmd)[fc->flags + fc->e] && (*cmd)[fc->flags + 1 + fc->e])
 		two_argument(sh, fc, cmd);
 	else
 		return (0);
