@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_job_node.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:32:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 17:06:12 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:40:08 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	display_job_node(t_shell *sh, t_bg_jobs *job)
 		print_queue(sh, job->index);
 		display_state(job->status);
 		display_pipeline_cmd(job);
-        if (job->status == DONE || job->status == TERMINATED)
-            bg_node_delete(sh, &job);
+		if (job->status == DONE || job->status == TERMINATED)
+			bg_node_delete(sh, &job);
 	}
 }

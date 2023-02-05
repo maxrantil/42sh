@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_node_delete.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 22:10:49 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 15:57:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:23:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ static void	delete_from_queue(t_shell *sh, t_bg_jobs *process)
 
 static void	remove_node(t_bg_jobs **curr)
 {
-	int		i;
-
-	i = -1;
 	reset_cmd(&(*curr)->cmd);
 	ft_memdel((void **)&(*curr)->pid);
 	ft_memdel((void **)&(*curr));

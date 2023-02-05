@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/03 12:00:28 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:23:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ static void    delete_from_queue(t_shell *sh, t_bg_jobs *process)
 
 static void	init_pid(t_shell *sh, t_bg_jobs *bg_node)
 {
-	int	i;
 	int	len;
 
-	i = 0;
 	len = 0;
 	while (sh->fg_node->pid[len])
 		len++;
