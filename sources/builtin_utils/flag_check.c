@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:52:21 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/01 18:57:47 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:31:25 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	str_only_contains_chars(char *str, char *options)
 	{
 		while (options[j])
 		{
-			if(str[i] == options[j])
+			if (str[i] == options[j])
 				break ;
 			j++;
 		}
@@ -40,7 +40,7 @@ static int	str_only_contains_chars(char *str, char *options)
 		j = 0;
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 /*
@@ -54,13 +54,13 @@ static int	str_only_contains_char(char *str, char c)
 	i = 1;
 	if (!str[i])
 		return (0);
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != c)
-			return(0);
+			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 /*
@@ -78,9 +78,9 @@ int	check_flag(t_session *session, char **commands, char flag)
 	while (commands[i])
 	{
 		if (commands[i][0] != '-')
-			break;
+			break ;
 		if (!str_only_contains_char(commands[i], flag))
-			break;
+			break ;
 		i++;
 	}
 	if (i > 1)
@@ -94,40 +94,35 @@ int	cd_errors(int mode)
 		write(2, "42sh: cd: too many arguments\n", 30);
 	return (1);
 }
+
 /*
 	we have validated that commands[0] == "cd", and that
 	commands[1] and commands[2] exist.
 	for 
 */
-int	validate_cd_options(t_session *session, char **commands)
+
+int	validate_cd_options(t_session *session, char **cmds, int i, int d_dash)
 {
-	int		i;
-	int		invalid_option;
-	int		dash_dash;
-	
-	i = 1;
-	dash_dash = 0;
-	while(commands[i][0] == '-')
+	while (cmds[i][0] == '-')
 	{
-		if (!commands[i][1])
+		if (!cmds[i][1])
 			return (cd_errors(1));
-		if (commands[i][1] && commands[i][1] == '-' && !commands[i][2])
+		if (cmds[i][1] && cmds[i][1] == '-' && !cmds[i][2])
 		{
 			i++;
-			if (commands[i] && commands[i + 1])
+			if (cmds[i] && cmds[i + 1])
 				return (cd_errors(1));
-			dash_dash = 1;
+			d_dash = 1;
 			break ;
 		}
-		invalid_option = str_only_contains_chars(commands[i], "LP");
-		if (invalid_option != 0)
+		if (str_only_contains_chars(cmds[i], "LP") != 0)
 		{
-			print_usage("cd", commands[i][invalid_option]);
+			print_usage("cd", cmds[i][str_only_contains_chars(cmds[i], "LP")]);
 			return (1);
 		}
 		i++;
 	}
-	if (commands[i - 1 - dash_dash][ft_strlen(commands[i - 1]) - 1] == 'P')
+	if (cmds[i - 1 - d_dash][ft_strlen(cmds[i - 1]) - 1] == 'P')
 		session->is_flag_on = 1;
 	session->option_count = i - 1;
 	return (0);

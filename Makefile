@@ -6,7 +6,7 @@
 #    By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/01/25 19:23:37 by spuustin         ###   ########.fr        #
+#    Updated: 2023/02/05 18:55:42 by spuustin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+# LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -227,6 +227,7 @@ FILES			= $(KEYBOARD)ft_add_nl_last_row \
 				$(BUILTIN_UTILS)ft_env_temp \
 				$(BUILTIN_UTILS)flag_check \
 				$(BUILTIN_UTILS)builtin_usage \
+				$(BUILTIN_UTILS)cd_utils \
 				$(TERMIOS)ft_getent \
 				$(TERMIOS)ft_raw_disable \
 				$(TERMIOS)ft_raw_enable \

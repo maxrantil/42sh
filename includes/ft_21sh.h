@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/01 19:15:05 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:49:09 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,7 +370,11 @@ int				ft_env_replace(t_session *sesh, char *envn, char **tmp_env);
 void			ft_dir_change(t_session *sesh);
 int				check_flag(t_session *session, char **commands, char flag);
 void			print_usage(char *command, char c);
-int				validate_cd_options(t_session *session, char **commands);
+int				validate_cd_options(t_session *session, char **commands, \
+				int i, int dash_dash);
+char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
+				int to_skip);
+int	cd_multi_command_validation(t_session *sesh, char **commands);
 
 /*			  		 HISTORY				*/
 int				ft_history(t_term *t, char **cmd);
