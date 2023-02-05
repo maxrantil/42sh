@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 16:57:34 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 14:22:24 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,36 @@ extern t_shell	*g_sh;
 // 	return (0);
 // }
 
+static bool	check_bg_pipeline(t_bg_jobs *job, pid_t pid)
+{
+	pid_t	*ptr;
+
+	ptr = job->pid;
+	while (*ptr)
+	{
+		if (*ptr == pid)
+			return (true);
+		ptr++;
+	}
+	return (false);
+}
+
 static void    change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
 {
     t_bg_jobs    *job;
 
     job = bg_node;
-    while (job && job->gpid != pid)
+    while (job)
+	{
+		if (check_bg_pipeline(job, pid))
+			break ;	
         job = job->next;
+	}
 	if (job)
 		job->status = status;
 }
 
-static void	check_pipeline(t_shell *sh, pid_t pid)
+static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 {
 	pid_t	*ptr;
 
@@ -61,9 +79,9 @@ static void	check_pipeline(t_shell *sh, pid_t pid)
 		{
 			reset_fgnode(sh);
 			return ;
-		}	
+		}
 		ptr++;
-	}	
+	}
 }
 
 void handler_sigchild(int num)
@@ -85,7 +103,7 @@ void handler_sigchild(int num)
 		}
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
-			check_pipeline(g_sh, pid);
+			check_fg_pipeline(g_sh, pid);
 			if (WIFSIGNALED(status))
 			{
 				if (WTERMSIG(status))
@@ -98,6 +116,7 @@ void handler_sigchild(int num)
 		{
 			transfer_to_bg(g_sh, STOPPED);
 			reset_fgnode(g_sh);
+			ft_putchar('\n');
 			display_suspended_job(g_sh);
 		}
 		set_signal_keyboard();

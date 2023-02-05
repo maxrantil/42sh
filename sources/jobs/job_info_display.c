@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:49:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 12:38:33 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 14:05:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,9 @@ void	display_bg_job(t_shell *sh)
 void	display_suspended_job(t_shell *sh) // This needs to updated
 {
 	t_bg_jobs	*ptr;
-	char		***cmd;
 
 	ptr = get_latest_job(sh);
-	ft_printf("\n[%d]%c  Stopped      ", ptr->index + 1, '+');
-	cmd = ptr->cmd;
-	while (*cmd)
-		ft_print_dbl_array(*(cmd++));
-	ft_putchar('\n');
+	display_job_node(sh, ptr);	
 }
 
 void	display_pipeline_cmd(t_bg_jobs *job)

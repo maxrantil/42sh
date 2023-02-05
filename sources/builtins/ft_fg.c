@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 16:57:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 14:12:49 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &job->gpid) == -1)
 				exit (1); // this needs to be proper exit
 		transfer_to_fg(sh, job);
+		job->status = RUNNING;
 		waitpid(job->gpid, &status, WUNTRACED);
 	}
 	return (0);
