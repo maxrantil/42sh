@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_fetch_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:15 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 17:21:44 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:13:41 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 /*
     How to refer to a job according to bash manual
-
-    
-
-
+    - Job index can be refered to by just number or %number
+    - %% or % or %+ refer to the current job
+    - %- refers to previous job
+    - If there is only one job, then %- and %+ are will refer to the same job
+    - %ce is to refer to a job whose command starts with 'ce'
+    - %ce? refers to any job containing the string 'ce' in its command line.
+    - If the prefix or substring matchers more than one job, report an error
+    - Running fg %1 & -> is similar to bg %1
 */
-
-
-
-
 
 // /* static t_bg_jobs   *search_via_percent_ch(char sign, t_bg_jobs *head)
 // {
