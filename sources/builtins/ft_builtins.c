@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 19:38:23 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/06 12:38:26 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 13:55:35 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 		return (ft_hash(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "exit"))
 		return (ft_exit(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "fg"))
+		return (ft_fg(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "bg"))
+		return (ft_bg(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "jobs"))
 		return (ft_jobs(sh));
 	else if (!ft_strcmp(**cmd, "type"))
