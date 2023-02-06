@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/03 15:30:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:15:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ void	exec_pipe(t_pipenode *pipenode, \
 	close (sh->pipe->pipefd[1]);
 	sh->pipe->pipefd[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
-	// print_fg_node(sh);	
-	waitpid(sh->fg_node->gpid, &status, WUNTRACED);
+	// print_fg_node(sh);
+	if (sh->ampersand)
+		waitpid(sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
+	else
+		waitpid(sh->fg_node->gpid, &status, WUNTRACED);
 	g_sh->pipe->redirecting = 0;
 	reset_fd(terminal);
 	close(sh->pipe->pipefd[0]);

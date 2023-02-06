@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/05 12:23:22 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:10:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	transfer_to_bg(t_shell *sh, int status)
 			job = sh->bg_node;
 			while (job->next)
 				job = job->next;
-			// ft_printf("job %d\n", job->gpid);
 			job->status = STOPPED;
 			return ;
 		}	

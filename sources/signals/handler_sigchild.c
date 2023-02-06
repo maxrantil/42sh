@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 14:22:24 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:53:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,19 @@ static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 	}
 }
 
+static void	reset_pipes(t_shell *sh)
+{
+	if (sh->pipe->pipefd[0] > -1 || sh->pipe->pipefd[1] > -1)
+	{
+		sh->pipe->redirecting = 0;
+		reset_fd(sh->terminal);
+		close(sh->pipe->pipefd[0]);
+		close(sh->pipe->pipefd[1]);
+		sh->pipe->pipefd[0] = -1;
+		sh->pipe->pipefd[1] = -1;
+	}
+}
+
 void handler_sigchild(int num)
 {
 	int		status;
@@ -92,20 +105,13 @@ void handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-		if (g_sh->pipe->pipefd[0] > -1 || g_sh->pipe->pipefd[1] > -1)
-		{
-			g_sh->pipe->redirecting = 0;
-			reset_fd(g_sh->terminal);
-			close(g_sh->pipe->pipefd[0]);
-			close(g_sh->pipe->pipefd[1]);
-			g_sh->pipe->pipefd[0] = -1;
-			g_sh->pipe->pipefd[1] = -1;
-		}
+		reset_pipes(g_sh);			
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
 			check_fg_pipeline(g_sh, pid);
 			if (WIFSIGNALED(status))
 			{
+				ft_putchar('\n');
 				if (WTERMSIG(status))
 					change_process_status(g_sh->bg_node, pid, TERMINATED);
 			}
