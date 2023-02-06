@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 15:43:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:11:12 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void handler_sigchild(int num)
 			display_suspended_job(g_sh);
 			reset_fgnode(g_sh);
 		}
-		set_signal_keyboard();
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
 			ft_exit(g_sh, 1);
 	}
