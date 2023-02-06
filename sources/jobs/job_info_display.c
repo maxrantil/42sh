@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_info_display.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:49:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 14:05:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:47:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,15 @@ void	display_suspended_job(t_shell *sh) // This needs to updated
 {
 	t_bg_jobs	*ptr;
 
-	ptr = get_latest_job(sh);
-	display_job_node(sh, ptr);	
+	ptr = sh->bg_node;
+	while (ptr)
+	{
+		if (ptr->gpid == sh->fg_node->gpid)
+			break ;
+		ptr = ptr->next;
+	}
+	if (ptr)
+		display_job_node(sh, ptr);	
 }
 
 void	display_pipeline_cmd(t_bg_jobs *job)

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/06 11:10:51 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:47:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	transfer_to_bg(t_shell *sh, int status)
 					ft_memmove(&sh->process_queue[1], \
 					&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
 					sh->process_queue[0] = job->index;
-					reset_fgnode(sh);
 					return ;
 				}
 				prev = job;
