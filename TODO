@@ -1,1 +1,2 @@
-aggregation + pipe combo breaks up, did not test closefd yet
+did not test closefd yet
+merge fix_stdin_redir and fix_logical_op_logic_again
