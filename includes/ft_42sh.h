@@ -6,10 +6,9 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/06 12:29:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 12:54:46 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FT_42SH_H
 # define FT_42SH_H
@@ -80,21 +79,6 @@
 # define COUNT 10
 
 typedef union u_treenode	t_treenode;
-
-/*					FC STRUCT			*/
-typedef struct s_fc
-{
-	char	**filename;
-	char	*ret_cmd;
-	int		start;
-	int		end;
-	int		flags;
-	int		e;
-	bool	s;
-	bool	r;
-	bool	n;
-	bool	l;
-}			t_fc;
 
 /*					TOKEN STRUCT			*/
 typedef struct s_token
@@ -186,6 +170,22 @@ union u_treenode
 	t_ampersand	ampersand;
 };
 
+/*					FC STRUCT			*/
+typedef struct s_fc
+{
+	char	**filename;
+	char	*ret_cmd;
+	int		start;
+	int		end;
+	int		flags;
+	int		e;
+	bool	s;
+	bool	r;
+	bool	n;
+	bool	l;
+}			t_fc;
+
+
 /*					HASH					*/
 typedef struct s_hash
 {
@@ -261,9 +261,6 @@ typedef struct s_shell
 	int				option_count;
 	bool			ampersand;
 }				t_shell;
-
-/*					BANNER					*/
-void			banner_print(void);
 
 /*					BUILDTREE				*/
 t_treenode		*build_tree(t_token **tokens);
@@ -545,6 +542,7 @@ int				is_seperator(char c);
 void			tok_quote_flag(char *line, int *end, char *quote_flag);
 
 /*					UTILITIES				*/
+void			banner_print(void);
 void			exit_error(t_shell *sh, int status, char *msg);
 char			**ft_env_get(t_shell *sh, char *key, char **from_array);
 int				increment_whitespace(char **line);
