@@ -6,7 +6,7 @@
 #    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/06 12:28:54 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/06 12:54:50 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,6 @@ endif
 SOURCES 		= 	sources
 INCLUDES		= 	includes/
 LIBRARIES 		= 	libft/
-BANNER			= 	banner/
 BUILDTREE		=	build_tree/
 BUILTIN_UTILS	= 	builtin_utils/
 BUILTIN			= 	builtins/
@@ -91,7 +90,6 @@ H_FILES 	= 	ft_42sh \
 				keyboard \
 
 FILES			= \
-				$(BANNER)ft_banner \
 				$(BUILDTREE)build_tree \
 				$(BUILDTREE)make_arg_array \
 				$(BUILDTREE)bt_utils \
@@ -322,6 +320,7 @@ FILES			= \
 				$(TOKENIZER)tok_error_after_tokenizing \
 				$(TOKENIZER)tok_errors \
 				$(TOKENIZER)tok_print_tokens \
+				$(UTILITIES)ft_banner \
 				$(UTILITIES)exit_error \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
@@ -348,7 +347,6 @@ $(NAME): libft/libft.a $(OBJECTS) $(O_PATHS)
 
 $(OBJECTS):
 	@make -C $(LIBRARIES)
-	@mkdir -p $(OBJECTS)/$(BANNER)
 	@mkdir -p $(OBJECTS)/$(BUILDTREE)
 	@mkdir -p $(OBJECTS)/$(BUILTIN)
 	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
