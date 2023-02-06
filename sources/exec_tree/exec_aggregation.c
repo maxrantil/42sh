@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_aggregation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:41:04 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,12 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 		ft_err_print(NULL, "dup2", "failed", 2);
 		return ;
 	}
+	if (sh->pipe->pipefd[1] > 0)
+	{
+		close(sh->pipe->pipefd[1]);
+		sh->pipe->pipefd[1] = -1;
+	}
+	if (node->cmd && node->cmd->type == CMD)
+		sh->pipe->redirecting = 1;
 	exec_tree(node->cmd, environ_cp, terminal, sh);
 }

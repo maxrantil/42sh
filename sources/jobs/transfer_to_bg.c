@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 20:25:56 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:49:01 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,31 @@ static void	init_cmd(t_shell *sh, t_bg_jobs *bg_node)
 		bg_node->cmd[len] = dup_dbl_ptr(sh->fg_node->cmd[len]);
 }
 
+static void add_to_queue(t_shell *sh, int index)
+{
+	int 		i;
+	t_bg_jobs	*tmp;
+
+	i = 0;
+	tmp = sh->bg_node;
+	while (tmp)
+	{
+		if (tmp->index == sh->process_queue[i])
+		{
+			if (tmp->status == STOPPED)
+			{
+				i++;
+				tmp = sh->bg_node;
+			}
+		}
+		tmp = tmp->next;
+	}
+	ft_memmove(&sh->process_queue[i + 1], \
+	&sh->process_queue[i], (sh->process_count - 1) * sizeof(int));
+	sh->process_queue[i] = index;
+
+}
+
 static t_bg_jobs	*init_bg_node(t_shell *sh, int status, \
 int index, t_bg_jobs *prev)
 {
@@ -65,9 +90,7 @@ int index, t_bg_jobs *prev)
 	init_cmd(sh, bg_node);
 	bg_node->status = status;
 	bg_node->index = index;
-	ft_memmove(&sh->process_queue[1], \
-	&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
-	sh->process_queue[0] = index;
+	add_to_queue(sh, index);
 	bg_node->prev = prev;
 	bg_node->next = NULL;
 	return (bg_node);
@@ -86,23 +109,34 @@ void	transfer_to_bg(t_shell *sh, int status)
 			sh->bg_node = init_bg_node(sh, status, 0, prev);
 			return ;
 		}
-		job = sh->bg_node;
-		while (job)
+		if (sh->fg_node->gpid == 0)
 		{
-			if (sh->fg_node->gpid == job->gpid)
-			{
-				job->status = STOPPED;
-				delete_from_queue(sh, job);
-				ft_memmove(&sh->process_queue[1], \
-				&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
-				sh->process_queue[0] = job->index;
-				reset_fgnode(sh);
-				return ;
-			}
-			prev = job;
-			job = job->next;
+			job = sh->bg_node;
+			while (job->next)
+				job = job->next;
+			job->status = STOPPED;
+			return ;
 		}
-		prev->next = init_bg_node(sh, status, prev->index + 1, prev);
+		else
+		{
+			job = sh->bg_node;
+			while (job)
+			{
+				if (sh->fg_node->gpid == job->gpid)
+				{
+					job->status = STOPPED;
+					delete_from_queue(sh, job);
+					ft_memmove(&sh->process_queue[1], \
+					&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
+					sh->process_queue[0] = job->index;
+					reset_fgnode(sh);
+					return ;
+				}
+				prev = job;
+				job = job->next;
+			}
+			prev->next = init_bg_node(sh, status, prev->index + 1, prev);
+		}
 	}
 	else if (!sh->fg_node->gpid)
 	{
@@ -116,6 +150,6 @@ void	transfer_to_bg(t_shell *sh, int status)
 	else
 	{
 		ft_putendl_fd("42sh: too many jobs\n", 2);
-		return ;	
+		return ;
 	}
 }

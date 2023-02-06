@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:21:00 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/31 15:48:54 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:00:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_treenode	*init_cmd_node(char *cmd)
 	new = ft_memalloc(sizeof(*new));
 	new->type = CMD;
 	((t_cmdnode *)new)->type = CMD;
+	((t_cmdnode *)new)->redirecting = 0;
 	((t_cmdnode *)new)->cmd = make_arg_array(cmd);
 	return (new);
 }

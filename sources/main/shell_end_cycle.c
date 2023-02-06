@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/01 08:46:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:05:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_reset_tmp_env(t_shell *sh)
 			{
 				key = ft_strsub(sh->tmp_env_key[i], 0, key - \
 					sh->tmp_env_key[i]);
-				env = ft_env_get(sh, key);
+				env = ft_env_get(sh, key, sh->env);
 				ft_strdel(env);
 				*env = ft_strdup(sh->tmp_env_key[i]);
 				ft_strdel(&key);
@@ -43,8 +43,21 @@ static void	ft_reset_tmp_env(t_shell *sh)
 
 static void	check_hash(t_shell *sh)
 {
-	if (!ft_env_get(sh, "PATH"))
+	if (!ft_env_get(sh, "PATH", sh->env))
 		hash_clear(sh->ht);
+}
+
+static void	notify_completed_jobs(t_shell *sh)
+{
+	t_bg_jobs	*ptr;
+
+	ptr = sh->bg_node;
+	while (ptr)
+	{
+		if (ptr->status == DONE || ptr->status == TERMINATED)
+			display_job_node(sh, ptr);	
+		ptr = ptr->next;
+	}
 }
 
 /**
@@ -59,6 +72,5 @@ void	shell_end_cycle(t_shell *sh)
 	reset_fd(sh->terminal);
 	ft_reset_tmp_env(sh);
 	check_hash(sh);
-    // reset_fgnode(sh);
-	// detach_and_remove();
+	notify_completed_jobs(sh);
 }

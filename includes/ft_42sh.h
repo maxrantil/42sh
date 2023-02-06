@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/02 20:42:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 16:54:36 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_logicalop
 typedef struct s_cmdnode
 {
 	int		type;
+	int 	redirecting;
 	char	**cmd;
 
 }	t_cmdnode;
@@ -224,6 +225,9 @@ typedef struct s_bg_jobs
 typedef struct s_pipe
 {
 	int		pipefd[2];
+	int		redirecting;
+	int		stdincpy;
+	int		stdoutcpy;
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -300,7 +304,7 @@ int				next_semicolon_or_ampersand(t_token *tokens, \
 int i_tok, int end);
 
 /*				BUILTIN UTILITIES			*/
-t_bg_jobs    	*bg_fetch_node(t_bg_jobs *head, char *cmd);
+t_bg_jobs    	*bg_fetch_node(t_shell *sh, char *cmd);
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
 void			ft_env_remove(t_shell *sh, char *env_to_clean);
 int				ft_env_append(t_shell *sh, char **arg);
@@ -442,6 +446,11 @@ void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
 void			close_all_bg_processes(t_shell *sh);
 char    		**dup_dbl_ptr(char **cmd);
+void			display_job_node(t_shell *sh, t_bg_jobs *job);
+void			display_bg_job(t_shell *sh);
+void    		display_suspended_job(t_shell *sh);
+void    		display_pipeline_cmd(t_bg_jobs *job);
+void			queue_delete(t_shell *sh, t_bg_jobs *process);
 void			reset_fgnode(t_shell *sh);
 void			set_process_group(t_shell *sh, pid_t pid);
 void			transfer_to_bg(t_shell *sh, int status);
@@ -502,7 +511,7 @@ void			tok_quote_flag(char *line, int *end, char *quote_flag);
 
 /*					UTILITIES				*/
 int				ft_cd_addr_check(char *file);
-char			**ft_env_get(t_shell *sh, char *key);
+char			**ft_env_get(t_shell *sh, char *key, char **from_array);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
 int				ft_err_print(char *file, char *cmd, char *msg, int fd);

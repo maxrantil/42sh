@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/02 20:42:19 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/06 16:53:57 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-LEAK_CHECK			+=	-fsanitize=address
+# LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -62,7 +62,6 @@ endif
 SOURCES 		= 	sources
 INCLUDES		= 	includes/
 LIBRARIES 		= 	libft/
-BANNER			= 	banner/
 BUILDTREE		=	build_tree/
 BUILTIN_UTILS	= 	builtin_utils/
 BUILTIN			= 	builtins/
@@ -91,7 +90,7 @@ H_FILES 	= 	ft_42sh \
 				keyboard \
 
 FILES			= \
-				$(BANNER)ft_banner \
+				$(BANNER) \
 				$(BUILDTREE)build_tree \
 				$(BUILDTREE)make_arg_array \
 				$(BUILDTREE)bt_utils \
@@ -214,7 +213,10 @@ FILES			= \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
+				$(JOBS)display_job_node \
 				$(JOBS)dup_dbl_ptr \
+				$(JOBS)job_info_display \
+				$(JOBS)queue_delete \
 				$(JOBS)reset_fgnode \
 				$(JOBS)reset_cmd \
 				$(JOBS)set_process_group \
@@ -316,6 +318,7 @@ FILES			= \
 				$(TOKENIZER)tok_error_after_tokenizing \
 				$(TOKENIZER)tok_errors \
 				$(TOKENIZER)tok_print_tokens \
+				$(UTILITIES)ft_banner \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)free_node \
@@ -341,7 +344,6 @@ $(NAME): libft/libft.a $(OBJECTS) $(O_PATHS)
 
 $(OBJECTS):
 	@make -C $(LIBRARIES)
-	@mkdir -p $(OBJECTS)/$(BANNER)
 	@mkdir -p $(OBJECTS)/$(BUILDTREE)
 	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
 	@mkdir -p $(OBJECTS)/$(BUILTIN)

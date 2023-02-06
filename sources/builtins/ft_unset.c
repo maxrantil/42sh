@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:43 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:31 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_unset(t_shell *sh, char **cmd)
 	sh->exit_stat = 0;
 	while (*(cmd + (++i)))
 	{
-		if (ft_env_get(sh, *(cmd + i)))
+		if (ft_env_get(sh, *(cmd + i), sh->env))
 		{
 			ptr = ft_strjoin(*(cmd + i), "=");
 			ft_env_remove(sh, ptr);
