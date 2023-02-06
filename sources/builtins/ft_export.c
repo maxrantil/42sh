@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 20:21:30 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:47:58 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ int	ft_export(t_shell *sh, char **cmd)
 	while (*(cmd + ++i))
 	{
 		key = ft_strjoin(*(cmd + i) ,"=");
+		if (ft_strnequ(key, "PATH=", 5))
+			hash_clear(sh->ht);
 		if (ft_strchr(*(cmd + i), '='))
 		{
 			if (!key_check(*(*(cmd + i))))
