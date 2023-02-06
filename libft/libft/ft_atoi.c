@@ -12,9 +12,9 @@
 
 /**
  * It takes a string, and returns an integer
- * 
+ *
  * @param nbr The string to be converted to an integer.
- * 
+ *
  * @return the integer value of the string passed as argument.
  */
 int	ft_atoi(const char *nbr)

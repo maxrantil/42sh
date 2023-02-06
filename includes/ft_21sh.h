@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_21sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/05 19:49:09 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:53:40 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,7 +374,7 @@ int				validate_cd_options(t_session *session, char **commands, \
 				int i, int dash_dash);
 char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
 				int to_skip);
-int	cd_multi_command_validation(t_session *sesh, char **commands);
+int				cd_multi_command_validation(t_session *sesh, char **commands);
 
 /*			  		 HISTORY				*/
 int				ft_history(t_term *t, char **cmd);

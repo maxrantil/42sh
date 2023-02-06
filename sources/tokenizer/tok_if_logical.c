@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tok_if_logical.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:21:17 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/24 11:13:01 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 char	*tok_if_logical(char *line, int *i, int *start, int *end)
 {

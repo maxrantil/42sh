@@ -6,11 +6,11 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/23 16:41:09 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:41:00 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static int	test_file_access_for_type(char *dest, int closefd, int *rights)
 {
@@ -40,7 +40,7 @@ static int	test_file_access_for_type(char *dest, int closefd, int *rights)
 }
 
 void	exec_redir(t_redir *node, char ***environ_cp,
-				char *terminal, t_session *sesh)
+				char *terminal, t_shell *sh)
 {
 	int	fd;
 
@@ -59,5 +59,12 @@ void	exec_redir(t_redir *node, char ***environ_cp,
 		ft_err_print(NULL, "exec_redir", "dup2 failed", 2);
 		return ;
 	}
-	exec_tree(node->cmd, environ_cp, terminal, sesh);
+	if (node->cmd && node->cmd->type == CMD)
+		sh->pipe->redirecting = 1;
+	if (sh->pipe->pipefd[1] > 0)
+	{
+		close(sh->pipe->pipefd[1]);
+		sh->pipe->pipefd[1] = -1;
+	}
+	exec_tree(node->cmd, environ_cp, terminal, sh);
 }

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expansion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 15:44:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/30 10:37:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-static char	*look_for_expansion(t_session *sesh, char **cmd, int i)
+static char	*look_for_expansion(t_shell *sh, char **cmd, int i)
 {
 	if (*cmd[i] != '\'' && ft_strchr(cmd[i], '$') && ft_strlen(cmd[i]) > 1)
-		return (ft_expansion_dollar(sesh, cmd[i]));
+		return (ft_expansion_dollar(sh, cmd[i]));
 	else if (**(cmd + i) == '~')
-		return (ft_expansion_tilde(sesh, cmd[i]));
+		return (ft_expansion_tilde(sh, cmd[i]));
 	return (NULL);
 }
 
@@ -26,10 +26,10 @@ static char	*look_for_expansion(t_session *sesh, char **cmd, int i)
  * It loops through each word in the command, and if it finds a dollar sign,
  * it expands the variable.
  *
- * @param sesh the session struct
+ * @param sh the session struct
  * @param cmd the command to be expanded
  */
-void	ft_expansion(t_session *sesh, char **cmd)
+void	ft_expansion(t_shell *sh, char **cmd)
 {
 	int		i;
 	char	*expanded;
@@ -40,7 +40,7 @@ void	ft_expansion(t_session *sesh, char **cmd)
 	while (cmd[++i])
 	{
 		expanded = NULL;
-		expanded = look_for_expansion(sesh, cmd, i);
+		expanded = look_for_expansion(sh, cmd, i);
 		if (!expanded)
 			buff = ft_strdup(cmd[i]);
 		else

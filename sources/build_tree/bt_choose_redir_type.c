@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 int	choose_redir_type(t_token *tokens, t_treenode **redir, int i_tok, int cmd)
 {

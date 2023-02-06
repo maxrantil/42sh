@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It prints an error message to the specified file descriptor
- * 
+ *
  * @param file The file name that the error is about.
  * @param cmd The command that was run.
  * @param msg The error message to print.
  * @param fd the file descriptor to print to.
- * 
+ *
  * @return 1
  */
 int	ft_err_print(char *file, char *cmd, char *msg, int fd)

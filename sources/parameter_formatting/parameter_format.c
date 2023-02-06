@@ -6,11 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/25 16:29:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static int	check_syntax(char *cmd)
 {
@@ -62,17 +62,17 @@ char	*remove_braces(char *str)
 	return (new);
 }
 
-void add_var_to_list(t_session *sesh, char *var, char *subst)
+void add_var_to_list(t_shell *sh, char *var, char *subst)
 {
 	int	i;
 
 	i = 0;
-	while (sesh->intr_vars[i])
+	while (sh->intr_vars[i])
 		i++;
-	sesh->intr_vars[i] = ft_strjoin(var + 1, subst);
+	sh->intr_vars[i] = ft_strjoin(var + 1, subst);
 }
 
-int	is_in_var_or_env(t_session *sesh, char *var)
+int	is_in_var_or_env(t_shell *sh, char *var)
 {
 	int i;
 	int	var_len;
@@ -83,30 +83,30 @@ int	is_in_var_or_env(t_session *sesh, char *var)
 	key = ft_strjoin(var, "=");
 	var_len = ft_strlen(key);
 	ft_printf("key %s\n", key);
-	while(sesh->intr_vars[++i])
+	while(sh->intr_vars[++i])
 	{
-		if (ft_strncmp(sesh->intr_vars[i], key, var_len) == 0
-			&& sesh->intr_vars[i][var_len - 1] == '=')
+		if (ft_strncmp(sh->intr_vars[i], key, var_len) == 0
+			&& sh->intr_vars[i][var_len - 1] == '=')
 			return (1);
 	}
 	i = -1;
-	while(sesh->env[++i])
+	while(sh->env[++i])
 	{
-		if (ft_strncmp(sesh->env[i], key, var_len) == 0
-			&& sesh->env[i][var_len - 1] == '=')
+		if (ft_strncmp(sh->env[i], key, var_len) == 0
+			&& sh->env[i][var_len - 1] == '=')
 			return (1);
 	}
 	return (0);
 }
 
-char	*subst_param(t_session *sesh, char *var, char *subst, int format)
+char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 {
 	char	*expanded;
 	char	**temp;
 
 	expanded = NULL;
 	temp = (char **)ft_memalloc(sizeof(char *) * 2);
-	temp[0] = ft_expansion_dollar(sesh, var);
+	temp[0] = ft_expansion_dollar(sh, var);
 	ft_printf("temp [%s]\n", temp[0]);
 	temp[1] = NULL;
 	if (format == 0)
@@ -127,8 +127,8 @@ char	*subst_param(t_session *sesh, char *var, char *subst, int format)
 			ft_strdel(&temp[0]);
 			temp[0] = ft_strjoin(var + 1, subst);
 			ft_printf("temp [%s]\n", temp[0]);
-			add_var(sesh, temp);
-			//add_var_to_list(sesh, var, subst);
+			add_var(sh, temp);
+			//add_var_to_list(sh, var, subst);
 		}
 		else
 			expanded = ft_strdup(temp[0]);
@@ -138,9 +138,9 @@ char	*subst_param(t_session *sesh, char *var, char *subst, int format)
 	{
 		ft_printf("questionmark[%s]\n", var);
 		if (!*temp[0] && subst[1])
-			ft_printf("21sh: %s: %s\n", var + 1, subst + 1);
+			ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
 		else if (!*temp[0] && !subst[1])
-			ft_printf("21sh: %s: parameter null or unset\n", var + 1);
+			ft_printf("42sh: %s: parameter null or unset\n", var + 1);
 		else
 			expanded = ft_strdup(temp[0]);
 
@@ -175,7 +175,7 @@ int	format_mode(char *var)
 	return (format);
 }
 
-char *count_letters(t_session *sesh, char *cmd)
+char *count_letters(t_shell *sh, char *cmd)
 {
 	int		i;
 	int		k;
@@ -200,12 +200,12 @@ char *count_letters(t_session *sesh, char *cmd)
 	// 		return (NULL);
 	// 	i++;
 	// }
-	expanded = ft_expansion_dollar(sesh, var);
+	expanded = ft_expansion_dollar(sh, var);
 	ft_strdel(&var);
 	return (ft_itoa(ft_strlen(expanded)));
 }
 
-int	param_format(t_session *sesh, char **cmd)
+int	param_format(t_shell *sh, char **cmd)
 {
 	int		i;
 	char	*expanded;
@@ -224,7 +224,7 @@ int	param_format(t_session *sesh, char **cmd)
 		{
 			strip = remove_braces(cmd[i]);
 			if (ft_strnequ(cmd[i], "${#", 3))
-				expanded = count_letters(sesh, strip);
+				expanded = count_letters(sh, strip);
 			else
 			{
 				subs = ft_strdup(ft_strchr(strip, ':') + 1);
@@ -233,13 +233,13 @@ int	param_format(t_session *sesh, char **cmd)
 			}
 			ft_printf("stripped %s variable %s format %d\n", strip, subs, format);
 			if (format != -1)
-				expanded = subst_param(sesh, var, subs, format);
+				expanded = subst_param(sh, var, subs, format);
 			if (expanded == NULL)
 			{
 				return (-1);
 			}
 			else if (expanded[0] == '$')
-				expanded = ft_expansion_dollar(sesh, var);
+				expanded = ft_expansion_dollar(sh, var);
 			ft_strdel(&cmd[i]);
 			cmd[i] = ft_strdup(expanded);
 			ft_strdel(&var);

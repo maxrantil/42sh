@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_blash_check.c                                   :+:      :+:    :+:   */
+/*   ft_signal_keyboard.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 12:03:10 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/12/29 12:03:37 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/14 09:02:29 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/26 21:06:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-size_t	ft_bslash_check(char *buff, ssize_t pos)
+extern t_shell	*g_sh;
+
+/*
+ * It's a signal handler that
+ * handles the window size change and the interrupt signal
+ *
+ * @param num The signal number.
+ */
+void	ft_signal_keyboard(int num)
 {
-	size_t	len;
-	ssize_t	count;
-
-	len = 0;
-	count = pos - 1;
-	while (buff[count] == '\\')
-	{
-		len++;
-		if (!count)
-			break ;
-		count--;
-	}
-	if (len && (len % 2))
-		return (1);
-	return (0);
+	if (num == SIGWINCH)
+		ft_window_size(g_sh->term);
+	if (num == SIGINT)
+		ft_restart_cycle(g_sh->term);
 }

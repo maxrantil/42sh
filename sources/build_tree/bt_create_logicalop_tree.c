@@ -6,11 +6,11 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/13 19:13:34 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/28 17:15:21 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static t_treenode	*init_logical_op(int type)
 {

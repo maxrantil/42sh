@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   flag_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:52:21 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/05 19:31:25 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:13:58 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /*
 	str[0] == '-'
@@ -68,7 +68,7 @@ static int	str_only_contains_char(char *str, char c)
 	session->is_flag_on. returns the number of argument commands
 */
 
-int	check_flag(t_session *session, char **commands, char flag)
+int	check_flag(t_shell *sh, char **commands, char flag)
 {
 	int	i;
 	int	flag_on;
@@ -84,7 +84,7 @@ int	check_flag(t_session *session, char **commands, char flag)
 		i++;
 	}
 	if (i > 1)
-		session->is_flag_on = 1;
+		sh->is_flag_on = 1;
 	return (i - 1);
 }
 
@@ -98,10 +98,10 @@ int	cd_errors(int mode)
 /*
 	we have validated that commands[0] == "cd", and that
 	commands[1] and commands[2] exist.
-	for 
+	for
 */
 
-int	validate_cd_options(t_session *session, char **cmds, int i, int d_dash)
+int	validate_cd_options(t_shell *sh, char **cmds, int i, int d_dash)
 {
 	while (cmds[i][0] == '-')
 	{
@@ -123,7 +123,7 @@ int	validate_cd_options(t_session *session, char **cmds, int i, int d_dash)
 		i++;
 	}
 	if (cmds[i - 1 - d_dash][ft_strlen(cmds[i - 1]) - 1] == 'P')
-		session->is_flag_on = 1;
-	session->option_count = i - 1;
+		sh->is_flag_on = 1;
+	sh->option_count = i - 1;
 	return (0);
 }

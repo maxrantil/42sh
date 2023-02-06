@@ -6,50 +6,53 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 16:16:29 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:49:32 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-void	main_loop(t_session *sesh)
+void	main_loop(t_shell *sh)
 {
 	int	status;
 
 	status = 1;
-	sesh->term->clipboard.buff = NULL;
+	sh->term->clipboard.buff = NULL;
 	while (status)
 	{
-		ft_init_signals();
-		sesh->orig_termios = ft_raw_enable();
-		if (ft_keyboard(sesh->term) == 1)
+		// ft_init_signals();
+		// set_signal_keyboard();
+		ft_raw_enable(sh);
+		if (ft_keyboard(sh->term) == 1)
 		{
-			ft_history_write_to_file(sesh->term);
+			ft_history_write_to_file(sh->term);
 			status = 0;
 		}
-		ft_raw_disable(sesh->orig_termios);
-		if (*(sesh->term->inp))
+		ft_raw_disable(sh->orig_termios);
+		if (*(sh->term->inp))
 		{
-			sesh->line = ft_lexer(sesh->term);
-			sesh->tokens = chop_line(sesh->line, sesh->tokens, 1);
-			sesh->head = build_tree(&sesh->tokens);
-			if (sesh->head && ((t_semicolon *)sesh->head)->left)
-				exec_tree(sesh->head, &sesh->env, sesh->terminal, sesh);
-			shell_end_cycle(sesh);
+			sh->line = ft_lexer(sh->term);
+			sh->tokens = chop_line(sh->line, sh->tokens, 1);
+			sh->head = build_tree(&sh->tokens);
+			if (sh->head && ((t_semicolon *)sh->head)->left)
+				exec_tree(sh->head, &sh->env, sh->terminal, sh);
+			shell_end_cycle(sh);
 		}
 	}
 }
 
 int	main(void)
 {
-	t_session		sesh[1];
+	t_shell		sh[1];
 
 	ft_getent();
 	banner_print();
-	ft_session_init(sesh);
-	ft_history_get(sesh->term);
-	main_loop(sesh);
-	hash_free(sesh->ht);
-	ft_strdel(&sesh->terminal);
+	ft_session_init(sh);
+	ft_history_get(sh->term);
+	main_loop(sh);
+	hash_free(sh->ht);
+	close_all_bg_processes(sh);
+	ft_strdel(&sh->terminal);
+	//exit(0);
 	return (0);
 }

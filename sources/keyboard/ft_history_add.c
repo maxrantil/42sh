@@ -5,13 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 15:01:28 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/31 12:38:01 by mrantil           #+#    #+#             */
+/*   Updated: 2023/01/31 12:47:38 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_42sh.h"
 
-#include "keyboard.h"
+extern t_shell	*g_sh;
 
 static void	add_to_capped_history(t_term *t, char *command)
 {
@@ -22,7 +23,8 @@ static void	add_to_capped_history(t_term *t, char *command)
 	temp = (char **)malloc(sizeof(char *) * (MAX_HISTORY + 1));
 	if (!temp)
 	{
-		ft_putendl_fd("21sh: malloc error, add_to_capped_history()", 2);
+		ft_putendl_fd("42sh: malloc error, add_to_capped_history()", 2);
+		ft_raw_disable(g_sh->orig_termios);
 		exit(1);
 	}
 	i = MAX_HISTORY / 2;
@@ -53,7 +55,8 @@ static void	increase_history_size(t_term *t)
 	}
 	else
 	{
-		ft_putendl_fd("21sh: malloc error, increase_history_size()", 2);
+		ft_putendl_fd("42sh: malloc error, increase_history_size()", 2);
+		ft_raw_disable(g_sh->orig_termios);
 		exit(1);
 	}
 }

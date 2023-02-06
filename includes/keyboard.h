@@ -5,13 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 16:10:19 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/01 16:09:25 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/01 16:09:28 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #ifndef KEYBOARD_H
 # define KEYBOARD_H
@@ -23,7 +20,6 @@
 # include <sys/ioctl.h>
 
 # if __linux__
-#  include <term.h>
 #  include <curses.h>
 #  include <signal.h>
 #  include <limits.h>
@@ -40,6 +36,8 @@
 # define CTRL_R		18
 # define D_QUO		34
 # define S_QUO		39
+# define L_BRAC		123
+# define R_BRAC		125
 # define ESCAPE     27
 # define LINE_MV    49
 # define KEY_SHIFT  50
@@ -95,12 +93,15 @@ typedef struct s_term
 {
 	char				inp[BUFF_SIZE];
 	char				history_buff[BUFF_SIZE];
+	t_clipboard			clipboard;
+	t_search_history	*config;
 	char				**history_arr;
-	size_t				history_size;
 	char				**nl_addr;
 	char				*history_file;
 	char				*input_cpy;
 	char				*delim;
+	ssize_t				term_val[2];
+	size_t				history_size;
 	ssize_t				ws_col;
 	ssize_t				ws_row;
 	ssize_t				index;
@@ -117,11 +118,9 @@ typedef struct s_term
 	ssize_t				heredoc;
 	ssize_t				his;
 	int					ch;
+	bool				fc_flag;
 	char				quote;
-	t_clipboard			clipboard;
-	ssize_t				term_val[2];
-	bool		fc_flag;
-	t_search_history	*config;
+	char				bracket;
 }			t_term;
 
 int		ft_keyboard(t_term *t);
@@ -130,7 +129,7 @@ void	ft_add_nl_mid_row(t_term *t, ssize_t row, ssize_t pos);
 void	ft_alt_mv(t_term *t);
 void	ft_arrow_input(t_term *t);
 void	ft_backspace(t_term *t);
-int		ft_bslash_escape_check(t_term *t, ssize_t pos);
+size_t	special_char_check(char *buff, ssize_t pos, char ch);
 void	ft_copy(t_term *t);
 void	ft_create_prompt_line(t_term *t, ssize_t loc);
 int		ctrl_d(t_term *t);
@@ -167,6 +166,7 @@ void	ft_quote_decrement(t_term *t, ssize_t index);
 void	ft_quote_flag_check(t_term *t, ssize_t index);
 void	ft_quote_flag_reset(t_term *t);
 void	ft_quote_handling(t_term *t, char ch);
+void	ft_bracket_handling(t_term *t, int pos);
 void	ft_remove_nl_addr(t_term *t, ssize_t row);
 void	ft_reset_nl_addr(t_term *t);
 void	ft_restart_cycle(t_term *t);
@@ -181,6 +181,7 @@ void	ft_window_size(t_term *t);
 void	ft_word_mv(t_term *t);
 void	ft_history_add_command(t_term *t, char *command);
 
+/*				SEARCH HISTORY				*/
 void	ft_select_history(t_term *t, t_search_history *config);
 void	ft_selector_up(t_term *t, t_search_history *config);
 void	ft_selector_do( t_term *t, t_search_history *config);
@@ -194,5 +195,8 @@ void	ft_display_to_show(t_search_history *config);
 void	init_interface(t_term *t, t_search_history *config);
 void	ft_search_history_reset(t_term *t);
 void	edit_input(t_term *t, t_search_history *config);
+
+/*			  PROMPT LINE HANDLING			*/
+// size_t	special_char_check(char *buff, ssize_t pos, char ch);
 
 #endif

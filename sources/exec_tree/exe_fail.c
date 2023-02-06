@@ -6,36 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 21:38:50 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/16 13:16:28 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:36:50 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
-
-int	ft_freeda(void ***a, size_t row)
-{
-	unsigned int	i;
-
-	i = -1;
-	if (!a || !*a || !(*a)[0])
-		return (1);
-	while ((*a)[++i] && i < row)
-		ft_strdel((char **)&(*a)[i]);
-	ft_memdel((void **)a);
-	return (1);
-}
-
-size_t	calc_chptr(char **arr)
-{
-	size_t	i;
-
-	if (!arr || !arr[0])
-		return (0);
-	i = 0;
-	while (arr[i])
-		++i;
-	return (i);
-}
+#include "ft_42sh.h"
 
 int	ms_exit(char **args, char ***environ_cp)
 {

@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_var_get.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:50:14 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/16 15:13:07 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-char	**ft_var_get(t_session *sesh, char *key, int *count)
+char	**ft_var_get(t_shell *sh, char *key, int *count)
 {
 	char	**vars;
 	char	*key_full;
 
-	vars = sesh->intr_vars;
+	vars = sh->intr_vars;
 	key_full = ft_strjoin(key, "=");
 	while (*vars)
 	{

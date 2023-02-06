@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static void	init_ht(t_hash ***ht)
 {
@@ -22,11 +22,11 @@ static void	init_ht(t_hash ***ht)
 		(*ht)[i++] = NULL;
 }
 
-void	hash_init(t_session *sesh)
+void	hash_init(t_shell *sh)
 {
 	t_hash	**ht;
 
 	ht = NULL;
-	sesh->ht = ht;
-	init_ht(&sesh->ht);
+	sh->ht = ht;
+	init_ht(&sh->ht);
 }

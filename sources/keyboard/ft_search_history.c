@@ -6,11 +6,11 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:36:20 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 13:58:48 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:22:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static void	return_to_shell(t_term *t, t_search_history *config)
 {
@@ -54,6 +54,11 @@ static void	up_and_down(t_term *t, t_search_history *config)
 	ft_run_capability("ve");
 }
 
+/**
+ * It's a function that allows the user to search through the history of commands
+ * 
+ * @param t the term structure
+ */
 void	ft_search_history(t_term *t)
 {
 	t_search_history	config;
@@ -65,17 +70,19 @@ void	ft_search_history(t_term *t)
 	while (config.status)
 	{
 		config.inp = ft_get_input();
+		if (!config.status)
+			break ;
 		if (config.inp == 91)
 			up_and_down(t, &config);
 		else if (config.inp == '\n')
 			ft_select_history(t, &config);
-		else if ((ft_isprint(config.inp) || config.inp == BACKSPACE))
+		else if (ft_isprint(config.inp) || config.inp == BACKSPACE)
 			edit_input(t, &config);
 		else if (config.inp == 18)
 			return_to_shell(t, &config);
 	}
 	ft_memdel((void **)&config.ptr);
 	t->config = NULL;
-	signal(SIGINT, sig_session_handler);
-	signal(SIGWINCH, sig_session_handler);
+	signal(SIGINT, ft_signal_keyboard);
+	signal(SIGWINCH, ft_signal_keyboard);
 }

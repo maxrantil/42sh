@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_fork.c                                  :+:      :+:    :+:   */
+/*   update_fg_job.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 09:24:56 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/14 09:29:18 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/31 15:51:30 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/01 11:42:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-void	set_signal_fork(int pid)
+void	update_fg_job(t_shell *sh, pid_t pid, char **cmd)
 {
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGWINCH, SIG_DFL);
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGWINCH, sigwinch_inchild_handler);
-	}
+    set_process_group(sh, pid);
+	append_pid_arr(sh->fg_node, pid);
+    append_cmd_arr(sh->fg_node, cmd);
 }

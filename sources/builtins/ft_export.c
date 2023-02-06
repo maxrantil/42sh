@@ -3,43 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 15:31:03 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/27 20:21:30 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-static void	delete_var(t_session *sesh, int *i)
+static void	delete_var(t_shell *sh, int *i)
 {
-	ft_strdel(&sesh->intr_vars[*i]);
-	sesh->intr_vars[*i] = sesh->intr_vars[*i + 1];
-	while (sesh->intr_vars[*i + 1])
+	ft_strdel(&sh->intr_vars[*i]);
+	sh->intr_vars[*i] = sh->intr_vars[*i + 1];
+	while (sh->intr_vars[*i + 1])
 	{
-		sesh->intr_vars[*i] = sesh->intr_vars[*i + 1];
+		sh->intr_vars[*i] = sh->intr_vars[*i + 1];
 		*i += 1;
 	}
-	sesh->intr_vars[*i] = NULL;
+	sh->intr_vars[*i] = NULL;
 }
 
-static int find_var_key(t_session *sesh, char *cmd, int var_len)
+static int find_var_key(t_shell *sh, char *cmd, int var_len)
 {
 	int	i;
-	int	k;
 	int ret;
 
 	i = 0;
 	ret = 0;
-	k = 0;
-	while (sesh->intr_vars[i])
+	while (sh->intr_vars[i])
 	{
-		if (ft_strncmp(sesh->intr_vars[i], cmd, var_len) == 0
-			&& sesh->intr_vars[i][var_len - 1] == '=')
+		if (ft_strncmp(sh->intr_vars[i], cmd, var_len) == 0
+			&& sh->intr_vars[i][var_len - 1] == '=')
 		{
-			ft_env_append(sesh, &sesh->intr_vars[i]);
-			delete_var(sesh, &i);
+			ft_env_append(sh, &sh->intr_vars[i]);
+			delete_var(sh, &i);
 			ret = 1;
 			break ;
 		}
@@ -67,7 +65,7 @@ static int	key_check(int ch)
 		return (1);
 }
 
-int	print_exported(t_session *sesh, char *cmd)
+int	print_exported(t_shell *sh, char *cmd)
 {
 	char		*value;
 	char		*key;
@@ -77,11 +75,11 @@ int	print_exported(t_session *sesh, char *cmd)
 	(void)cmd;
 	i = 0;
 	value = NULL;
-	while (sesh->env[i])
+	while (sh->env[i])
 	{
-		value = ft_strchr(sesh->env[i], '=') + 1;
-		key = ft_strndup(sesh->env[i], \
-		ft_strlen(sesh->env[i]) - ft_strlen(value));
+		value = ft_strchr(sh->env[i], '=') + 1;
+		key = ft_strndup(sh->env[i], \
+		ft_strlen(sh->env[i]) - ft_strlen(value));
 		if (ft_strequ(key, "_=") && !first)
 		{
 			first = 1;
@@ -101,22 +99,22 @@ int	print_exported(t_session *sesh, char *cmd)
  * It checks for a valid key, then either replaces an existing key or appends
  * a new key.
  *
- * @param sesh the session struct
+ * @param sh the session struct
  * @param cmd The command line arguments
  *
  * @return The return value is the exit status of the command.
  */
-int	ft_export(t_session *sesh, char **cmd)
+int	ft_export(t_shell *sh, char **cmd)
 {
 	int		i;
 	char	*key;
 
 	i = 0;
-	sesh->exit_stat = 0;
+	sh->exit_stat = 0;
 	key = NULL;
 	if (!cmd[1])
 	{
-		print_exported(sesh, NULL);
+		print_exported(sh, NULL);
 		return (0);
 	}
 	while (*(cmd + ++i))
@@ -127,12 +125,12 @@ int	ft_export(t_session *sesh, char **cmd)
 			if (!key_check(*(*(cmd + i))))
 			{
 				key_check_fail_msg(cmd, i);
-				sesh->exit_stat = 1;
+				sh->exit_stat = 1;
 			}
-			else if (!ft_env_replace(sesh, *(cmd + i), NULL))
-				ft_env_append(sesh, cmd + i);
+			else if (!ft_env_replace(sh, *(cmd + i), NULL))
+				ft_env_append(sh, cmd + i);
 		}
-		find_var_key(sesh, key, ft_strlen(key));
+		find_var_key(sh, key, ft_strlen(key));
 		ft_strdel(&key);
 	}
 	return (0);

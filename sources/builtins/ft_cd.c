@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:10:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 19:47:11 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:14:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-static int	ft_chdir_expanded(t_session *sesh, char **path)
+static int	ft_chdir_expanded(t_shell *sh, char **path)
 {
-	chdir(*path);
-	ft_dir_change(sesh);
+	int	ignore	__attribute__((unused));
+
+	ignore = chdir(*path);
+	ft_dir_change(sh);
 	ft_strdel(path);
 	return (1);
 }
@@ -29,12 +31,12 @@ static int	ft_cd_expand_error(char **cmd)
 	return (1);
 }
 
-static char	*env_path(t_session *sesh, char *key)
+static char	*env_path(t_shell *sh, char *key)
 {
 	char	**env;
 	char	*path;
 
-	env = ft_env_get(sesh, key);
+	env = ft_env_get(sh, key, sh->env);
 	if (env)
 		path = ft_strdup(ft_strchr(*env, '=') + 1);
 	else
@@ -42,65 +44,65 @@ static char	*env_path(t_session *sesh, char *key)
 	return (path);
 }
 
-static int	ft_cd_expand(t_session *sesh, char **cmd, char **path)
+static int	ft_cd_expand(t_shell *sh, char **cmd, char **path)
 {
 	int		ret;
 
 	ret = 0;
 	if (ft_arrlen(cmd) == 1 || \
-	!ft_strcmp(*(cmd + sesh->option_count + 1), "--"))
+	!ft_strcmp(*(cmd + sh->option_count + 1), "--"))
 	{
-		*path = env_path(sesh, "HOME");
+		*path = env_path(sh, "HOME");
 		ret = 1;
 	}
 	else if (!ft_strcmp(*(cmd + 1), "-"))
 	{
-		*path = env_path(sesh, "OLDPWD");
+		*path = env_path(sh, "OLDPWD");
 		if (*path)
-			ft_putendl(ft_strchr(*ft_env_get(sesh, "OLDPWD"), '=') + 1);
+			ft_putendl(ft_strchr(*ft_env_get(sh, "OLDPWD", sh->env), '=') + 1);
 		ret = 1;
 	}
 	if (*path)
-		return (ft_chdir_expanded(sesh, path));
+		return (ft_chdir_expanded(sh, path));
 	else if (ret || !ft_strcmp(*(cmd + 1), "~-"))
 		return (ft_cd_expand_error(cmd));
 	return (0);
 }
 
 /**
- * It changes the current working directory to the one specified by the user, 
+ * It changes the current working directory to the one specified by the user,
  * or to the home directory if no directory is specified.
- * 
- * @param sesh a pointer to the session struct
+ *
+ * @param sh a pointer to the shell struct
  * @param cmd The command line arguments.
- * 
+ *
  * @return 0
  */
 
 // for now we assume -L or -- etc arent names of directories
 
-int	ft_cd(t_session *sesh, char **cmd)
+int	ft_cd(t_shell *sh, char **cmd)
 {
 	char	*path;
 
 	path = NULL;
-	sesh->exit_stat = 0;
+	sh->exit_stat = 0;
 	if (ft_arrlen(cmd) > 2)
 	{
-		if (cd_multi_command_validation(sesh, cmd) == 1)
+		if (cd_multi_command_validation(sh, cmd) == 1)
 			return (0);
 	}
-	if (!ft_cd_expand(sesh, cmd, &path) && \
-	!ft_cd_addr_check(*(cmd + sesh->option_count + 1), sesh->is_flag_on, sesh))
+	if (!ft_cd_expand(sh, cmd, &path) && \
+	!ft_cd_addr_check(*(cmd + sh->option_count + 1), sh->is_flag_on, sh))
 	{
-		if (chdir(*(cmd + sesh->option_count + 1)))
-			sesh->exit_stat = 1;
+		if (chdir(*(cmd + sh->option_count + 1)))
+			sh->exit_stat = 1;
 		else
-			ft_dir_change(sesh);
+			ft_dir_change(sh);
 	}
 	else
-		sesh->exit_stat = 1;
-	sesh->option_count = 0;
-	sesh->is_flag_on = 0;
+		sh->exit_stat = 1;
+	sh->option_count = 0;
+	sh->is_flag_on = 0;
 	return (0);
 }

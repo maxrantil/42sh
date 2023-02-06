@@ -13,12 +13,14 @@
 #include "libft.h"
 /**
  * ft_putstr_fd() writes a string to a file descriptor
- * 
+ *
  * @param s The string to output.
  * @param fd file descriptor
  */
 
 void	ft_putstr_fd(char const *s, int fd)
 {
-	write(fd, s, ft_strlen(s));
+	int ignore	__attribute__((unused));
+
+	ignore = write(fd, s, ft_strlen(s));
 }

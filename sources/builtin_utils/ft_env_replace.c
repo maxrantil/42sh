@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_replace.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:12:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/16 13:58:15 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:12 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It takes a session, an environment variable name, and a pointer to a pointer
  * to a string. It then searches the session's environment for the variable name,
- * and if it finds it, it replaces the value of the variable with the value of 
+ * and if it finds it, it replaces the value of the variable with the value of
  * the string that the pointer to a pointer to a string points to.
- * 
- * @param sesh the session struct
+ *
+ * @param sh the session struct
  * @param envn The environment variable to replace.
- * @param tmp_env if this is not NULL, then the old environment variable will 
+ * @param tmp_env if this is not NULL, then the old environment variable will
  * be stored
  */
-int	ft_env_replace(t_session *sesh, char *envn, char **tmp_env)
+int	ft_env_replace(t_shell *sh, char *envn, char **tmp_env)
 {
 	int		ret;
 	char	*key;
@@ -31,7 +31,7 @@ int	ft_env_replace(t_session *sesh, char *envn, char **tmp_env)
 
 	ret = 0;
 	key = ft_strsub(envn, 0, ft_strchr(envn, '=') - envn);
-	envp = ft_env_get(sesh, key);
+	envp = ft_env_get(sh, key, sh->env);
 	if (envp)
 	{
 		if (tmp_env)

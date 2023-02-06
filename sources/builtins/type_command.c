@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   type_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:32:14 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/01 17:29:03 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:14:48 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /*
 	returns a bool value (1 for yes, 0 for no) on whether a command
@@ -35,14 +35,14 @@ static int	is_built_in(char *command)
 	return (0);
 }
 
-static int	is_alias(char *command, t_session *session)
+static int	is_alias(char *command, t_shell *sh)
 {
 	int		i;
 
 	i = 0;
-	(void)session;//
+	(void)sh;//
 	(void)command;//
-	// while(session->aliases[i])
+	// while(sh->aliases[i])
 	// {
 	// 	if (ft_strequ(command, "<alias key>") == 1)
 	// 	{
@@ -78,7 +78,7 @@ static int	check_invalid_option(char *command)
 	return (0);
 }
 
-int	type_command(t_session *session, char **commands, char **env)
+int	type_command(t_shell *sh, char **commands, char **env)
 {
 	char	*bin;
 	int		i;
@@ -89,9 +89,9 @@ int	type_command(t_session *session, char **commands, char **env)
 		return (0);
 	while (commands[i])
 	{
-		if (!is_built_in(commands[i]) && !is_alias(commands[i], session))
+		if (!is_built_in(commands[i]) && !is_alias(commands[i], sh))
 		{
-			is_hashed = is_hash(session->ht);
+			is_hashed = is_hash(sh->ht);
 			bin = search_bin(commands[i], env);
 			if (bin)
 			{
@@ -99,12 +99,12 @@ int	type_command(t_session *session, char **commands, char **env)
 					ft_printf("%s is hashed (%s)\n", commands[i], bin);
 				else
 					ft_printf("%s is %s\n", commands[i], bin);
-				session->exit_stat = 0;
+				sh->exit_stat = 0;
 			}
 			else
 			{
 				ft_printf("42sh: type: %s: not found\n", commands[i]);
-				session->exit_stat = 1;
+				sh->exit_stat = 1;
 			}
 			ft_memdel((void *)&bin);
 		}

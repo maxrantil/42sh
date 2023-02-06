@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unsetenv.c                                      :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:43 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/16 15:15:38 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:31 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-static void	delete_var(t_session *sesh, int i)
+static void	delete_var(t_shell *sh, int i)
 {
-	ft_strdel(&sesh->intr_vars[i]);
-	sesh->intr_vars[i] = sesh->intr_vars[i + 1];
-	while (sesh->intr_vars[i + 1])
+	ft_strdel(&sh->intr_vars[i]);
+	sh->intr_vars[i] = sh->intr_vars[i + 1];
+	while (sh->intr_vars[i + 1])
 	{
-		sesh->intr_vars[i] = sesh->intr_vars[i + 1];
+		sh->intr_vars[i] = sh->intr_vars[i + 1];
 		i++;
 	}
-	sesh->intr_vars[i] = NULL;
+	sh->intr_vars[i] = NULL;
 }
 
 /**
  * It removes the environment variables specified by the user
- * 
- * @param sesh The session struct.
+ *
+ * @param sh The session struct.
  * @param cmd The command line arguments.
- * 
+ *
  * @return The return value is the exit status of the last command executed.
  */
-int	ft_unset(t_session *sesh, char **cmd)
+int	ft_unset(t_shell *sh, char **cmd)
 {
 	int		i;
 	int		count;
@@ -40,18 +40,18 @@ int	ft_unset(t_session *sesh, char **cmd)
 
 	i = 0;
 	count = 0;
-	sesh->exit_stat = 0;
+	sh->exit_stat = 0;
 	while (*(cmd + (++i)))
 	{
-		if (ft_env_get(sesh, *(cmd + i)))
+		if (ft_env_get(sh, *(cmd + i), sh->env))
 		{
 			ptr = ft_strjoin(*(cmd + i), "=");
-			ft_env_remove(sesh, ptr);
+			ft_env_remove(sh, ptr);
 			ft_strdel(&ptr);
 		}
-		else if (ft_var_get(sesh, *(cmd + i), &count))
+		else if (ft_var_get(sh, *(cmd + i), &count))
 		{
-			delete_var(sesh, count);
+			delete_var(sh, count);
 			count = 0;
 		}
 	}

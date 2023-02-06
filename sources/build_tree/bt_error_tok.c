@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bt_error_tok.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:32:10 by jniemine          #+#    #+#             */
-/*   Updated: 2022/12/19 16:10:34 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 int	error_tok(t_treenode *redir_head, char *msg, char *symbol)
 {

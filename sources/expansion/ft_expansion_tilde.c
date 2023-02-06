@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expansion_tilde.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:57:35 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/12/16 14:03:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:04:43 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It returns the environment variable name that corresponds to the tilde key
- * 
+ *
  * @param str The string to be expanded.
- * 
+ *
  * @return The key for the environment variable.
  */
 static char	*tilde_key(char *str, int *stilde)
@@ -44,13 +44,13 @@ static char	*stilde_join(char *env, char *str)
 
 /**
  * It takes a string and returns a string with the tilde expanded.
- * 
- * @param sesh the session struct
+ *
+ * @param sh the session struct
  * @param str the string to be expanded
- * 
+ *
  * @return The value of the key in the environment.
  */
-char	*ft_expansion_tilde(t_session *sesh, char *str)
+char	*ft_expansion_tilde(t_shell *sh, char *str)
 {
 	char	*key;
 	char	**env;
@@ -61,7 +61,7 @@ char	*ft_expansion_tilde(t_session *sesh, char *str)
 	key = tilde_key(str, &stilde);
 	if (key)
 	{
-		env = ft_env_get(sesh, key);
+		env = ft_env_get(sh, key, sh->env);
 		if (env)
 		{
 			if (stilde)

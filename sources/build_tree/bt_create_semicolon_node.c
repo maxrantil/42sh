@@ -6,11 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:43:28 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/25 16:02:40 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 16:09:46 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 t_treenode	*init_semicolon(void)
 {
@@ -41,7 +41,7 @@ int	next_semicolon_or_ampersand(t_token *tokens, int i_tok, int end)
 	return (next_ampersand);
 }
 
-static int init_values(int next_semi_or_amp,
+static int	init_values(int next_semi_or_amp,
 		t_token *tokens, int i_tok, t_treenode **semi_or_amp)
 {
 	int	type;

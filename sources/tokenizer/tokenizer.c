@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:15:33 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/25 16:28:05 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/01 11:17:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static int	init_params(char *line, t_token **args, size_t *pointer_n)
 {
@@ -55,7 +55,7 @@ static int	validity_check(char *line)
 		ptr = &line[ft_strlen(line) - 1];
 	if (ptr)
 	{
-		ft_putstr_fd("21sh: syntax error near unexpected token `", 2);
+		ft_putstr_fd("42sh: syntax error near unexpected token `", 2);
 		write(2, ptr, 1);
 		ft_putstr_fd("'\n", 2);
 		ft_strdel(&line);
@@ -89,7 +89,7 @@ t_token	*chop_line(char *line, t_token *args, size_t pointer_n)
 		while (ft_isspace(line[cur]))
 			++cur;
 	}
-	//print_tokens(args);
+	// print_tokens(args);
 	ft_strdel(&line);
 	return (args);
 }

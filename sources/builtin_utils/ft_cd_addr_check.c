@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_addr_check.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:27:40 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 19:33:10 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:12:18 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
-
-//add to libft
-static char	*ft_strjoin_three(char *s1, char *s2, char *s3)
-{
-	size_t	total;
-	char	*new;
-
-	if (!s1 || !s2 || !s3)
-		return (NULL);
-	total = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	new = ft_strnew(total);
-	if (new != NULL)
-	{
-		new = ft_strcpy(new, (const char *)s1);
-		new = ft_strcat(new, (const char *)s2);
-		new = ft_strcat(new, (const char *)s3);
-	}
-	return (new);
-}
+#include "ft_42sh.h"
 
 static char	*trim_dots(char *path, int i, int to_skip, char *trimmed)
 {
@@ -55,7 +36,7 @@ static char	*build_real_path(char *file)
 	return (ret);
 }
 
-static void	manipulate_env(t_session *session, char *file)
+static void	manipulate_env(t_shell *session, char *file)
 {
 	char	**list;
 
@@ -75,7 +56,7 @@ static void	manipulate_env(t_session *session, char *file)
 	ft_memdel((void *)&file);
 }
 
-static int	handle_option_l(char *file, t_session *session)
+static int	handle_option_l(char *file, t_shell *session)
 {
 	struct stat	buff;
 
@@ -102,11 +83,11 @@ static int	handle_option_l(char *file, t_session *session)
 
 /**
  * It checks if the file is a directory and if it has the right permissions
- * 
+ *
  * @param file the file to check
  */
 
-int	ft_cd_addr_check(char *file, int p_option, t_session *session)
+int	ft_cd_addr_check(char *file, int p_option, t_shell *session)
 {
 	struct stat	buff;
 

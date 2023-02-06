@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/25 15:52:48 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/26 11:33:29 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/01/27 11:04:04 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "keyboard.h"
-
-// t_term	*g_t;
 
 /*
  * It initializes all the variables in the t_term structure to zero
@@ -32,6 +28,7 @@ static void	ft_init_to_zero(t_term *t)
 	t->index = 0;
 	t->bslash = 0;
 	t->heredoc = 0;
+	t->bracket = 0;
 	t->total_row = 0;
 	t->history_row = -1;
 	t->total_row_cpy = 0;

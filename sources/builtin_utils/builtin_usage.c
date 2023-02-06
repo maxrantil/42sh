@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_usage.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:22:13 by spuustin          #+#    #+#             */
-/*   Updated: 2023/01/29 16:56:30 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:13:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 void	print_usage(char *command, char c)
 {

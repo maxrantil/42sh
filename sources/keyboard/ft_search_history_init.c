@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:48:59 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/25 13:49:47 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:07:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@ static void	init_index_ptr(t_search_history *config)
 void	init_search_history_config(t_term *t, t_search_history *config)
 {
 	config->status = 1;
-	config->match = 0;
 	config->history_rows = 10;
 	init_index_ptr(config);
 	config->max_to_show = 50;
 	if (t->history_size < (size_t)config->max_to_show)
-		config->max_to_show = t->history_size - 1;
-	config->to_show = config->max_to_show - 1;
+		config->max_to_show = t->history_size;
 	config->history_index = t->history_size - 1;
 	config->start_cur_row = t->term_val[1] + t->total_row;
 	config->match = count_matches(t, config);
+	config->to_show = config->match;
 	config->row = config->start_cur_row + (config->history_rows - 1);
 	config->match_term_row = config->row + 1;
 	config->input_term_row = config->row + 2;

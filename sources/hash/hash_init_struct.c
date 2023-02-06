@@ -6,29 +6,29 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:35:59 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/11 11:35:45 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /*
  * It takes a hash table and a new hash table entry, and inserts the new entry
  * into the hash table
  */
-static void	ht_insert(t_session *sesh, t_hash *new)
+static void	ht_insert(t_shell *sh, t_hash *new)
 {
 	size_t	index;
 
 	index = hash_function(new->program);
-	new->next = sesh->ht[index];
-	sesh->ht[index] = new;
+	new->next = sh->ht[index];
+	sh->ht[index] = new;
 }
 
 /*
  * It creates a new hash table entry, and inserts it into the hash table
  */
-void	hash_init_struct(t_session *sesh, char *exepath, int hits)
+void	hash_init_struct(t_shell *sh, char *exepath, int hits)
 {
 	char	*program;
 	t_hash	*new;
@@ -49,6 +49,6 @@ void	hash_init_struct(t_session *sesh, char *exepath, int hits)
 		new->path = ft_strdup(exepath);
 		new->hits = hits;
 		new->next = NULL;
-		ht_insert(sesh, new);
+		ht_insert(sh, new);
 	}
 }

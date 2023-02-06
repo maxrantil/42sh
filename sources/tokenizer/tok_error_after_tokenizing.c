@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   tok_error_after_tokenizing.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:26:19 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/19 15:31:02 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:07:08 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static int	op(int token)
 {
-	return (token == PIPE || token == SEMICOLON);
+	return (token == PIPE || token == SEMICOLON
+		|| token == LOGICAL_AND || token == LOGICAL_OR
+		|| token == AMPERSAND);
 }
 
+//Maybe make printing more pretty with `<op>'
 int	validate_tokens(t_token *tokens)
 {
 	int	i;

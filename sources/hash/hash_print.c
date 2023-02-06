@@ -6,11 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:10:49 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/11 12:51:06 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 static void	print_table(t_hash **ht)
 {
@@ -47,7 +47,7 @@ void	hash_print(t_hash **ht)
 	}
 	if (i == HASH_SIZE)
 	{
-		ft_putstr_fd("21sh: hash table empty\n", 2);
+		ft_putstr_fd("42sh: hash table empty\n", 2);
 		return ;
 	}
 	print_table(ht);

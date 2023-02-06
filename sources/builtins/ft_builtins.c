@@ -3,41 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 19:38:23 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/05 19:41:47 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:13:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
-static int	cmd_comparisons(t_session *sesh, char ***cmd, char ***environ_cp)
+static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (**cmd == NULL)
 		return (0);
 	else if (**cmd && !ft_strcmp(**cmd, "set"))
-		return (ft_set(sesh, cmd));
+		return (ft_set(sh, cmd));
 	else if (**cmd && !ft_strcmp(**cmd, "export"))
-		return (ft_export(sesh, *cmd));
+		return (ft_export(sh, *cmd));
 	else if (**cmd && !ft_strcmp(**cmd, "unset"))
-		return (ft_unset(sesh, *cmd));
+		return (ft_unset(sh, *cmd));
 	else if (**cmd && !ft_strcmp(**cmd, "cd"))
-		return (ft_cd(sesh, *cmd));
+		return (ft_cd(sh, *cmd));
 	else if (**cmd && !ft_strcmp(**cmd, "echo"))
-		return (ft_echo(sesh, *cmd));
+		return (ft_echo(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "history"))
-		return (ft_history(sesh->term, *cmd));
+		return (ft_history(sh->term, *cmd));
 	else if (!ft_strcmp(**cmd, "fc"))
-		return (ft_fc(sesh, cmd));
+		return (ft_fc(sh, cmd));
 	else if (!ft_strcmp(**cmd, "test"))
-		return (ft_test(sesh, *cmd));
+		return (ft_test(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "hash"))
-		return (ft_hash(sesh, *cmd));
+		return (ft_hash(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "exit"))
-		return (ft_exit(sesh, *cmd));
+		return (ft_exit(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "type"))
-		return (type_command(sesh, *cmd, *environ_cp));
+		return (type_command(sh, *cmd, *environ_cp));
 	return (1);
 }
 
@@ -46,20 +46,22 @@ static int	cmd_comparisons(t_session *sesh, char ***cmd, char ***environ_cp)
  * the command is a builtin. If it is, it runs the builtin and returns the exit
  * status. If it's not, it returns 1.
  *
- * @param sesh the session struct
+ * @param sh the session struct
  * @param cmd The command to be executed.
  *
  * @return The return value of the builtin function.
  */
-int	ft_builtins(t_session *sesh, char ***cmd, char ***environ_cp)
+int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 {
-	if (sesh && cmd)
+	if (sh && cmd)
 	{
-		ft_expansion(sesh, *cmd);
-		if (param_format(sesh, *cmd) == -1)
+		// wait (0);
+		ft_expansion(sh, *cmd);
+		ft_env_last_command(sh, *cmd);
+		if (param_format(sh, *cmd) == -1)
 			return (0);
-		*(cmd) += ft_variables(sesh, cmd);
-		return (cmd_comparisons(sesh, cmd, environ_cp));
+		*(cmd) += ft_variables(sh, cmd);
+		return (cmd_comparisons(sh, cmd, environ_cp));
 	}
 	return (1);
 }

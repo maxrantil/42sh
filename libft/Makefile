@@ -54,7 +54,7 @@ _SRC_LIBFT		= ft_memset.c ft_atoi.c ft_bzero.c ft_memchr.c ft_memcpy.c ft_memcmp
 				ft_lstdel.c ft_lstadd.c ft_lstmap.c ft_calloc.c ft_putchar.c ft_putendl.c ft_lstiter.c ft_strlcpy.c ft_lstlast.c ft_lstsize.c \
 				ft_itoa_base.c ft_ltoa_base.c ft_lstdelone.c ft_putnbr_fd.c ft_putstr_fd.c get_next_line.c ft_putchar_fd.c ft_putendl_fd.c ft_lstaddback.c \
 				ft_lltoa_base.c ft_ulltoa_base.c ft_exit_no_mem.c ft_strjoin_head.c ft_strjoin_tail.c ft_isspace.c ft_del.c ft_strndup.c ft_arrlen.c ft_skip_space.c \
-				ft_arrclean.c
+				ft_arrclean.c ft_freeda.c ft_strupdate.c ft_strjoin_three.c ft_isdigit_loop.c ft_intlen.c ft_atol.c
 
 _SRC_PRINTF		= ft_printf.c ft_utils.c ft_printers.c ft_colouring.c ft_bonus_func.c \
 				ft_arg_filter.c ft_str_convert.c ft_char_convert.c ft_printer_utils.c ft_diouxf_convert.c

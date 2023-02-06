@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dir_change.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 10:57:49 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 19:33:42 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:57:46 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_21sh.h"
+#include "ft_42sh.h"
 
 /**
  * It swaps the current working directory with the PWD environment variable
- * 
- * @param sesh The session struct.
+ *
+ * @param sh The session struct.
  * @param cwd the current working directory
  */
-static void	swap_pwd(t_session *sesh, char *cwd)
+static void	swap_pwd(t_shell *sh, char *cwd)
 {
 	char	**pwd;
 	char	*new_pwd;
 
-	pwd = ft_env_get(sesh, "PWD");
+	pwd = ft_env_get(sh, "PWD", sh->env);
 	new_pwd = ft_strjoin("PWD=", cwd);
 	if (pwd)
 	{
@@ -32,23 +32,23 @@ static void	swap_pwd(t_session *sesh, char *cwd)
 	}
 	else
 	{
-		ft_env_append(sesh, &new_pwd);
+		ft_env_append(sh, &new_pwd);
 		ft_strdel(&new_pwd);
 	}
 }
 
 /**
  * It swaps the values of the PWD and OLDPWD environment variables
- * 
- * @param sesh the session struct
+ *
+ * @param sh the session struct
  */
-static void	swap_oldpwd(t_session *sesh)
+static void	swap_oldpwd(t_shell *sh)
 {
 	char	**pwd;
 	char	**oldpwd;
 
-	pwd = ft_env_get(sesh, "PWD");
-	oldpwd = ft_env_get(sesh, "OLDPWD");
+	pwd = ft_env_get(sh, "PWD", sh->env);
+	oldpwd = ft_env_get(sh, "OLDPWD", sh->env);
 	if (oldpwd && pwd)
 	{
 		ft_strdel(oldpwd);
@@ -59,17 +59,17 @@ static void	swap_oldpwd(t_session *sesh)
 /**
  * It swaps the current working directory and swaps the PWD env varriable
  * with the new path and updates the with the OLDPWD.
- * 
- * @param sesh the session struct
+ *
+ * @param sh the session struct
  */
-void	ft_dir_change(t_session *sesh)
+void	ft_dir_change(t_shell *sh)
 {
 	char	*oldpwd;
 	char	cwd[BUFF_SIZE];
 
 	oldpwd = "OLDPWD=";
-	if (!ft_env_get(sesh, "OLDPWD"))
-		ft_env_append(sesh, &oldpwd);
-	swap_oldpwd(sesh);
-	swap_pwd(sesh, getcwd(cwd, sizeof(cwd)));
+	if (!ft_env_get(sh, "OLDPWD", sh->env))
+		ft_env_append(sh, &oldpwd);
+	swap_oldpwd(sh);
+	swap_pwd(sh, getcwd(cwd, sizeof(cwd)));
 }

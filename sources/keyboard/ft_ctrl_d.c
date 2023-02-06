@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ctrl_d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:22:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/14 09:13:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ctrl_d(t_term *t)
 		ft_delete(t);
 	if (t->heredoc && !*t->nl_addr[t->c_row])
 	{
-		ft_putstr("21sh: warning: here-document at line ");
+		ft_putstr("42sh: warning: here-document at line ");
 		ft_putnbr((int)t->c_row);
 		ft_putstr(" delimited by end-of-file (wanted `EOF')");
 		ft_delim_fetch(t);
