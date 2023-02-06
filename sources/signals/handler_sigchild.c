@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 19:11:12 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:26:30 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void handler_sigchild(int num)
 		}
 		else //if suspended it goes here
 		{
-			ft_putchar('\n');
+			// ft_putchar('\n');
 			transfer_to_bg(g_sh, STOPPED);
 			display_suspended_job(g_sh);
 			reset_fgnode(g_sh);

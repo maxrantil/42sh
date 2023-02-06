@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:49:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 15:47:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:25:39 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	display_suspended_job(t_shell *sh) // This needs to updated
 {
 	t_bg_jobs	*ptr;
 
+	if (sh->fg_node->gpid == 0)
+	{
+		display_job_node(sh, get_latest_job(sh));
+		return ;
+	}
 	ptr = sh->bg_node;
 	while (ptr)
 	{
