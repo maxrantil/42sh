@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_process_group.c                                :+:      :+:    :+:   */
+/*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/06 12:28:15 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/06 12:21:42 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/06 12:24:36 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	set_process_group(t_shell *sh, pid_t pid)
+void	exit_error(t_shell *sh, int status, char *msg)
 {
-	if (!sh->fg_node->gpid)
-	{
-		setpgid(pid, 0); // This sets up the pid as its own pgid
-		sh->fg_node->gpid = pid;
-		if (!sh->ampersand)
-		{
-			if (ioctl(STDIN_FILENO, TIOCSPGRP, &sh->fg_node->gpid) == -1)
-				exit_error(sh, 1, "ioctl error in set_process_group()");
-		}
-	}
-	else
-		setpgid(pid, sh->fg_node->gpid);
+	ft_putendl_fd(msg, 2);
+	ft_history_write_to_file(sh->term);
+	ft_raw_disable(sh->orig_termios);
+	if (sh->term->clipboard.buff)
+		ft_strdel(&sh->term->clipboard.buff);
+	shell_end_cycle(sh);
+	exit(status);
 }

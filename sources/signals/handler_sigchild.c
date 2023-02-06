@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 12:16:48 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 12:27:51 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void handler_sigchild(int num)
 		}
 		set_signal_keyboard();
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
-			exit(1);
-			// ft_exit(g_sh, 1); // this needs to be proper exit
+			exit_error(g_sh, 1, "ioctl error in handler_sigchild()");
 	}
 }

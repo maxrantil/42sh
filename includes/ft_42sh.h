@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/06 12:12:06 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 12:29:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -545,6 +545,7 @@ int				is_seperator(char c);
 void			tok_quote_flag(char *line, int *end, char *quote_flag);
 
 /*					UTILITIES				*/
+void			exit_error(t_shell *sh, int status, char *msg);
 char			**ft_env_get(t_shell *sh, char *key, char **from_array);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);
