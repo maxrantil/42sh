@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:10:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:04:19 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 12:14:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static int	ft_cd_expand(t_shell *sh, char **cmd, char **path)
 	int		ret;
 
 	ret = 0;
-	if (ft_arrlen(cmd) == 1 || !ft_strcmp(*(cmd + 1), "--"))
+	if (ft_arrlen(cmd) == 1 || \
+	!ft_strcmp(*(cmd + sh->option_count + 1), "--"))
 	{
 		*path = env_path(sh, "HOME");
 		ret = 1;
@@ -72,11 +73,14 @@ static int	ft_cd_expand(t_shell *sh, char **cmd, char **path)
  * It changes the current working directory to the one specified by the user,
  * or to the home directory if no directory is specified.
  *
- * @param sh a pointer to the session struct
+ * @param sh a pointer to the shell struct
  * @param cmd The command line arguments.
  *
  * @return 0
  */
+
+// for now we assume -L or -- etc arent names of directories
+
 int	ft_cd(t_shell *sh, char **cmd)
 {
 	char	*path;
@@ -85,17 +89,20 @@ int	ft_cd(t_shell *sh, char **cmd)
 	sh->exit_stat = 0;
 	if (ft_arrlen(cmd) > 2)
 	{
-		sh->exit_stat = 1;
-		ft_err_print(NULL, "cd", "too many arguments", 1);
+		if (cd_multi_command_validation(sh, cmd) == 1)
+			return (0);
 	}
-	else if (!ft_cd_expand(sh, cmd, &path) && !ft_cd_addr_check(*(cmd + 1)))
+	if (!ft_cd_expand(sh, cmd, &path) && \
+	!ft_cd_addr_check(*(cmd + sh->option_count + 1), sh->is_flag_on, sh))
 	{
-		if (chdir(*(cmd + 1)))
+		if (chdir(*(cmd + sh->option_count + 1)))
 			sh->exit_stat = 1;
 		else
 			ft_dir_change(sh);
 	}
 	else
 		sh->exit_stat = 1;
+	sh->option_count = 0;
+	sh->is_flag_on = 0;
 	return (0);
 }

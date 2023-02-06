@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/03 16:01:29 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:16:48 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static void	check_pipeline(t_shell *sh, pid_t pid)
 		{
 			reset_fgnode(sh);
 			return ;
-		}	
+		}
 		ptr++;
-	}	
+	}
 }
 
 void handler_sigchild(int num)
@@ -98,6 +98,7 @@ void handler_sigchild(int num)
 		}
 		set_signal_keyboard();
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
-			ft_exit(g_sh, 1); // this needs to be proper exit
+			exit(1);
+			// ft_exit(g_sh, 1); // this needs to be proper exit
 	}
 }

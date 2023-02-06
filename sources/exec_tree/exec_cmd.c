@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/03 13:58:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:08:34 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,16 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	return (status);
 }
 
+void	tulosta_lista(char **lista)
+{
+	int i = 0;
+	while (lista[i])
+	{
+		ft_printf("%s\n", lista[i]);
+		i++;
+	}
+}
+
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;
@@ -77,7 +87,7 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 		return ;
 	if (sh->term->fc_flag)
 		print_args(args);
-	if (!ft_builtins(sh, &args))
+	if (!ft_builtins(sh, &args, environ_cp))
 		return ;
 	hash = 0;
 	cmd = hash_check(sh, args[0], &hash);

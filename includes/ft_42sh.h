@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/03 17:06:41 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 12:12:06 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,8 @@ typedef struct s_shell
 	char			*terminal;
 	int				process_count;
 	int				exit_stat;
+	int				is_flag_on;
+	int				option_count;
 	bool			ampersand;
 }				t_shell;
 
@@ -310,24 +312,33 @@ int				next_semicolon_or_ampersand(t_token *tokens, \
 int i_tok, int end);
 
 /*				BUILTIN UTILITIES			*/
+int				ft_cd_addr_check(char *file, int p_option, t_shell *session);
 t_bg_jobs    	*bg_fetch_node(t_bg_jobs *head, char *cmd);
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
 void			ft_env_remove(t_shell *sh, char *env_to_clean);
 int				ft_env_append(t_shell *sh, char **arg);
 int				ft_env_replace(t_shell *sh, char *envn, char **tmp_env);
 void			ft_dir_change(t_shell *sh);
+int				check_flag(t_shell *session, char **commands, char flag);
+void			print_usage(char *command, char c);
+int				validate_cd_options(t_shell *session, char **commands, \
+				int i, int dash_dash);
+char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
+				int to_skip);
+int	cd_multi_command_validation(t_shell *sesh, char **commands);
 
 /*					BUILTIN					*/
+int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
 int 			ft_bg(t_shell *sh, char **cmd);
-int				ft_builtins(t_shell *sh, char ***cmd);
 int				ft_cd(t_shell *sh, char **cmd);
 int				ft_echo(t_shell *sh, char **cmd);
 int				ft_set(t_shell *sh, char ***cmd);
-void			ft_exit(t_shell *sh, int status);
+int				ft_exit(t_shell *sesh, char **commands);
 int				ft_fg(t_shell *sh, char **cmd);
 int				ft_export(t_shell *sh, char **cmd);
 int				ft_jobs(t_shell *sh);
 int				ft_unset(t_shell *sh, char **cmd);
+int				type_command(t_shell *sesh, char **commands, char **env);
 
 /*					EXEC_TREE			*/
 int				check_access(char *cmd, char **args, t_shell *sh);
@@ -534,7 +545,6 @@ int				is_seperator(char c);
 void			tok_quote_flag(char *line, int *end, char *quote_flag);
 
 /*					UTILITIES				*/
-int				ft_cd_addr_check(char *file);
 char			**ft_env_get(t_shell *sh, char *key, char **from_array);
 int				increment_whitespace(char **line);
 void			free_node(t_treenode *head);

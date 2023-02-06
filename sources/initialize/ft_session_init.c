@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 16:18:19 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 12:10:29 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ void	ft_session_init(t_shell *sh)
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	hash_init(sh);
+	sh->is_flag_on = 0;
+	sh->option_count = 0;
 	ft_init_fg_node(sh);
 }

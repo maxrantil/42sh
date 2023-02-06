@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/03 17:07:16 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/06 11:53:13 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,6 +120,9 @@ FILES			= \
 				$(BUILTIN_UTILS)ft_env_replace \
 				$(BUILTIN_UTILS)ft_env_temp \
 				$(BUILTIN_UTILS)bg_fetch_node \
+				$(BUILTIN_UTILS)flag_check \
+				$(BUILTIN_UTILS)builtin_usage \
+				$(BUILTIN_UTILS)cd_utils \
 				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
@@ -130,6 +133,7 @@ FILES			= \
 				$(BUILTIN)ft_export \
 				$(BUILTIN)ft_jobs \
 				$(BUILTIN)ft_unset \
+				$(BUILTIN)type_command \
 				$(EXECTREE)check_access \
 				$(EXECTREE)check_if_user_exe \
 				$(EXECTREE)exe_fail \
@@ -345,8 +349,8 @@ $(OBJECTS):
 	@make -C $(LIBRARIES)
 	@mkdir -p $(OBJECTS)/$(BANNER)
 	@mkdir -p $(OBJECTS)/$(BUILDTREE)
-	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
 	@mkdir -p $(OBJECTS)/$(BUILTIN)
+	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
 	@mkdir -p $(OBJECTS)/$(EXECTREE)
 	@mkdir -p $(OBJECTS)/$(EXPANSION)
 	@mkdir -p $(OBJECTS)/$(FC)

@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_process_group.c                                :+:      :+:    :+:   */
+/*   builtin_usage.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/06 12:16:25 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/25 19:22:13 by spuustin          #+#    #+#             */
+/*   Updated: 2023/02/06 12:13:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	set_process_group(t_shell *sh, pid_t pid)
+void	print_usage(char *command, char c)
 {
-	if (!sh->fg_node->gpid)
-	{
-		setpgid(pid, 0); // This sets up the pid as its own pgid
-		sh->fg_node->gpid = pid;
-		if (!sh->ampersand)
-		{
-			if (ioctl(STDIN_FILENO, TIOCSPGRP, &sh->fg_node->gpid) == -1)
-				exit(1);
-				// ft_exit(sh, 1); // this needs to be proper exit
-		}
-	}
-	else
-		setpgid(pid, sh->fg_node->gpid);
+	ft_printf("42sh: %s: -%c: invalid option\n", command, c);
+	if (ft_strequ(command, "cd"))
+		ft_printf("cd: usage: cd [-L | -P] [dir]\n");
+	if (ft_strequ(command, "type"))
+		ft_printf("type: usage: type name [name ...]\n");
 }
