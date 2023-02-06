@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/06 12:08:34 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 22:23:27 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			update_fg_job(g_sh, pid, args);
 		if (pid == 0)
 		{
-			//We only want to pipe stdout if we are not redirecting
+			//We only want to pipe stdout if we are not redir_out
 			ft_signal_dfl();
-			if (!g_sh->pipe->redirecting && g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
+			if (!g_sh->pipe->redir_out && g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
 			{
 				ft_err_print("dup2", NULL, "failed", 2);
 				exit(1);

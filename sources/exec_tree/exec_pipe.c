@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/03 15:30:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:28:40 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,15 @@ void	exec_pipe(t_pipenode *pipenode, \
 		ft_err_print("dup", NULL, "failed", 2);
 		exit (1);
 	}
-	g_sh->pipe->redirecting = 0;
+	g_sh->pipe->redir_out = 0;
 	//In case of normal pipe we want to close fd[1] so that input written into pipe in child process gets EOF
 	close (sh->pipe->pipefd[1]);
 	sh->pipe->pipefd[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
 	// print_fg_node(sh);	
 	waitpid(sh->fg_node->gpid, &status, WUNTRACED);
-	g_sh->pipe->redirecting = 0;
+	g_sh->pipe->redir_out = 0;
+	g_sh->pipe->redir_in = 0;
 	reset_fd(terminal);
 	close(sh->pipe->pipefd[0]);
 	close(sh->pipe->pipefd[1]);

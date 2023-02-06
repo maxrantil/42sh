@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 12:10:29 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 22:26:05 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	ft_session_init(t_shell *sh)
 	sh->pipe->pipefd[1] = -1;
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+	sh->pipe->redir_out = 0;
+	sh->pipe->redir_in = 0;
 	hash_init(sh);
 	sh->is_flag_on = 0;
 	sh->option_count = 0;

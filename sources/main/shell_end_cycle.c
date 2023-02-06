@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/06 13:48:38 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 22:37:16 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,9 @@ void	shell_end_cycle(t_shell *sh)
 	free_node(sh->head);
 	free_tokens(&sh->tokens);
 	reset_fd(sh->terminal);
+	sh->pipe->stdincpy = dup(STDIN_FILENO);
+	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+	sh->pipe->redir_out = 0;
+	sh->pipe->redir_in = 0;
 	ft_reset_tmp_env(sh);
 }

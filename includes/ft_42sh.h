@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/06 12:54:46 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 22:24:05 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct s_logicalop
 typedef struct s_cmdnode
 {
 	int		type;
-	int 	redirecting;
+	int 	redir_out;
 	char	**cmd;
 
 }	t_cmdnode;
@@ -231,7 +231,8 @@ typedef struct s_bg_jobs
 typedef struct s_pipe
 {
 	int		pipefd[2];
-	int		redirecting;
+	int		redir_out;
+	int		redir_in;
 	int		stdincpy;
 	int		stdoutcpy;
 }			t_pipe;

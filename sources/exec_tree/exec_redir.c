@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/02 13:41:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/06 22:24:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ void	exec_redir(t_redir *node, char ***environ_cp,
 		ft_err_print(NULL, "exec_redir", "dup2 failed", 2);
 		return ;
 	}
-	if (node->cmd && node->cmd->type == CMD)
-		sh->pipe->redirecting = 1;
-	if (sh->pipe->pipefd[1] > 0)
+	if (node->cmd && node->cmd->type == CMD && node->close_fd > STDIN_FILENO)
+		sh->pipe->redir_out = 1;
+	else if (node->cmd && node->cmd->type == CMD && node->close_fd == STDIN_FILENO)
+		sh->pipe->redir_in = 1;
+	if (sh->pipe->pipefd[1] > 0 && node->close_fd > STDIN_FILENO)
 	{
 		close(sh->pipe->pipefd[1]);
 		sh->pipe->pipefd[1] = -1;

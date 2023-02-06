@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 12:27:51 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 22:23:27 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void handler_sigchild(int num)
 		pid = waitpid(-1, &status, WNOHANG);
 		if (g_sh->pipe->pipefd[0] > -1 || g_sh->pipe->pipefd[1] > -1)
 		{
-			g_sh->pipe->redirecting = 0;
+			g_sh->pipe->redir_out = 0;
 			reset_fd(g_sh->terminal);
 			close(g_sh->pipe->pipefd[0]);
 			close(g_sh->pipe->pipefd[1]);
