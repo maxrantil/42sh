@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:15 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 16:49:12 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:23:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,64 +52,6 @@ static t_bg_jobs	*search_via_queue(t_shell *sh, char sign, char **cmd)
 	return (NULL);
 }
 
-static t_bg_jobs	*search_via_cmd(t_shell *sh, char **cmd)
-{
-	int			i;
-	t_bg_jobs	*ret;
-	t_bg_jobs	*head;
-	char		**command;
-	bool		substring_flag;
-
-	i = 0;
-	ret = NULL;
-	substring_flag = false;
-	if (**(cmd + 1) == '?')
-	{
-		++i;
-		substring_flag = true;
-	}
-	head = sh->bg_node;
-	while (head)
-	{
-		command = NULL;
-		if (substring_flag)
-		{
-			command = *head->cmd;
-			while (*command)
-			{
-				if (ft_strstr(*command, &cmd[1][i]))
-				{
-					if (!ret)
-						ret = head;
-					else
-					{
-						ft_printf("42sh: %s: %s: ambiguous job spec\n", *cmd, &cmd[1][i]);
-						return (NULL);
-					}
-				}
-				++command;
-			}
-		}
-		else
-		{
-			if (ft_strstr(**head->cmd, &cmd[1][i]))
-			{
-				if (!ret)
-					ret = head;
-				else
-				{
-					ft_printf("42sh: %s: %s: ambiguous job spec\n", *cmd, &cmd[1][i]);
-					return (NULL);
-				}
-			}
-		}
-		head = head->next;
-	}
-	if (!ret)
-		ft_printf("42sh: %s: no such job\n", *cmd);
-	return (ret);
-}
-
 t_bg_jobs	*process_getpid(t_shell *sh, int index, char **cmd, char sign)
 {
 	if (sign)
@@ -124,7 +66,8 @@ t_bg_jobs	*bg_fetch_node(t_shell *sh, char **cmd)
 	int	i;
 
 	i = 0;
-	if (!*(cmd + 1) || !ft_strcmp("%", *(cmd + 1)) || !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)))
+	if (!*(cmd + 1) || !ft_strcmp("%", *(cmd + 1)) \
+	|| !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)))
 		return (process_getpid(sh, 0, cmd, '+'));
 	if (!ft_strcmp("%-", *(cmd + 1)))
 		return (process_getpid(sh, 0, cmd, '-'));
