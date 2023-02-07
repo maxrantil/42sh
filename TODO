@@ -1,2 +1,2 @@
-did not test closefd yet
-merge fix_stdin_redir and fix_logical_op_logic_again
+aggregation + pipe combo breaks up, did not test closefd yeasdf && echo hello || echo pallo | wc
+Fix pipes with builtins
