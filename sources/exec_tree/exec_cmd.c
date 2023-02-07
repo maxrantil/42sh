@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/06 22:23:27 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:00:22 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,6 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			waitpid(pid, &status, WUNTRACED);
 	}
 	return (status);
-}
-
-void	tulosta_lista(char **lista)
-{
-	int i = 0;
-	while (lista[i])
-	{
-		ft_printf("%s\n", lista[i]);
-		i++;
-	}
 }
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
