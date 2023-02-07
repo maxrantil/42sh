@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/07 16:33:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:11:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,50 +29,59 @@ int index, t_bg_jobs *prev)
 	return (bg_node);
 }
 
+static void	signalled_from_background(t_bg_jobs *job, int status)
+{
+	while (job->next)
+		job = job->next;
+	job->status = status;
+}
+
+static bool	fg_to_bg(t_shell *sh, t_bg_jobs	**job, int status)
+{
+	t_bg_jobs	*prev;
+
+	prev = NULL;
+	*job = sh->bg_node;
+	while (*job)
+	{
+		if (sh->fg_node->gpid == (*job)->gpid)
+		{
+			(*job)->status = status;
+			delete_from_queue(sh, *job);
+			ft_memmove(&sh->process_queue[1], \
+			&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
+			sh->process_queue[0] = (*job)->index;
+			return (false);
+		}
+		prev = *job;
+		*job = (*job)->next;
+	}
+	*job = prev;
+	return (true);
+}
+
 void	transfer_to_bg(t_shell *sh, int status)
 {
 	t_bg_jobs	*job;
-	t_bg_jobs	*prev;
 
 	if (++sh->process_count < JOBS_MAX)
 	{
-		prev = NULL;
 		if (!sh->bg_node)
 		{
-			sh->bg_node = init_bg_node(sh, status, 0, prev);
+			sh->bg_node = init_bg_node(sh, status, 0, NULL);
 			return ;
 		}
 		if (sh->fg_node->gpid == 0)
 		{
-			job = sh->bg_node;
-			while (job->next)
-				job = job->next;
-			job->status = STOPPED;
+			signalled_from_background(sh->bg_node, status);
 			return ;
 		}
 		else
 		{
-			job = sh->bg_node;
-			while (job)
-			{
-				if (sh->fg_node->gpid == job->gpid)
-				{
-					job->status = STOPPED;
-					delete_from_queue(sh, job);
-					ft_memmove(&sh->process_queue[1], \
-					&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
-					sh->process_queue[0] = job->index;
-					return ;
-				}
-				prev = job;
-				job = job->next;
-			}
-			prev->next = init_bg_node(sh, status, prev->index + 1, prev);
+			if (fg_to_bg(sh, &job, status))
+				job->next = init_bg_node(sh, status, job->index + 1, job);
 		}
 	}
 	else
-	{
 		ft_putendl_fd("42sh: too many jobs\n", 2);
-		return ;
-	}
 }
