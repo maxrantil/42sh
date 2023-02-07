@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/06 11:14:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:14:18 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	print_args(char **args)
 	}
 	ft_putchar('\n');
 }
+
 
 static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
 {
@@ -57,19 +58,22 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			exit(1);
 		}
 		if (g_sh->ampersand)
-			waitpid(pid, &status, WNOHANG | WUNTRACED);
+			waitpid(g_sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
 		else if (g_sh->pipe->pipefd[0] == -1)
-			waitpid(pid, &status, WUNTRACED);
+		{
+			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED);
+			update_jobs(g_sh, pid, status);
+		}
 	}
 	return (status);
 }
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
-	char	*cmd;
-	int		access;
-	int		status;
-	int		hash;
+char	*cmd;
+int		access;
+int		status;
+int		hash;
 	char	**args;
 
 	args = head->cmd;

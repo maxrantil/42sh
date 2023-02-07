@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/06 15:09:30 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:09:27 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,6 +456,7 @@ void			transfer_to_bg(t_shell *sh, int status);
 void    		transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 size_t  		triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
+void			update_jobs(t_shell *sh, int pid, int status);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 
