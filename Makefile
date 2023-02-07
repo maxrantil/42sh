@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/03 11:40:36 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/07 11:33:06 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-LEAK_CHECK			+=	-fsanitize=address
+#LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -286,6 +286,8 @@ FILES			= \
 				$(PARAM_FORM)retokenize \
 				$(PARAM_FORM)substitute_or_create \
 				$(PARAM_FORM)search_from_var \
+				$(PARAM_FORM)free_param \
+				$(PARAM_FORM)remove_braces \
 				$(SIGNALS)handler_signal_exec \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \

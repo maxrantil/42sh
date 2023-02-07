@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/03 15:53:14 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:59:49 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,29 +213,6 @@ char	*ft_find_word(char *haystack, char *needle, char *op)
 	return (haystack);
 }
 
-static char	*remove_braces(char *str)
-{
-	char	*new;
-	int		i;
-	int		k;
-
-	k = 0;
-	i = 1;
-	ft_printf("%c\n", str[1]);
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	ft_printf("%s\n", str);
-	while (str[i])
-	{
-		str[i] = str[i + 1];
-		i++;
-	}
-	ft_printf("%s\n", str);
-	new = ft_strdup(str);
-	return (new);
-}
 
 char *get_needle_and_op(char *strip, char *op, char *cmd)
 {
@@ -270,8 +247,10 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	char	op[3];
 	char	*strip;
 	char	*temp;
+	char	*temp2;
 
-	strip = remove_braces(cmd);
+	strip = ft_strdup(cmd);
+	strip = remove_braces(strip);
 	temp = NULL;
 	ft_memset(&op, '\0', 3);
 	needle = get_needle_and_op(strip, op, cmd);
@@ -283,8 +262,8 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 		temp = search_from_var(sh, needle, ret);
 	else //if (ft_strnequ(needle, "${", 2))
 		temp = substitute_or_create(sh, needle, ret);
-	haystack = ft_strndup(strip, ft_strlen(strip) - ft_strlen(needle) - 1);
-	haystack = ft_expansion_dollar(sh, &haystack[0]);
+	temp2 = ft_strndup(strip, ft_strlen(strip) - ft_strlen(needle) - 1);
+	haystack = ft_expansion_dollar(sh, &temp2[0]);
 	ft_printf(" temp [%s] haystack [%s] [%s]\n", temp, haystack, op);
 	if (temp != NULL)
 	{
@@ -295,12 +274,12 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	}
 	(void)sh;
 	(void)*ret;
-	expanded = ft_find_word(haystack, needle, op);
+	expanded = ft_strdup(ft_find_word(haystack, needle, op));
 	if (!expanded || !*expanded)
-		expanded = ft_strdup(" ");
-	ft_printf("search expanded %s\n", expanded);
-	expanded = ft_strdup(expanded);
+		expanded = ft_strnew(1);
 	ft_strdel(&needle);
+	ft_strdel(&strip);
 	ft_strdel(&haystack);
+	ft_strdel(&temp2);
 	return (expanded);
 }

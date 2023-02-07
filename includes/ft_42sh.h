@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/03 11:43:49 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:32:24 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,6 +437,8 @@ char			*retokenize(char *subst, int *i);
 char			*substitute_or_create(t_shell *sh, char *cmd, int *ret);
 char			*search_from_var(t_shell *sh, char *cmd, int *ret);
 int				param_format(char **cmd);
+void			free_er(t_param *pa, char **cmd, int i);
+char			*remove_braces(char *str);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

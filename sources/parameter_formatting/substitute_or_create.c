@@ -6,35 +6,11 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/03 12:27:55 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:32:50 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-char	*remove_braces(char *str)
-{
-	char	*new;
-	int		i;
-	int		k;
-
-	k = 0;
-	i = 1;
-	ft_printf("%c\n", str[1]);
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	ft_printf("%s\n", str);
-	while (str[i])
-	{
-		str[i] = str[i + 1];
-		i++;
-	}
-	ft_printf("%s\n", str);
-	new = ft_strdup(str);
-	return (new);
-}
 
 char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 {
@@ -44,11 +20,10 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	expanded = NULL;
 	temp = (char **)ft_memalloc(sizeof(char *) * 2);
 	temp[0] = ft_expansion_dollar(sh, var);
-	ft_printf("temp [%s]\n", temp[0]);
 	temp[1] = NULL;
 	if (format == 0)
 	{
-		ft_printf("[%s]\n", temp[0]);
+		ft_strdel(&expanded);
 		if (!temp[0])
 			expanded = ft_strdup(subst + 1);
 		else
@@ -57,14 +32,11 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	}
 	else if (format == 1)
 	{
-		ft_printf("jee  [%s]\n", var);
+		ft_strdel(&expanded);
 		if (!*temp[0])
 		{
 			expanded = ft_strdup(subst + 1);
-			//ft_strdel(&temp[0]);
-			//temp[0] = ft_strjoin(var + 1, "=");
 			temp[0] = ft_strjoin(var + 1, subst);
-			ft_printf("temp [%s]\n", temp[0]);
 			add_var(sh, temp);
 		}
 		else
@@ -72,7 +44,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	}
 	else if (format == 2)
 	{
-	//	ft_printf("questionmark[%s]\n", var);
+		ft_strdel(&expanded);
 		if (!*temp[0] && subst[1])
 			ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
 		else if (!*temp[0] && !subst[1])
@@ -82,10 +54,8 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	}
 	else if (format == 3)
 	{
-		ft_printf("plus sign[%s] %s\n", var, subst);
 		if (temp[0][0])
 		{
-			ft_printf("temp %s plus sign[%s] %s\n",temp[0], var, subst);
 			if (subst && *subst)
 			{
 				if (subst[0] == '+')
@@ -93,14 +63,12 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 				else
 					expanded = ft_strdup(subst);
 			}
-			else
-				expanded = ft_strnew(1);
-			ft_printf("expanded plus %s\n", expanded);
 		}
-		else
-			expanded = ft_strnew(1);
 	}
-	ft_printf("expanded plus %s\n", expanded);
+	ft_strdel(&temp[0]);
+	ft_strdel(&temp[1]);
+	free(temp);
+	ft_strdel(&var);
 	return (expanded);
 }
 
@@ -109,7 +77,6 @@ int	format_mode(char op)
 	int		format;
 
 	format = -1;
-	ft_printf("subst mode %c\n", op);
 	if (op == '-')
 		format = 0;
 	else if (op == '=')
@@ -121,58 +88,44 @@ int	format_mode(char op)
 	return (format);
 }
 
+void set_sub_var_op(t_param *param)
+{
+	ft_strdel(&param->subs);
+	//param->var = NULL;
+	//ft_strdel(&param->var);
+	param->subs = ft_strdup(ft_strchr(param->strip, ':'));
+	param->subs = (char *)ft_memmove(param->subs, param->subs + 1, ft_strlen(param->subs));
+	param->op = param->subs[0];
+	param->var = ft_strndup(param->strip, ft_strlen(param->strip) - (ft_strlen(param->subs)) - 1);
+}
+
 char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 {
-	int		i;
-	int		k;
-	char	*expanded;
-	char	*strip;
-	char	*var;
-	char	*subs;
-	char	op;
+	t_param	param;
 	int		format;
 
-	i = 0;
-	subs = ft_strnew(1);
-	expanded = ft_strnew(1);
-	var = ft_strnew(1);
-	op = 0;
-	k = 0;
+	param.subs = ft_strnew(1);
+	param.expanded = NULL;
+	//param.var = ft_strnew(1);
+	param.op = 0;
 	format = -1;
-	ft_printf("sisaantuleva matsku %s\n", cmd);
-	strip = remove_braces(cmd);
-	// if (ft_strnequ(cmd, "${#", 3))
-	// 		expanded = count_letters(sh, strip);
-	ft_printf("sisaantuleva matsku [%s]\n", cmd);
-	if (ft_strchr(strip, ':'))
-	{
-		ft_printf("stripped [%s]\n",strip);
-		subs = ft_strdup(ft_strchr(strip, ':'));
-		ft_printf("substitution [%s]\n",subs);
-		subs = (char *)ft_memmove(subs, subs + 1, ft_strlen(subs));
-		ft_printf("substitution [%s]\n",subs);
-		op = subs[0];
-		ft_printf("substitution [%s]\n",subs);
-		var = ft_strndup(strip, ft_strlen(strip) - (ft_strlen(subs)) - 1);
-		ft_printf("var [%s] substitution [%s]\n", var, subs);
-	}
+	param.strip = ft_strdup(cmd);
+	param.strip = remove_braces(param.strip);
+	if (ft_strchr(param.strip, ':'))
+		set_sub_var_op(&param);
 	else
-	{
-		ft_printf("tassa %s\n", strip);
-		expanded = ft_expansion_dollar(sh, strip);
-	}
-	//ft_printf("expanded asdfasfasfasfd[%s]\n", subs);
-	if (ft_strnequ(subs + 1, "${", 2) && ft_strchr(subs , ':'))
-		subs = substitute_or_create(sh, subs + 1, ret);
-	else if ((ft_strnequ(subs + 1, "${", 2) && ft_strchr(subs , '#'))
-		|| (ft_strnequ(subs + 1, "${", 2) && ft_strchr(subs , '%')))
-		subs = search_from_var(sh, subs + 1, ret);
-	else if (ft_strnequ(subs + 1, "${", 2))
-		subs = substitute_or_create(sh, subs + 1, ret);
-	format = format_mode(op);
-	ft_printf("%s %s %d\n",var, subs, format);
-	if (!*expanded)
-		expanded = subst_param(sh, var, subs, format);
-	ft_printf("expanded taaaaaallllaaa[%s]\n", expanded);
-	return (expanded);
+		param.expanded = ft_expansion_dollar(sh, param.strip);
+	ft_strdel(&param.strip);
+	if (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , ':'))
+		param.subs = substitute_or_create(sh, param.subs + 1, ret);
+	else if ((ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '#'))
+		|| (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '%')))
+		param.subs = search_from_var(sh, param.subs + 1, ret);
+	else if (ft_strnequ(param.subs + 1, "${", 2))
+		param.subs = substitute_or_create(sh, param.subs + 1, ret);
+	format = format_mode(param.op);
+	if (!param.expanded || !*param.expanded)
+		param.expanded = subst_param(sh, param.var, param.subs, format);
+	ft_strdel(&param.subs);
+	return (param.expanded);
 }
