@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 14:23:43 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:15:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ int	ft_fg(t_shell *sh, char **cmd)
 	int		    status;
 
 	job = bg_fetch_node(sh, cmd);
-	// job = bg_fetch_node(sh, *(cmd + 1));
-	// if (!job)
-	// 	ft_putstr("fg: no such job\n");
-	// else
 	if (job)
 	{
 		if (job->status == DONE || job->status == TERMINATED)

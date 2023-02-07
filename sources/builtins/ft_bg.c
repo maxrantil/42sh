@@ -6,27 +6,31 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:43 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 15:11:19 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:39:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static void    add_to_index_pos_of_queue(t_shell *sh, t_bg_jobs *job)
+{
+    ft_memmove(&sh->process_queue[sh->process_count - job->index + 1], \
+    &sh->process_queue[sh->process_count - job->index], sh->process_count * sizeof(int));
+    sh->process_queue[sh->process_count - job->index] = job->index;
+}
 
 int ft_bg(t_shell *sh, char **cmd)
 {
 		t_bg_jobs   *job;
 
 		job = bg_fetch_node(sh, cmd);
-		// job = bg_fetch_node(sh, *(cmd + 1));
-		// if (!job)
-		// 	ft_putstr("fg: no such job\n");
-		// else
 		if (job)
 		{
 				ft_print_dbl_array(*job->cmd);
 				ft_putchar('\n');
 				if (job->status == STOPPED || job->status == SUSPENDED)
 				{
+						add_to_index_pos_of_queue(sh, job);
 						job->status = RUNNING;
 						killpg(job->gpid, SIGCONT);
 				}

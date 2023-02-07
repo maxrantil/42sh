@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:00:54 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 14:29:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:11:58 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	ft_jobs(t_shell *sh)
 	while (job)
 	{
         display_job_node(sh, job);
-		job = job->next;
+		if (job->status == DONE || job->status == TERMINATED)
+			bg_node_delete(sh, &job);	
+		else
+			job = job->next;
 	}
 	return (0);
 }
