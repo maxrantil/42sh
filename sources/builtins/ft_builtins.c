@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/07 16:21:52 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 23:56:40 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp);
 
 static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
+	int status;
+	
 	if (sh->pipe->pipefd[0] >= 0)
 	{
 		sh->pipe->pid = fork_wrap();
@@ -26,14 +28,10 @@ static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 				ft_err_print("dup2", NULL, "failed", 2);
 				exit(1);
 			}
-			ft_putstr_fd("pipefdCHILD[0] = ", 2);
-			ft_putnbr_fd(sh->pipe->pipefd[0], 2);
-			ft_putstr_fd("\n", 2);
 			cmd_comparisons(sh, cmd, environ_cp);
 			exit(1);
 		}
-		ft_printf("pipefdPARENT[0] = %d\n", sh->pipe->pipefd[0]);
-		wait (0);
+		waitpid(sh->pipe->pid, &status, WNOHANG); //What this should be? It works?
 		close(sh->pipe->pipefd[1]);
 		sh->pipe->pipefd[1] = -1;
 		return (1);

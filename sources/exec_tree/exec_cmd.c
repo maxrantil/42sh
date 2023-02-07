@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/07 16:13:45 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:23:30 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	}
 	return (status);
 }
-
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
