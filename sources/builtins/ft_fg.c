@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 11:13:18 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:23:43 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	ft_fg(t_shell *sh, char **cmd)
 		transfer_to_fg(sh, job);
 		job->status = RUNNING;
 		waitpid(job->gpid, &status, WUNTRACED);
-		update_jobs(sh, job->gpid, status);
 	}
 	return (0);
 }

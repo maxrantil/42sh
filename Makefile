@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/07 11:09:55 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/07 14:23:30 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -224,7 +224,6 @@ FILES			= \
 				$(JOBS)transfer_to_bg \
 				$(JOBS)triple_ptr_len \
 				$(JOBS)update_fg_job \
-				$(JOBS)update_jobs \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \
