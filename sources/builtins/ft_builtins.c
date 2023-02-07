@@ -6,18 +6,15 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/07 14:00:55 by jniemine         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*   Updated: 2023/02/06 13:55:35 by mrantil          ###   ########.fr       */
->>>>>>>>> Temporary merge branch 2
+/*   Updated: 2023/02/07 16:21:52 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void fork_if_pipe(t_shell *sh)
+static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp);
+
+static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (sh->pipe->pipefd[0] >= 0)
 	{
@@ -29,8 +26,19 @@ static void fork_if_pipe(t_shell *sh)
 				ft_err_print("dup2", NULL, "failed", 2);
 				exit(1);
 			}
+			ft_putstr_fd("pipefdCHILD[0] = ", 2);
+			ft_putnbr_fd(sh->pipe->pipefd[0], 2);
+			ft_putstr_fd("\n", 2);
+			cmd_comparisons(sh, cmd, environ_cp);
+			exit(1);
 		}
+		ft_printf("pipefdPARENT[0] = %d\n", sh->pipe->pipefd[0]);
+		wait (0);
+		close(sh->pipe->pipefd[1]);
+		sh->pipe->pipefd[1] = -1;
+		return (1);
 	}
+	return(0);
 }
 
 static int is_builtin(char *cmd)
@@ -100,8 +108,10 @@ int		ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		*(cmd) += ft_variables(sh, cmd);
 		if (**cmd && !is_builtin(**cmd))
 			return (1);
-		fork_if_pipe(sh);
-		return (cmd_comparisons(sh, cmd, environ_cp));
+		if(!fork_if_pipe(sh, cmd, environ_cp))
+			return (cmd_comparisons(sh, cmd, environ_cp));
+		else
+			return(0);
 	}
 	return (1);
 }

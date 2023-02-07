@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/07 13:02:12 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:13:45 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,6 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	return (status);
 }
 
-/* Only wait if builtin, currently handled where called */
-static int exit_if_child(t_shell *sh)
-{
-	wait(0);
-	if (sh->pipe->pid == 0 && sh->pipe->pipefd[0] >= 0)
-		exit(0);
-	close (sh->pipe->pipefd[1]);
-	sh->pipe->pipefd[1] = -1;
-	return (1);
-}
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
@@ -88,7 +78,8 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 		return ;
 	if (sh->term->fc_flag)
 		print_args(args);
-	if (!ft_builtins(sh, &args, environ_cp) && exit_if_child(sh))
+	
+	if (!ft_builtins(sh, &args, environ_cp) && ft_printf("pipefdlol[0] = %d\n", sh->pipe->pipefd[0]))
 		return ;
 	hash = 0;
 	cmd = hash_check(sh, args[0], &hash);

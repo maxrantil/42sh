@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/07 13:06:54 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:04:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@ void	exec_pipe(t_pipenode *pipenode, \
 
 	if (pipe_wrap(sh->pipe->pipefd))
 		return ;
+	ft_printf("pipefd[0] = %d\n", sh->pipe->pipefd[0]);
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
 	//We always dup stdin to pipefd[0] because we always want to read from pipe
 	//All the redirectins close fd[1] so there is always EOF in the pipe.
 	//For cases like "ls >file | cat", cat reads the EOF from pipe and exits.
+	ft_printf("pipefd[0] = %d\n", sh->pipe->pipefd[0]);
 	if (dup2(sh->pipe->pipefd[0], STDIN_FILENO) < 0)
 	{
-		ft_err_print("dup", NULL, "failed", 2);
+		ft_err_print("dup", NULL, "failed in exec_pipe", 2);
 		exit (1);
 	}
 	g_sh->pipe->redir_out = 0;
