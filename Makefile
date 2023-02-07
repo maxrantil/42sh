@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/07 15:34:32 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/07 16:35:29 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -226,6 +226,7 @@ FILES			= \
 				$(JOBS)reset_cmd \
 				$(JOBS)set_process_group \
 				$(JOBS)transfer_to_fg \
+				$(JOBS)transfer_to_bg_utils \
 				$(JOBS)transfer_to_bg \
 				$(JOBS)triple_ptr_len \
 				$(JOBS)update_fg_job \

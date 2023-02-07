@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/07 15:34:05 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:35:07 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,6 +486,10 @@ void			display_pipeline_cmd(t_bg_jobs *job);
 void    		queue_delete(t_shell *sh, t_bg_jobs *process);
 void			reset_fgnode(t_shell *sh);
 void			set_process_group(t_shell *sh, pid_t pid);
+void			add_to_queue(t_shell *sh, int index);
+void			init_cmd(t_shell *sh, t_bg_jobs *bg_node);
+void			init_pid(t_shell *sh, t_bg_jobs *bg_node);
+void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			transfer_to_bg(t_shell *sh, int status);
 void			transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 size_t			triple_ptr_len(char ***arr);

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/07 14:29:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:55:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
-char	*cmd;
-int		access;
-int		status;
-int		hash;
+	char	*cmd;
+	int		access;
+	int		status;
+	int		hash;
 	char	**args;
 
 	args = head->cmd;
