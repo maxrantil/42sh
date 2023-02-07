@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/07 12:08:35 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:40:08 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static int expander(t_param *pa, int ret)
 {
 	int	i;
 	char	*temp;
-	char	*search_res;
+	char	*subs;
 
 	i = -1;
 	while (pa->list[++i])
@@ -132,16 +132,23 @@ static int expander(t_param *pa, int ret)
 		// 	pa->expanded = ft_strnew(1);
 		//ft_printf("pa list %s  [%c]\n",  pa->list[i], pa->flag[0]);
 		if (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == ':')
-			pa->expanded = ft_strupdate(pa->expanded, \
-			substitute_or_create(g_sh, pa->list[i], &ret));
+		{
+			subs = substitute_or_create(g_sh, pa->list[i], &ret);
+			temp = ft_strjoin(pa->expanded, subs);
+			ft_strdel(&pa->expanded);
+			pa->expanded = ft_strdup(temp);
+			ft_strdel(&subs);
+			ft_strdel(&temp);
+		}
 		else if ((ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '#')
 			|| (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '%'))
 		{
-			search_res = search_from_var(g_sh, pa->list[i], &ret);
-			temp = ft_strjoin(search_res, pa->expanded);
+			subs = search_from_var(g_sh, pa->list[i], &ret);
+			temp = ft_strjoin(subs, pa->expanded);
 			ft_strdel(&pa->expanded);
 			pa->expanded = ft_strdup(temp);
-			ft_strdel(&search_res);
+			ft_printf(" expanded [%s] \n", pa->expanded);
+			ft_strdel(&subs);
 			ft_strdel(&temp);
 		}
 		else
@@ -154,24 +161,45 @@ static int expander(t_param *pa, int ret)
 
 static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 {
+	char	*temp;
+	char	*subs;
+
 	ft_strdel(&pa->subs);
 	pa->subs = ft_strjoin(pa->var, pa->expanded);
 	pa->oper = get_operator(pa->subs, &ret);
+	ft_printf("pa list sdfds %s\n", pa->expanded);
 	ft_printf("pa list  %c\n", pa->oper[0]);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strnew(1);
 	if (pa->oper[0] == ':')
-		pa->expanded = ft_strupdate(pa->expanded, \
-		substitute_or_create(g_sh, pa->subs, &ret));
+	{
+		subs = substitute_or_create(g_sh, pa->subs, &ret);
+		temp = ft_strjoin(pa->expanded, subs);
+		ft_strdel(&pa->expanded);
+		pa->expanded = ft_strdup(temp);
+		ft_strdel(&subs);
+		ft_strdel(&temp);
+		// pa->expanded = ft_strupdate(pa->expanded, 
+		// substitute_or_create(g_sh, pa->subs, &ret));
+	}
 	else if (pa->oper[0] == '#' || pa->oper[0] == '%')
-		pa->expanded = ft_strupdate(pa->expanded, \
-		search_from_var(g_sh, pa->subs, &ret));
+	{
+		subs = search_from_var(g_sh, pa->subs, &ret);
+		temp = ft_strjoin(subs, pa->expanded);
+		ft_strdel(&pa->expanded);
+		pa->expanded = ft_strdup(temp);
+		ft_printf(" expanded [%s] \n", pa->expanded);
+		ft_strdel(&subs);
+		ft_strdel(&temp);
+		// pa->expanded = ft_strupdate(pa->expanded, 
+		// search_from_var(g_sh, pa->subs, &ret));
+	}
 	else
 		pa->expanded = ft_expansion_dollar(sh, cmd);
 	if (!pa->expanded || !*pa->expanded)
 	{
 		pa->expanded = ft_strnew(1);
-		// ft_printf("42sh: %s: bad substitution\n", cmd);
+		//ft_printf("42sh: %s: bad substitution\n", cmd);
 		// return (-1);
 	}
 	if (ret == -1)
@@ -179,6 +207,7 @@ static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 		ft_printf("42sh: %s: bad substitution\n", cmd);
 		return (-1);
 	}
+	ft_printf("pa list alaalla %s\n", pa->expanded);
 	return (0);
 }
 
@@ -206,6 +235,7 @@ int	param_format(char **cmd)
 				err = 1;
 			if (joiner(g_sh, &pa, cmd[i], ret))
 				err = -1;
+			ft_printf(" expanded [%s] \n", pa.expanded);
 			free_er(&pa, cmd, i);
 		}
 	}

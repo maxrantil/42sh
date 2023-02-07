@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/07 11:32:50 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:45:05 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,10 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 {
 	t_param	param;
 	int		format;
+	char	*subs;
 
 	param.subs = ft_strnew(1);
+	subs = NULL;
 	param.expanded = NULL;
 	//param.var = ft_strnew(1);
 	param.op = 0;
@@ -115,17 +117,23 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 		set_sub_var_op(&param);
 	else
 		param.expanded = ft_expansion_dollar(sh, param.strip);
-	ft_strdel(&param.strip);
-	if (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , ':'))
-		param.subs = substitute_or_create(sh, param.subs + 1, ret);
-	else if ((ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '#'))
+	// if (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , ':'))
+	// 	param.subs = substitute_or_create(sh, param.subs + 1, ret);
+	if ((ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '#'))
 		|| (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '%')))
-		param.subs = search_from_var(sh, param.subs + 1, ret);
+		subs = search_from_var(sh, param.subs + 1, ret);
 	else if (ft_strnequ(param.subs + 1, "${", 2))
-		param.subs = substitute_or_create(sh, param.subs + 1, ret);
+		subs = substitute_or_create(sh, param.subs + 1, ret);
 	format = format_mode(param.op);
+	if (subs)
+	{
+		ft_strdel(&param.subs);
+		param.subs = ft_strdup(subs);
+		ft_strdel(&subs);
+	}
 	if (!param.expanded || !*param.expanded)
 		param.expanded = subst_param(sh, param.var, param.subs, format);
 	ft_strdel(&param.subs);
+	ft_strdel(&param.strip);
 	return (param.expanded);
 }
