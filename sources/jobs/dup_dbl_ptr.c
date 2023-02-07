@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dup_dbl_ptr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:26:06 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 14:26:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:39:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
  * 
  * @return A pointer to a pointer to a char.
  */
-char    **dup_dbl_ptr(char **cmd)
+char	**dup_dbl_ptr(char **cmd)
 {
-	int     len;
+	int		len;
 	char	**dup_arr;
 
 	len = ft_arrlen(cmd);
@@ -29,5 +29,5 @@ char    **dup_dbl_ptr(char **cmd)
 	dup_arr[len] = NULL;
 	while (--len >= 0)
 		dup_arr[len] = ft_strdup(cmd[len]);
-    return (dup_arr);
+	return (dup_arr);
 }

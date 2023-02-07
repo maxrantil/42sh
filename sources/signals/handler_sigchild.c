@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 13:39:46 by jniemine         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/02/08 00:04:47 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_42sh.h"
 
@@ -37,18 +38,36 @@ extern t_shell	*g_sh;
 // 	return (0);
 // }
 
+static bool	check_bg_pipeline(t_bg_jobs *job, pid_t pid)
+{
+	pid_t	*ptr;
+
+	ptr = job->pid;
+	while (*ptr)
+	{
+		if (*ptr == pid)
+			return (true);
+		ptr++;
+	}
+	return (false);
+}
+
 static void    change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
 {
 	t_bg_jobs    *job;
 
-	job = bg_node;
-	while (job && job->gpid != pid)
-		job = job->next;
+    job = bg_node;
+    while (job)
+	{
+		if (check_bg_pipeline(job, pid))
+			break ;	
+        job = job->next;
+	}
 	if (job)
 		job->status = status;
 }
 
-static void	check_pipeline(t_shell *sh, pid_t pid)
+static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 {
 	pid_t	*ptr;
 
@@ -66,6 +85,19 @@ static void	check_pipeline(t_shell *sh, pid_t pid)
 	}
 }
 
+static void	reset_pipes(t_shell *sh)
+{
+	if (sh->pipe->pipefd[0] > -1 || sh->pipe->pipefd[1] > -1)
+	{
+		sh->pipe->redirecting = 0;
+		reset_fd(sh->terminal);
+		close(sh->pipe->pipefd[0]);
+		close(sh->pipe->pipefd[1]);
+		sh->pipe->pipefd[0] = -1;
+		sh->pipe->pipefd[1] = -1;
+	}
+}
+
 void handler_sigchild(int num)
 {
 	int		status;
@@ -74,30 +106,29 @@ void handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-		if (g_sh->pipe->pipefd[0] > -1 || g_sh->pipe->pipefd[1] > -1)
-		{
-			g_sh->pipe->redir_out = 0;
-			reset_fd(g_sh->terminal);
-			close(g_sh->pipe->pipefd[0]);
-			close(g_sh->pipe->pipefd[1]);
-			g_sh->pipe->pipefd[0] = -1;
-			g_sh->pipe->pipefd[1] = -1;
-		}
+		reset_pipes(g_sh);			
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
-			check_pipeline(g_sh, pid);
-			change_process_status(g_sh->bg_node, pid, DONE);
+			check_fg_pipeline(g_sh, pid);
 			if (WIFSIGNALED(status))
+			{
 				ft_putchar('\n');
+				if (WTERMSIG(status))
+					change_process_status(g_sh->bg_node, pid, TERMINATED);
+			}
+			else
+				change_process_status(g_sh->bg_node, pid, DONE);
 		}
 		else //if suspended it goes here
 		{
+			ft_putchar('\n');
 			transfer_to_bg(g_sh, STOPPED);
-			reset_fgnode(g_sh);
 			display_suspended_job(g_sh);
+			reset_fgnode(g_sh);
 		}
-		set_signal_keyboard();
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
 			exit_error(g_sh, 1, "ioctl error in handler_sigchild()");
 	}
 }
+
+

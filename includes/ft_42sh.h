@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/07 13:04:10 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 00:01:18 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,6 @@ typedef struct s_fc
 	bool	l;
 }			t_fc;
 
-
 /*					HASH					*/
 typedef struct s_hash
 {
@@ -205,7 +204,6 @@ typedef struct s_job
 	int				shared_mem_index;
 	char			*cmd;
 }				t_job;
-
 
 /*			FOREGROUND JOB NODES				*/
 typedef struct s_fg_job
@@ -312,7 +310,7 @@ int i_tok, int end);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_cd_addr_check(char *file, int p_option, t_shell *session);
-t_bg_jobs    	*bg_fetch_node(t_bg_jobs *head, char *cmd);
+t_bg_jobs		*bg_fetch_node(t_shell *sh, char **cmd);
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
 void			ft_env_remove(t_shell *sh, char *env_to_clean);
 int				ft_env_append(t_shell *sh, char **arg);
@@ -324,11 +322,11 @@ int				validate_cd_options(t_shell *session, char **commands, \
 				int i, int dash_dash);
 char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
 				int to_skip);
-int	cd_multi_command_validation(t_shell *sesh, char **commands);
+int				cd_multi_command_validation(t_shell *sesh, char **commands);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
-int 			ft_bg(t_shell *sh, char **cmd);
+int				ft_bg(t_shell *sh, char **cmd);
 int				ft_cd(t_shell *sh, char **cmd);
 int				ft_echo(t_shell *sh, char **cmd);
 int				ft_set(t_shell *sh, char ***cmd);
@@ -482,15 +480,16 @@ void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
 void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
 void			close_all_bg_processes(t_shell *sh);
-char    		**dup_dbl_ptr(char **cmd);
+char			**dup_dbl_ptr(char **cmd);
+void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
-void    		display_suspended_job(t_shell *sh);
-void    		display_pipeline_cmd(t_bg_jobs *job);
+void			display_suspended_job(t_shell *sh);
+void			display_pipeline_cmd(t_bg_jobs *job);
 void			reset_fgnode(t_shell *sh);
 void			set_process_group(t_shell *sh, pid_t pid);
 void			transfer_to_bg(t_shell *sh, int status);
-void    		transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
-size_t  		triple_ptr_len(char ***arr);
+void			transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
+size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
@@ -515,7 +514,7 @@ void			set_signal_exec(void);
 void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
 void			set_signal_search_history(void);
-void 			handler_sigchild(int num);
+void			handler_sigchild(int num);
 
 /*					TERMIOS				*/
 int				ft_getent(void);

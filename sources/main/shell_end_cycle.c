@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/06 22:37:16 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 00:03:57 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,23 @@ static void	ft_reset_tmp_env(t_shell *sh)
 	}
 }
 
+static void    notify_completed_jobs(t_shell *sh)
+{
+    t_bg_jobs    *ptr;
+
+    ptr = sh->bg_node;
+    while (ptr)
+    {
+        if (ptr->status == DONE || ptr->status == TERMINATED)
+		{
+            display_job_node(sh, ptr);
+			bg_node_delete(sh, &ptr);
+		}
+		else
+			ptr = ptr->next;
+    }
+}
+
 /**
  * It resets the tokens and sets the return value to 0
  *
@@ -56,4 +73,5 @@ void	shell_end_cycle(t_shell *sh)
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
 	ft_reset_tmp_env(sh);
+	notify_completed_jobs(sh);
 }

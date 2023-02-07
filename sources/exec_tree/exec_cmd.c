@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/07 19:23:30 by jniemine         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/02/08 00:01:45 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_42sh.h"
 
@@ -28,6 +29,7 @@ static void	print_args(char **args)
 	}
 	ft_putchar('\n');
 }
+
 
 static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
 {
@@ -56,20 +58,20 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 				exe_fail(cmd, args, environ_cp);
 			exit(1);
 		}
-		if (g_sh->ampersand && g_sh->pipe->pipefd[0] == -1)
-			waitpid(pid, &status, WNOHANG | WUNTRACED);
+		if (g_sh->ampersand)
+			waitpid(g_sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
 		else if (g_sh->pipe->pipefd[0] == -1)
-			waitpid(pid, &status, WUNTRACED);
+			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED);
 	}
 	return (status);
 }
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
-	char	*cmd;
-	int		access;
-	int		status;
-	int		hash;
+char	*cmd;
+int		access;
+int		status;
+int		hash;
 	char	**args;
 
 	args = head->cmd;
