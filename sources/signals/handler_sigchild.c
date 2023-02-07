@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 22:23:27 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:39:46 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ extern t_shell	*g_sh;
 
 static void    change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
 {
-    t_bg_jobs    *job;
+	t_bg_jobs    *job;
 
-    job = bg_node;
-    while (job && job->gpid != pid)
-        job = job->next;
+	job = bg_node;
+	while (job && job->gpid != pid)
+		job = job->next;
 	if (job)
 		job->status = status;
 }
@@ -55,7 +55,7 @@ static void	check_pipeline(t_shell *sh, pid_t pid)
 	if (!sh->fg_node->gpid)
 		return ;
 	ptr = sh->fg_node->pid;
-	while (*ptr)
+	while (ptr && *ptr)
 	{
 		if (*ptr == pid)
 		{
