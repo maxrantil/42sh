@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:43 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 14:39:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:35:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int ft_bg(t_shell *sh, char **cmd)
 				ft_putchar('\n');
 				if (job->status == STOPPED || job->status == SUSPENDED)
 				{
+						queue_delete(sh, job);
 						add_to_index_pos_of_queue(sh, job);
 						job->status = RUNNING;
 						killpg(job->gpid, SIGCONT);
