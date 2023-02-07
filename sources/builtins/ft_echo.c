@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:33:02 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 12:04:11 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,20 @@
  * @param cmd The command line arguments.
  * @param nl_flag if true, don't print a newline at the end of the output
  */
-static void	echo_print(char **cmd, bool nl_flag)
+static void	echo_print(char **cmd, int offset, int flag)
 {
-	while (*cmd)
+	int		i;
+
+	i = 1;
+	while (cmd[i + offset])
 	{
-		if (*cmd)
-			ft_putstr(*cmd);
-		cmd++;
-		if (*cmd)
+		if (cmd[i + offset])
+			ft_putstr(cmd[i + offset]);
+		i++;
+		if (cmd[i + offset])
 			ft_putstr(" ");
 	}
-	if (!nl_flag)
+	if (flag == 0)
 		ft_putstr("\n");
 }
 
@@ -60,22 +63,18 @@ static int	echo_fd_check(void)
  */
 int	ft_echo(t_shell *sh, char **cmd)
 {
-	bool	nl_flag;
-
 	sh->exit_stat = 0;
 	if (echo_fd_check())
 	{
 		sh->exit_stat = 1;
 		return (0);
 	}
-	nl_flag = false;
 	if (!(*cmd))
 		ft_putstr("\n");
 	else
 	{
-		if (!ft_strcmp(*(cmd++), "-n"))
-			nl_flag = true;
-		echo_print(cmd, nl_flag);
+		echo_print(cmd, check_flag(sh, cmd, 'n'), sh->is_flag_on);
+		sh->is_flag_on = 0;
 	}
 	return (0);
 }

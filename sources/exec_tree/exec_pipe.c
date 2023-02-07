@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/02 13:48:02 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:30:27 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ int	fork_wrap(void)
 	pid = fork();
 	if (pid == -1)
 		error_exit("fork failed\n");
-	if (pid == 0)
-		ft_signal_dfl();
-	else
-		set_signal_exec();
 	return (pid);
 }
 
@@ -48,6 +44,8 @@ int	pipe_wrap(int pipefd[])
 void	exec_pipe(t_pipenode *pipenode, \
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
+	int status;
+	
 	if (pipe_wrap(sh->pipe->pipefd))
 		return ;
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
@@ -64,8 +62,8 @@ void	exec_pipe(t_pipenode *pipenode, \
 	close (sh->pipe->pipefd[1]);
 	sh->pipe->pipefd[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
-	wait (0);
-	wait (0);
+	// print_fg_node(sh);	
+	waitpid(sh->fg_node->gpid, &status, WUNTRACED);
 	g_sh->pipe->redirecting = 0;
 	reset_fd(terminal);
 	close(sh->pipe->pipefd[0]);

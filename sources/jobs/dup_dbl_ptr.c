@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_dfl.c                                   :+:      :+:    :+:   */
+/*   dup_dbl_ptr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 17:02:25 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/01 14:26:06 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/01 14:26:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 /**
- * It sets all the signals to their default behavior
+ * It duplicates a double pointer
+ * 
+ * @param cmd The array of strings to be duplicated.
+ * 
+ * @return A pointer to a pointer to a char.
  */
-void	ft_signal_dfl(void)
+char    **dup_dbl_ptr(char **cmd)
 {
-	int	sig;
+	int     len;
+	char	**dup_arr;
 
-	sig = 0;
-	while (++sig < 32)
-	{
-		if (sig == SIGCHLD)
-			signal(SIGCHLD, SIG_IGN);
-		else
-			signal(sig, SIG_DFL);
-	}
+	len = ft_arrlen(cmd);
+	dup_arr = (char **)ft_memalloc(sizeof(char *) * (len + 1));
+	dup_arr[len] = NULL;
+	while (--len >= 0)
+		dup_arr[len] = ft_strdup(cmd[len]);
+    return (dup_arr);
 }

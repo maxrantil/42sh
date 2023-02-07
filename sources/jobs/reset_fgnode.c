@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_dfl.c                                   :+:      :+:    :+:   */
+/*   reset_fgnode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 17:02:25 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/31 11:26:45 by mike_baru         #+#    #+#             */
+/*   Updated: 2023/02/02 16:45:30 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It sets all the signals to their default behavior
- */
-void	ft_signal_dfl(void)
+void	reset_fgnode(t_shell *sh)
 {
-	int	sig;
-
-	sig = 0;
-	while (++sig < 32)
-	{
-		if (sig == SIGCHLD)
-			signal(SIGCHLD, SIG_IGN);
-		else
-			signal(sig, SIG_DFL);
-	}
+    sh->fg_node->gpid = 0;
+	if (sh->fg_node->pid)
+		ft_memdel((void **)&sh->fg_node->pid);
+	if (sh->fg_node->cmd)
+		reset_cmd(&sh->fg_node->cmd);
 }

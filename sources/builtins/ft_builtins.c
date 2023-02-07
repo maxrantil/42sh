@@ -6,11 +6,46 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/03 15:44:57 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:43:54 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
+{
+	if (**cmd == NULL)
+		return (0);
+	else if (**cmd && !ft_strcmp(**cmd, "set"))
+		return (ft_set(sh, cmd));
+	else if (**cmd && !ft_strcmp(**cmd, "export"))
+		return (ft_export(sh, *cmd));
+	else if (**cmd && !ft_strcmp(**cmd, "unset"))
+		return (ft_unset(sh, *cmd));
+	else if (**cmd && !ft_strcmp(**cmd, "cd"))
+		return (ft_cd(sh, *cmd));
+	else if (**cmd && !ft_strcmp(**cmd, "echo"))
+		return (ft_echo(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "history"))
+		return (ft_history(sh->term, *cmd));
+	else if (!ft_strcmp(**cmd, "fc"))
+		return (ft_fc(sh, cmd));
+	else if (!ft_strcmp(**cmd, "test"))
+		return (ft_test(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "hash"))
+		return (ft_hash(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "exit"))
+		return (ft_exit(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "fg"))
+		return (ft_fg(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "bg"))
+		return (ft_bg(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "jobs"))
+		return (ft_jobs(sh));
+	else if (!ft_strcmp(**cmd, "type"))
+		return (type_command(sh, *cmd, *environ_cp));
+	return (1);
+}
 
 /**
  * It takes a session and a command, expands the command, and then checks if
@@ -22,7 +57,7 @@
  *
  * @return The return value of the builtin function.
  */
-int	ft_builtins(t_shell *sh, char ***cmd)
+int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (sh && cmd)
 	{
@@ -31,28 +66,7 @@ int	ft_builtins(t_shell *sh, char ***cmd)
 		if (param_format(sh, *cmd) == -1)
 			return (0);
 		*(cmd) += ft_variables(sh, cmd);
-		if (**cmd == NULL)
-			return (0);
-		else if (**cmd && !ft_strcmp(**cmd, "set"))
-			return (ft_set(sh, cmd));
-		else if (**cmd && !ft_strcmp(**cmd, "export"))
-			return (ft_export(sh, *cmd));
-		else if (**cmd && !ft_strcmp(**cmd, "unset"))
-			return (ft_unset(sh, *cmd));
-		else if (**cmd && !ft_strcmp(**cmd, "cd"))
-			return (ft_cd(sh, *cmd));
-		else if (**cmd && !ft_strcmp(**cmd, "echo"))
-			return (ft_echo(sh, *cmd));
-		else if (!ft_strcmp(**cmd, "history"))
-			return (ft_history(sh->term, *cmd));
-		else if (!ft_strcmp(**cmd, "fc"))
-			return (ft_fc(sh, cmd));
-		else if (!ft_strcmp(**cmd, "test"))
-			return(ft_test(sh, *cmd));
-		else if (!ft_strcmp(**cmd, "hash"))
-			return (ft_hash(sh, *cmd));
-		else if (!ft_strcmp(**cmd, "exit"))
-			ft_exit(sh, 0);
+		return (cmd_comparisons(sh, cmd, environ_cp));
 	}
 	return (1);
 }

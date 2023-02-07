@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/02 13:43:50 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:05:06 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	if (access)
 	{
 		pid = fork_wrap();
+		if (pid)
+			update_fg_job(g_sh, pid, args);
 		if (pid == 0)
 		{
 			//We only want to pipe stdout if we are not redirecting
+			ft_signal_dfl();
 			if (!g_sh->pipe->redirecting && g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
 			{
 				ft_err_print("dup2", NULL, "failed", 2);
@@ -53,11 +56,11 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 				exe_fail(cmd, args, environ_cp);
 			exit(1);
 		}
+		if (g_sh->ampersand && g_sh->pipe->pipefd[0] == -1)
+			waitpid(pid, &status, WNOHANG | WUNTRACED);
+		else if (g_sh->pipe->pipefd[0] == -1)
+			waitpid(pid, &status, WUNTRACED);
 	}
-	if (g_sh->pipe->pipefd[0] == -1) //This is used to check if single command, maybe refactor
-		wait(0);
-	if (status & 0177)
-		ft_putchar('\n');
 	return (status);
 }
 
@@ -74,7 +77,7 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 		return ;
 	if (sh->term->fc_flag)
 		print_args(args);
-	if (!ft_builtins(sh, &args))
+	if (!ft_builtins(sh, &args, environ_cp))
 		return ;
 	hash = 0;
 	cmd = hash_check(sh, args[0], &hash);

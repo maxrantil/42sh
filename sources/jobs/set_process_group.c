@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash_free.c                                        :+:      :+:    :+:   */
+/*   set_process_group.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 12:07:03 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/30 12:07:25 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
+/*   Updated: 2023/02/06 12:28:15 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	hash_free(t_hash **ht)
+void	set_process_group(t_shell *sh, pid_t pid)
 {
-	t_hash	*tmp;
-	t_hash	*tmp2;
-	int		i;
-
-	i = 0;
-	while (i < HASH_SIZE)
+	if (!sh->fg_node->gpid)
 	{
-		if (ht[i])
+		setpgid(pid, 0); // This sets up the pid as its own pgid
+		sh->fg_node->gpid = pid;
+		if (!sh->ampersand)
 		{
-			tmp = ht[i];
-			while (tmp)
-			{
-				ft_strdel(&tmp->program);
-				ft_strdel(&tmp->path);
-				tmp2 = tmp->next;
-				free(tmp);
-				tmp = tmp2;
-			}
+			if (ioctl(STDIN_FILENO, TIOCSPGRP, &sh->fg_node->gpid) == -1)
+				exit_error(sh, 1, "ioctl error in set_process_group()");
 		}
-		i++;
 	}
-	free(ht);
+	else
+		setpgid(pid, sh->fg_node->gpid);
 }

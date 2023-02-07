@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:12:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 18:54:48 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 11:58:12 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_env_append(t_shell *sh, char **arg)
 	char	**new_array;
 
 	i = -1;
-	// ft_printf("tama ni%s\n", *arg);
 	new_array = (char **)ft_memalloc(sizeof(char *) * \
 	(ft_arrlen(sh->env) + 2));
 	while (sh->env[++i])
