@@ -1,1 +1,2 @@
-aggregation + pipe combo breaks up, did not test closefd yet
+asdf && echo hello || echo pallo | wc
+Fix pipes with builtins

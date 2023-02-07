@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 14:23:02 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:30:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void handler_sigchild(int num)
 			reset_fgnode(g_sh);
 		}
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
-			ft_exit(g_sh, 1);
+			exit_error(g_sh, 1, "ioctl error in handler_sigchild()");
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_process_group.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/05 12:34:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:29:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_process_group(t_shell *sh, pid_t pid)
 		if (!sh->ampersand)
 		{
 			if (ioctl(STDIN_FILENO, TIOCSPGRP, &sh->fg_node->gpid) == -1)
-				ft_exit(sh, 1); // this needs to be proper exit
+				exit_error(sh, 1, "ioctl error in set_process_group()");
 		}
 	}
 	else

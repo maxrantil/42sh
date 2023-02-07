@@ -12,51 +12,41 @@
 
 #include "ft_42sh.h"
 
-static void	print_ell_only(t_shell *sh, int start)
+static void	print_ell_only(t_shell *sh, t_fc *fc)
 {
-	while (++start < (int)sh->term->history_size - 1)
-		ft_printf("%-8d %s\n", start + 1, sh->term->history_arr[start]);
+	while (++fc->start < fc->end - 1)
+		ft_printf("%-8d %s\n", fc->start + 1, sh->term->history_arr[fc->start]);
 }
 
-static void	print_n_ell(t_shell *sh, int start)
+static void	print_n_ell(t_shell *sh, t_fc *fc)
 {
-	while (++start < (int)sh->term->history_size - 1)
-		ft_printf("\t %s\n", sh->term->history_arr[start]);
+	while (++fc->start < fc->end - 1)
+		ft_printf("\t %s\n", sh->term->history_arr[fc->start]);
 }
 
-static void	print_r_ell(t_shell *sh, int start)
+static void	print_r_ell(t_shell *sh, t_fc *fc)
 {
-	while (--start && start > (int)sh->term->history_size - FC_LEN)
-		ft_printf("%-8d %s\n", start, sh->term->history_arr[start - 1]);
+	while (--fc->end && fc->start < fc->end - 1)
+		ft_printf("%-8d %s\n", fc->end, sh->term->history_arr[fc->end - 1]);
 }
 
-static void	print_nr_ell(t_shell *sh, int start)
+static void	print_nr_ell(t_shell *sh, t_fc *fc)
 {
-	while (--start && start > (int)sh->term->history_size - FC_LEN)
-		ft_printf("\t %s\n", sh->term->history_arr[start - 1]);
+	while (--fc->end && fc->start < fc->end - 1)
+		ft_printf("\t %s\n", sh->term->history_arr[fc->end - 1]);
 }
 
-// fix for empy history? fc -l in fist line prints it out if its empty
-int	fc_list_flags(t_shell *sh, char ***cmd)
+int	fc_list_flags(t_shell *sh, t_fc *fc, char ***cmd)
 {
-	int		start;
-	size_t	hold;
-
-	hold = sh->term->history_size;
-	start = fc_get_start_for_lists(sh, cmd);
-	if (!ft_strchr((*cmd)[1], 'n') && !ft_strchr((*cmd)[1], 'r'))
-		print_ell_only(sh, start);
-	else if (ft_strchr((*cmd)[1], 'n') && !ft_strchr((*cmd)[1], 'r'))
-		print_n_ell(sh, start);
-	if (sh->term->history_size > FC_LEN)
-		start += FC_LEN;
-	else
-		start = sh->term->history_size;
-	if (ft_strchr((*cmd)[1], 'r') && !ft_strchr((*cmd)[1], 'n'))
-		print_r_ell(sh, start);
-	else if (ft_strchr((*cmd)[1], 'r') && ft_strchr((*cmd)[1], 'n'))
-		print_nr_ell(sh, start);
-	if (hold != sh->term->history_size)
-		sh->term->history_size = hold;
+	fc->end = sh->term->history_size;
+	fc->start = fc_lflag_get_start_and_end(sh, fc, cmd);
+	if (!fc->n && !fc->r)
+		print_ell_only(sh, fc);
+	else if (fc->n && !fc->r)
+		print_n_ell(sh, fc);
+	else if (fc->r && !fc->n)
+		print_r_ell(sh, fc);
+	else if (fc->r && fc->n)
+		print_nr_ell(sh, fc);
 	return (0);
 }

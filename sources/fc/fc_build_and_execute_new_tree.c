@@ -46,23 +46,30 @@ static	void	remove_heredoc(char *str)
 	}
 }
 
+static char	*if_heredoc(t_shell *sh, t_fc *fc)
+{
+	char	*new_cl;
+
+	sh->term->fc_flag = true;
+	new_cl = ft_strtrim(fc->ret_cmd);
+	if (ft_heredoc_handling2(new_cl))
+		remove_heredoc(new_cl);
+	return (new_cl);
+}
+
 void	fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc)
 {
-	char		*new;
+	char		*new_cl;
 	t_treenode	*head;
 	t_token		*tokens;
 
-	sh->term->fc_flag = true;
-	new = ft_strtrim(fc->ret_cmd);
-	if (ft_heredoc_handling2(new))
-		remove_heredoc(new);
-	ft_freeda((void ***)&fc->filename, calc_chptr(fc->filename));
+	new_cl = if_heredoc(sh, fc);
 	tokens = NULL;
-	tokens = chop_line(new, tokens, 1);
+	tokens = chop_line(new_cl, tokens, 1);
 	head = build_tree(&tokens);
 	if (head && ((t_semicolon *)head)->left)
 		exec_tree(head, &sh->env, sh->terminal, sh);
 	free_node(head);
 	free_tokens(&tokens);
-	ft_strdel(&fc->ret_cmd);
+	fc_free(fc);
 }

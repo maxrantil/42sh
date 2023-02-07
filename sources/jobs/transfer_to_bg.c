@@ -93,7 +93,7 @@ void	transfer_to_bg(t_shell *sh, int status)
 				job = job->next;
 			job->status = STOPPED;
 			return ;
-		}	
+		}
 		else
 		{
 			job = sh->bg_node;

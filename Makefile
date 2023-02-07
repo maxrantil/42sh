@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/07 14:23:30 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/07 14:28:34 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-# LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -62,7 +62,6 @@ endif
 SOURCES 		= 	sources
 INCLUDES		= 	includes/
 LIBRARIES 		= 	libft/
-BANNER			= 	banner/
 BUILDTREE		=	build_tree/
 BUILTIN_UTILS	= 	builtin_utils/
 BUILTIN			= 	builtins/
@@ -91,7 +90,6 @@ H_FILES 	= 	ft_42sh \
 				keyboard \
 
 FILES			= \
-				$(BANNER)ft_banner \
 				$(BUILDTREE)build_tree \
 				$(BUILDTREE)make_arg_array \
 				$(BUILDTREE)bt_utils \
@@ -120,6 +118,9 @@ FILES			= \
 				$(BUILTIN_UTILS)ft_env_replace \
 				$(BUILTIN_UTILS)ft_env_temp \
 				$(BUILTIN_UTILS)bg_fetch_node \
+				$(BUILTIN_UTILS)flag_check \
+				$(BUILTIN_UTILS)builtin_usage \
+				$(BUILTIN_UTILS)cd_utils \
 				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
@@ -130,6 +131,7 @@ FILES			= \
 				$(BUILTIN)ft_export \
 				$(BUILTIN)ft_jobs \
 				$(BUILTIN)ft_unset \
+				$(BUILTIN)type_command \
 				$(EXECTREE)check_access \
 				$(EXECTREE)check_if_user_exe \
 				$(EXECTREE)exe_fail \
@@ -150,12 +152,14 @@ FILES			= \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
 				$(FC)fc_build_and_execute_new_tree \
-				$(FC)fc_check_flags \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
+				$(FC)fc_free \
+				$(FC)fc_get_flags \
 				$(FC)fc_get_start_and_end \
-				$(FC)fc_get_start_for_lists \
+				$(FC)fc_lflag_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
+				$(FC)fc_no_flags \
 				$(FC)fc_open_editor \
 				$(FC)fc_overwrite_fc_cmd_with_prev_cmd \
 				$(FC)fc_print_error \
@@ -317,6 +321,8 @@ FILES			= \
 				$(TOKENIZER)tok_error_after_tokenizing \
 				$(TOKENIZER)tok_errors \
 				$(TOKENIZER)tok_print_tokens \
+				$(UTILITIES)ft_banner \
+				$(UTILITIES)exit_error \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)free_node \
@@ -342,10 +348,9 @@ $(NAME): libft/libft.a $(OBJECTS) $(O_PATHS)
 
 $(OBJECTS):
 	@make -C $(LIBRARIES)
-	@mkdir -p $(OBJECTS)/$(BANNER)
 	@mkdir -p $(OBJECTS)/$(BUILDTREE)
-	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
 	@mkdir -p $(OBJECTS)/$(BUILTIN)
+	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
 	@mkdir -p $(OBJECTS)/$(EXECTREE)
 	@mkdir -p $(OBJECTS)/$(EXPANSION)
 	@mkdir -p $(OBJECTS)/$(FC)

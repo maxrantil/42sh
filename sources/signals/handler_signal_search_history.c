@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_signal_search_history.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:04:37 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 16:49:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:26:52 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ void	search_history_sigs(int num)
 	if (num == SIGWINCH)
 	{
 		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < -2)
-		{
-			ft_putstr_fd("could not get the terminal size", 0);
-			ft_exit(g_sh, -1);
-		}
+			exit_error(g_sh, -1, \
+			"could not get the terminal size ioctl(), in search_history_sigs()");
 		term->ws_col = size.ws_col;
 		term->ws_row = size.ws_row;
 		ft_search_history_reset(term);

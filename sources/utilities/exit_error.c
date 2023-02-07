@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash_free.c                                        :+:      :+:    :+:   */
+/*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 12:07:03 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/30 12:07:25 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/06 12:21:42 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/06 12:24:36 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	hash_free(t_hash **ht)
+void	exit_error(t_shell *sh, int status, char *msg)
 {
-	t_hash	*tmp;
-	t_hash	*tmp2;
-	int		i;
-
-	i = 0;
-	while (i < HASH_SIZE)
-	{
-		if (ht[i])
-		{
-			tmp = ht[i];
-			while (tmp)
-			{
-				ft_strdel(&tmp->program);
-				ft_strdel(&tmp->path);
-				tmp2 = tmp->next;
-				free(tmp);
-				tmp = tmp2;
-			}
-		}
-		i++;
-	}
-	free(ht);
+	ft_putendl_fd(msg, 2);
+	ft_history_write_to_file(sh->term);
+	ft_raw_disable(sh->orig_termios);
+	if (sh->term->clipboard.buff)
+		ft_strdel(&sh->term->clipboard.buff);
+	shell_end_cycle(sh);
+	exit(status);
 }

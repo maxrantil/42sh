@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/07 14:22:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:29:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		hash;
 		return ;
 	if (sh->term->fc_flag)
 		print_args(args);
-	if (!ft_builtins(sh, &args))
+	if (!ft_builtins(sh, &args, environ_cp))
 		return ;
 	hash = 0;
 	cmd = hash_check(sh, args[0], &hash);

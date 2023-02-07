@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash_free.c                                        :+:      :+:    :+:   */
+/*   builtin_usage.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 12:07:03 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/30 12:07:25 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/25 19:22:13 by spuustin          #+#    #+#             */
+/*   Updated: 2023/02/06 12:13:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	hash_free(t_hash **ht)
+void	print_usage(char *command, char c)
 {
-	t_hash	*tmp;
-	t_hash	*tmp2;
-	int		i;
-
-	i = 0;
-	while (i < HASH_SIZE)
-	{
-		if (ht[i])
-		{
-			tmp = ht[i];
-			while (tmp)
-			{
-				ft_strdel(&tmp->program);
-				ft_strdel(&tmp->path);
-				tmp2 = tmp->next;
-				free(tmp);
-				tmp = tmp2;
-			}
-		}
-		i++;
-	}
-	free(ht);
+	ft_printf("42sh: %s: -%c: invalid option\n", command, c);
+	if (ft_strequ(command, "cd"))
+		ft_printf("cd: usage: cd [-L | -P] [dir]\n");
+	if (ft_strequ(command, "type"))
+		ft_printf("type: usage: type name [name ...]\n");
 }
