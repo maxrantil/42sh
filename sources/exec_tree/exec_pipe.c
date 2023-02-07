@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/08 00:03:02 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 00:05:52 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	exec_pipe(t_pipenode *pipenode, \
 		waitpid(sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
 	else
 		waitpid(sh->fg_node->gpid, &status, WUNTRACED);
-	g_sh->pipe->redirecting = 0;
 	reset_fd(terminal);
 	close(sh->pipe->pipefd[0]);
 	close(sh->pipe->pipefd[1]);
