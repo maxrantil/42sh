@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   triple_ptr_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:21:41 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/01 14:22:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:32:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
  * 
  * @return The length of the array of strings.
  */
-size_t   triple_ptr_len(char ***arr)
+size_t	triple_ptr_len(char ***arr)
 {
-    size_t len;
+	size_t	len;
 
-    len = 0;
-    while (*(arr + len))
-        len++;
-    return (len);
+	len = 0;
+	while (*(arr + len))
+		len++;
+	return (len);
 }

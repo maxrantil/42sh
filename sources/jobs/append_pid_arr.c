@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append_pid_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:12:46 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/02 16:45:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:29:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,27 @@ static pid_t	*realloc_pid(pid_t **pid_arr, pid_t pid)
 		++len;
 	new_arr = (pid_t *)ft_memalloc(sizeof(pid_t) * (len + 2));
 	new_arr[len + 1] = 0;
-	new_arr[len] = pid;	
+	new_arr[len] = pid;
 	while (--len >= 0)
 		new_arr[len] = (*pid_arr)[len];
 	ft_memdel((void **)&(*pid_arr));
 	return (new_arr);
 }
 
-static pid_t *alloc_pid(pid_t pid)
+static pid_t	*alloc_pid(pid_t pid)
 {
-    pid_t   *pid_arr;
+	pid_t	*pid_arr;
 
 	pid_arr = (pid_t *)ft_memalloc(sizeof(pid_t) * 2);
 	*pid_arr = pid;
 	*(pid_arr + 1) = 0;
-    return (pid_arr);
+	return (pid_arr);
 }
 
 void	append_pid_arr(t_fg_job *fg_node, pid_t pid)
 {
 	if (!fg_node->pid)
-        fg_node->pid = alloc_pid(pid);
+		fg_node->pid = alloc_pid(pid);
 	else
 		fg_node->pid = realloc_pid(&fg_node->pid, pid);
 }
