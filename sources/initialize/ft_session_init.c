@@ -42,6 +42,7 @@ void	ft_session_init(t_shell *sh)
 	sh->pipe = ft_memalloc(sizeof(t_pipe));
 	sh->pipe->pipefd[0] = -1;
 	sh->pipe->pipefd[1] = -1;
+	sh->pipe->pid = -1;
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	sh->pipe->redir_out = 0;

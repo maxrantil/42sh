@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/06 22:24:05 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:04:10 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,9 +227,10 @@ typedef struct s_bg_jobs
 	struct s_bg_jobs	*next;
 }						t_bg_jobs;
 
-/*				PIPE STRUCT					*/
+/*				PIPE DATA				*/
 typedef struct s_pipe
 {
+	int		pid;
 	int		pipefd[2];
 	int		redir_out;
 	int		redir_in;
