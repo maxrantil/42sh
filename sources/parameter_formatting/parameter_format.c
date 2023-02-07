@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/07 15:40:08 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:00:30 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,25 @@ static int	check_syntax(char *cmd)
 	return (0);
 }
 
-static int	is_legit(char flag)
+static int	is_legit(char *flag)
 {
-	if (flag == '\0')
+	if (*flag == '\0')
 		return (0);
-	return (flag == ':' || flag == '%' || flag == '#');
+	else if (flag[0] == ':')
+		return (flag[1] == '-' || flag[1] == '+' || flag[1] == '=' || flag[1] == '?');
+	return ((flag[0] == '%'  && flag[1]) || (flag[0] == '#' && flag[1]));
 }
+
+// static int	is_legit_format(char *format)
+// {
+// 	if (format == '\0')
+// 		return (0);
+// 	return (format == '+' || format == '-' || format == '=');
+// }
 
 int check_flag(char flag)
 {
-	return (flag == '%' || flag == '#' || flag == ':');
+	return (flag == '%' || flag == '#' || flag == ':' || flag == '}');
 }
 
 static char	*get_operator(char *cmd, int *ret)
@@ -39,13 +48,13 @@ static char	*get_operator(char *cmd, int *ret)
 
 	i = 2;
 	(void)ret;
-	ft_printf("getting operator %s\n",cmd);
+	//ft_printf("getting operator %s\n",cmd);
 	if (!cmd[1])
 		return (NULL);
 	while (ft_isalnum(cmd[i]))
 		i++;
 	ft_printf("getting operator %s\n",cmd + i);
-	if (!check_flag(cmd[i]))
+	if (!is_legit(&cmd[i]))
 		*ret = -1;
 	return (cmd + i);
 }
@@ -76,11 +85,12 @@ static void	init_pa(t_param *pa)
 static int splits(char **cmd, int i, t_param *pa, int *ret)
 {
 	pa->oper = get_operator(cmd[i], ret);
-	if (pa->oper && is_legit(pa->oper[0]))
+	if (is_legit(pa->oper))
 	{
 		pa->strip = ft_strdup(cmd[i]);
 		remove_braces(pa->strip);
 		pa->subs = ft_strdup(get_flag(pa->strip + 1, ret));
+		ft_printf("%s\n", pa->subs);
 		pa->op = pa->subs[0];
 		pa->subs = \
 		(char *)ft_memmove(pa->subs, pa->subs + 1, ft_strlen(pa->subs));
@@ -94,10 +104,12 @@ static int splits(char **cmd, int i, t_param *pa, int *ret)
 	}
 	else
 	{
+		ft_strdel(&pa->expanded);
 		pa->strip = ft_strdup(cmd[i]);
 		remove_braces(pa->strip);
 		pa->expanded = ft_expansion_dollar(g_sh, pa->strip);
 		ft_strdel(&cmd[i]);
+		ft_strdel(&pa->strip);
 		cmd[i] = ft_strdup(pa->expanded);
 		return (1);
 	}
@@ -204,6 +216,7 @@ static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 	}
 	if (ret == -1)
 	{
+		ft_strdel(&pa->expanded);
 		ft_printf("42sh: %s: bad substitution\n", cmd);
 		return (-1);
 	}
@@ -228,15 +241,23 @@ int	param_format(char **cmd)
 	{
 		if (check_syntax(cmd[i]))
 		{
-			if (splits(cmd, i, &pa, &ret))
-				err = -1 ;
-			retoken_into_list(&pa);
-			if (expander(&pa, ret))
+			if (splits(cmd, i, &pa, &ret) && ret == 0)
+			{
+				continue ;
+			}
+			if (ret == 0)
+				retoken_into_list(&pa);
+			if (ret == 0 && expander(&pa, ret))
 				err = 1;
-			if (joiner(g_sh, &pa, cmd[i], ret))
+			if (ret == 0 && joiner(g_sh, &pa, cmd[i], ret) && ret == 0)
 				err = -1;
-			ft_printf(" expanded [%s] \n", pa.expanded);
-			free_er(&pa, cmd, i);
+			if (ret)
+			{
+				err = -1;
+				break ;
+			}
+			else
+				free_er(&pa, cmd, i);
 		}
 	}
 	while (k < 100)
