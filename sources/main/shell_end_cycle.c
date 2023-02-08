@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/07 15:11:04 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:55:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	shell_end_cycle(t_shell *sh)
 	reset_fd(sh->terminal);
 	ft_reset_tmp_env(sh);
 	notify_completed_jobs(sh);
+	init_window_size(sh->term);
 }
