@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:27:40 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 19:22:04 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:25:02 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,9 @@ static int	handle_option_l(char *file, t_shell *session)
 int	ft_cd_addr_check(char *file, int p_option, t_shell *session)
 {
 	struct stat	buff;
-	int			ret;
 
 	if (p_option == 0)
-		return(handle_option_l(file, session));
+		return (handle_option_l(file, session));
 	if (stat(file, &buff))
 		return (ft_err_print(file, "cd", "No such file or directory", 1));
 	else
