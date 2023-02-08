@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_dbl_array.c                               :+:      :+:    :+:   */
+/*   jobs_exit_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 15:04:31 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 14:17:16 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/08 13:46:29 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/08 14:16:55 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It prints a double array of strings
- * 
- * @param cmd The array of strings to print
- */
-void	ft_print_dbl_array(char **cmd)
+void	jobs_exit_check(t_shell *sh)
 {
-	int	i;
+	t_bg_jobs	*ptr;
 
-	i = -1;
-	while (cmd[++i])
+	ptr = sh->bg_node;
+	while (ptr)
 	{
-		ft_printf("%s", cmd[i]);
-		if (cmd[i + 1])
-			ft_printf(" ");
+		if (ptr->status == STOPPED)
+		{
+			if (sh->exit_confirm == true)
+				sh->exit_confirm = false;
+			else
+				sh->exit_confirm = true;
+		}
+		ptr = ptr->next;
 	}
 }

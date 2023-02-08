@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/07 17:23:16 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/08 14:07:13 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -333,6 +333,7 @@ FILES			= \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
+				$(UTILITIES)jobs_exit_check \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))

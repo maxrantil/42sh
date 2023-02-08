@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:49:32 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 14:14:19 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	main_loop(t_shell *sh)
 		if (ft_keyboard(sh->term) == 1)
 		{
 			ft_history_write_to_file(sh->term);
-			status = 0;
+			jobs_exit_check(sh);
+			if (!sh->exit_confirm)
+				ft_putstr("There are stopped jobs.\n");
+			else
+				status = 0;
 		}
 		ft_raw_disable(sh->orig_termios);
 		if (*(sh->term->inp))
@@ -53,6 +57,5 @@ int	main(void)
 	hash_free(sh->ht);
 	close_all_bg_processes(sh);
 	ft_strdel(&sh->terminal);
-	//exit(0);
 	return (0);
 }

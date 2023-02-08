@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/07 17:22:30 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:07:56 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,7 @@ typedef struct s_shell
 	int				is_flag_on;
 	int				option_count;
 	bool			ampersand;
+	bool			exit_confirm;
 }				t_shell;
 
 /*					BUILDTREE				*/
@@ -557,5 +558,6 @@ int				ft_isseparator(char c);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
 void			reset_cmd(char ****cmd);
+void			jobs_exit_check(t_shell *sh);
 
 #endif
