@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:49:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 19:25:39 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:22:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	display_suspended_job(t_shell *sh) // This needs to updated
 		ptr = ptr->next;
 	}
 	if (ptr)
-		display_job_node(sh, ptr);	
+		display_job_node(sh, ptr);
 }
 
 void	display_pipeline_cmd(t_bg_jobs *job)

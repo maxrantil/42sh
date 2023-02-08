@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_process_group.c                                :+:      :+:    :+:   */
+/*   queue_delete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/07 16:24:01 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/07 15:33:04 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/07 16:23:04 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	set_process_group(t_shell *sh, pid_t pid)
+void	queue_delete(t_shell *sh, t_bg_jobs *process)
 {
-	if (!sh->fg_node->gpid)
+	int	i;
+
+	i = -1;
+	while (++i < sh->process_count)
 	{
-		setpgid(pid, 0);
-		sh->fg_node->gpid = pid;
-		if (!sh->ampersand)
+		if (process->index == sh->process_queue[i])
 		{
-			if (ioctl(STDIN_FILENO, TIOCSPGRP, &sh->fg_node->gpid) == -1)
-				exit_error(sh, 1, "ioctl error in set_process_group()");
+			ft_memmove(&sh->process_queue[i], &sh->process_queue[i + 1], \
+			(sh->process_count - 1 - i) * sizeof(int));
+			sh->process_count--;
+			break ;
 		}
 	}
-	else
-		setpgid(pid, sh->fg_node->gpid);
 }
