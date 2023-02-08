@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 14:09:40 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:40:04 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,8 @@ static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 	else if (pa->oper[0] == '#' || pa->oper[0] == '%')
 	{
 		subs = search_from_var(g_sh, pa->subs, &ret);
+		if (!subs)
+			return (1);
 		ft_printf(" subs [%s] \n", subs);
 		temp = ft_strjoin(pa->expanded, subs);
 		ft_strdel(&pa->expanded);

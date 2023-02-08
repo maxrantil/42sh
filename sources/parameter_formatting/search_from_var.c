@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 13:51:59 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:38:19 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,6 +290,8 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	temp = NULL;
 	ft_memset(&op, '\0', 3);
 	needle = get_needle_and_op(strip, op, cmd);
+	if (!*needle)
+		return NULL;
 	ft_printf(" needle [%s] \n", needle);
 	if ((ft_strnequ(needle, "${", 2) && ft_strchr(needle , '#'))
 		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle , '%')))
