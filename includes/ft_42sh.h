@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 14:05:26 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:39:32 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,7 @@ typedef struct s_shell
 	int				is_flag_on;
 	int				option_count;
 	bool			ampersand;
+	int				exit_confirm;
 }				t_shell;
 
 /*					BUILDTREE				*/
@@ -491,7 +492,6 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
 void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
-void			close_all_bg_processes(t_shell *sh);
 char			**dup_dbl_ptr(char **cmd);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
@@ -576,5 +576,6 @@ int				ft_isseparator(char c);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
 void			reset_cmd(char ****cmd);
+void			jobs_exit_check(t_shell *sh);
 
 #endif
