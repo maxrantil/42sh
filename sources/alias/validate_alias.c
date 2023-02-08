@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:57:03 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/08 17:50:48 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/08 21:46:50 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,19 @@ int	validate_alias(char *alias, int print_error)
 		return (validate_alias_name_print(&alias[j], i));
 	else
 		return (validate_alias_name(&alias[j], i));
+}
+
+int	validate_whitespace(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = -1;
+	while (str[++i])
+	{
+		if (!(ft_iswhitespace(str[i])))
+			return (1);
+	}
+	return (0);
 }
