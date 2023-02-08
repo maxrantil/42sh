@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 15:47:35 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 18:24:07 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -494,6 +494,7 @@ void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
 char			**dup_dbl_ptr(char **cmd);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
+void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
 void			display_suspended_job(t_shell *sh);
 void			display_pipeline_cmd(t_bg_jobs *job);
