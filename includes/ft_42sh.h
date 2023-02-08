@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 18:24:07 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:39:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,17 +206,6 @@ typedef struct s_hash
 	int				hits;
 	struct s_hash	*next;
 }					t_hash;
-
-/*				JOB CONTROL STRUCT			*/
-typedef struct s_job
-{
-	pid_t			pid;
-	int				*shared_mem_ptr;
-	int				*shared_mem_idx_ptr;
-	int				shared_mem_id;
-	int				shared_mem_index;
-	char			*cmd;
-}				t_job;
 
 /*			FOREGROUND JOB NODES				*/
 typedef struct s_fg_job
