@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/07 15:45:05 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:10:59 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	if (format == 0)
 	{
 		ft_strdel(&expanded);
-		if (!temp[0])
+		if (!*temp[0])
 			expanded = ft_strdup(subst + 1);
 		else
 			expanded = ft_strdup(var);
-		return (expanded);
 	}
 	else if (format == 1)
 	{
@@ -68,7 +67,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	ft_strdel(&temp[0]);
 	ft_strdel(&temp[1]);
 	free(temp);
-	ft_strdel(&var);
+	//ft_strdel(&var);
 	return (expanded);
 }
 
@@ -113,10 +112,12 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	format = -1;
 	param.strip = ft_strdup(cmd);
 	param.strip = remove_braces(param.strip);
+	ft_printf("param.strip %s\n", param.strip);
 	if (ft_strchr(param.strip, ':'))
 		set_sub_var_op(&param);
 	else
 		param.expanded = ft_expansion_dollar(sh, param.strip);
+	ft_printf("param.expanded %s\n", param.expanded);
 	// if (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , ':'))
 	// 	param.subs = substitute_or_create(sh, param.subs + 1, ret);
 	if ((ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '#'))

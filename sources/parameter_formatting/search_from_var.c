@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/07 12:14:27 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:09:57 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,31 @@
 // 	}
 // }
 
-static char	*find_from_begin_glob(int *i, int *j, char *haystack, char *needle)
+static char	*find_from_begin_glob(char *haystack, char *needle)
 {
-	ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[*i], &needle[*j], j);
-	while (haystack[*i] == needle[*j])
+	int	i;
+	int	j;
+
+	i = 0;
+	while (haystack[i])
 	{
-		ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[*i], &needle[*j], j);
-		(*i)++;
-		(*j)++;
-		if (!haystack[*i])
+		j = 0;
+		ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[i], &needle[j], j);
+		while (haystack[i] == needle[j])
 		{
-			return (NULL);
+			i++;
+			j++;
+			if (!haystack[i])
+			{
+				return (haystack);
+			}
+			if (!needle[j])
+			{
+				ft_printf(" haystack [%s] \n", &haystack[i]);
+				return (&haystack[i]);
+			}
 		}
-		if (!needle[*j])
-		{
-			ft_printf(" haystack [%s] \n", &haystack[*i]);
-			return (&haystack[*i]);
-		}
+		i++;
 	}
 	return (haystack);
 }
@@ -74,11 +82,10 @@ static char	*find_from_begin_glob(int *i, int *j, char *haystack, char *needle)
 static char	*find_from_end(char *haystack, char *needle)
 {
 	int	len;
-	int len_needle;
+	int	len_needle;
 	int	k;
 	int	i;
 
-	
 	len = (int)ft_strlen(haystack);
 	k = 0;
 	i = 0;
@@ -88,7 +95,6 @@ static char	*find_from_end(char *haystack, char *needle)
 		len_needle = (int)ft_strlen(needle);
 		while (haystack[len] == needle[len_needle])
 		{
-			//ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[*i], &needle[*j], j);
 			len--;
 			len_needle--;
 			if (len == 0)
@@ -107,22 +113,27 @@ static char	*find_from_end(char *haystack, char *needle)
 	return (haystack);
 }
 
-static char	*find_from_begin(int *i, int *j, char *haystack, char *needle)
+static char	*find_from_begin(char *haystack, char *needle)
 {
-	ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[*i], &needle[*j], j);
-	while (haystack[*i] == needle[*j])
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[i], &needle[j], j);
+	while (haystack[i] == needle[j])
 	{
-		ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[*i], &needle[*j], j);
-		(*i)++;
-		(*j)++;
-		if (!haystack[*i])
+		ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[i], &needle[j], j);
+		i++;
+		j++;
+		if (!haystack[i])
 		{
 			return (NULL);
 		}
-		if (!needle[*j])
+		if (!needle[j])
 		{
-			ft_printf(" haystack [%s] \n", &haystack[*i]);
-			return (&haystack[*i]);
+			ft_printf(" haystack [%s] \n", &haystack[i]);
+			return (&haystack[i]);
 		}
 	}
 	return (haystack);
@@ -131,36 +142,102 @@ static char	*find_from_begin(int *i, int *j, char *haystack, char *needle)
 static char	*find_from_begin_last(char *haystack, char *needle)
 {
 	int	len;
-	int len_needle;
+	int	len_needle;
 	int	k;
 	int	i;
 
-	
-	len = (int)ft_strlen(haystack);
+	len = (int)ft_strlen(haystack) - 1;
 	k = 0;
 	i = 0;
-	//ft_printf("haystack [%s] needle [%s] [%d]\n", &haystack[len], &needle[*j], j);
-	while (len < 0)
+	ft_printf("haystack [%s] needle [%s]\n", haystack, needle);
+	while (len > 0)
 	{
-		len_needle = (int)ft_strlen(needle);
+		len_needle = (int)ft_strlen(needle) - 1;
+		//ft_printf("haystack [%c] needle [%c]\n", haystack[len], needle[len_needle]);
 		while (haystack[len] == needle[len_needle])
 		{
+			ft_printf("haystack [%s] needle [%s] %d\n", &haystack[len], &needle[len_needle], len_needle);
 			//ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[*i], &needle[*j], j);
 			len--;
 			len_needle--;
-			if (len == 0)
+			if (len < 0 && len_needle > 0)
 			{
 				return (NULL);
 			}
-			if (len_needle == 0)
+			if (len_needle < 0)
+				return (&haystack[len + (int)ft_strlen(needle) + 1]);
+		}
+		len--;
+	}
+	return (haystack);
+}
+
+static char	*find_from_first_last(char *haystack, char *needle)
+{
+	int	len;
+	int	len_needle;
+	int	k;
+	int	i;
+	char	*temp;
+
+	len = (int)ft_strlen(haystack) - 1;
+	k = 0;
+	i = 0;
+	ft_printf("haystack [%s] needle [%s]\n", haystack, needle);
+	while (len > 0)
+	{
+		len_needle = (int)ft_strlen(needle) - 1;
+		//ft_printf("haystack [%c] needle [%c]\n", haystack[len], needle[len_needle]);
+		while (haystack[len] == needle[len_needle])
+		{
+			ft_printf("haystack [%s] needle [%s] %d\n", &haystack[len], &needle[len_needle], len_needle);
+			//ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[*i], &needle[*j], j);
+			len--;
+			len_needle--;
+			if (len < 0 && len_needle > 0)
 			{
-				ft_printf(" haystack [%s] \n", &haystack[len]);
-				return (&haystack[len]);
+				return (NULL);
+			}
+			if (len_needle < 0)
+			{
+				temp = ft_strndup(haystack, len + 1);
+				return (temp);
 			}
 		}
 		len--;
 	}
-	
+	return (haystack);
+}
+
+static char	*find_from_end_last(char *haystack, char *needle)
+{
+	int	i;
+	int	j;
+	char *temp;
+
+	i = 0;
+	while (haystack[i])
+	{
+		j = 0;
+		ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[i], &needle[j], j);
+		while (haystack[i] == needle[j])
+		{
+			i++;
+			j++;
+			if (!haystack[i])
+			{
+				return (haystack);
+			}
+			if (!needle[j])
+			{
+				ft_printf(" haystack [%s] \n", &haystack[i]);
+				temp = ft_strndup(haystack, i - ft_strlen(needle));
+				ft_printf(" temp [%s] \n", temp);
+				return (temp);
+			}
+		}
+		i++;
+	}
 	return (haystack);
 }
 
@@ -194,21 +271,23 @@ char	*ft_find_word(char *haystack, char *needle, char *op)
 	while (haystack[i])
 	{
 		j = 0;
-		ft_printf("glob %d needle %s\n", glob, needle);
+		ft_printf("glob %d needle %s %s\n", glob, needle, op);
 		if (glob && ft_strequ("#", op))
-			haystack = find_from_begin_glob(&i, &j, haystack, needle);
-		else if (!glob && ft_strequ("#", op))
-			return (find_from_begin(&i, &j, haystack, needle));
+			return (find_from_begin_glob(haystack, needle));
+		else if ((!glob && ft_strequ("#", op)) || (!glob && ft_strequ("##", op)))
+			return (find_from_begin(haystack, needle));
 		else if (glob && ft_strequ("##", op))
-			return (find_from_begin_last(haystack, needle + 1));
-		else if (!glob && ft_strequ("%", op))
+			return (find_from_begin_last(haystack, needle));
+		else if ((!glob && ft_strequ("%", op)) || (!glob && ft_strequ("%%", op)))
 			return (find_from_end(haystack, needle));
-		else if (!glob && ft_strequ("%%", op))
-			return (find_from_end(haystack, needle + 1));
+		else if ((glob && ft_strequ("%", op)))
+			return (find_from_first_last(haystack, needle));
+		else if ((glob && ft_strequ("%%", op)))
+			return (find_from_end_last(haystack, needle));
 		else
-			return (find_from_begin(&i, &j, haystack, needle));
-		if (haystack[i])
-			i++;
+			return (find_from_begin(haystack, needle));
+		// if (haystack[i])
+		// 	i++;
 	}
 	return (haystack);
 }
@@ -227,14 +306,14 @@ char *get_needle_and_op(char *strip, char *op, char *cmd)
 		needle = ft_strdup(ft_strchr(strip, '#'));
 		while (needle[++k] == '#')
 			op[k] = needle[k];
-		needle = ft_memmove(needle, needle + 1 + (k -1), ft_strlen(needle));
+		needle = ft_memmove(needle, needle + 1 + (k - 1), ft_strlen(needle));
 	}
 	else if (ft_strchr(strip, '%'))
 	{
 		needle = ft_strdup(ft_strchr(strip, '%'));
 		while (needle[++k] == '%')
 			op[k] = needle[k];
-		needle = ft_memmove(needle, needle + 1, ft_strlen(needle));
+		needle = ft_memmove(needle, needle + 1 + (k - 1), ft_strlen(needle));
 	}
 	return (needle);
 }
@@ -255,15 +334,15 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	ft_memset(&op, '\0', 3);
 	needle = get_needle_and_op(strip, op, cmd);
 	ft_printf(" needle [%s] \n", needle);
-	if (ft_strnequ(needle, "${", 2) && ft_strchr(needle , ':'))
-		temp = substitute_or_create(sh, needle, ret);
-	else if ((ft_strnequ(needle, "${", 2) && ft_strchr(needle , '#'))
+	if ((ft_strnequ(needle, "${", 2) && ft_strchr(needle , '#'))
 		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle , '%')))
 		temp = search_from_var(sh, needle, ret);
-	else //if (ft_strnequ(needle, "${", 2))
+	else if (ft_strnequ(needle, "${", 2))
 		temp = substitute_or_create(sh, needle, ret);
-	temp2 = ft_strndup(strip, ft_strlen(strip) - ft_strlen(needle) - 1);
-	haystack = ft_expansion_dollar(sh, &temp2[0]);
+	else //if (needle[0] == '$')//if (ft_strnequ(needle, "${", 2))
+		temp = ft_expansion_dollar(sh, needle);
+	temp2 = ft_strndup(strip, ft_strlen(strip) - ft_strlen(needle) - ft_strlen(op));
+	haystack = ft_expansion_dollar(sh, temp2);
 	ft_printf(" temp [%s] haystack [%s] [%s]\n", temp, haystack, op);
 	if (temp != NULL)
 	{
@@ -275,7 +354,7 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	(void)sh;
 	(void)*ret;
 	expanded = ft_strdup(ft_find_word(haystack, needle, op));
-	ft_printf(" expanded [%s] \n", expanded);
+	ft_printf("expanded last [%s] \n", expanded);
 	if (!expanded || !*expanded)
 		expanded = ft_strnew(1);
 	ft_strdel(&needle);

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/07 20:00:30 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 09:39:06 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*get_operator(char *cmd, int *ret)
 	while (ft_isalnum(cmd[i]))
 		i++;
 	ft_printf("getting operator %s\n",cmd + i);
-	if (!is_legit(&cmd[i]))
+	if (!is_legit(&cmd[i]) && cmd[i] != '}')
 		*ret = -1;
 	return (cmd + i);
 }
@@ -156,7 +156,7 @@ static int expander(t_param *pa, int ret)
 			|| (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '%'))
 		{
 			subs = search_from_var(g_sh, pa->list[i], &ret);
-			temp = ft_strjoin(subs, pa->expanded);
+			temp = ft_strjoin( pa->expanded, subs);
 			ft_strdel(&pa->expanded);
 			pa->expanded = ft_strdup(temp);
 			ft_printf(" expanded [%s] \n", pa->expanded);
@@ -179,7 +179,7 @@ static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 	ft_strdel(&pa->subs);
 	pa->subs = ft_strjoin(pa->var, pa->expanded);
 	pa->oper = get_operator(pa->subs, &ret);
-	ft_printf("pa list sdfds %s\n", pa->expanded);
+	ft_printf("pa list sdfds %s\n", pa->subs);
 	ft_printf("pa list  %c\n", pa->oper[0]);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strnew(1);
@@ -197,7 +197,8 @@ static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 	else if (pa->oper[0] == '#' || pa->oper[0] == '%')
 	{
 		subs = search_from_var(g_sh, pa->subs, &ret);
-		temp = ft_strjoin(subs, pa->expanded);
+		ft_printf(" subs [%s] \n", subs);
+		temp = ft_strjoin(pa->expanded, subs);
 		ft_strdel(&pa->expanded);
 		pa->expanded = ft_strdup(temp);
 		ft_printf(" expanded [%s] \n", pa->expanded);
