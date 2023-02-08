@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 11:26:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:07:50 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void    change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
     while (job)
 	{
 		if (check_bg_pipeline(job, pid))
-			break ;	
+			break ;
         job = job->next;
 	}
 	if (job)
@@ -85,19 +85,19 @@ static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 	}
 }
 
-static void	reset_pipes(t_shell *sh)
-{
-	if (sh->pipe->pipefd[0] > -1 || sh->pipe->pipefd[1] > -1)
-	{
-		sh->pipe->redir_out = 0;
-		sh->pipe->redir_in = 0;
-		reset_fd(sh->terminal);
-		// close(sh->pipe->pipefd[0]);
-		close(sh->pipe->pipefd[1]);
-		// sh->pipe->pipefd[0] = -1;
-		sh->pipe->pipefd[1] = -1;
-	}
-}
+// static void	reset_pipes(t_shell *sh)
+// {
+// 	if (sh->pipe->pipefd[0] > -1 || sh->pipe->pipefd[1] > -1)
+// 	{
+// 		sh->pipe->redir_out = 0;
+// 		sh->pipe->redir_in = 0;
+// 		reset_fd(sh->terminal);
+// 		// close(sh->pipe->pipefd[0]);
+// 		close(sh->pipe->pipefd[1]);
+// 		// sh->pipe->pipefd[0] = -1;
+// 		sh->pipe->pipefd[1] = -1;
+// 	}
+// }
 
 void handler_sigchild(int num)
 {
@@ -110,8 +110,9 @@ void handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
+			// ft_putstr_fd(" WTF\n", 2);
 		//TODO Make the reset_pipe smarter
-		// reset_pipes(g_sh);			
+		// reset_pipes(g_sh);
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
 			check_fg_pipeline(g_sh, pid);
@@ -132,14 +133,14 @@ void handler_sigchild(int num)
 			reset_fgnode(g_sh);
 		}
 		//TODO Make the dups smarter
-		if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
-			exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
-		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
+		// if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
+			// exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
+		if (ioctl(g_sh->pipe->stdincpy, TIOCSPGRP, &g_sh->pgid) == -1)
 			exit_error(g_sh, 1, "ioctl error in handler_sigchild()");
-		if (dup2(g_sh->pipe->pipefd[0], temp_pipe[0]) < 0)
-			exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
+		// if (dup2(g_sh->pipe->pipefd[0], temp_pipe[0]) < 0)
+			// exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
 		}
-	
+
 }
 
 

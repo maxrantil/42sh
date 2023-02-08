@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 03:04:31 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:06:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 		if (g_sh->ampersand)
 			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED);
 		else if (g_sh->pipe->pipefd[0] == -1)
-			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED);
+			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED | WNOHANG);
+			ft_putstr_fd(" EXIT\n", 2);
 
 	}
 	return (status);
