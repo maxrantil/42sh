@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_keyboard.c                                      :+:      :+:    :+:   */
+/*   add_var_to_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 11:52:45 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 13:30:54 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/01 09:48:51 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/01 09:49:03 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "keyboard.h"
+#include "ft_42sh.h"
 
-int	ft_keyboard(t_term *t)
+void	add_var_to_list(t_shell *sh, char *var, char *subst)
 {
-	int	ret;
+	int	i;
 
-	ft_init(t);
-	ret = ft_input_cycle(t);
-	ft_putchar('\n');
-	return (ret);
+	i = 0;
+	while (sh->intr_vars[i])
+		i++;
+	sh->intr_vars[i] = ft_strjoin(var + 1, subst);
 }

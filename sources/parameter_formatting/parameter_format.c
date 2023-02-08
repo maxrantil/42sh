@@ -3,249 +3,270 @@
 /*                                                        :::      ::::::::   */
 /*   parameter_format.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/26 10:24:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 14:09:40 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
+extern t_shell	*g_sh;
+
 static int	check_syntax(char *cmd)
 {
-	int	i;
-	int	valid;
-
-	i = 0;
-	valid = -1;
-	//ft_printf("kljsadhfgklj %c\n", cmd[ft_strlen(cmd) -1]);
 	if (ft_strnequ(cmd, "${", 2) && cmd[ft_strlen(cmd) -1] == '}')
-	{
-		i += 2;
-		valid = 0;
-		if (cmd[i] == '#')
-			valid += 1;
-		while (cmd[i])
-		{
-			if (cmd[i] == ':')
-				valid += 1;
-			else if (cmd[i] == '}')
-				valid += 1;
-			i++;
-		}
-		if (valid == 2)
-			return (1);
-		else
-			ft_printf("no %d\n", valid);
-	}
+		return (1);
 	return (0);
 }
 
-char	*remove_braces(char *str)
+static int	is_legit(char *flag)
 {
-	char	*new;
-	int		i;
-	int		k;
-
-	k = 0;
-	i = 0;
-	new = ft_strnew(ft_strlen(str));
-	while (str[i])
-	{
-		if (str[i] == '{' || str[i] == '}')
-			i++;
-		if(str[i] == '\0')
-			break ;
-		new[k++] = str[i++];
-	}
-	return (new);
+	if (*flag == '\0')
+		return (0);
+	else if (flag[0] == ':')
+		return (flag[1] == '-' || flag[1] == '+' || flag[1] == '=' || flag[1] == '?');
+	return ((flag[0] == '%'  && flag[1]) || (flag[0] == '#' && flag[1]));
 }
 
-void add_var_to_list(t_shell *sh, char *var, char *subst)
+// static int	is_legit_format(char *format)
+// {
+// 	if (format == '\0')
+// 		return (0);
+// 	return (format == '+' || format == '-' || format == '=');
+// }
+
+// static int check_form_flag(char flag)
+// {
+// 	return (flag == '%' || flag == '#' || flag == ':' || flag == '}');
+// }
+
+static char	*get_operator(char *cmd, int *ret)
 {
 	int	i;
 
-	i = 0;
-	while (sh->intr_vars[i])
+	i = 2;
+	(void)ret;
+	//ft_printf("getting operator %s\n",cmd);
+	if (!cmd[1])
+		return (NULL);
+	while (ft_isalnum(cmd[i]))
 		i++;
-	sh->intr_vars[i] = ft_strjoin(var + 1, subst);
+	ft_printf("getting operator %s\n",cmd + i);
+	if (!is_legit(&cmd[i]) && cmd[i] != '}')
+		*ret = -1;
+	return (cmd + i);
 }
 
-int	is_in_var_or_env(t_shell *sh, char *var)
+static char	*get_flag(char *cmd, int *ret)
 {
-	int i;
-	int	var_len;
-	char	*key;
+	int	i;
 
-	i = -1;
+	i = 2;
+	(void)ret;
+	//ft_printf("getting flag %s\n",cmd);
+	if (!cmd[1])
+		return (NULL);
+	while (ft_isalnum(cmd[i]))
+		i++;
+	// if (!check_flag(cmd[i]))
+	// 	*ret = -1;
+	return (cmd + i);
+}
 
-	key = ft_strjoin(var, "=");
-	var_len = ft_strlen(key);
-	ft_printf("key %s\n", key);
-	while(sh->intr_vars[++i])
+static void	init_pa(t_param *pa)
+{
+	pa->list = (char **)ft_memalloc(sizeof(char *) * 100);
+	pa->expanded = ft_strnew(1);
+	pa->op = 0;
+}
+
+static int splits(char **cmd, int i, t_param *pa, int *ret)
+{
+	pa->oper = get_operator(cmd[i], ret);
+	if (is_legit(pa->oper))
 	{
-		if (ft_strncmp(sh->intr_vars[i], key, var_len) == 0
-			&& sh->intr_vars[i][var_len - 1] == '=')
-			return (1);
+		pa->strip = ft_strdup(cmd[i]);
+		remove_braces(pa->strip);
+		pa->subs = ft_strdup(get_flag(pa->strip + 1, ret));
+		ft_printf("%s\n", pa->subs);
+		pa->op = pa->subs[0];
+		pa->subs = \
+		(char *)ft_memmove(pa->subs, pa->subs + 1, ft_strlen(pa->subs));
+		pa->var = \
+		ft_strndup(pa->strip, ft_strlen(pa->strip) - (ft_strlen(pa->subs)));
 	}
-	i = -1;
-	while(sh->env[++i])
+	else if (*ret == -1)
 	{
-		if (ft_strncmp(sh->env[i], key, var_len) == 0
-			&& sh->env[i][var_len - 1] == '=')
+		ft_printf("42sh: %s: bad substitution\n", cmd[i]);
+		return (1);
+	}
+	else
+	{
+		ft_strdel(&pa->expanded);
+		pa->strip = ft_strdup(cmd[i]);
+		remove_braces(pa->strip);
+		pa->expanded = ft_expansion_dollar(g_sh, pa->strip);
+		ft_strdel(&cmd[i]);
+		ft_strdel(&pa->strip);
+		cmd[i] = ft_strdup(pa->expanded);
+		return (1);
+	}
+	return (0);
+}
+
+static void	retoken_into_list(t_param *pa)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (pa->subs[j])
+	{
+		pa->list[i++] = retokenize(pa->subs, &j);
+	}
+		
+}
+
+static int expander(t_param *pa, int ret)
+{
+	int	i;
+	char	*temp;
+	char	*subs;
+
+	i = -1;
+	while (pa->list[++i])
+	{
+		pa->flag = get_flag(pa->list[i], &ret);
+		// if (!pa->flag)
+		// 	pa->expanded = ft_strnew(1);
+		//ft_printf("pa list %s  [%c]\n",  pa->list[i], pa->flag[0]);
+		if (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == ':')
+		{
+			subs = substitute_or_create(g_sh, pa->list[i], &ret);
+			temp = ft_strjoin(pa->expanded, subs);
+			ft_strdel(&pa->expanded);
+			pa->expanded = ft_strdup(temp);
+			ft_strdel(&subs);
+			ft_strdel(&temp);
+			
+		}
+		else if ((ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '#')
+			|| (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '%'))
+		{
+			subs = search_from_var(g_sh, pa->list[i], &ret);
+			temp = ft_strjoin( pa->expanded, subs);
+			ft_strdel(&pa->expanded);
+			pa->expanded = ft_strdup(temp);
+			ft_printf(" expanded [%s] \n", pa->expanded);
+			ft_strdel(&subs);
+			ft_strdel(&temp);
+		}
+		else
+			pa->expanded = ft_strupdate(pa->expanded, pa->list[i]);
+		if (ret == -1 || !*pa->expanded)
 			return (1);
 	}
 	return (0);
 }
 
-char	*subst_param(t_shell *sh, char *var, char *subst, int format)
+static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 {
-	char	*expanded;
-	char	**temp;
+	char	*temp;
+	char	*subs;
 
-	expanded = NULL;
-	temp = (char **)ft_memalloc(sizeof(char *) * 2);
-	temp[0] = ft_expansion_dollar(sh, var);
-	ft_printf("temp [%s]\n", temp[0]);
-	temp[1] = NULL;
-	if (format == 0)
+	ft_strdel(&pa->subs);
+	pa->subs = ft_strjoin(pa->var, pa->expanded);
+	pa->oper = get_operator(pa->subs, &ret);
+	ft_printf("pa list sdfds %s\n", pa->subs);
+	ft_printf("pa list  %c\n", pa->oper[0]);
+	ft_strdel(&pa->expanded);
+	pa->expanded = ft_strnew(1);
+	if (pa->oper[0] == ':')
 	{
-		ft_printf("[%s]\n", temp[0]);
-		if (!temp[0])
-			expanded = ft_strdup(subst + 1);
-		else
-			expanded = ft_strdup(var);
-		return (expanded);
+		subs = substitute_or_create(g_sh, pa->subs, &ret);
+		temp = ft_strjoin(pa->expanded, subs);
+		if (temp == NULL)
+			return (1);
+		ft_strdel(&pa->expanded);
+		pa->expanded = ft_strdup(temp);
+		ft_strdel(&subs);
+		ft_strdel(&temp);
+		// pa->expanded = ft_strupdate(pa->expanded, 
+		// substitute_or_create(g_sh, pa->subs, &ret));
 	}
-	else if (format == 1)
+	else if (pa->oper[0] == '#' || pa->oper[0] == '%')
 	{
-		ft_printf("[%s]", var);
-		if (!*temp[0])
-		{
-			expanded = ft_strdup(subst + 1);
-			ft_strdel(&temp[0]);
-			temp[0] = ft_strjoin(var + 1, subst);
-			ft_printf("temp [%s]\n", temp[0]);
-			add_var(sh, temp);
-			//add_var_to_list(sh, var, subst);
-		}
-		else
-			expanded = ft_strdup(temp[0]);
-
+		subs = search_from_var(g_sh, pa->subs, &ret);
+		ft_printf(" subs [%s] \n", subs);
+		temp = ft_strjoin(pa->expanded, subs);
+		ft_strdel(&pa->expanded);
+		pa->expanded = ft_strdup(temp);
+		ft_printf(" expanded [%s] \n", pa->expanded);
+		ft_strdel(&subs);
+		ft_strdel(&temp);
+		// pa->expanded = ft_strupdate(pa->expanded, 
+		// search_from_var(g_sh, pa->subs, &ret));
 	}
-	else if (format == 2)
+	else
+		pa->expanded = ft_expansion_dollar(sh, cmd);
+	if (!pa->expanded || !*pa->expanded)
 	{
-		ft_printf("questionmark[%s]\n", var);
-		if (!*temp[0] && subst[1])
-			ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
-		else if (!*temp[0] && !subst[1])
-			ft_printf("42sh: %s: parameter null or unset\n", var + 1);
-		else
-			expanded = ft_strdup(temp[0]);
-
+		pa->expanded = ft_strnew(1);
+		//ft_printf("42sh: %s: bad substitution\n", cmd);
+		// return (-1);
 	}
-	else if (format == 3)
+	if (ret == -1)
 	{
-		ft_printf("plus sign[%s] %s\n", var, subst);
-		if (temp[0][0])
-			expanded = ft_strdup(subst + 1);
-		else
-			expanded = ft_strnew(1);
+		ft_strdel(&pa->expanded);
+		ft_printf("42sh: %s: bad substitution\n", cmd);
+		return (-1);
 	}
-	return (expanded);
+	ft_printf("pa list alaalla %s\n", pa->expanded);
+	return (0);
 }
 
-int	format_mode(char *var)
-{
-	int		format;
-	char	subst_mode;
-
-	format = -1;
-	subst_mode = var[0];
-	ft_printf("subst mode %c\n", subst_mode);
-	if (subst_mode == '-')
-		format = 0;
-	else if (subst_mode == '=')
-		format = 1;
-	else if (subst_mode == '?')
-		format = 2;
-	else if (subst_mode == '+')
-		format = 3;
-	return (format);
-}
-
-char *count_letters(t_shell *sh, char *cmd)
+int	param_format(char **cmd)
 {
 	int		i;
 	int		k;
-	char	*expanded;
-	char	*var;
+	int		ret;
+	int		err;
+	t_param	pa;
 
-	i = 0;
-	k = 0;
-	expanded = NULL;
-	var = ft_strnew(ft_strlen(cmd));
-	while (cmd[i])
-	{
-		if (cmd[i] == '#')
-			i++;
-		var[k++] = cmd[i++];
-	}
-	i = 1;
-	ft_printf("%s\n", var);
-	// while(var[i])
-	// {
-	// 	if (!ft_isalpha(cmd[i]) && cmd[i] != '_' && cmd[i] != '!')
-	// 		return (NULL);
-	// 	i++;
-	// }
-	expanded = ft_expansion_dollar(sh, var);
-	ft_strdel(&var);
-	return (ft_itoa(ft_strlen(expanded)));
-}
-
-int	param_format(t_shell *sh, char **cmd)
-{
-	int		i;
-	char	*expanded;
-	char	*strip;
-	char	*var;
-	char	*subs;
-	int		format;
-
+	init_pa(&pa);
+	ret = 0;
+	err = 0;
 	i = -1;
-	subs = NULL;
-	expanded = NULL;
-	format = -1;
+	k = 0;
 	while (cmd[++i])
 	{
 		if (check_syntax(cmd[i]))
 		{
-			strip = remove_braces(cmd[i]);
-			if (ft_strnequ(cmd[i], "${#", 3))
-				expanded = count_letters(sh, strip);
+			if (splits(cmd, i, &pa, &ret) && ret == 0)
+			{
+				continue ;
+			}
+			if (ret == 0)
+				retoken_into_list(&pa);
+			if (ret == 0 && expander(&pa, ret))
+				err = 1;
+			if (ret == 0 && joiner(g_sh, &pa, cmd[i], ret) && ret == 0)
+				err = -1;
+			if (ret)
+			{
+				err = -1;
+				break ;
+			}
 			else
-			{
-				subs = ft_strdup(ft_strchr(strip, ':') + 1);
-				var = ft_strndup(strip, ft_strlen(strip) - ft_strlen(subs) - 1);
-				format = format_mode(subs);
-			}
-			ft_printf("stripped %s variable %s format %d\n", strip, subs, format);
-			if (format != -1)
-				expanded = subst_param(sh, var, subs, format);
-			if (expanded == NULL)
-			{
-				return (-1);
-			}
-			else if (expanded[0] == '$')
-				expanded = ft_expansion_dollar(sh, var);
-			ft_strdel(&cmd[i]);
-			cmd[i] = ft_strdup(expanded);
-			ft_strdel(&var);
-			ft_strdel(&subs);
-			ft_printf("Expanded %s\n", cmd[i]);
+				free_er(&pa, cmd, i);
 		}
 	}
-	return (0);
+	while (k < 100)
+		ft_strdel(&pa.list[k++]);
+	free(pa.list);
+	ft_strdel(&pa.expanded);
+	return (err);
 }

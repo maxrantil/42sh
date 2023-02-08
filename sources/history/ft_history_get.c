@@ -6,12 +6,9 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 13:11:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-#include "ft_42sh.h"
 
 #include "ft_42sh.h"
 
@@ -93,7 +90,7 @@ void	ft_history_get(t_term *t)
 	t->history_file = ft_history_get_file("/.42sh_history");
 	x = 0;
 	count_history(t, &x);
-	t->history_arr = (char **)malloc(sizeof(char *) * (t->history_size + 1));
+	t->history_arr = (char **)ft_memalloc(sizeof(char *) * (t->history_size + 1));
 	ft_bzero(t->history_arr, t->history_size + 1);
 	get_loop(t, x);
 }

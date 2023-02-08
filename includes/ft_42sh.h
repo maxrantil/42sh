@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 14:07:56 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:19:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,19 @@ typedef struct s_pipenode
 	t_treenode	*left;
 	t_treenode	*right;
 }	t_pipenode;
+
+/*				PARAM STRUCT				    */
+typedef struct s_param
+{
+	char	**list;
+	char	*expanded;
+	char	*var;
+	char	*subs;
+	char	*strip;
+	char	*flag;
+	char	op;
+	char	*oper;
+}	t_param;
 
 /*					TREE UNION				*/
 union u_treenode
@@ -508,7 +521,13 @@ void			shell_end_cycle(t_shell *sh);
 void			reset_fd(char *terminal);
 
 /*				PARAM_FORM					*/
-int				param_format(t_shell *sh, char **cmd);
+void			add_var_to_list(t_shell *sh, char *var, char *subst);
+char			*retokenize(char *subst, int *i);
+char			*substitute_or_create(t_shell *sh, char *cmd, int *ret);
+char			*search_from_var(t_shell *sh, char *cmd, int *ret);
+int				param_format(char **cmd);
+void			free_er(t_param *pa, char **cmd, int i);
+char			*remove_braces(char *str);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

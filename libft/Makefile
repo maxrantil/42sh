@@ -42,7 +42,7 @@ $(shell stty -echo)
 CC					=	gcc
 NAME				=	libft.a
 MAKEFLAGS			+=	--no-print-directory
-CFLAGS				=	-Wall -Wextra -Werror -g -O3 -I$(INC_DIR)
+CFLAGS				=	-Wall -Wextra -g -O3 -I$(INC_DIR)
 TERMCAPS			=	-ltermcap
 
 _SRC_LIBFT		= ft_memset.c ft_atoi.c ft_bzero.c ft_memchr.c ft_memcpy.c ft_memcmp.c ft_strlen.c ft_strdup.c \

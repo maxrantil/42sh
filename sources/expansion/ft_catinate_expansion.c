@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_catinate_expansion.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:40 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 15:02:28 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/03 12:26:36 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static char	*ft_find_env(t_shell *sh, char *arg)
 	else if (!ret)
 	{
 		env = ft_env_get(sh, key, sh->intr_vars);
-		ret = ft_strdup(ft_strchr(*env, '=') + 1);
+		if (env && *env)
+			ret = ft_strdup(ft_strchr(*env, '=') + 1);
+		else
+			ret = ft_strnew(1);
 	}
 	else
 		ret = ft_strnew(1);
