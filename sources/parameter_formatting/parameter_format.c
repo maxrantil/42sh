@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 13:19:01 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:09:40 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static int	is_legit(char *flag)
 // 	return (format == '+' || format == '-' || format == '=');
 // }
 
-int check_flag(char flag)
-{
-	return (flag == '%' || flag == '#' || flag == ':' || flag == '}');
-}
+// static int check_form_flag(char flag)
+// {
+// 	return (flag == '%' || flag == '#' || flag == ':' || flag == '}');
+// }
 
 static char	*get_operator(char *cmd, int *ret)
 {

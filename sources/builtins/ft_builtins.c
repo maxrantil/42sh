@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/03 11:44:08 by mviinika         ###   ########.fr       */
-=======
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 13:17:21 by mrantil          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2023/02/08 14:08:14 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +61,10 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (sh && cmd)
 	{
-<<<<<<< HEAD
-		// wait (0);
-		//ft_expansion(sh, *cmd);
-=======
-		ft_expansion(sh, *cmd);
->>>>>>> main
 		ft_env_last_command(sh, *cmd);
 		if (param_format(*cmd) == -1)
 			return (0);
 		ft_expansion(sh, *cmd);
-
 		*(cmd) += ft_variables(sh, cmd);
 		return (cmd_comparisons(sh, cmd, environ_cp));
 	}
