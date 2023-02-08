@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/08 12:14:46 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 17:57:02 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@
 *	Only one operator is allowed,
 *	so for example in: test -fe, -fe is treated as operand.
 */
-static int	validate_input(t_shell *sh, char **cmd, int punctuation)
+static int	validate_input(t_shell *sh, char **cmd, int punctu)
 {
 	int		argc;
 
 	argc = ft_arrlen(cmd);
-	if (argc > (4 + punctuation))
+	if (argc > (4 + punctu))
 		ft_err_print(NULL, "test", "too many arguments", 2);
-	else if (argc == (4 + punctuation) \
-			&& !ft_test_is_binary(cmd[2 + punctuation]))
-		ft_err_print("test", cmd[3 + punctuation], \
+	else if (argc == (4 + punctu) \
+			&& !ft_test_is_binary(cmd[2 + punctu]))
+		ft_err_print("test", cmd[3 + punctu], \
 		"binary operator expected", 2);
-	else if (argc == (3 + punctuation) \
-			&& !ft_test_is_unary(cmd[1 + punctuation]))
-		ft_err_print("test", cmd[1 + punctuation], \
+	else if (argc == (3 + punctu) \
+			&& !ft_test_is_unary(cmd[1 + punctu]))
+		ft_err_print("test", cmd[1 + punctu], \
 		"unary operator expected", 2);
-	else if (argc <= (2 + punctuation))
+	else if (argc <= (2 + punctu))
 		ft_putstr_fd("42sh: test: too few arguments, need spaces between arguments\n", 2);
 	else
 		return (0);
