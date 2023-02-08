@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 17:31:12 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:32:16 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-		reset_pipes(g_sh);
+		// reset_pipes(g_sh);
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
 			check_fg_pipeline(g_sh, pid);

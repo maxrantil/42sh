@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/08 17:23:10 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:31:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,35 @@ void	exec_pipe(t_pipenode *pipenode, \
 	// print_fg_node(sh);
 	//Add more waits?? For both children?? We already wait once in builtins if it's part of pipe. So if not builtin wait twice?
 	if (sh->ampersand)
+	{
+		ft_putstr_fd("WTFWTFWTFWTF\n", STDERR_FILENO);
 		waitpid(sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
+	}
 	else
 	{
 		// waitpid(-1, &status, WUNTRACED | WNOHANG);
 		// WAIT FOR TWO LAST PIDS
-		// wait(0);
-		// wait(0);
-		waitpid(-1, &status, WUNTRACED); //Added WNOHANG
+		wait(0);
+		wait(0);
+	// 	ft_putstr_fd("BEFORE WAIT\n", STDERR_FILENO);
+	// 		int i;
+	// i = -1;
+	// while (sh->fg_node->pid && sh->fg_node->pid[++i])
+	// {
+	// 	ft_putstr_fd("pid ", STDERR_FILENO);
+	// 	ft_putnbr_fd(sh->fg_node->pid[i], STDERR_FILENO);
+	// 	ft_putstr_fd("\n", STDERR_FILENO);
+	// }
+		// waitpid(-1, &status, WUNTRACED); //Added WNOHANG
+		/* It waits for the last child process to finish. */
+		// waitpid(-1, &status, WUNTRACED); //Added WNOHANG
+
+		ft_putstr_fd("AFTER WAIT\n", STDERR_FILENO);
 	}
 	reset_fd(terminal);
+	ft_putnbr_fd(sh->fg_node->gpid, STDERR_FILENO);
 	close(sh->pipe->pipefd[0]);
 	close(sh->pipe->pipefd[1]);
 	sh->pipe->pipefd[0] = -1;
+
 }

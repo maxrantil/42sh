@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 17:29:46 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:02:57 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	if (access)
 	{
 		pid = fork_wrap();
-		// if (pid)
-			// update_fg_job(g_sh, pid, args);
+		if (pid)
+			update_fg_job(g_sh, pid, args);
 		if (pid == 0)
 		{
 			//We only want to pipe stdout if we are not redir_out
