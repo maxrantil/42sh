@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:03:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/27 20:22:08 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:38:49 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int find_var(t_shell *sh, char *cmd, int var_len, int *ret)
 	i = 0;
 	while (sh->intr_vars[i])
 	{
-		ft_printf("var [%s] %c\n", sh->intr_vars[i], sh->intr_vars[i][var_len - 1]);
 		if (ft_strncmp(sh->intr_vars[i], cmd, var_len) == 0
 			&& sh->intr_vars[i][var_len - 1] == '=')
 		{
