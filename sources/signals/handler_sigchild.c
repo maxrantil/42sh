@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 00:07:44 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:26:26 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ static void	reset_pipes(t_shell *sh)
 		sh->pipe->redir_out = 0;
 		sh->pipe->redir_in = 0;
 		reset_fd(sh->terminal);
-		close(sh->pipe->pipefd[0]);
+		// close(sh->pipe->pipefd[0]);
 		close(sh->pipe->pipefd[1]);
-		sh->pipe->pipefd[0] = -1;
+		// sh->pipe->pipefd[0] = -1;
 		sh->pipe->pipefd[1] = -1;
 	}
 }
@@ -103,11 +103,15 @@ void handler_sigchild(int num)
 {
 	int		status;
 	pid_t	pid;
+	int		temp_pipe[2];
 
+	temp_pipe[0] = dup(g_sh->pipe->pipefd[0]);
+	temp_pipe[1] = dup(g_sh->pipe->pipefd[1]);
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-		reset_pipes(g_sh);			
+		//TODO Make the reset_pipe smarter
+		// reset_pipes(g_sh);			
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
 			check_fg_pipeline(g_sh, pid);
@@ -127,9 +131,15 @@ void handler_sigchild(int num)
 			display_suspended_job(g_sh);
 			reset_fgnode(g_sh);
 		}
+		//TODO Make the dups smarter
+		if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
+			exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &g_sh->pgid) == -1)
 			exit_error(g_sh, 1, "ioctl error in handler_sigchild()");
-	}
+		if (dup2(g_sh->pipe->pipefd[0], temp_pipe[0]) < 0)
+			exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
+		}
+	
 }
 
 

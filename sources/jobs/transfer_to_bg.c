@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/08 10:23:39 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:41:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	init_pid(t_shell *sh, t_bg_jobs *bg_node)
 	int	len;
 
 	len = 0;
-	while (sh->fg_node && sh->fg_node->pid[len])
+	while (sh && sh->fg_node->pid && sh->fg_node->pid[len])
 		len++;
 	bg_node->pid = (pid_t *)ft_memalloc(sizeof(pid_t) * (len + 1));
 	bg_node->pid[len] = 0;
