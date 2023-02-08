@@ -6,30 +6,15 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 17:06:08 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:29:46 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #include "ft_42sh.h"
 
 extern t_shell	*g_sh;
-
-static void	print_args(char **args)
-{
-	int		i;
-
-	i = 0;
-	while (args[i])
-	{
-		ft_putstr(args[i]);
-		if (args[i + 1])
-			ft_putchar(' ');
-		i++;
-	}
-	ft_putchar('\n');
-}
-
 
 static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
 {
@@ -59,35 +44,58 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			exit(1);
 		}
 		if (g_sh->ampersand)
-			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED);
+			waitpid(pid, &status, WNOHANG | WUNTRACED);
 		else if (g_sh->pipe->pipefd[0] == -1)
-			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED | WNOHANG);
-			ft_putstr_fd(" EXIT\n", 2);
-
+			waitpid(pid, &status, WUNTRACED);
 	}
 	return (status);
 }
 
+// void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
+// {
+// 	char	*cmd;
+// 	int		access;
+// 	int		status;
+// 	int		hash;
+// 	char	**args;
+
+// 	args = head->cmd;
+// 	if (!args[0])
+// 		return ;
+// 	if (sh->term->fc_flag)
+// 		print_args(args);
+// 	if (!ft_builtins(sh, &args, environ_cp))
+// 		return ;
+// 	hash = 0;
+// 	cmd = hash_check(sh, args[0], &hash);
+// 	if (!hash && !check_if_user_exe(args[0], &cmd))
+// 		cmd = search_bin(args[0], *environ_cp);
+// 	access = check_access(cmd, args, sh);
+// 	status = ft_execve(&cmd, head, access, environ_cp);
+// 	if (access)
+// 	{
+// 		sh->exit_stat = status >> 8;
+// 		if (!hash)
+// 			hash_init_struct(sh, cmd, 1);
+// 	}
+// 	ft_memdel((void **)&cmd);
+// }
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
-char	*cmd;
-int		access;
-int		status;
-int		hash;
-	char	**args;
+	char	*cmd;
+	int		access;
+	int		status;
+	int		hash;
 
-	args = head->cmd;
-	if (!args[0])
+	if (!head->cmd[0])
 		return ;
-	if (sh->term->fc_flag)
-		print_args(args);
-	if (!ft_builtins(sh, &args, environ_cp) && ft_printf("pipefdlol[0] = %d\n", sh->pipe->pipefd[0]))
+	if (!ft_builtins(sh, &head->cmd, environ_cp))
 		return ;
 	hash = 0;
-	cmd = hash_check(sh, args[0], &hash);
-	if (!hash && !check_if_user_exe(args[0], &cmd))
-		cmd = search_bin(args[0], *environ_cp);
-	access = check_access(cmd, args, sh);
+	cmd = hash_check(sh, head->cmd[0], &hash);
+	if (!hash && !check_if_user_exe(head->cmd[0], &cmd))
+		cmd = search_bin(head->cmd[0], *environ_cp);
+	access = check_access(cmd, head->cmd, sh);
 	status = ft_execve(&cmd, head, access, environ_cp);
 	if (access)
 	{

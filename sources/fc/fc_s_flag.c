@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:18:26 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/03 16:52:17 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 16:09:40 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static int	fc_s_only(t_shell *sh, char ***cmd, int specific)
 	sh->term->history_arr[sh->term->history_size - 1] = \
 	ft_strdup(sh->term->history_arr[sh->term->history_size - specific]);
 	// ft_freeda((void ***)cmd, calc_chptr(*cmd)); // leak problem  here I think
-	ft_putendl(sh->term->history_arr[sh->term->history_size - specific]);
+	ft_arrclean(*cmd);
+	ft_putendl_fd(sh->term->history_arr[sh->term->history_size - specific], 2);
 	*cmd = \
 	ft_strsplit(sh->term->history_arr[sh->term->history_size - specific], ' ');
 	if (!*cmd)

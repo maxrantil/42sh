@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_keyboard.c                                      :+:      :+:    :+:   */
+/*   free_param.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 11:52:45 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 13:30:54 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/08 14:24:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "keyboard.h"
+#include "ft_42sh.h"
 
-int	ft_keyboard(t_term *t)
+void	free_er(t_param *pa, char **cmd, int i)
 {
-	int	ret;
-
-	ft_init(t);
-	ret = ft_input_cycle(t);
-	ft_putchar('\n');
-	return (ret);
+	ft_strdel(&cmd[i]);
+	cmd[i] = ft_strdup(pa->expanded);
+	ft_strdel(&pa->expanded);
+	ft_strdel(&pa->var);
+	ft_strdel(&pa->subs);
+	ft_strdel(&pa->strip);
 }

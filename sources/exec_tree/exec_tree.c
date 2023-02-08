@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/08 02:22:34 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:29:49 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 	{
 		sh->ampersand = true;
 		exec_tree((((t_ampersand *)head)->left), environ_cp, terminal, sh);
-		// ft_printf("hello\n");
 		transfer_to_bg(sh, RUNNING);
-		// ft_printf("bye\n");
 		reset_fgnode(sh);
 		display_bg_job(sh);
 		sh->ampersand = false;

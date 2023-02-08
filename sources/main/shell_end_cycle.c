@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/08 00:03:57 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:30:31 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ void	shell_end_cycle(t_shell *sh)
 	sh->pipe->redir_in = 0;
 	ft_reset_tmp_env(sh);
 	notify_completed_jobs(sh);
+	init_window_size(sh->term);
 }

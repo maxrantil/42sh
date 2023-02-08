@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/08 00:03:24 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:29:58 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	set_process_group(t_shell *sh, pid_t pid)
 {
 	if (!sh->fg_node->gpid)
 	{
-		setpgid(pid, 0); // This sets up the pid as its own pgid
+		setpgid(pid, 0);
 		sh->fg_node->gpid = pid;
 		if (!sh->ampersand)
 		{

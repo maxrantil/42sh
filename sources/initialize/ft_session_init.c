@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 22:26:05 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:29:54 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ void	ft_session_init(t_shell *sh)
 	sh->is_flag_on = 0;
 	sh->option_count = 0;
 	ft_init_fg_node(sh);
+	sh->exit_confirm = -1;
 }

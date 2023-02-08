@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_all_bg_processes.c                           :+:      :+:    :+:   */
+/*   add_var_to_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 15:48:03 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 15:48:20 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/01 09:48:51 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/01 09:49:03 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	close_all_bg_processes(t_shell *sh)
+void	add_var_to_list(t_shell *sh, char *var, char *subst)
 {
-	t_bg_jobs	*bg_node;
+	int	i;
 
-	bg_node = sh->bg_node;
-	while (bg_node)
-	{
-		killpg(bg_node->gpid, SIGKILL);
-		bg_node = bg_node->next;
-	}
+	i = 0;
+	while (sh->intr_vars[i])
+		i++;
+	sh->intr_vars[i] = ft_strjoin(var + 1, subst);
 }

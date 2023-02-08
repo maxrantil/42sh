@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 17:07:50 by jniemine         ###   ########.fr       */
+/*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/08 17:31:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ static bool	check_bg_pipeline(t_bg_jobs *job, pid_t pid)
 	return (false);
 }
 
-static void    change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
+static void	change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
 {
-	t_bg_jobs    *job;
+	t_bg_jobs	*job;
 
-    job = bg_node;
-    while (job)
+	job = bg_node;
+	while (job)
 	{
 		if (check_bg_pipeline(job, pid))
 			break ;
@@ -99,7 +99,7 @@ static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 // 	}
 // }
 
-void handler_sigchild(int num)
+void	handler_sigchild(int num)
 {
 	int		status;
 	pid_t	pid;
@@ -110,9 +110,7 @@ void handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-			// ft_putstr_fd(" WTF\n", 2);
-		//TODO Make the reset_pipe smarter
-		// reset_pipes(g_sh);
+		reset_pipes(g_sh);
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
 			check_fg_pipeline(g_sh, pid);
@@ -142,5 +140,3 @@ void handler_sigchild(int num)
 		}
 
 }
-
-

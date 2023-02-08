@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 08:23:30 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 10:44:01 by jniemine         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/02/08 17:29:01 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_42sh.h"
 
@@ -48,20 +49,27 @@ static int	get_exit_status(char **commands)
 int	ft_exit(t_shell *sh, char **commands)
 {
 	ft_printf("{RED}exit{RESET}\n");
-	if (commands && commands[1] && commands[2])
+	jobs_exit_check(sh);
+	if (sh->exit_confirm == -1)
 	{
-		write(2, "42sh: exit: too many arguments\n", 32);
-		sh->exit_stat = 1;
-		return (0);
+		if (commands[0] && commands[1] && commands[2])
+		{
+			write(2, "42sh: exit: too many arguments\n", 32);
+			sh->exit_stat = 1;
+			return (0);
+		}
+		else if (commands[0])
+		{
+			sh->exit_stat = get_exit_status(commands);
+			ft_history_write_to_file(sh->term);
+			ft_raw_disable(sh->orig_termios);
+			if (sh->term->clipboard.buff)
+				ft_strdel(&sh->term->clipboard.buff);
+			shell_end_cycle(sh);
+		}
+		exit(sh->exit_stat);
 	}
-	else if (commands && commands[1])
-	{
-		sh->exit_stat = get_exit_status(commands);
-		ft_history_write_to_file(sh->term);
-		ft_raw_disable(sh->orig_termios);
-		if (sh->term->clipboard.buff)
-			ft_strdel(&sh->term->clipboard.buff);
-		shell_end_cycle(sh);
-	}
-	exit(sh->exit_stat);
+	else
+		ft_putstr("There are stopped jobs.\n");
+	return (0);
 }
