@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/08 09:26:48 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/08 14:05:13 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,6 @@ endif
 SOURCES 		= 	sources
 INCLUDES		= 	includes/
 LIBRARIES 		= 	libft/
-BANNER			= 	banner/
 BUILDTREE		=	build_tree/
 BUILTIN_UTILS	= 	builtin_utils/
 BUILTIN			= 	builtins/
@@ -91,7 +90,6 @@ H_FILES 	= 	ft_42sh \
 				keyboard \
 
 FILES			= \
-				$(BANNER)ft_banner \
 				$(BUILDTREE)build_tree \
 				$(BUILDTREE)make_arg_array \
 				$(BUILDTREE)bt_utils \
@@ -119,13 +117,22 @@ FILES			= \
 				$(BUILTIN_UTILS)ft_env_remove \
 				$(BUILTIN_UTILS)ft_env_replace \
 				$(BUILTIN_UTILS)ft_env_temp \
+				$(BUILTIN_UTILS)bg_fetch_node \
+				$(BUILTIN_UTILS)bg_fetch_node_utils \
+				$(BUILTIN_UTILS)flag_check \
+				$(BUILTIN_UTILS)builtin_usage \
+				$(BUILTIN_UTILS)cd_utils \
+				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
 				$(BUILTIN)ft_echo \
+				$(BUILTIN)ft_fg \
 				$(BUILTIN)ft_set \
 				$(BUILTIN)ft_exit \
 				$(BUILTIN)ft_export \
+				$(BUILTIN)ft_jobs \
 				$(BUILTIN)ft_unset \
+				$(BUILTIN)type_command \
 				$(EXECTREE)check_access \
 				$(EXECTREE)check_if_user_exe \
 				$(EXECTREE)exe_fail \
@@ -146,12 +153,14 @@ FILES			= \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
 				$(FC)fc_build_and_execute_new_tree \
-				$(FC)fc_check_flags \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
+				$(FC)fc_free \
+				$(FC)fc_get_flags \
 				$(FC)fc_get_start_and_end \
-				$(FC)fc_get_start_for_lists \
+				$(FC)fc_lflag_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
+				$(FC)fc_no_flags \
 				$(FC)fc_open_editor \
 				$(FC)fc_overwrite_fc_cmd_with_prev_cmd \
 				$(FC)fc_print_error \
@@ -199,16 +208,29 @@ FILES			= \
 				$(HASH)hash_init \
 				$(HASH)hash_print \
 				$(INITIALIZE)ft_env_init \
+				$(INITIALIZE)ft_init_fg_node \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
 				$(INITIALIZE)ft_init_jobs \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
-				$(JOBS)jobs_attach_fg_grp \
-				$(JOBS)jobs_detach_and_remove_fg_grp \
-				$(JOBS)jobs_detach_fg_grp \
-				$(JOBS)jobs_reset_fg_grp \
+				$(JOBS)close_all_bg_processes \
+				$(JOBS)append_cmd_arr \
+				$(JOBS)append_pid_arr \
+				$(JOBS)bg_node_delete \
+				$(JOBS)dup_dbl_ptr \
+				$(JOBS)job_info_display \
+				$(JOBS)display_job_node \
+				$(JOBS)queue_delete \
+				$(JOBS)reset_fgnode \
+				$(JOBS)reset_cmd \
+				$(JOBS)set_process_group \
+				$(JOBS)transfer_to_fg \
+				$(JOBS)transfer_to_bg_utils \
+				$(JOBS)transfer_to_bg \
+				$(JOBS)triple_ptr_len \
+				$(JOBS)update_fg_job \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_expansion \
@@ -289,11 +311,10 @@ FILES			= \
 				$(PARAM_FORM)free_param \
 				$(PARAM_FORM)remove_braces \
 				$(SIGNALS)handler_signal_exec \
+				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \
-				$(SIGNALS)set_signal_exec \
-				$(SIGNALS)set_signal_ign \
 				$(SIGNALS)set_signal_keyboard \
 				$(SIGNALS)set_signal_search_history \
 				$(TERMIOS)ft_getent \
@@ -310,12 +331,15 @@ FILES			= \
 				$(TOKENIZER)tok_error_after_tokenizing \
 				$(TOKENIZER)tok_errors \
 				$(TOKENIZER)tok_print_tokens \
+				$(UTILITIES)ft_banner \
+				$(UTILITIES)exit_error \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
+				$(UTILITIES)ft_print_dbl_array \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))
@@ -334,10 +358,9 @@ $(NAME): libft/libft.a $(OBJECTS) $(O_PATHS)
 
 $(OBJECTS):
 	@make -C $(LIBRARIES)
-	@mkdir -p $(OBJECTS)/$(BANNER)
 	@mkdir -p $(OBJECTS)/$(BUILDTREE)
-	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
 	@mkdir -p $(OBJECTS)/$(BUILTIN)
+	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)
 	@mkdir -p $(OBJECTS)/$(EXECTREE)
 	@mkdir -p $(OBJECTS)/$(EXPANSION)
 	@mkdir -p $(OBJECTS)/$(FC)

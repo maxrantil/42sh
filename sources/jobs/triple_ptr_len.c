@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_ign.c                                   :+:      :+:    :+:   */
+/*   triple_ptr_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 21:03:12 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 15:03:06 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/01 14:21:41 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/05 12:32:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 /**
- * It sets all signals to be ignored
+ * It returns the length of a triple pointer
+ * 
+ * @param arr The array of strings to be freed.
+ * 
+ * @return The length of the array of strings.
  */
-void	ft_signal_ign(void)
+size_t	triple_ptr_len(char ***arr)
 {
-	int	sig;
+	size_t	len;
 
-	sig = 1;
-	while (sig < 32)
-		signal(sig++, SIG_IGN);
+	len = 0;
+	while (*(arr + len))
+		len++;
+	return (len);
 }

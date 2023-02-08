@@ -6,20 +6,19 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:09:48 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/26 10:53:40 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 13:39:37 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "keyboard.h"
 
-static int	print_error(t_term *t, char *str, int prefix)
+static int	print_error(char *str, int prefix)
 {
 	ft_putstr_fd("\n42sh: !", 2);
 	if (prefix == 2)
 		ft_putstr_fd("-", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": event not found\n", 2);
-	t->total_row++;
 	return (0);
 }
 
@@ -68,7 +67,7 @@ static int	expand_specific(t_term *t, int i, int prefix)
 	if (prefix == 1 && digit < (int)t->history_size)
 		digit = t->history_size - digit + 1;
 	if (digit > (int)t->history_size)
-		return (print_error(t, t->inp + i + prefix, prefix));
+		return (print_error(t->inp + i + prefix, prefix));
 	return (expand(t, i, digit, int_len + prefix));
 }
 
@@ -93,7 +92,7 @@ static int	find_matching(t_term *t, char *str, int i)
 		y--;
 	}
 	if (y == 0)
-		return (print_error(t, str, 0));
+		return (print_error(str, 0));
 	ft_strdel(&str);
 	return (1);
 }

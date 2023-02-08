@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:18:26 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 18:24:34 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/03 16:52:17 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,52 @@ static int	find_matching(t_shell *sh, char *str, char ***cmd)
 	return (1);
 }
 
-static int	fc_s_only(t_shell *sh, char ***cmd)
+static int	fc_s_only(t_shell *sh, char ***cmd, int specific)
 {
 	ft_strdel(&sh->term->history_arr[sh->term->history_size - 1]);
 	sh->term->history_arr[sh->term->history_size - 1] = \
-	ft_strdup(sh->term->history_arr[sh->term->history_size - 2]);
-	ft_freeda((void ***)cmd, calc_chptr(*cmd));
-	ft_putendl(sh->term->history_arr[sh->term->history_size - 2]);
+	ft_strdup(sh->term->history_arr[sh->term->history_size - specific]);
+	// ft_freeda((void ***)cmd, calc_chptr(*cmd)); // leak problem  here I think
+	ft_putendl(sh->term->history_arr[sh->term->history_size - specific]);
 	*cmd = \
-	ft_strsplit(sh->term->history_arr[sh->term->history_size - 2], ' ');
+	ft_strsplit(sh->term->history_arr[sh->term->history_size - specific], ' ');
 	if (!*cmd)
 		fc_print_error(3);
 	return (1);
 }
 
-int	fc_s_flag(t_shell *sh, char ***cmd)
+static int	specific(t_shell *sh, t_fc *fc, char ***cmd)
+{
+	int specific;
+
+	specific = ft_atoi((*cmd)[fc->flags]);
+	if (specific > (int)sh->term->history_size - 1 || specific < (int)-sh->term->history_size)
+		return (fc_print_error(6));
+	else if (specific == 0)
+		specific = 2;
+	else if (specific < 0)
+		specific =  (specific * -1) + 1;
+	else
+		specific = sh->term->history_size - specific + 1;
+	fc_s_only(sh, cmd, specific);
+	return (1);
+}
+
+int	fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd)
 {
 	int	i;
 
-	if (*(cmd) && (*cmd)[1] && !(*cmd)[2])
-		return (fc_s_only(sh, cmd));
-	i = 2;
-	while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
-		i++;
-	if ((*cmd)[i])
-		return (find_matching(sh, (*cmd)[i], cmd));
-	else if (ft_strchr((*cmd)[2], '='))
+	if (!(*cmd)[fc->flags])
+		return (fc_s_only(sh, cmd, 2));
+	i = fc->flags;
+	if ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
+	{
+		while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
+			i++;
+		if ((*cmd)[i])
+			return (find_matching(sh, (*cmd)[i], cmd));
+	}
+	else if (ft_strchr((*cmd)[fc->flags], '='))
 		return (fc_s_change(sh, cmd));
-	return (0);
+	return (specific(sh, fc, cmd));
 }

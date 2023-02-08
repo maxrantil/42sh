@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/30 15:04:59 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:49:32 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	main_loop(t_shell *sh)
 	while (status)
 	{
 		// ft_init_signals();
-		set_signal_keyboard();
+		// set_signal_keyboard();
 		ft_raw_enable(sh);
 		if (ft_keyboard(sh->term) == 1)
 		{
@@ -51,6 +51,7 @@ int	main(void)
 	ft_history_get(sh->term);
 	main_loop(sh);
 	hash_free(sh->ht);
+	close_all_bg_processes(sh);
 	ft_strdel(&sh->terminal);
 	//exit(0);
 	return (0);

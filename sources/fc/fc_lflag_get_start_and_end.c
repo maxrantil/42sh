@@ -12,17 +12,17 @@
 
 #include "ft_42sh.h"
 
-static int	null_check_first(t_shell *sh, char *cmd)
+static int	get_start(t_shell *sh, char *cmd)
 {
 	int	start;
 
-	if (ft_atoi(cmd) == 0)
-	{
+	start = ft_atoi(cmd);
+	if (start == 0)
 		start = sh->term->history_size - 3;
-		sh->term->history_size -= 1;
-	}
+	else if (start > (int)sh->term->history_size)
+		start = -1;
 	else
-		start = ft_atoi(cmd) - 2;
+		start -= 2;
 	if (start < -1)
 	{
 		start = sh->term->history_size + start;
@@ -32,37 +32,38 @@ static int	null_check_first(t_shell *sh, char *cmd)
 	return (start);
 }
 
-static int	null_check_last(t_shell *sh, char *cmd)
+static int	get_end(t_shell *sh, char *cmd)
 {
-	int	last;
+	int	end;
 
-	if (ft_atoi(cmd) == 0)
-		last = sh->term->history_size;
+	end = ft_atoi(cmd);
+	if (end <= 0)
+		end = sh->term->history_size;
 	else
 	{
-		last = ft_atoi(cmd) + 1;
-		if (last > (int)sh->term->history_size)
-			last = sh->term->history_size;
+		end += 1;
+		if (end > (int)sh->term->history_size)
+			end = sh->term->history_size;
 	}
-	if (last <= 0)
-		last = sh->term->history_size;
-	return (last);
+	return (end);
 }
 
-int	fc_get_start_for_lists(t_shell *sh, char ***cmd) //need more handling with too big numbers
+int	fc_lflag_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd) //need more handling with too big numbers
 {
-	int	start;
-
-	if ((*cmd)[0] && (*cmd)[1] && (*cmd)[2] && !(*cmd)[3])
-		start = null_check_first(sh, (*cmd)[2]);
-	else if ((*cmd)[0] && (*cmd)[1] && (*cmd)[2] && (*cmd)[3])
+	fc->start = -1;
+	if (!(*cmd)[fc->flags])
 	{
-		start = null_check_first(sh, (*cmd)[2]);
-		sh->term->history_size = null_check_last(sh, (*cmd)[3]);
+		if (sh->term->history_size > FC_LEN)
+			fc->start = sh->term->history_size - FC_LEN;
 	}
-	else if (sh->term->history_size > FC_LEN)
-		start = sh->term->history_size - FC_LEN;
-	else
-		start = -1;
-	return (start);
+	else if ((*cmd)[fc->flags] && !(*cmd)[fc->flags + 1])
+	{
+		fc->start = get_start(sh, (*cmd)[fc->flags]);
+	}
+	else if ((*cmd)[fc->flags] && (*cmd)[fc->flags + 1])
+	{
+		fc->start = get_start(sh, (*cmd)[fc->flags]);
+		fc->end = get_end(sh, (*cmd)[fc->flags + 1]);
+	}
+	return (fc->start);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input_cycle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 11:46:24 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 13:35:12 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:38:45 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	ft_isprint_or_enter(t_term *t)
 		(!t->heredoc || (t->delim && !ft_strcmp(t->nl_addr[d_row], t->delim))))
 		{
 			ft_end_cycle(t);
-			ft_setcursor(0, t->term_val[1] + t->total_row);
 			return (1);
 		}
 		t->bslash = 0;
