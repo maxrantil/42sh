@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_addr_check.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:27:40 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 12:12:18 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 19:07:40 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	manipulate_env(t_shell *session, char *file)
 		ft_export(session, list);
 		ft_arrclean(list);
 	}
-	ft_memdel((void *)&file);
 }
 
 static int	handle_option_l(char *file, t_shell *session)
@@ -90,9 +89,10 @@ static int	handle_option_l(char *file, t_shell *session)
 int	ft_cd_addr_check(char *file, int p_option, t_shell *session)
 {
 	struct stat	buff;
+	int			ret;
 
 	if (p_option == 0)
-		return (handle_option_l(file, session));
+		ret = handle_option_l(file, session);
 	if (stat(file, &buff))
 		return (ft_err_print(file, "cd", "No such file or directory", 1));
 	else
