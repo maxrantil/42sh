@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/08 00:05:52 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 03:02:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,15 @@ void	exec_pipe(t_pipenode *pipenode, \
 	sh->pipe->pipefd[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
 	// print_fg_node(sh);
+	//Add more waits?? For both children?? We already wait once in builtins if it's part of pipe. So if not builtin wait twice?
 	if (sh->ampersand)
 		waitpid(sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
 	else
-		waitpid(sh->fg_node->gpid, &status, WUNTRACED);
+	{
+		// waitpid(-1, &status, WUNTRACED | WNOHANG);
+		// wait(0);
+		waitpid(sh->fg_node->gpid, &status, WUNTRACED | WNOHANG); //Added WNOHANG
+	}
 	reset_fd(terminal);
 	close(sh->pipe->pipefd[0]);
 	close(sh->pipe->pipefd[1]);

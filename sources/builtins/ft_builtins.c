@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/07 23:56:40 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 03:00:30 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp);
 
 static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
-	int status;
+	// int status;
 	
 	if (sh->pipe->pipefd[0] >= 0)
 	{
@@ -31,9 +31,9 @@ static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 			cmd_comparisons(sh, cmd, environ_cp);
 			exit(1);
 		}
-		waitpid(sh->pipe->pid, &status, WNOHANG); //What this should be? It works?
-		close(sh->pipe->pipefd[1]);
-		sh->pipe->pipefd[1] = -1;
+		// waitpid(sh->pipe->pid, &status, WUNTRACED); //What this should be? It works?
+		// close(sh->pipe->pipefd[1]);
+		// sh->pipe->pipefd[1] = -1;
 		return (1);
 	}
 	return(0);
@@ -107,7 +107,7 @@ int		ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		if (**cmd && !is_builtin(**cmd))
 			return (1);
 		if(!fork_if_pipe(sh, cmd, environ_cp))
-			return (cmd_comparisons(sh, cmd, environ_cp));
+			return(cmd_comparisons(sh, cmd, environ_cp));
 		else
 			return(0);
 	}

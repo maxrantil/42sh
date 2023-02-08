@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 00:01:45 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 03:04:31 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	if (access)
 	{
 		pid = fork_wrap();
-		if (pid)
-			update_fg_job(g_sh, pid, args);
+		// if (pid)
+			// update_fg_job(g_sh, pid, args);
 		if (pid == 0)
 		{
 			//We only want to pipe stdout if we are not redir_out
@@ -59,9 +59,10 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			exit(1);
 		}
 		if (g_sh->ampersand)
-			waitpid(g_sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
+			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED);
 		else if (g_sh->pipe->pipefd[0] == -1)
 			waitpid(g_sh->fg_node->gpid, &status, WUNTRACED);
+
 	}
 	return (status);
 }
@@ -79,7 +80,6 @@ int		hash;
 		return ;
 	if (sh->term->fc_flag)
 		print_args(args);
-	
 	if (!ft_builtins(sh, &args, environ_cp) && ft_printf("pipefdlol[0] = %d\n", sh->pipe->pipefd[0]))
 		return ;
 	hash = 0;

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 00:04:47 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 00:07:44 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ static void	reset_pipes(t_shell *sh)
 {
 	if (sh->pipe->pipefd[0] > -1 || sh->pipe->pipefd[1] > -1)
 	{
-		sh->pipe->redirecting = 0;
+		sh->pipe->redir_out = 0;
+		sh->pipe->redir_in = 0;
 		reset_fd(sh->terminal);
 		close(sh->pipe->pipefd[0]);
 		close(sh->pipe->pipefd[1]);
