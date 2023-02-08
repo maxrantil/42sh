@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 10:10:59 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:15:03 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 		param.subs = ft_strdup(subs);
 		ft_strdel(&subs);
 	}
+
 	if (!param.expanded || !*param.expanded)
 		param.expanded = subst_param(sh, param.var, param.subs, format);
 	ft_strdel(&param.subs);

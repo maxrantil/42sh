@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 09:39:06 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:19:01 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ static int expander(t_param *pa, int ret)
 			pa->expanded = ft_strdup(temp);
 			ft_strdel(&subs);
 			ft_strdel(&temp);
+			
 		}
 		else if ((ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '#')
 			|| (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '%'))
@@ -165,7 +166,7 @@ static int expander(t_param *pa, int ret)
 		}
 		else
 			pa->expanded = ft_strupdate(pa->expanded, pa->list[i]);
-		if (ret == -1)
+		if (ret == -1 || !*pa->expanded)
 			return (1);
 	}
 	return (0);
@@ -187,6 +188,8 @@ static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 	{
 		subs = substitute_or_create(g_sh, pa->subs, &ret);
 		temp = ft_strjoin(pa->expanded, subs);
+		if (temp == NULL)
+			return (1);
 		ft_strdel(&pa->expanded);
 		pa->expanded = ft_strdup(temp);
 		ft_strdel(&subs);
