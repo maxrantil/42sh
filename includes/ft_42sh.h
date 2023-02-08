@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 14:19:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:23:57 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -492,7 +492,6 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
 void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
-void			close_all_bg_processes(t_shell *sh);
 char			**dup_dbl_ptr(char **cmd);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);

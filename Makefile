@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/08 14:19:33 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/08 14:24:00 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -215,7 +215,6 @@ FILES			= \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
-				$(JOBS)close_all_bg_processes \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \

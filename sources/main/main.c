@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 14:14:19 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:23:50 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	main(void)
 	ft_history_get(sh->term);
 	main_loop(sh);
 	hash_free(sh->ht);
-	close_all_bg_processes(sh);
 	ft_strdel(&sh->terminal);
 	return (0);
 }
