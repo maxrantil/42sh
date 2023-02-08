@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 14:23:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:39:32 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,7 +271,7 @@ typedef struct s_shell
 	int				is_flag_on;
 	int				option_count;
 	bool			ampersand;
-	bool			exit_confirm;
+	int				exit_confirm;
 }				t_shell;
 
 /*					BUILDTREE				*/

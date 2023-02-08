@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 14:23:50 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:40:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	main_loop(t_shell *sh)
 		{
 			ft_history_write_to_file(sh->term);
 			jobs_exit_check(sh);
-			if (!sh->exit_confirm)
+			if (sh->exit_confirm >= 0)
 				ft_putstr("There are stopped jobs.\n");
 			else
 				status = 0;

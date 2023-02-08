@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:46:29 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 14:16:55 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:42:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	jobs_exit_check(t_shell *sh)
 	{
 		if (ptr->status == STOPPED)
 		{
-			if (sh->exit_confirm == true)
-				sh->exit_confirm = false;
-			else
-				sh->exit_confirm = true;
+			if (sh->exit_confirm != ptr->index)
+				sh->exit_confirm = ptr->index;
+			else if (sh->exit_confirm == ptr->index)
+				sh->exit_confirm = -1;
+			return ;
 		}
 		ptr = ptr->next;
 	}
+	sh->exit_confirm = -1;
 }
