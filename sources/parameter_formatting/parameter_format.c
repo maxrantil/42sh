@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 13:19:49 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:37:04 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static int splits(char *cmd, t_param *pa, int *ret)
 		(char *)ft_memmove(pa->subs, pa->subs + 1, ft_strlen(pa->subs));
 		pa->var = \
 		ft_strndup(pa->strip, ft_strlen(pa->strip) - (ft_strlen(pa->subs)));
+		ft_printf("expanded [%s]: \n", pa->subs);
 	}
 	else if (*ret == -1)
 	{
@@ -113,6 +114,7 @@ static int splits(char *cmd, t_param *pa, int *ret)
 		pa->strip = ft_strdup(cmd);
 		remove_braces(pa->strip);
 		pa->expanded = ft_expansion_dollar(g_sh, pa->strip);
+		ft_printf("expanded %s: \n", pa->expanded);
 		//ft_strdel(&cmd);
 		ft_strdel(&pa->strip);
 		//cmd = ft_strdup(pa->expanded);
@@ -136,6 +138,27 @@ static void	retoken_into_list(t_param *pa)
 		
 }
 
+char	*variable_length(char *str)
+{
+	char	*var;
+	char	*temp;
+	int		i;
+	int		k;
+
+	i = 0;
+	k = 0;
+	var = ft_strnew(ft_strlen(str));
+	while (str[i])
+	{
+		var[k++] = str[i++];
+		if (str[i] == '#')
+			i++;
+	}
+	temp = ft_expansion_dollar(g_sh, var);
+	i = ft_strlen(temp);
+	return(ft_itoa(i));
+}
+
 static int expander(t_param *pa, int ret)
 {
 	int	i;
@@ -148,7 +171,7 @@ static int expander(t_param *pa, int ret)
 		pa->flag = get_flag(pa->list[i], &ret);
 		// if (!pa->flag)
 		// 	pa->expanded = ft_strnew(1);
-		//ft_printf("pa list %s  [%c]\n",  pa->list[i], pa->flag[0]);
+		ft_printf("pa list %s  [%c]\n",  pa->list[i], pa->flag[0]);
 		if (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == ':')
 		{
 			subs = substitute_or_create(g_sh, pa->list[i], &ret);
@@ -161,6 +184,7 @@ static int expander(t_param *pa, int ret)
 		else if ((ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '#')
 			|| (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '%'))
 		{
+			
 			subs = search_from_var(g_sh, pa->list[i], &ret);
 			temp = ft_strjoin( pa->expanded, subs);
 			ft_strdel(&pa->expanded);
@@ -186,7 +210,7 @@ static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 	pa->subs = ft_strjoin(pa->var, pa->expanded);
 	pa->oper = get_operator(pa->subs, &ret);
 	ft_printf("pa list sdfds %s\n", pa->subs);
-	ft_printf("pa list  %c\n", pa->oper[0]);
+	ft_printf("pa list  %c\n", pa->flag[0]);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strnew(1);
 	if (pa->oper[0] == ':')
@@ -216,6 +240,12 @@ static int	joiner(t_shell *sh, t_param *pa, char *cmd, int ret)
 		ft_strdel(&temp);
 		// pa->expanded = ft_strupdate(pa->expanded, 
 		// search_from_var(g_sh, pa->subs, &ret));
+	}
+	else if (pa->subs[0] == '$' || pa->subs[1] == '#')
+	{
+		pa->expanded = variable_length(pa->subs);
+		ft_printf("%s\n", pa->expanded);
+		return (0);
 	}
 	else
 		pa->expanded = ft_expansion_dollar(sh, cmd);
@@ -273,15 +303,12 @@ int	param_format(char **cmd)
 	char	*new_cmd;
 	char	*subst_cmd;
 
-	
 	err = 0;
 	i = -1;
-	
 	j = 0;
 	new_cmd = NULL;
 	while (cmd[++i])
 	{
-		
 		while (cmd[i][j])  // (check_syntax(cmd[i]))
 		{
 			k = 0;
@@ -306,7 +333,7 @@ int	param_format(char **cmd)
 				}
 				if (ret == 0)
 					retoken_into_list(&pa);
-				if (ret == 0 && expander(&pa, ret))
+				if (expander( &pa, ret))
 					err = 1;
 				if (ret == 0 && joiner(g_sh, &pa, new_cmd, ret) && ret == 0)
 					err = -1;
@@ -326,16 +353,17 @@ int	param_format(char **cmd)
 			ft_strdel(&new_cmd);
 			if (cmd[i][j])
 				j++;
+			while (k < 100)
+			ft_strdel(&pa.list[k++]);
+			free(pa.list);
+			ft_strdel(&pa.expanded);
 		}
-		// while (k < 100)
-		// 	ft_strdel(&pa.list[k++]);
-		// free(pa.list);
-		// ft_strdel(&pa.expanded);
+		
 		j = 0;
 	}
-	while (k < 100)
-		ft_strdel(&pa.list[k++]);
-	free(pa.list);
-	ft_strdel(&pa.expanded);
+	// while (k < 100)
+	// 	ft_strdel(&pa.list[k++]);
+	// free(pa.list);
+	// ft_strdel(&pa.expanded);
 	return (err);
 }
