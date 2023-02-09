@@ -48,11 +48,11 @@ void	exec_pipe(t_pipenode *pipenode, \
 
 	if (pipe_wrap(sh->pipe->write_pipe))
 		return ;
-	sh->pipe->read_pipe[1] = dup(sh->pipe->write_pipe[1]);
-	sh->pipe->read_pipe[0] = dup(sh->pipe->write_pipe[0]);
 	// close(sh->pipe->write_pipe[0]);
 	// close(sh->pipe->read_pipe[1]);
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
+	sh->pipe->read_pipe[1] = dup(sh->pipe->write_pipe[1]);
+	sh->pipe->read_pipe[0] = dup(sh->pipe->write_pipe[0]);
 	// if (pipe_wrap(sh->pipe->read_pipe))
 		// return ;
 	// if (dup2(sh->pipe->read_pipe[1], sh->pipe->write_pipe[0]) < 0)
