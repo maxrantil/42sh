@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:58:01 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/08 15:19:54 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:41:45 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_alias_command(char *alias)
 	if (i > 0)
 		return (ft_strsub(alias, 0, i));
 	else
-		ft_strdup(""); // might cause issues? shouldnt ever get to this line
+		return (ft_strdup(""));
 }
 
 char	*get_alias_content(char *alias)
