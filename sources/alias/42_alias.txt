@@ -1,0 +1,52 @@
+$> alias hello='echo "hello, world"'
+$> hello | cat -e
+hello, world$
+$> alias hello
+{{ Print the alias definition for 'hello'. Something like: hello='echo "hello, world!"' }}
+$> alias hello=
+$> hello
+$> alias hello
+{{ Print the alias definition for 'hello'. Something like: hello= }}
+$> alias sub='(echo abc|'
+$> sub cat -e)
+abc$
+$> alias rd='ls DOESTNOEXIST 2>>err'
+$> rd; rd; rd
+$> cat err
+ls: DOESTNOEXIST: No such file or directory
+ls: DOESTNOEXIST: No such file or directory
+ls: DOESTNOEXIST: No such file or directory
+$> alias aa='echo hello' bb='echo world'
+$> aa; bb
+hello
+world
+$> alias mk='mkdir -v' abc='def'
+$> mk abc
+mkdir: created directory 'abc'
+$> alias mk='mkdir -v ' abc='def'
+$> mk abc
+mkdir: created directory 'def'
+$> alias
+{{ Print all aliases definition }}
+$> alias a=alias
+$> a aa='echo "alias builtin redefined"'
+$> aa
+alias builtin redefined
+$> alias b=c
+$> alias c=d
+$> alias d='echo It should works'
+$> b
+It should works
+$> alias e='g'
+$> alias f='e'
+$> alias g='echo "infinite loop"; e'
+$> g
+{{ Error message mentionning that the 'g' command is not found }}
+$> alias hello='echo "hello, world!"'
+$> unalias hello
+$> hello
+{{ Error message indicating that the 'hello' command is not found }}
+$> alias hello='echo "hello, world!"'
+$> unalias -a
+$> alias
+$>
