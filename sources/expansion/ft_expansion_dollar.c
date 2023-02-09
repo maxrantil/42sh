@@ -76,7 +76,6 @@ static void	qoute_check(char **split, int index, char *qoute, char *ch)
 		bslash++;
 		index--;	
 	}
-	ft_printf("breaks here\n");
 	if (bslash % 2 == 0)
 	{
 		if (*qoute == 0)
