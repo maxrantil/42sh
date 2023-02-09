@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 18:19:33 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/09 10:08:57 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,17 +207,6 @@ typedef struct s_hash
 	struct s_hash	*next;
 }					t_hash;
 
-/*				JOB CONTROL STRUCT			*/
-typedef struct s_job
-{
-	pid_t			pid;
-	int				*shared_mem_ptr;
-	int				*shared_mem_idx_ptr;
-	int				shared_mem_id;
-	int				shared_mem_index;
-	char			*cmd;
-}				t_job;
-
 /*			FOREGROUND JOB NODES				*/
 typedef struct s_fg_job
 {
@@ -257,7 +246,6 @@ typedef struct s_shell
 	t_hash			**ht;
 	t_treenode		*head;
 	t_token			*tokens;
-	t_job			*jobs;
 	t_pipe			*pipe;
 	t_fg_job		fg_node[1];
 	t_bg_jobs		*bg_node;
@@ -440,7 +428,6 @@ void			ft_init_fg_node(t_shell *sh);
 void			init_window_size(t_term *term);
 void			ft_env_init(t_shell *sh);
 void			ft_session_init(t_shell *sh);
-t_job			*ft_init_jobs(void);
 
 /*			  		 FC						*/
 void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
@@ -476,6 +463,7 @@ void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
 char			**dup_dbl_ptr(char **cmd);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
+void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
 void			display_suspended_job(t_shell *sh);
 void			display_pipeline_cmd(t_bg_jobs *job);
