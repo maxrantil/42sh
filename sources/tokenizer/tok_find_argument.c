@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_find_argument.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:39 by jakken            #+#    #+#             */
-/*   Updated: 2023/01/30 15:20:46 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:02:37 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ char	*find_argument(char *line, int *i, int *start, int *end)
 		return (NULL);
 	if (ret)
 		return (ret);
-	if (!is_seperator(line[*end]))
+	if (!is_seperator(line[*end]) || special_char_check(line, *end - 1, '\\'))
 	{
-		while (line[*end] && (!is_seperator(line[*end]) || quote))
+		while (line[*end] && (!is_seperator(line[*end]) || special_char_check(line, *end - 1, '\\') || quote))
 			tok_quote_flag(line, end, &quote);
 		if_redir_with_fd_go_backwards(line, end);
 	}
