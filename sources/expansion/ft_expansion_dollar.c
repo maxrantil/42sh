@@ -66,6 +66,9 @@ static char	**ft_special_ch_split(char *str)
 	return (ret);
 }
 
+/**
+ * Monitors the inclusion of qoutes and any back slashes before the quote
+ */
 static void	qoute_check(char **split, int index, char *qoute, char *ch)
 {
 	int	bslash;

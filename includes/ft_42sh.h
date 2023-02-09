@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/09 17:27:44 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:38:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -619,7 +619,7 @@ int				is_semi_or_amp(char c);
 void			free_tokens(t_token **tokens);
 int				is_nl(char c);
 int				is_seperator(char c);
-void			tok_quote_flag(char *line, int *end, char *quote_flag);
+void			tok_quote_flag(char *line, int *end, char *quote_flag, char *braces);
 
 /*					UTILITIES				*/
 void			banner_print(void);
