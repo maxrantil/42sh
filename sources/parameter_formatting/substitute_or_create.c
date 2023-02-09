@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 15:59:36 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:16:51 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	ft_strdel(&temp[1]);
 	free(temp);
 	// if (*var)
-	// 	ft_strdel(&var);
+	//ft_strdel(&var);
 	return (expanded);
 }
 
@@ -92,7 +92,7 @@ void set_sub_var_op(t_param *param)
 {
 	ft_strdel(&param->subs);
 	//param->var = NULL;
-	//ft_strdel(&param->var);
+	ft_strdel(&param->var);
 	param->subs = ft_strdup(ft_strchr(param->strip, ':'));
 	param->subs = (char *)ft_memmove(param->subs, param->subs + 1, ft_strlen(param->subs));
 	param->op = param->subs[0];
@@ -117,10 +117,18 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	if (ft_strchr(param.strip, ':'))
 		set_sub_var_op(&param);
 	else
+	{
 		param.expanded = ft_expansion_dollar(sh, param.strip);
-	//ft_printf("param.expanded %s\n", param.expanded);
-	// if (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , ':'))
-	// 	param.subs = substitute_or_create(sh, param.subs + 1, ret);
+		if (!param.expanded || !*param.expanded)
+		{
+			ft_strdel(&param.subs);
+			ft_strdel(&param.strip);
+			ft_strdel(&param.var);
+			ft_strdel(&param.expanded);
+			param.expanded = ft_strnew(1);
+			return(param.expanded);
+		}
+	}
 	if ((ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '#'))
 		|| (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '%')))
 		subs = search_from_var(sh, param.subs + 1, ret);
@@ -140,6 +148,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	// 	param.expanded = ft_strnew(1);
 	//ft_printf("expanded %s\n",  param.expanded);
 	ft_strdel(&param.subs);
+	ft_strdel(&param.var);
 	ft_strdel(&param.strip);
 	return (param.expanded);
 }

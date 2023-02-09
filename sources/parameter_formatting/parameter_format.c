@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 15:57:43 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:43:07 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ static int splits(char *cmd, t_param *pa, int *ret)
 		pa->strip = ft_strdup(cmd);
 		remove_braces(pa->strip);
 		pa->expanded = ft_expansion_dollar(g_sh, pa->strip);
-		// ft_printf("expanded %s: \n", pa->expanded);
-		// ft_strdel(&cmd);
 		ft_strdel(&pa->strip);
-		// cmd = ft_strdup(pa->expanded);
 		*ret = 2;
 		return (1);
 	}
@@ -166,15 +163,24 @@ static int expander(t_param *pa, int ret)
 			subs = substitute_or_create(g_sh, pa->list[i], &ret);
 			temp = ft_strjoin(pa->expanded, subs);
 			ft_strdel(&pa->expanded);
+			if (!temp || !*temp)
+			{
+				pa->expanded = ft_strdup(" ");
+				ft_strdel(&subs);
+				ft_strdel(&temp);
+				return (1);
+			}
+				
 			pa->expanded = ft_strdup(temp);
 			ft_strdel(&subs);
 			ft_strdel(&temp);
 		}
 		else if ((ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '#') || (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '%'))
 		{
-
+			ft_printf(" eju [%s] \n", pa->list[i]);
 			subs = search_from_var(g_sh, pa->list[i], &ret);
 			temp = ft_strjoin(pa->expanded, subs);
+			
 			ft_strdel(&pa->expanded);
 			pa->expanded = ft_strdup(temp);
 			// ft_printf(" expanded [%s] \n", pa->expanded);
@@ -332,12 +338,12 @@ int param_format(char **cmd)
 				}
 			}
 			ft_strdel(&new_cmd);
-			if (cmd[i][j])
+			if (cmd[i] && cmd[i][j])
 				j++;
 			while (k < 100)
 				ft_strdel(&pa.list[k++]);
 			free(pa.list);
-			//ft_strdel(&pa.expanded);
+			ft_strdel(&pa.expanded);
 		}
 		j = 0;
 	}

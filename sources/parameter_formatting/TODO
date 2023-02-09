@@ -1,0 +1,6 @@
+remove any whitespace from returned string in substring removal
+
+search is off by one in cases like this:
+
+$>"echo ${PWD:+${PWD#/home}"
+$>e/miika/workspace/42sh

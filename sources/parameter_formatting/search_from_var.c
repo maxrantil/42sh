@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 14:50:59 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:06:21 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,12 +180,12 @@ static char	*find_from_end_last(char *haystack, char *needle)
 	while (haystack[i])
 	{
 		j = 0;
-		//ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[i], &needle[j], j);
+		ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[i], &needle[j], j);
 		while (haystack[i] == needle[j])
 		{
 			i++;
 			j++;
-			if (!haystack[i])
+			if (!haystack[i] && needle[j])
 			{
 				return (haystack);
 			}
@@ -193,7 +193,6 @@ static char	*find_from_end_last(char *haystack, char *needle)
 			{
 				//ft_printf(" haystack [%s] \n", &haystack[i]);
 				temp = ft_strndup(haystack, i - ft_strlen(needle));
-				//ft_printf(" temp [%s] \n", temp);
 				return (temp);
 			}
 		}
@@ -287,33 +286,31 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 
 	strip = ft_strdup(cmd);
 	strip = remove_braces(strip);
+	ft_printf("strip [%s] \n", strip);
 	temp = NULL;
 	ft_memset(&op, '\0', 3);
 	needle = get_needle_and_op(strip, op, cmd);
 	if (!*needle)
 		return NULL;
-//	ft_printf(" needle [%s] \n", needle);
+	ft_printf(" needle [%s] \n", needle);
 	if ((ft_strnequ(needle, "${", 2) && ft_strchr(needle , '#'))
 		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle , '%')))
 		temp = search_from_var(sh, needle, ret);
 	else if (ft_strnequ(needle, "${", 2))
 		temp = substitute_or_create(sh, needle, ret);
-	else //if (needle[0] == '$')//if (ft_strnequ(needle, "${", 2))
+	else
 		temp = ft_expansion_dollar(sh, needle);
 	temp2 = ft_strndup(strip, ft_strlen(strip) - ft_strlen(needle) - ft_strlen(op));
 	haystack = ft_expansion_dollar(sh, temp2);
-	//ft_printf(" temp [%s] haystack [%s] [%s]\n", temp, haystack, op);
 	if (temp != NULL)
 	{
 		ft_strdel(&needle);
 		needle = ft_strdup(temp);
-		//ft_printf(" needle [%s] \n", needle);
 		ft_strdel(&temp);
 	}
 	(void)sh;
 	(void)*ret;
 	expanded = ft_strdup(ft_find_word(haystack, needle, op));
-	//ft_printf("expanded last [%s] \n", expanded);
 	if (!expanded || !*expanded)
 		expanded = ft_strnew(1);
 	ft_strdel(&needle);
