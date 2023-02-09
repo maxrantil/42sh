@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:06:04 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/08 17:46:06 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:42:35 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	fill_alias_array(char *file, char **alias, int file_fd)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("ERROR opening file \'%s\'\n", file);
+		ft_printf("ERROR opening file \'%s\'\n", file);
 		exit(1);
 	}
 	else
