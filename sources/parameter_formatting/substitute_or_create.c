@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 13:15:03 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:59:36 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	temp[1] = NULL;
 	if (format == 0)
 	{
-		ft_strdel(&expanded);
+		//ft_strdel(&expanded);
 		if (!*temp[0])
 			expanded = ft_strdup(subst + 1);
 		else
@@ -31,7 +31,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	}
 	else if (format == 1)
 	{
-		ft_strdel(&expanded);
+		//ft_strdel(&expanded);
 		if (!*temp[0])
 		{
 			expanded = ft_strdup(subst + 1);
@@ -43,7 +43,7 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	}
 	else if (format == 2)
 	{
-		ft_strdel(&expanded);
+		//ft_strdel(&expanded);
 		if (!*temp[0] && subst[1])
 			ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
 		else if (!*temp[0] && !subst[1])
@@ -67,7 +67,8 @@ char	*subst_param(t_shell *sh, char *var, char *subst, int format)
 	ft_strdel(&temp[0]);
 	ft_strdel(&temp[1]);
 	free(temp);
-	//ft_strdel(&var);
+	// if (*var)
+	// 	ft_strdel(&var);
 	return (expanded);
 }
 
@@ -107,7 +108,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	param.subs = ft_strnew(1);
 	subs = NULL;
 	param.expanded = NULL;
-	//param.var = ft_strnew(1);
+	param.var = ft_strnew(1);
 	param.op = 0;
 	format = -1;
 	param.strip = ft_strdup(cmd);
@@ -117,7 +118,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 		set_sub_var_op(&param);
 	else
 		param.expanded = ft_expansion_dollar(sh, param.strip);
-	ft_printf("param.expanded %s\n", param.expanded);
+	//ft_printf("param.expanded %s\n", param.expanded);
 	// if (ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , ':'))
 	// 	param.subs = substitute_or_create(sh, param.subs + 1, ret);
 	if ((ft_strnequ(param.subs + 1, "${", 2) && ft_strchr(param.subs , '#'))
@@ -132,9 +133,12 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 		param.subs = ft_strdup(subs);
 		ft_strdel(&subs);
 	}
-
+	ft_printf("subs %s\n",  param.subs);
 	if (!param.expanded || !*param.expanded)
 		param.expanded = subst_param(sh, param.var, param.subs, format);
+	// if (*param.expanded == '$')
+	// 	param.expanded = ft_strnew(1);
+	//ft_printf("expanded %s\n",  param.expanded);
 	ft_strdel(&param.subs);
 	ft_strdel(&param.strip);
 	return (param.expanded);
