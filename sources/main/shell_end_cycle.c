@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/08 21:54:45 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:36:26 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void	shell_end_cycle(t_shell *sh)
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
+	sh->pipe->piping = 0;
+	while(ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
+		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);
 	notify_completed_jobs(sh);
 	init_window_size(sh->term);

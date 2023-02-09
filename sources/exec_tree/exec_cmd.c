@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 22:25:52 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:03:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	if (access)
 	{
 		pid = fork_wrap();
-		g_sh->pipe->pid = pid;
+		// g_sh->pipe->pid = pid;
 		if (pid)
 			update_fg_job(g_sh, pid, args);
 		if (pid == 0)
 		{
 			//We only want to pipe stdout if we are not redir_out
 			ft_signal_dfl();
-			if (!g_sh->pipe->redir_out && g_sh->pipe->pipefd[1] >= 0 && dup2(g_sh->pipe->pipefd[1], STDOUT_FILENO) < 0)
+			if (!g_sh->pipe->redir_out && g_sh->pipe->write_pipe[1] >= 0 && dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
 			{
 				ft_err_print("dup2", NULL, "failed", 2);
 				exit(1);
@@ -46,7 +46,7 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 		}
 		if (g_sh->ampersand)
 			waitpid(pid, &status, WNOHANG | WUNTRACED);
-		else if (g_sh->pipe->pipefd[0] == -1)
+		else if (!g_sh->pipe->piping)
 			waitpid(pid, &status, WUNTRACED);
 	}
 	return (status);

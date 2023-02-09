@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/09 12:15:24 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:35:24 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 	else if (head->type == PIPE)
 	{
 		int status;
+		sh->pipe->piping = 1;
 		exec_pipe((t_pipenode *)head, environ_cp, terminal, sh);
 		if (!((t_pipenode *)head)->right || ((t_pipenode *)head)->right->type != PIPE)
-			waitpid(sh->fg_node->gpid, 0, WUNTRACED);
+		{
+			waitpid(*sh->fg_node->pid, 0, WUNTRACED);
+		}
 		// reset_fd(terminal);
 		// sh->pipe->stdincpy = dup(STDIN_FILENO);
 	}
@@ -65,5 +68,5 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		exec_tree((((t_ampersand *)head)->right), environ_cp, terminal, sh);
 		reset_fd(terminal);
 	}
-	
+
 }

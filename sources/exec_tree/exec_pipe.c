@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/09 12:16:06 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:29:58y jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	fork_wrap(void)
 	return (pid);
 }
 
-int	pipe_wrap(int pipefd[])
+int	pipe_wrap(int write_pipe[])
 {
-	if (pipe(pipefd) < 0)
+	if (pipe(write_pipe) < 0)
 	{
 		ft_err_print(NULL, "pipe failed", "exec_pipe", 2);
 		return (1);
@@ -46,21 +46,34 @@ void	exec_pipe(t_pipenode *pipenode, \
 {
 	int status;
 
-	if (pipe_wrap(sh->pipe->pipefd))
+	if (pipe_wrap(sh->pipe->write_pipe))
 		return ;
+	sh->pipe->read_pipe[1] = dup(sh->pipe->write_pipe[1]);
+	sh->pipe->read_pipe[0] = dup(sh->pipe->write_pipe[0]);
+	// close(sh->pipe->write_pipe[0]);
+	// close(sh->pipe->read_pipe[1]);
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
-	//We always dup stdin to pipefd[0] because we always want to read from pipe
+	// if (pipe_wrap(sh->pipe->read_pipe))
+		// return ;
+	// if (dup2(sh->pipe->read_pipe[1], sh->pipe->write_pipe[0]) < 0)
+	// {
+	// 	ft_err_print("dup", NULL, "connecting pipes failed in exec_pipe", 2);
+	// 	exit (1);
+	// }
+	//We always dup stdin to write_pipe[0] because we always want to read from pipe
 	//All the redirectins close fd[1] so there is always EOF in the pipe.
 	//For cases like "ls >file | cat", cat reads the EOF from pipe and exits.
-	if (dup2(sh->pipe->pipefd[0], STDIN_FILENO) < 0)
+	if (dup2(sh->pipe->read_pipe[0], STDIN_FILENO) < 0)
 	{
 		ft_err_print("dup", NULL, "failed in exec_pipe", 2);
 		exit (1);
 	}
 	g_sh->pipe->redir_out = 0;
 	//In case of normal pipe we want to close fd[1] so that input written into pipe in child process gets EOF
-	close (sh->pipe->pipefd[1]);
-	sh->pipe->pipefd[1] = -1;
+	close (sh->pipe->write_pipe[1]);
+	sh->pipe->write_pipe[1] = -1;
+	close(sh->pipe->read_pipe[1]);
+	sh->pipe->read_pipe[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
 	// print_fg_node(sh);
 	//Add more waits?? For both children?? We already wait once in builtins if it's part of pipe. So if not builtin wait twice?
@@ -68,12 +81,15 @@ void	exec_pipe(t_pipenode *pipenode, \
 		waitpid(sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
 	else
 	{
+		//Waits for builtin to finish
+		// waitpid(sh->pipe->pid, &status, WUNTRACED);
 	}
 	reset_fd(terminal);
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
-	close(sh->pipe->pipefd[0]);
-	close(sh->pipe->pipefd[1]);
-	sh->pipe->pipefd[1] = -1;
-	sh->pipe->pipefd[0] = -1;
+	close(sh->pipe->write_pipe[0]);
+	close(sh->pipe->write_pipe[1]);
+	sh->pipe->write_pipe[1] = -1;
+	sh->pipe->write_pipe[0] = -1;
+
 }

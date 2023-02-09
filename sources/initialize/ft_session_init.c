@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 21:59:55 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:49:30 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,17 @@ void	ft_session_init(t_shell *sh)
 	sh->tokens = NULL;
 	sh->jobs = ft_init_jobs();
 	sh->pipe = ft_memalloc(sizeof(t_pipe));
-	sh->pipe->pipefd[0] = -1;
-	sh->pipe->pipefd[1] = -1;
+	sh->pipe->write_pipe[0] = -1;
+	sh->pipe->write_pipe[1] = -1;
 	sh->pipe->pid = -1;
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
-	sh->pipe->pid_idx = 0;
+	sh->pipe->new_pipe = 1;
+	sh->pipe->piping = 0;
+	if(pipe_wrap(sh->pipe->write_pipe) < 0)
+		exit(1);
 	hash_init(sh);
 	sh->is_flag_on = 0;
 	sh->option_count = 0;

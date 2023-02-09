@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 12:15:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:49:30 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,28 @@ static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 
 // static void	reset_pipes(t_shell *sh)
 // {
-// 	if (sh->pipe->pipefd[0] > -1 || sh->pipe->pipefd[1] > -1)
+// 	if (sh->pipe->write_pipe[0] > -1 || sh->pipe->write_pipe[1] > -1)
 // 	{
 // 		sh->pipe->redir_out = 0;
 // 		sh->pipe->redir_in = 0;
 // 		reset_fd(sh->terminal);
-// 		// close(sh->pipe->pipefd[0]);
-// 		close(sh->pipe->pipefd[1]);
-// 		// sh->pipe->pipefd[0] = -1;
-// 		sh->pipe->pipefd[1] = -1;
+// 		// close(sh->pipe->write_pipe[0]);
+// 		close(sh->pipe->write_pipe[1]);
+// 		// sh->pipe->write_pipe[0] = -1;
+// 		sh->pipe->write_pipe[1] = -1;
 // 	}
 // }
 
+#include <errno.h>
+ #include <stdio.h>
 void	handler_sigchild(int num)
 {
 	int		status;
 	pid_t	pid;
 	int		temp_pipe[2];
 
-	temp_pipe[0] = dup(g_sh->pipe->pipefd[0]);
-	temp_pipe[1] = dup(g_sh->pipe->pipefd[1]);
+	temp_pipe[0] = dup(g_sh->pipe->write_pipe[0]);
+	temp_pipe[1] = dup(g_sh->pipe->write_pipe[1]);
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
@@ -134,10 +136,20 @@ void	handler_sigchild(int num)
 		// if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
 			// exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
 		// g_sh->pipe->stdincpy = dup(STDIN_FILENO);
-		if (ioctl(g_sh->pipe->stdincpy, TIOCSPGRP, &g_sh->pgid) == -1)
-			exit_error(g_sh, 1, "ioctl error in handler_sigchild()");
-		// g_sh->pipe->pipefd[0] = dup(temp_pipe[0]);
-		// if (dup2(g_sh->pipe->pipefd[0], STDIN_FILENO) < 0)
+		// if (g_sh->pipe->write_pipe[0] == -1 && ioctl(g_sh->pipe->stdincpy, TIOCSPGRP, &g_sh->pgid) == -1)
+		// {
+		// 	perror(strerror(errno));
+		// 	while (ioctl(g_sh->pipe->stdincpy, TIOCSPGRP, &g_sh->pgid) == -1)
+		// 	{
+		// 		ft_putstr_fd("stdincpy: ", 2);
+		// 		ft_putnbr_fd(g_sh->pipe->stdincpy, 2);
+		// 		ft_putchar_fd('\n', 2);
+		// 		perror(strerror(errno));
+		// 	}
+			// exit_error(g_sh, 1, "ioctl error in handler_sigchild()");
+		// }
+		// g_sh->pipe->write_pipe[0] = dup(temp_pipe[0]);
+		// if (dup2(g_sh->pipe->write_pipe[0], STDIN_FILENO) < 0)
 			// exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
 		}
 

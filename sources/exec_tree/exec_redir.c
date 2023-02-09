@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/06 22:55:30 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:49:30 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	exec_redir(t_redir *node, char ***environ_cp,
 		sh->pipe->redir_out = 1;
 	else if (node->cmd && node->cmd->type == CMD && node->close_fd == STDIN_FILENO)
 		sh->pipe->redir_in = 1;
-	if (sh->pipe->pipefd[1] > 0 && node->close_fd == STDOUT_FILENO)
+	if (sh->pipe->write_pipe[1] > 0 && node->close_fd == STDOUT_FILENO)
 	{
-		close(sh->pipe->pipefd[1]);
-		sh->pipe->pipefd[1] = -1;
+		close(sh->pipe->write_pipe[1]);
+		sh->pipe->write_pipe[1] = -1;
 	}
 	exec_tree(node->cmd, environ_cp, terminal, sh);
 }
