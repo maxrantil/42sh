@@ -66,6 +66,26 @@ static char	**ft_special_ch_split(char *str)
 	return (ret);
 }
 
+static void	qoute_check(char **split, int index, char *qoute, char *ch)
+{
+	int	bslash;
+
+	bslash = 0;
+	while ((index - 1) > 0 && split[index - 1] && !ft_strcmp(split[index - 1], "\\"))
+	{
+		bslash++;
+		index--;	
+	}
+	ft_printf("breaks here\n");
+	if (bslash % 2 == 0)
+	{
+		if (*qoute == 0)
+			*qoute = *ch;
+		else if (*qoute == *ch)
+			*qoute = 0;
+	}
+}
+
 /**
  * It takes a string, splits it on special characters, and then replaces any
  * dollar signs with the value of the environment variable that follows it.
@@ -78,16 +98,22 @@ static char	**ft_special_ch_split(char *str)
 char	*ft_expansion_dollar(t_shell *sh, char *str)
 {
 	int		i;
+	char	qoute;
 	char	*buff;
 	char	**split_dollar;
 
 	i = -1;
+	qoute = 0;
 	buff = NULL;
 	if (!ft_strcmp(str, "$$"))
 		return (ft_itoa(getpid()));
 	split_dollar = ft_special_ch_split(str);
 	while (split_dollar[++i])
-		ft_catinate_expansion(sh, &split_dollar[i], &buff);
+	{
+		if (!ft_strcmp(split_dollar[i], "\'") || !ft_strcmp(split_dollar[i], "\""))
+			qoute_check(split_dollar, i, &qoute, split_dollar[i]);
+		ft_catinate_expansion(sh, &split_dollar[i], &buff , qoute);
+	}
 	ft_memdel((void **)&split_dollar);
 	return (buff);
 }
