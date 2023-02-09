@@ -49,11 +49,11 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-# LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-#CFLAGS				+= 	-Werror
+CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses
@@ -189,6 +189,7 @@ FILES			= \
 				$(FT_TEST)ft_test_le \
 				$(FT_TEST)ft_test_lt \
 				$(FT_TEST)ft_test_ne \
+				$(FT_TEST)ft_test_no_flags \
 				$(FT_TEST)ft_test_not_equal \
 				$(FT_TEST)ft_test_not_return_last \
 				$(FT_TEST)ft_test_p \
