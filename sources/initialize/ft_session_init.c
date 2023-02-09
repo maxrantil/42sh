@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 12:10:29 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/09 10:10:03 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_session_init(t_shell *sh)
 	sh->ampersand = false;
 	g_sh = sh;
 	g_t = sh->term;
-	sh->jobs = NULL;
 	sh->bg_node = NULL;
 	sh->process_count = 0;
 	sh->exit_stat = 0;
@@ -38,7 +37,6 @@ void	ft_session_init(t_shell *sh)
 	sh->head = NULL;
 	sh->tmp_env_key = NULL;
 	sh->tokens = NULL;
-	sh->jobs = ft_init_jobs();
 	sh->pipe = ft_memalloc(sizeof(t_pipe));
 	sh->pipe->pipefd[0] = -1;
 	sh->pipe->pipefd[1] = -1;
@@ -48,4 +46,5 @@ void	ft_session_init(t_shell *sh)
 	sh->is_flag_on = 0;
 	sh->option_count = 0;
 	ft_init_fg_node(sh);
+	sh->exit_confirm = -1;
 }

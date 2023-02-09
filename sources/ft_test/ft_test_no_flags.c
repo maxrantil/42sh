@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_all_bg_processes.c                           :+:      :+:    :+:   */
+/*   ft_test_no_flags.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 15:48:03 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/02 15:48:20 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/08 18:06:42 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/08 18:11:39 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	close_all_bg_processes(t_shell *sh)
+int		ft_test_no_flags(char **str)
 {
-	t_bg_jobs	*bg_node;
-
-	bg_node = sh->bg_node;
-	while (bg_node)
-	{
-		killpg(bg_node->gpid, SIGKILL);
-		bg_node = bg_node->next;
-	}
+	if (str[1][0] == '\0')
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 12:48:52 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:52:53 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void	free_er(t_param *pa, char **cmd, char **subst_cmd, int *j)
 	ft_strdel(&pa->strip);
 	ft_strdel(&start);
 	ft_strdel(&end);
+}
 }

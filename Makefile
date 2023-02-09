@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/09 11:33:37 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/09 13:53:26 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,11 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+# LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-#CFLAGS				+= 	-Werror
+CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses
@@ -148,10 +148,10 @@ FILES			= \
 				$(EXECTREE)exe_logicalop \
 				$(EXPANSION)ft_catinate_expansion \
 				$(EXPANSION)ft_expansion \
-				$(EXPANSION)ft_expansion_utils \
 				$(EXPANSION)ft_expansion_dollar \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
+				$(EXPANSION)ft_quote_bslash_removal \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
@@ -189,6 +189,7 @@ FILES			= \
 				$(FT_TEST)ft_test_le \
 				$(FT_TEST)ft_test_lt \
 				$(FT_TEST)ft_test_ne \
+				$(FT_TEST)ft_test_no_flags \
 				$(FT_TEST)ft_test_not_equal \
 				$(FT_TEST)ft_test_not_return_last \
 				$(FT_TEST)ft_test_p \
@@ -211,11 +212,9 @@ FILES			= \
 				$(INITIALIZE)ft_init_fg_node \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
-				$(INITIALIZE)ft_init_jobs \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
-				$(JOBS)close_all_bg_processes \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
@@ -339,6 +338,7 @@ FILES			= \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
+				$(UTILITIES)jobs_exit_check \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))

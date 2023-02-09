@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 14:08:14 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:49:00 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (**cmd == NULL)
 		return (0);
-	else if (**cmd && !ft_strcmp(**cmd, "set"))
+	if (!ft_strcmp(**cmd, "fc"))
+		ft_fc(sh, cmd);
+	if (**cmd && !ft_strcmp(**cmd, "set"))
 		return (ft_set(sh, cmd));
 	else if (**cmd && !ft_strcmp(**cmd, "export"))
 		return (ft_export(sh, *cmd));
@@ -28,8 +30,6 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 		return (ft_echo(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "history"))
 		return (ft_history(sh->term, *cmd));
-	else if (!ft_strcmp(**cmd, "fc"))
-		return (ft_fc(sh, cmd));
 	else if (!ft_strcmp(**cmd, "test"))
 		return (ft_test(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "hash"))

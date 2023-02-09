@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 15:21:37 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 16:26:21 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/09 12:37:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_inhibitor_catch(t_term *t, ssize_t index, struct s_p_flags *fl)
 	else if (t->inp[index] == '\\')
 		fl->blash = 1;
 	else if ((t->inp[index] == D_QUO || t->inp[index] == S_QUO) \
-	&& !special_char_check(t->inp, index, '\\'))
+	&& !special_char_check(t->inp, index - 1, '\\'))
 		fl->quote = 1;
 	if (t->inp[index] == L_BRAC || t->inp[index] == R_BRAC)
 		fl->bracket = 1;
