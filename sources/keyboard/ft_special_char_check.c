@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 16:35:05 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 12:24:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/09 12:48:12 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ size_t	special_char_check(char *buff, ssize_t pos, char ch)
 	ssize_t	index;
 	ssize_t	count;
 
-	if (!pos)
+	if (!pos && buff[pos] == ch)
+		return (1);
+	else if (!pos)
 		return (0);
 	count = 0;
 	index = pos;
