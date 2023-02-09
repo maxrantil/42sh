@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 17:29:54 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 21:59:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_session_init(t_shell *sh)
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
+	sh->pipe->pid_idx = 0;
 	hash_init(sh);
 	sh->is_flag_on = 0;
 	sh->option_count = 0;

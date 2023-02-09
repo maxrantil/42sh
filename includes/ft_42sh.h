@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 17:25:42 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 21:59:32 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,8 @@ typedef struct s_bg_jobs
 /*				PIPE DATA				*/
 typedef struct s_pipe
 {
-	int		pid;
+	int		pid; //Is this even used?
+	int		pid_idx; //This is for fg struct pids, used only with pipes thou.
 	int		pipefd[2];
 	int		redir_out;
 	int		redir_in;

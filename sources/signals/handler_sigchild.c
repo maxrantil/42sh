@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 17:32:16 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 12:15:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,11 @@ void	handler_sigchild(int num)
 		//TODO Make the dups smarter
 		// if (dup2(g_sh->pipe->stdincpy, STDIN_FILENO) < 0)
 			// exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
+		// g_sh->pipe->stdincpy = dup(STDIN_FILENO);
 		if (ioctl(g_sh->pipe->stdincpy, TIOCSPGRP, &g_sh->pgid) == -1)
 			exit_error(g_sh, 1, "ioctl error in handler_sigchild()");
-		// if (dup2(g_sh->pipe->pipefd[0], temp_pipe[0]) < 0)
+		// g_sh->pipe->pipefd[0] = dup(temp_pipe[0]);
+		// if (dup2(g_sh->pipe->pipefd[0], STDIN_FILENO) < 0)
 			// exit_error(g_sh, 1, "dup2 fail in handler_sigchild");
 		}
 
