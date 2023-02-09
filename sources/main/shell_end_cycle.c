@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/09 15:36:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:23:18 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void    notify_completed_jobs(t_shell *sh)
     {
         if (ptr->status == DONE || ptr->status == TERMINATED)
 		{
-            display_job_node(sh, ptr);
+            // display_job_node(sh, ptr);
 			bg_node_delete(sh, &ptr);
 		}
 		else

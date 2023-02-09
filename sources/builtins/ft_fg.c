@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 11:30:05 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:22:48 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 	{
 		if (job->status == DONE || job->status == TERMINATED)
 		{
-			display_job_node(sh, job);
+			// display_job_node(sh, job);
 			return (0);
 		}	
 		display_pipeline_cmd(job);

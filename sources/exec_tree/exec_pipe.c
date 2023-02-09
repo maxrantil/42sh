@@ -77,14 +77,15 @@ void	exec_pipe(t_pipenode *pipenode, \
 	sh->pipe->read_pipe[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
 	// print_fg_node(sh);
+		waitpid(sh->pipe->pid, &status, WUNTRACED);
 	//Add more waits?? For both children?? We already wait once in builtins if it's part of pipe. So if not builtin wait twice?
-	if (sh->ampersand)
-		waitpid(sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
-	else
-	{
+	// if (sh->ampersand)
+		// waitpid(sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
+	// else
+	// {
 		//Waits for builtin to finish
 		// waitpid(sh->pipe->pid, &status, WUNTRACED);
-	}
+	// }
 	reset_fd(terminal);
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);

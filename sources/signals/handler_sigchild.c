@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 15:49:30 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:15:46 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,7 @@ void	handler_sigchild(int num)
 {
 	int		status;
 	pid_t	pid;
-	int		temp_pipe[2];
 
-	temp_pipe[0] = dup(g_sh->pipe->write_pipe[0]);
-	temp_pipe[1] = dup(g_sh->pipe->write_pipe[1]);
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
@@ -129,7 +126,7 @@ void	handler_sigchild(int num)
 		{
 			ft_putchar('\n');
 			transfer_to_bg(g_sh, STOPPED);
-			display_suspended_job(g_sh);
+			// display_suspended_job(g_sh);
 			reset_fgnode(g_sh);
 		}
 		//TODO Make the dups smarter

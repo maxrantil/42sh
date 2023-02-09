@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_jobs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:00:54 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 15:11:58 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:23:02 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_jobs(t_shell *sh)
 	job = sh->bg_node;
 	while (job)
 	{
-        display_job_node(sh, job);
+        // display_job_node(sh, job);
 		if (job->status == DONE || job->status == TERMINATED)
 			bg_node_delete(sh, &job);	
 		else
