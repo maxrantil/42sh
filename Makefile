@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/09 11:22:37 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/09 14:16:30 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ endif
 SOURCES 		= 	sources
 INCLUDES		= 	includes/
 LIBRARIES 		= 	libft/
+ALIAS			=	alias/
 BUILDTREE		=	build_tree/
 BUILTIN_UTILS	= 	builtin_utils/
 BUILTIN			= 	builtins/
@@ -89,7 +90,29 @@ SOURCE_COUNT = $(words $(FILES))
 H_FILES 	= 	ft_42sh \
 				keyboard \
 
+
 FILES			= \
+				$(ALIAS)alias \
+				$(ALIAS)alias_array_handling \
+				$(ALIAS)alias_string_handling \
+				$(ALIAS)alias_string_handling2 \
+				$(ALIAS)alias_utilities \
+				$(ALIAS)convert_alias \
+				$(ALIAS)convert_alias2 \
+				$(ALIAS)get_alias \
+				$(ALIAS)init_alias \
+				$(ALIAS)match_alias \
+				$(ALIAS)print_alias \
+				$(ALIAS)unalias \
+				$(ALIAS)validate_alias \
+				$(ALIAS)ft_copy_doublearray \
+				$(ALIAS)ft_create_empty_str_array \
+				$(ALIAS)ft_dub_doublearray \
+				$(ALIAS)ft_exit_error \
+				$(ALIAS)ft_free_doublearray \
+				$(ALIAS)ft_iswhitespace \
+				$(ALIAS)ft_strarray_size \
+				$(ALIAS)ft_strcount \
 				$(BUILDTREE)build_tree \
 				$(BUILDTREE)make_arg_array \
 				$(BUILDTREE)bt_utils \
@@ -357,6 +380,7 @@ $(NAME): libft/libft.a $(OBJECTS) $(O_PATHS)
 
 $(OBJECTS):
 	@make -C $(LIBRARIES)
+	@mkdir -p $(OBJECTS)/$(ALIAS)
 	@mkdir -p $(OBJECTS)/$(BUILDTREE)
 	@mkdir -p $(OBJECTS)/$(BUILTIN)
 	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)

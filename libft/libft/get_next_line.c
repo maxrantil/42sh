@@ -3,94 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:27:25 by mbarutel          #+#    #+#             */
-/*   Updated: 2022/11/17 17:50:03 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/07 14:59:50 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	line_copy(char **str, char **line)
+static int	join_str(char *tmp, char **files)
 {
-	char	*tmp;
-	char	*tmp2;
+	char	*copy;
 
-	tmp = ft_strdup(*str);
-	tmp2 = *str;
-	*line = ft_strdup(ft_strsep(str, "\n"));
-	if (!line)
+	copy = ft_strdup(*files);
+	if (!copy)
 		return (-1);
-	if (*str)
-	{
-		*str = ft_strdup(*str);
-		ft_strdel(&tmp2);
-	}
-	if (*line[0] == '\0' && tmp[0] == '\0')
-	{
-		ft_strdel(line);
-		ft_strdel(&tmp);
-		ft_strdel(&tmp2);
-		return (0);
-	}
-	ft_strdel(&tmp);
+	ft_strdel(files);
+	*files = ft_strjoin(copy, tmp);
+	free(copy);
+	if (!*files)
+		return (-1);
+	return (0);
+}
+
+static int	sub_move(char **files, char **line, size_t i)
+{
+	*line = ft_strsub(*files, 0, i);
+	if (!*line)
+		return (-1);
+	ft_strcpy(*files, *files + i + 1);
 	return (1);
 }
 
-static int	ret_val(int fd, int ret, char **str, char **line)
+static int	check_buf(char **files, char **line, int res)
 {
-	if (ret < 0)
-		return (-1);
-	return (line_copy(&str[fd], line));
-}
+	size_t	i;
 
-static int	read_ret(int fd, char *buff, char **str)
-{
-	int			ret;
-	char		*tmp;
-
-	if (!str[fd])
-		str[fd] = ft_strdup("");
-	ret = 0;
-	if (!ft_strchr(str[fd], '\n'))
+	i = 0;
+	while (*(*files + i))
 	{
-		ret = read(fd, buff, BUFF_SIZE);
-		while (ret > 0)
-		{
-			buff[ret] = '\0';
-			tmp = ft_strjoin(str[fd], buff);
-			ft_strdel(&str[fd]);
-			str[fd] = tmp;
-			if (ft_strchr(buff, '\n'))
-				break ;
-			ret = read(fd, buff, BUFF_SIZE);
-		}
+		if (*(*files + i) == '\n')
+			return (sub_move(files, line, i));
+		i++;
 	}
-	return (ret);
+	if (res == 0)
+	{
+		if (i > 0)
+		{
+			*line = ft_strdup(*files);
+			if (!*line)
+				return (-1);
+			ft_strdel(files);
+			return (1);
+		}
+		else
+			return (0);
+	}
+	return (2);
 }
 
-/**
- * Reads a file descriptor and returns a line ending with a newline character 
- * from a file descriptor
- * 
- * @param fd file descriptor
- * @param line This is the address of a pointer to a character that will be 
- * used to save the line read from the file descriptor.
- * 
- * @return 1, 0, or -1 depending on whether a line has been read, when the 
- * reading has been completed, or if an error has happened respectively.
- */
+static int	check_args(char **line, char **files, int res_buf, char *tmp)
+{
+	int	res_check;
+
+	if (res_buf == 0 && !*files)
+		return (res_buf);
+	if (*files && res_buf != 0)
+	{
+		res_check = join_str(tmp, files);
+		if (res_check == -1)
+			return (res_check);
+	}
+	else if (!*files && res_buf != 0)
+	{
+		*files = ft_strdup(tmp);
+		if (!*files)
+			return (-1);
+	}
+	ft_strclr(tmp);
+	res_check = check_buf(files, line, res_buf);
+	return (res_check);
+}
+
 int	get_next_line(const int fd, char **line)
 {
-	int			ret;
-	static char	*str[FD_SIZE];
-	char		buff[BUFF_SIZE + 1];
+	static char	*files[4096];
+	char		tmp[BUFF_SIZE + 1];
+	int			res_buf;
+	int			res_check;
 
-	if (fd >= 0 && line && fd <= FD_SIZE)
+	if (BUFF_SIZE <= 0 || fd > 4096 || !line || fd < 0)
+		return (-1);
+	res_buf = read(fd, tmp, BUFF_SIZE);
+	while (res_buf != -1)
 	{
-		ret = read_ret(fd, buff, str);
-		return (ret_val(fd, ret, str, line));
+		tmp[res_buf] = '\0';
+		res_check = check_args(line, &files[fd], res_buf, tmp);
+		if (res_check != 2)
+			return (res_check);
+		res_buf = read(fd, tmp, BUFF_SIZE);
 	}
 	return (-1);
 }
