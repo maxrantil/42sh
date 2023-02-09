@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 22:31:00 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 12:48:52 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ char *sent_start(char *cmd)
 	int	i;
 	
 	i = 0;
+	
 	fresh = ft_strnew(ft_strlen(cmd));
+	if (cmd[i] == '$')
+		return fresh;
 	while(cmd[i])
 	{
 		fresh[i] = cmd[i];
@@ -29,24 +32,30 @@ char *sent_start(char *cmd)
 	return (fresh);
 }
 
-void	free_er(t_param *pa, char **cmd, char *new_cmd, int *j)
+void	free_er(t_param *pa, char **cmd, char **subst_cmd, int *j)
 {
-	char *temp;
+	char	*temp;
 	char	*start;
 	char	*end;
 
 	start = sent_start(*cmd);
 	end = ft_strdup(&(*cmd)[*j]);
 	temp = ft_strjoin(start, pa->expanded);
-	*j += ft_strlen(pa->expanded);
-	ft_printf("%s\n",temp);
+	*j = ft_strlen(temp) - 1;
+	ft_printf("start %s\n",start);
+	ft_printf("end %s\n",end);
+	//ft_printf("temp %s end [%c]\n",temp, (*cmd)[*j]);
 	ft_strdel(&(*cmd));
-	*cmd = ft_strjoin(temp, end);
+	(*cmd) = ft_strjoin(temp, end);
+	ft_printf("%s %d %d\n",temp, ft_strlen(*cmd), *j);
+	if (!ft_strchr(*cmd, '$'))
+		*j = ft_strlen(*cmd) - 1;
+	ft_printf("[%s] [%d] [%d] [%c]\n",*cmd, ft_strlen(*cmd), *j, (*cmd)[*j]);
 	ft_strdel(&pa->expanded);
 	//ft_strdel(&pa->var);
 	//ft_strdel(&pa->subs);
 	ft_strdel(&temp);
-	//ft_strdel(&pa->strip);
+	ft_strdel(&pa->strip);
 	ft_strdel(&start);
 	ft_strdel(&end);
 }

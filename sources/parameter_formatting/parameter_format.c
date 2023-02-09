@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 22:36:05 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 13:19:49 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@ extern t_shell	*g_sh;
 
 static int	check_syntax(char *cmd)
 {
-	if (ft_strnequ(cmd, "${", 2) && cmd[ft_strlen(cmd) -1] == '}')
+	int	len;
+
+	if (!cmd)
+		return 0;
+	len = ft_strlen(cmd) - 1;
+	if (ft_strnequ(cmd, "${", 2) && cmd[len] == '}')
 		return (1);
 	return (0);
 }
@@ -152,7 +157,6 @@ static int expander(t_param *pa, int ret)
 			pa->expanded = ft_strdup(temp);
 			ft_strdel(&subs);
 			ft_strdel(&temp);
-			
 		}
 		else if ((ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '#')
 			|| (ft_strnequ(pa->list[i], "${", 2) && pa->flag[0] == '%'))
@@ -236,14 +240,20 @@ char *separate_form(char *cmd)
 	char	*fresh;
 	int		i;
 	int		k;
+	int		open;
 
 	i = -1;
 	k = 0;
+	open = 0;
 	fresh = ft_strnew(100);
 	while (cmd[++i])
 	{
 		fresh[k++] = cmd[i];
-		if (cmd[i] == '}')
+		if (cmd[i] == '{')
+			open += 1;
+		else if (cmd[i] == '}')
+			open -= 1;
+		if (cmd[i] == '}' && open == 0)
 		{
 			break ;
 		}
@@ -261,25 +271,29 @@ int	param_format(char **cmd)
 	int		err;
 	t_param	pa;
 	char	*new_cmd;
-	char	*ev_after;
+	char	*subst_cmd;
 
-	init_pa(&pa);
-	ret = 0;
+	
 	err = 0;
 	i = -1;
-	k = 0;
+	
 	j = 0;
+	new_cmd = NULL;
 	while (cmd[++i])
 	{
+		
 		while (cmd[i][j])  // (check_syntax(cmd[i]))
 		{
-			
+			k = 0;
+			init_pa(&pa);
+			//ft_printf("char %c\n", cmd[i][j]);
+			ret = 0;
 			if (ft_strnequ(&cmd[i][j], "${", 2))
 			{
 				ft_printf("new\n");
 				new_cmd = separate_form(&cmd[i][j]);
 				j += ft_strlen(new_cmd);
-				ft_printf("new_cmd %s\n", new_cmd);
+				ft_printf("start new_cmd %s\n", new_cmd);
 			}
 			// 	separate_form(&ev_before, &ev_after);
 			if (check_syntax(new_cmd))
@@ -304,13 +318,19 @@ int	param_format(char **cmd)
 				else
 				{
 					ft_printf("expanded %s %d\n", pa.expanded, ret);
-					free_er(&pa, &cmd[i], new_cmd, &j);
-					//j += ft_strlen(pa.expanded);
-					//ft_strdel(&pa.expanded);
+					free_er(&pa, &cmd[i], &subst_cmd, &j);
 				}
+				
 			}
-			j++;
+			//ft_strdel(&pa.expanded);
+			ft_strdel(&new_cmd);
+			if (cmd[i][j])
+				j++;
 		}
+		// while (k < 100)
+		// 	ft_strdel(&pa.list[k++]);
+		// free(pa.list);
+		// ft_strdel(&pa.expanded);
 		j = 0;
 	}
 	while (k < 100)
