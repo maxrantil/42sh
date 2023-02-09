@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/06 12:54:46 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:58:34 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,14 +253,100 @@ typedef struct s_shell
 	char			**intr_vars;
 	char			**env;
 	char			**tmp_env_key;
+	char			**alias;
 	char			*line;
 	char			*terminal;
+	int				alias_size;
 	int				process_count;
 	int				exit_stat;
 	int				is_flag_on;
 	int				option_count;
 	bool			ampersand;
 }				t_shell;
+
+	/*	libft 	*/
+	int		ft_iswhitespace(char c);
+	int		ft_strcount(char *str, char target);
+	void	ft_free_doublearray(char ***array);
+	char	**ft_create_empty_str_array(int size);
+	void	ft_copy_doublearray(char **src, char **dst);
+	char	**ft_dup_doublearray(char **original);
+	int		ft_strarray_size(char **arr);
+	void	ft_exit_error(char *msg, int ret);
+	char	*ft_strjoin_three(char *s1, char *s2, char *s3);
+	size_t	ft_strlen_match(char *str, char delimiter);			// ?
+
+/*					ALIAS					*/
+//	unalias.c
+	void	unalias_error(t_shell *sh, char *str);
+	int		delete_all_alias(t_shell *sh);
+	void	remove_alias_single(char ***alias, int rm_pos, int size);
+	void	remove_alias(t_shell *sh, int skip_pos);
+	int		unalias(t_shell *sh, char **args);
+//	validate_alias.c
+	int		validate_alias_name_print(char *alias_name, int len);
+	int		validate_alias_name(char *alias_name, int len);
+	int		validate_alias(char *alias, int print_error);
+	int		validate_whitespace(char *str);
+//	print_alias.c
+	void	alias_error(char *str);
+	void	sort_aliases(char **alias);
+	int		print_alias_single(char *cmd, char **aliases);
+	void	print_alias_all(char **alias, t_shell *sh);
+//	init_alias.c
+	char	*format_alias(char *line);						// MALLOC
+	void	fill_alias_array(char *file, char **alias, int file_fd);
+	int		count_aliases_rcfile(int alias_file);
+	char	**create_alias_array(int file_fd, char *filename, t_shell *sh);
+	void	init_alias(t_shell *sh);
+//	get_alias.c
+	char	*get_post_content(char *line, char *arg);		// MALLOC
+	char	*get_alias_content_no_quotes(char *alias);		// MALLOC
+	char	*get_alias_command(char *alias);				// MALLOC
+	char	*get_alias_content(char *alias);				// MALLOC
+	char	*get_first_word(char *line);					// MALLOC
+//	match_alias.c
+	int		check_alias_match(char **aliases, char *cmd);	//return[pos] OR -1
+	int		match_first_word(char **alias, char *line);
+//	alias_array_handling.c
+	void	dup_arr_rm_pos(char **alias, char ***dup_alias, int pos, int size);
+	void	free_and_refill_dup_alias(char ***dup_alias, char **original);	// reset
+//	alias_string_handling.c
+	void	add_quotes(char **content);
+	int		skip_to_second_word(char *line);
+	void	add_space(char **next);
+	void	append_to_converted(char **line, char **next, char **post);
+	void	append_next_word(char **line, char **next);
+//	alias_utilities.c
+	int		word_count(char *line);
+	ssize_t	find_matching_quote(char *str, char quote);
+	size_t	strip_quotes_single(char *str, size_t quote1);
+//	convert_alias.c
+	int		check_command_separator(char *line);
+	void	convert_first_word(char ***alias, char **line, int size);
+	char	*check_valid_input(char *line, int i);
+	int		convert_alias(char **line, t_shell *sh, int pos);
+	void	alias_convert_line(char **line, t_shell *sh);
+//	alias_string_handling2.c
+	void	get_first_word_move_post(char **post_content, char **next_word);
+	char	*get_mid_word(char *line);
+void	trim_mid_word(char **mid, char **orig_post);
+	char	*save_pre_semicolon(char *line, int pos);
+	void	remove_quotes_cmd(char *cmd);
+//	convert_alias2.c
+	int		check_next_conversion(char *alias);
+	void	update_alias_line(char **line, char **pre_semicolon);
+	char	*convert_first(t_shell *sh, char ***dup_alias, char **line, char *cont);
+void	conversion_loop(t_shell *sh, char **line, char **content);
+	void	conversion_dispatch(t_shell *sh, char **line, char **cont, int pos);
+//	alias.c
+char	*construct_alias(char *cmd, t_shell *sh);
+void	add_alias(t_shell *sh, char *cmd);
+void	add_or_print_alias(char **args, t_shell *sh);
+int		alias(t_shell *sh, char **args);
+// int	validate_char_range(char *str, int i, int start);	// no need ?
+// int	validate_reserved_keywords(char *str);			// no need ?
+// void	convert_dollar_tilde(char *cmd, int i, t_shell *sh);	// no need ?
 
 /*					BUILDTREE				*/
 t_treenode		*build_tree(t_token **tokens);
