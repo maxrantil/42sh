@@ -171,10 +171,10 @@ FILES			= \
 				$(EXECTREE)exe_logicalop \
 				$(EXPANSION)ft_catinate_expansion \
 				$(EXPANSION)ft_expansion \
-				$(EXPANSION)ft_expansion_utils \
 				$(EXPANSION)ft_expansion_dollar \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
+				$(EXPANSION)ft_quote_bslash_removal \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
@@ -235,7 +235,6 @@ FILES			= \
 				$(INITIALIZE)ft_init_fg_node \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
-				$(INITIALIZE)ft_init_jobs \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
