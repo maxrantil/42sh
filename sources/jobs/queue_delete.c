@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_dfl.c                                   :+:      :+:    :+:   */
+/*   queue_delete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 18:25:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 11:10:48 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/07 15:33:04 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/07 16:23:04 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It sets all the signals to their default behavior
- */
-void	ft_signal_dfl(void)
+void	queue_delete(t_shell *sh, t_bg_jobs *process)
 {
-	int	sig;
+	int	i;
 
-	sig = 0;
-	while (++sig < 32)
+	i = -1;
+	while (++i < sh->process_count)
 	{
-		if (sig == SIGCHLD)
-			signal(SIGCHLD, SIG_IGN);
-		else
-			signal(sig, SIG_DFL);
+		if (process->index == sh->process_queue[i])
+		{
+			ft_memmove(&sh->process_queue[i], &sh->process_queue[i + 1], \
+			(sh->process_count - 1 - i) * sizeof(int));
+			sh->process_count--;
+			break ;
+		}
 	}
 }

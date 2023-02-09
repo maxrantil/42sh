@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_variables.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/01/26 09:56:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/02 19:26:05 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int ft_variables(t_shell *sh, char ***cmd)
 		while(sh->intr_vars[i])
 			ft_printf("intern var %s %c\n", sh->intr_vars[i++], **cmd[0]);
 	}
-	//ft_printf("%d\n", ret);
 	return (ret);
 }

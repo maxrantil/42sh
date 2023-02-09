@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/06 13:48:38 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 11:55:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,23 @@ static void	ft_reset_tmp_env(t_shell *sh)
 	}
 }
 
+static void    notify_completed_jobs(t_shell *sh)
+{
+    t_bg_jobs    *ptr;
+
+    ptr = sh->bg_node;
+    while (ptr)
+    {
+        if (ptr->status == DONE || ptr->status == TERMINATED)
+		{
+            display_job_node(sh, ptr);
+			bg_node_delete(sh, &ptr);
+		}
+		else
+			ptr = ptr->next;
+    }
+}
+
 /**
  * It resets the tokens and sets the return value to 0
  *
@@ -52,4 +69,6 @@ void	shell_end_cycle(t_shell *sh)
 	free_tokens(&sh->tokens);
 	reset_fd(sh->terminal);
 	ft_reset_tmp_env(sh);
+	notify_completed_jobs(sh);
+	init_window_size(sh->term);
 }

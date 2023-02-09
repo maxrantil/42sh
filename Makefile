@@ -6,7 +6,7 @@
 #    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/09 13:59:46 by rvuorenl         ###   ########.fr        #
+#    Updated: 2023/02/09 14:16:30 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,6 +141,7 @@ FILES			= \
 				$(BUILTIN_UTILS)ft_env_replace \
 				$(BUILTIN_UTILS)ft_env_temp \
 				$(BUILTIN_UTILS)bg_fetch_node \
+				$(BUILTIN_UTILS)bg_fetch_node_utils \
 				$(BUILTIN_UTILS)flag_check \
 				$(BUILTIN_UTILS)builtin_usage \
 				$(BUILTIN_UTILS)cd_utils \
@@ -211,6 +212,7 @@ FILES			= \
 				$(FT_TEST)ft_test_le \
 				$(FT_TEST)ft_test_lt \
 				$(FT_TEST)ft_test_ne \
+				$(FT_TEST)ft_test_no_flags \
 				$(FT_TEST)ft_test_not_equal \
 				$(FT_TEST)ft_test_not_return_last \
 				$(FT_TEST)ft_test_p \
@@ -237,16 +239,18 @@ FILES			= \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
-				$(JOBS)close_all_bg_processes \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
+				$(JOBS)display_job_node \
+				$(JOBS)queue_delete \
 				$(JOBS)reset_fgnode \
 				$(JOBS)reset_cmd \
 				$(JOBS)set_process_group \
 				$(JOBS)transfer_to_fg \
+				$(JOBS)transfer_to_bg_utils \
 				$(JOBS)transfer_to_bg \
 				$(JOBS)triple_ptr_len \
 				$(JOBS)update_fg_job \
@@ -322,7 +326,13 @@ FILES			= \
 				$(MAIN)main \
 				$(MAIN)shell_end_cycle \
 				$(MAIN)reset_fd \
+				$(PARAM_FORM)add_var_to_list \
 				$(PARAM_FORM)parameter_format \
+				$(PARAM_FORM)retokenize \
+				$(PARAM_FORM)substitute_or_create \
+				$(PARAM_FORM)search_from_var \
+				$(PARAM_FORM)free_param \
+				$(PARAM_FORM)remove_braces \
 				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
@@ -352,6 +362,7 @@ FILES			= \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
+				$(UTILITIES)jobs_exit_check \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))
 O_PATHS		=	$(addsuffix .o, $(addprefix $(OBJECTS)/,$(FILES)))

@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 11:55:19 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:17:22 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	main_loop(t_shell *sh)
 		if (ft_keyboard(sh->term) == 1)
 		{
 			ft_history_write_to_file(sh->term);
-			status = 0;
+			jobs_exit_check(sh);
+			if (sh->exit_confirm >= 0)
+				ft_putstr("There are stopped jobs.\n");
+			else
+				status = 0;
 		}
 		ft_raw_disable(sh->orig_termios);
 		if (*(sh->term->inp))
@@ -53,8 +57,6 @@ int	main(void)
 	ft_history_get(sh->term);
 	main_loop(sh);
 	hash_free(sh->ht);
-	close_all_bg_processes(sh);
 	ft_strdel(&sh->terminal);
-	//exit(0);
 	return (0);
 }

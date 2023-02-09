@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 18:01:29 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/07 14:24:06 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static char	*search_variable(char **environ_cp, char *var_name)
 
 static int	try_cmd(char **cmd, char **environ_cp, char **temp_path)
 {
-	if (!access(*cmd, F_OK) && !access(*cmd, X_OK))
+	if ((!access(*cmd, F_OK) && !access(*cmd, X_OK)) || ((*cmd) && !(**cmd)))
 	{
-		if (ft_strchr(*cmd, '/'))
+		if (ft_strchr(*cmd, '/') || ft_strchr(*cmd, '.') || ((*cmd) && !(**cmd)))
 			return (1);
 	}
 	*temp_path = search_variable(environ_cp, "PATH");

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/27 19:11:47 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 18:10:29 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,25 @@
 *	Only one operator is allowed,
 *	so for example in: test -fe, -fe is treated as operand.
 */
-static int	validate_input(t_shell *sh, char **cmd, int punctuation)
+static int	validate_input(t_shell *sh, char **cmd, int argc, int punctu)
 {
-	int		argc;
+	/* int		argc;
 
-	argc = ft_arrlen(cmd);
-	if (argc > (4 + punctuation))
+	argc = ft_arrlen(cmd); */
+	if (argc > (4 + punctu))
 		ft_err_print(NULL, "test", "too many arguments", 2);
-	else if (argc == (4 + punctuation) \
-			&& !ft_test_is_binary(cmd[2 + punctuation]))
-		ft_err_print("test", cmd[3 + punctuation], \
+	else if (argc == (4 + punctu) \
+			&& !ft_test_is_binary(cmd[2 + punctu]))
+		ft_err_print("test", cmd[3 + punctu], \
 		"binary operator expected", 2);
-	else if (argc == (3 + punctuation) \
-			&& !ft_test_is_unary(cmd[1 + punctuation]))
-		ft_err_print("test", cmd[1 + punctuation], \
+	else if (argc == (3 + punctu) \
+			&& !ft_test_is_unary(cmd[1 + punctu]))
+		ft_err_print("test", cmd[1 + punctu], \
 		"unary operator expected", 2);
+	/* else if (argc == (2 + punctu))
+		ft_test_no_flags(cmd);
+	else if (argc < (2 + punctu))
+		ft_putstr_fd("42sh: test: too few arguments, need spaces between arguments\n", 2); */
 	else
 		return (0);
 	sh->exit_stat = 2;
@@ -107,13 +111,19 @@ static int	operator_dispatcher(char **cmd, int punctuation)
 
 int	ft_test(t_shell *sh, char **cmd)
 {
+	int		argc;
 	int		punctuation;
 
+	argc = ft_arrlen(cmd);
 	punctuation = 0;
 	if (cmd[1] && ft_strequ(cmd[1], "!"))
 		punctuation = 1;
 	sh->exit_stat = 1;
-	if (validate_input(sh, cmd, punctuation))
+	if (argc == 1)
+		return (0);
+	else if (argc == 2)
+		return (ft_test_no_flags(cmd));
+	else if (validate_input(sh, cmd, argc, punctuation))
 		return (0);
 	sh->exit_stat = operator_dispatcher(cmd, punctuation);
 	return (0);

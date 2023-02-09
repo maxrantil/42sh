@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   triple_ptr_len.c                                   :+:      :+:    :+:   */
+/*   free_param.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 14:21:41 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 12:32:15 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/08 14:24:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It returns the length of a triple pointer
- * 
- * @param arr The array of strings to be freed.
- * 
- * @return The length of the array of strings.
- */
-size_t	triple_ptr_len(char ***arr)
+void	free_er(t_param *pa, char **cmd, int i)
 {
-	size_t	len;
-
-	len = 0;
-	while (*(arr + len))
-		len++;
-	return (len);
+	ft_strdel(&cmd[i]);
+	cmd[i] = ft_strdup(pa->expanded);
+	ft_strdel(&pa->expanded);
+	ft_strdel(&pa->var);
+	ft_strdel(&pa->subs);
+	ft_strdel(&pa->strip);
 }

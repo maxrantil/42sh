@@ -6,28 +6,13 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:12:53 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/06 12:08:34 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 16:04:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 extern t_shell	*g_sh;
-
-static void	print_args(char **args)
-{
-	int		i;
-
-	i = 0;
-	while (args[i])
-	{
-		ft_putstr(args[i]);
-		if (args[i + 1])
-			ft_putchar(' ');
-		i++;
-	}
-	ft_putchar('\n');
-}
 
 static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
 {
@@ -56,7 +41,7 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 				exe_fail(cmd, args, environ_cp);
 			exit(1);
 		}
-		if (g_sh->ampersand && g_sh->pipe->pipefd[0] == -1)
+		if (g_sh->ampersand)
 			waitpid(pid, &status, WNOHANG | WUNTRACED);
 		else if (g_sh->pipe->pipefd[0] == -1)
 			waitpid(pid, &status, WUNTRACED);
@@ -64,36 +49,51 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 	return (status);
 }
 
-void	tulosta_lista(char **lista)
-{
-	int i = 0;
-	while (lista[i])
-	{
-		ft_printf("%s\n", lista[i]);
-		i++;
-	}
-}
+// void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
+// {
+// 	char	*cmd;
+// 	int		access;
+// 	int		status;
+// 	int		hash;
+// 	char	**args;
 
+// 	args = head->cmd;
+// 	if (!args[0])
+// 		return ;
+// 	if (sh->term->fc_flag)
+// 		print_args(args);
+// 	if (!ft_builtins(sh, &args, environ_cp))
+// 		return ;
+// 	hash = 0;
+// 	cmd = hash_check(sh, args[0], &hash);
+// 	if (!hash && !check_if_user_exe(args[0], &cmd))
+// 		cmd = search_bin(args[0], *environ_cp);
+// 	access = check_access(cmd, args, sh);
+// 	status = ft_execve(&cmd, head, access, environ_cp);
+// 	if (access)
+// 	{
+// 		sh->exit_stat = status >> 8;
+// 		if (!hash)
+// 			hash_init_struct(sh, cmd, 1);
+// 	}
+// 	ft_memdel((void **)&cmd);
+// }
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;
 	int		access;
 	int		status;
 	int		hash;
-	char	**args;
 
-	args = head->cmd;
-	if (!args[0])
+	if (!head->cmd[0])
 		return ;
-	if (sh->term->fc_flag)
-		print_args(args);
-	if (!ft_builtins(sh, &args, environ_cp))
+	if (!ft_builtins(sh, &head->cmd, environ_cp))
 		return ;
 	hash = 0;
-	cmd = hash_check(sh, args[0], &hash);
-	if (!hash && !check_if_user_exe(args[0], &cmd))
-		cmd = search_bin(args[0], *environ_cp);
-	access = check_access(cmd, args, sh);
+	cmd = hash_check(sh, head->cmd[0], &hash);
+	if (!hash && !check_if_user_exe(head->cmd[0], &cmd))
+		cmd = search_bin(head->cmd[0], *environ_cp);
+	access = check_access(cmd, head->cmd, sh);
 	status = ft_execve(&cmd, head, access, environ_cp);
 	if (access)
 	{

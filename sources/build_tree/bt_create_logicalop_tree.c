@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/28 17:15:21 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:22:43 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,18 @@ static t_treenode	*create_logical_op_node(t_token *tokens,
 	if (next_op_node >= 0)
 		((t_logicalop *)logical_op)->right
 			= create_logical_op_node(tokens, next_op_node, semicol);
-	start_of_left_cmd = idx_logical_op - 1;
-	while (start_of_left_cmd > 0
+	start_of_left_cmd = idx_logical_op + 1;
+	while (start_of_left_cmd < semicol
 		&& !is_semicolon_or_ampersand(tokens[start_of_left_cmd].token)
 		&& !is_logicalop(tokens[start_of_left_cmd].token))
-		--start_of_left_cmd;
-	if (start_of_left_cmd > 0)
 		++start_of_left_cmd;
+	if (start_of_left_cmd > 0)
+		--start_of_left_cmd;
 	((t_logicalop *)logical_op)->left
-		= create_command_tree(tokens, start_of_left_cmd, idx_logical_op);
+		= create_command_tree(tokens, idx_logical_op + 1, start_of_left_cmd + 1);
 	if (((t_logicalop *)logical_op)->right == NULL)
 		((t_logicalop *)logical_op)->right
-			= create_command_tree(tokens, idx_logical_op + 1, semicol);
+			= create_command_tree(tokens, start_of_left_cmd + 2, semicol);
 	return (logical_op);
 }
 
@@ -86,10 +86,18 @@ t_treenode	*create_logical_op_tree(t_token *tokens, int i_tok, int semicol)
 {
 	int			logical_op;
 	t_treenode	*head;
+	t_treenode	*logicalptr;
 
 	logical_op = next_logical_op(tokens, i_tok, semicol);
 	if (logical_op >= 0)
-		head = create_logical_op_node(tokens, logical_op, semicol);
+	{
+		logicalptr = init_logical_op(logical_op_type(tokens, logical_op));
+		((t_logicalop *)logicalptr)->left = parse_left_cmd(tokens, i_tok);
+		((t_logicalop *)logicalptr)->right = create_logical_op_node(tokens,
+			logical_op, semicol);
+		head = logicalptr;
+		// head = create_logical_op_node(tokens, logical_op, semicol);
+	}
 	else
 		head = create_command_tree(tokens, i_tok, semicol);
 	return (head);

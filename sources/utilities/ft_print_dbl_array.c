@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:04:31 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 11:56:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:17:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * 
  * @param cmd The array of strings to print
  */
-void ft_print_dbl_array(char **cmd)
+void	ft_print_dbl_array(char **cmd)
 {
 	int	i;
 

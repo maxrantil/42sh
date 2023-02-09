@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   triple_ptr_len.c                                   :+:      :+:    :+:   */
+/*   remove_braces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 14:21:41 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 12:32:15 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/07 11:31:35 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It returns the length of a triple pointer
- * 
- * @param arr The array of strings to be freed.
- * 
- * @return The length of the array of strings.
- */
-size_t	triple_ptr_len(char ***arr)
+char	*remove_braces(char *str)
 {
-	size_t	len;
+	int		i;
 
-	len = 0;
-	while (*(arr + len))
-		len++;
-	return (len);
+	i = 1;
+	if (!str[1] || str[1] != '{')
+		return (str);
+	str[1] = str[2];
+	str[ft_strlen(str) - 1] = '\0';
+	while (str[i])
+	{
+		str[i] = str[i + 1];
+		i++;
+	}
+	return (str);
 }

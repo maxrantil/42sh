@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 19:38:23 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/06 23:04:19 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:16:56 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (**cmd == NULL)
 		return (0);
-	else if (**cmd && !ft_strcmp(**cmd, "set"))
+	if (!ft_strcmp(**cmd, "fc"))
+		ft_fc(sh, cmd);
+	if (**cmd && !ft_strcmp(**cmd, "set"))
 		return (ft_set(sh, cmd));
 	else if (**cmd && !ft_strcmp(**cmd, "export"))
 		return (ft_export(sh, *cmd));
@@ -28,8 +30,6 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 		return (ft_echo(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "history"))
 		return (ft_history(sh->term, *cmd));
-	else if (!ft_strcmp(**cmd, "fc"))
-		return (ft_fc(sh, cmd));
 	else if (!ft_strcmp(**cmd, "test"))
 		return (ft_test(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "hash"))
@@ -65,10 +65,10 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (sh && cmd)
 	{
-		ft_expansion(sh, *cmd);
 		ft_env_last_command(sh, *cmd);
-		if (param_format(sh, *cmd) == -1)
+		if (param_format(*cmd) == -1)
 			return (0);
+		ft_expansion(sh, *cmd);
 		*(cmd) += ft_variables(sh, cmd);
 		return (cmd_comparisons(sh, cmd, environ_cp));
 	}

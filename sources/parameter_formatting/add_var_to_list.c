@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   triple_ptr_len.c                                   :+:      :+:    :+:   */
+/*   add_var_to_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 14:21:41 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/05 12:32:15 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/01 09:48:51 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/01 09:49:03 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It returns the length of a triple pointer
- * 
- * @param arr The array of strings to be freed.
- * 
- * @return The length of the array of strings.
- */
-size_t	triple_ptr_len(char ***arr)
+void	add_var_to_list(t_shell *sh, char *var, char *subst)
 {
-	size_t	len;
+	int	i;
 
-	len = 0;
-	while (*(arr + len))
-		len++;
-	return (len);
+	i = 0;
+	while (sh->intr_vars[i])
+		i++;
+	sh->intr_vars[i] = ft_strjoin(var + 1, subst);
 }
