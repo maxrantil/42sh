@@ -3,14 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/05 19:38:23 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/09 14:16:56 by rvuorenl         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/02/10 16:27:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp);
+
+static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
+{
+	int pid;
+
+	if (sh->pipe->piping)
+	{
+		pid = fork_wrap();
+		if (sh->pipe->pid == 0)
+			sh->pipe->pid = pid;
+		if (pid)
+			update_fg_job(sh, pid, *cmd);
+		if (pid == 0)
+		{
+			ft_signal_dfl();
+			if (!sh->pipe->redir_out && sh->pipe->write_pipe[1] >= 0 && dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
+			{
+				ft_err_print("dup2", NULL, "failed", 2);
+				exit(1);
+			}
+			cmd_comparisons(sh, cmd, environ_cp);
+			exit(1);
+		}
+		return (1);
+	}
+	return(0);
+}
+
+static int is_builtin(char *cmd)
+{
+	if (!ft_strcmp(cmd, "set") || !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "unset")\
+		|| !ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "exit")\
+		|| !ft_strcmp(cmd, "hash") || !ft_strcmp(cmd, "history") || !ft_strcmp(cmd, "test")\
+		|| !ft_strcmp(cmd, "fc"))
+		return (1);
+	return (0);
+}
 
 static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 {
@@ -36,7 +75,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 		return (ft_hash(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "exit"))
 		return (ft_exit(sh, *cmd));
-	else if (!ft_strcmp(**cmd, "fg"))
+	else if (!ft_strcmp(**cmd, "fg")) //ADD TO IS_BUILTIN STARTING HERE
 		return (ft_fg(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "bg"))
 		return (ft_bg(sh, *cmd));
@@ -51,17 +90,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 	return (1);
 }
 
-/**
- * It takes a session and a command, expands the command, and then checks if
- * the command is a builtin. If it is, it runs the builtin and returns the exit
- * status. If it's not, it returns 1.
- *
- * @param sh the session struct
- * @param cmd The command to be executed.
- *
- * @return The return value of the builtin function.
- */
-int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
+int		ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (sh && cmd)
 	{
@@ -70,7 +99,12 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 			return (0);
 		ft_expansion(sh, *cmd);
 		*(cmd) += ft_variables(sh, cmd);
-		return (cmd_comparisons(sh, cmd, environ_cp));
+		if (**cmd && !is_builtin(**cmd))
+			return (1);
+		if(!fork_if_pipe(sh, cmd, environ_cp))
+			return(cmd_comparisons(sh, cmd, environ_cp));
+		else
+			return(0);
 	}
 	return (1);
 }
