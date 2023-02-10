@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   update_fg_job.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 00:18:48 by jniemine         ###   ########.fr       */
+/*   Created: 2023/01/31 15:51:30 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/05 12:31:21 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_42sh.h"
 
