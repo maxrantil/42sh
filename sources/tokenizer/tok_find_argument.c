@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:39 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/09 20:17:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:33:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*find_argument(char *line, int *i, int *start, int *end)
 		return (ret);
 	if (!is_seperator(line[*end]) || special_char_check(line, *end - 1, '\\'))
 	{
-		while (line[*end] && (!is_seperator(line[*end]) || special_char_check(line, *end - 1, '\\') || quote))
+		while (line[*end] && (!is_seperator(line[*end]) || special_char_check(line, *end - 1, '\\') || quote || braces))
 			tok_quote_flag(line, end, &quote, &braces);
 		if_redir_with_fd_go_backwards(line, end);
 	}
