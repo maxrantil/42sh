@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flag_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:52:21 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/06 12:13:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/09 20:05:56 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static int	str_only_contains_char(char *str, char c)
 int	check_flag(t_shell *sh, char **commands, char flag)
 {
 	int	i;
-	int	flag_on;
+	// int	flag_on;
 
-	flag_on = 0;
+	// flag_on = 0;
 	i = 1;
 	while (commands[i])
 	{
