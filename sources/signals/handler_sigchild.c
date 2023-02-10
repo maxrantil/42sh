@@ -6,36 +6,13 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 17:37:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:40:19 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 extern t_shell	*g_sh;
-
-// static int	print_fg_node(t_shell *sh)
-// {
-// 	pid_t	*tmp;
-// 	char	***ptr;
-// 	char	**dbl;
-
-// 	tmp = sh->fg_node->pid;
-// 	while (tmp && *tmp)
-// 		ft_printf("pid: %d\n", *(tmp++));
-// 	ptr = sh->fg_node->cmd;
-// 	while (ptr && *ptr)
-// 	{
-// 		dbl = *ptr;
-// 		while (*dbl)
-//         {
-// 			ft_printf("cmd: %s\n", *dbl);
-//             dbl++;
-//         }
-//         ptr++;
-// 	}
-// 	return (0);
-// }
 
 static bool	check_bg_pipeline(t_bg_jobs *job, pid_t pid)
 {
