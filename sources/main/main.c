@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 14:17:22 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/10 23:07:15 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,27 @@ void	main_loop(t_shell *sh)
 		{
 			sh->line = ft_lexer(sh->term);
 			alias_convert_line(&(sh->line), sh);
+			// ft_printf("a\n");
+			// sleep(2);
 			sh->tokens = chop_line(sh->line, sh->tokens, 1);
+			// ft_printf("b\n");
+			// sleep(2);
 			sh->head = build_tree(&sh->tokens);
+			// ft_printf("c\n");
+			// sleep(3);
 			if (sh->head && ((t_semicolon *)sh->head)->left)
 				exec_tree(sh->head, &sh->env, sh->terminal, sh);
+			// ft_printf("d\n");
+			// sleep(3);
 			shell_end_cycle(sh);
+			// ft_printf("e\n");
+			// print_alias_all(sh->alias, sh);
+			// sleep(3);
 		}
 	}
 }
 
+// 							b a; b a ; a;a;
 int	main(void)
 {
 	t_shell		sh[1];
