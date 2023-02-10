@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_length.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:36:38 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 11:37:19 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:24:16 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitute_or_create.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 09:09:25 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:19:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void del_param(t_param *param, int opt)
 		ft_strdel(&param->expanded);
 }
 
-static char *get_temp_subst(t_param *param, t_shell *sh, char *cmd, int *ret)
+static char *get_temp_subst(t_param *param, t_shell *sh, int *ret)
 {
 	char	*subs;
 
@@ -82,7 +82,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 			return(param.expanded);
 		}
 	}
-	subs = get_temp_subst(&param, sh, cmd, ret);
+	subs = get_temp_subst(&param, sh, ret);
 	format = format_mode(param.op);
 	if (!param.expanded || !*param.expanded)
 		param.expanded = get_value(sh, param.var, param.subs, format);

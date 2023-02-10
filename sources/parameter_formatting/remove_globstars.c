@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_globstars.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:33:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 12:34:17 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:24:35 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

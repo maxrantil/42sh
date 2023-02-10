@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_subs_session.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:21:59 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 12:22:20 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:24:24 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
