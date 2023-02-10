@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 15:49:00 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/08 20:13:20 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 	else if (!ft_strcmp(**cmd, "bg"))
 		return (ft_bg(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "jobs"))
-		return (ft_jobs(sh));
+		return (ft_jobs(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "type"))
 		return (type_command(sh, *cmd, *environ_cp));
 	return (1);

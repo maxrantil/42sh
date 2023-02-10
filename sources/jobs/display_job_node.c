@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_job_node.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:32:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 15:12:39 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:20:35 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ static void	print_queue(t_shell *sh, int index)
 
 void	display_job_node(t_shell *sh, t_bg_jobs *job)
 {
+	// at this point we have validated sh->option to be either
+	// 'p' (only pid), 'l' (long format) or 'e' (normal mode)
+	// if first char of node name is '-', we print data of first one on the list
+
 	if (job)
 	{
 		ft_printf("[%d]", job->index + 1);

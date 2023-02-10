@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flag_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:52:21 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/06 12:13:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/10 18:09:20 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 	return 1 for true, 0 for false (bool rather than success)
 */
 
-static int	str_only_contains_chars(char *str, char *options)
+int	str_only_contains_chars(char *str, char *options)
 {
 	int	i;
 	int	j;
@@ -26,21 +26,27 @@ static int	str_only_contains_chars(char *str, char *options)
 
 	i = 1;
 	j = 0;
+	ft_printf("options are: %s\n", options);
 	opt_count = ft_strlen(options);
 	while (str[i])
 	{
 		while (options[j])
 		{
 			if (str[i] == options[j])
+			{
+				ft_printf("they match in idx %d\n", j);
 				break ;
+			}
 			j++;
+			ft_printf("j is %d\n", j);
 		}
 		if (j == opt_count)
-			return (i);
+			return (0);
 		j = 0;
 		i++;
 	}
-	return (0);
+	ft_printf("i think only valid options were given!\n");
+	return (1);
 }
 
 /*
@@ -115,7 +121,7 @@ int	validate_cd_options(t_shell *sh, char **cmds, int i, int d_dash)
 			d_dash = 1;
 			break ;
 		}
-		if (str_only_contains_chars(cmds[i], "LP") != 0)
+		if (str_only_contains_chars(cmds[i], "LP") == 0)
 		{
 			print_usage("cd", cmds[i][str_only_contains_chars(cmds[i], "LP")]);
 			return (1);
