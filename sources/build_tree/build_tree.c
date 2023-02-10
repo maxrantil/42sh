@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:21:00 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/10 18:36:09 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:49:02 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ t_treenode	*parse_left_cmd(t_token *tokens, int i_tok)
 	if (i_tok >= 0 && tokens[i_tok].token == WORD)
 		cmd = i_tok;
 	while (i_tok >= 0 && tokens[i_tok].token != PIPE
-		&& !is_logicalop(tokens[i_tok].token)
-		&& !is_semicolon_or_ampersand(tokens[i_tok].token))
+		&& tokens[i_tok].token != SEMICOLON)
 	{
 		if (tokens[i_tok].token == WORD)
 			cmd = i_tok;
@@ -49,7 +48,7 @@ t_treenode	*parse_left_cmd(t_token *tokens, int i_tok)
 	while (i_tok && tokens[i_tok].token != PIPE
 		&& tokens[i_tok].token != SEMICOLON)
 		--i_tok;
-	if (tokens[i_tok].token == PIPE || is_semicolon_or_ampersand(tokens[i_tok].token))
+	if (tokens[i_tok].token == PIPE /*|| is_semicolon_or_ampersand(tokens[i_tok].token)*/)
 		++i_tok;
 	combine_words(&tokens[i_tok]);
 	return (parse_redirections(tokens, i_tok, cmd));

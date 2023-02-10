@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 17:46:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:35:43 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,17 @@ static void	change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
 static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 {
 	pid_t	*ptr;
-	char	***cmd;
 
 	if (!sh->fg_node->gpid)
 		return ;
 	ptr = sh->fg_node->pid;
-	cmd = sh->fg_node->cmd;
 	while (ptr && *ptr)
 	{
 		if (*ptr == pid)
 		{
-			ft_putstr_fd("RESET FG NODE\n", 2);
-			ft_putstr_fd(**cmd, 2);
-			ft_putstr_fd(*(*cmd + 1), 2);
 			reset_fgnode(sh);
 			return ;
 		}
-		cmd++;
 		ptr++;
 	}
 }
@@ -99,26 +93,32 @@ void	handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
 			if (WIFSIGNALED(status))
 			{
 				if (WTERMSIG(status))
 				{
+					ft_putchar('\n');
 					check_fg_pipeline(g_sh, pid);
 					change_process_status(g_sh->bg_node, pid, TERMINATED);
+					g_sh->exit_stat = WTERMSIG(status) + 128;
 				}
 			}
 			else
+			{
 				change_process_status(g_sh->bg_node, pid, DONE);
+				g_sh->exit_stat = WEXITSTATUS(status);
+			}
 		}
 		else //if suspended it goes here
 		{
 			ft_putchar('\n');
+			--g_sh->process_count;
 			transfer_to_bg(g_sh, STOPPED);
-			// display_suspended_job(g_sh);
+			display_suspended_job(g_sh);
 			reset_fgnode(g_sh);
+			g_sh->exit_stat = 146;
 		}
 		}
 
