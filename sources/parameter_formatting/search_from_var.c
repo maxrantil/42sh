@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 12:42:33 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:50:47 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	init_subs_session(&sub, cmd);
 	sub.needle = get_needle_and_op(sub.strip, sub.op, cmd);
 	if (!*sub.needle)
+	{
+		subs_session_free(&sub);
 		return NULL;
+	}
 	expansion_subst(&sub, sh, ret);
 	replace_haystack(&sub, sh);
 	if (sub.temp_sub!= NULL)
@@ -74,8 +77,6 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 		sub.needle = ft_strdup(sub.temp_sub);
 		ft_strdel(&sub.temp_sub);
 	}
-	(void)sh;
-	(void)*ret;
 	sub.expanded = ft_strdup(ft_find_word(sub.haystack, sub.needle, sub.op));
 	if (!sub.expanded || !*sub.expanded)
 		sub.expanded = ft_strnew(1);

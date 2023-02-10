@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 10:57:45 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 11:11:23 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:22:28 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	substitute_value(t_shell *sh, t_param *pa, int *ret)
 
 	subs = substitute_or_create(g_sh, pa->subs, &ret);
 	temp = ft_strjoin(pa->expanded, subs);
-	ft_strdel(&subs);
 	if (temp == NULL)
 		return (1);
+	ft_strdel(&subs);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strdup(temp);
 	ft_strdel(&temp);
@@ -49,6 +49,7 @@ static void init_join(t_shell *sh, t_param *pa, int *ret)
 {
 	ft_strdel(&pa->subs);
 	pa->subs = ft_strjoin(pa->var, pa->expanded);
+	ft_strdel(&pa->var);
 	pa->oper = get_operator(pa->subs, ret);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strnew(1);
@@ -65,7 +66,11 @@ int join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 	if (pa->oper[0] == GET_VALUE)
 	{
 		if (substitute_value(sh, pa, &ret))
+		{
+			ft_strdel(&pa->subs);
 			return(1);
+		}
+			
 		// subs = substitute_or_create(g_sh, pa->subs, &ret);
 		// temp = ft_strjoin(pa->expanded, subs);
 		// if (temp == NULL)
@@ -92,13 +97,16 @@ int join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 		pa->expanded = variable_length(pa->subs);
 	else
 		pa->expanded = ft_expansion_dollar(sh, cmd);
-	if (!pa->expanded || !*pa->expanded)
+	if (!pa->expanded && !*pa->expanded)
 		pa->expanded = ft_strnew(1);
+	ft_strdel(&pa->subs);
 	if (ret == -1)
 	{
+		
 		ft_strdel(&pa->expanded);
 		ft_printf("42sh: %s: bad substitution\n", cmd);
 		return (-1);
 	}
+	//ft_strdel(&pa->expanded);
 	return (0);
 }

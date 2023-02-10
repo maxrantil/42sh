@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_subs_session.c                                :+:      :+:    :+:   */
+/*   check_variable_validity.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 12:21:59 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 14:49:41 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 15:10:28 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 15:18:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void init_subs_session(t_sub *sub, char *cmd)
+int	check_var_validity(char *var)
 {
-	sub->expanded = NULL;
-	sub->needle = NULL;
-	sub->haystack = NULL;
-	ft_memset(sub->op, '\0', 3);
-	sub->strip = ft_strdup(cmd);
-	remove_braces(sub->strip);
-	sub->temp_hays = NULL;
-	sub->temp_sub = NULL;
+	int	i;
+
+	i = 0;
+	if (var[i] == '$')
+		i++;
+	if (var[i] == '{')
+		i++;
+	if (ft_isalpha(var[i]) || !ft_isalpha(var[i]) && var[i] == '_')
+		i++;
+	while (var[i])
+	{
+		if (!ft_isalnum(var[i]) && var[i] != '}')
+			return (0);
+		i++;
+	}
+	return (1);
 }

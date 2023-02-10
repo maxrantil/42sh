@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 11:53:10 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:20:26 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ int param_format(char **cmd)
 				if (perform_param_expans(new_cmd, &pa, &ints.ret) == 0)
 					substitute_og_cmd(&pa, &cmd[ints.i], &ints.j);
 				else
+				{
+					free_attrs(&pa, &new_cmd);
 					break ;
+				}
+					
 			}
 			if (cmd[ints.i] && cmd[ints.i][ints.j])
 				ints.j++;

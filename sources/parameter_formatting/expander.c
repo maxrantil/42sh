@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:29:33 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 11:50:26 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:39:04 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ static	int	substring_substitution(t_param *pa, int *ret, char *cmd)
 	ft_printf(" eju [%s] \n", cmd);
 	subs = search_from_var(g_sh, cmd, ret);
 	temp = ft_strjoin(pa->expanded, subs);
+	if (!temp)
+		return (1);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strdup(temp);
-	// ft_printf(" expanded [%s] \n", pa->expanded);
 	ft_strdel(&subs);
 	ft_strdel(&temp);
 	return (0);

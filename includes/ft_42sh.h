@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 12:43:00 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 15:17:49 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -634,6 +634,7 @@ void			remove_globstars(char **needle, int *glob);
 char			*find_from_end(char *haystack, char *needle);
 char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
+int				check_var_validity(char *var);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

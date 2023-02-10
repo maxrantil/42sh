@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:19:56 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 11:25:16 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:48:34 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	first_split(char *cmd, t_param *pa, int *ret)
 	pa->op = pa->subs[0];
 	pa->subs = (char *)ft_memmove(pa->subs, pa->subs + 1, ft_strlen(pa->subs));
 	pa->var = ft_strndup(pa->strip, ft_strlen(pa->strip) - (ft_strlen(pa->subs)));
+	ft_strdel(&pa->strip);
 }
 
 static void regular_dollar_expansion(char *cmd, t_param *pa, int *ret)
