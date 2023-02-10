@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/10 14:57:25 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:54:56 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,13 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 	if (head->type == SEMICOLON)
 	{
 		exec_tree((((t_semicolon *)head)->left), environ_cp, terminal, sh);
-
-		sh->pipe->redir_in = 0;
-		sh->pipe->redir_out = 0;
-		reset_fd(terminal); // Always redup after reset_fd
-		sh->pipe->stdincpy = dup(STDIN_FILENO);
-		sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+		reset_fd(terminal);
 		if (head && ((t_semicolon *)head)->right)
 			exec_tree((((t_semicolon *)head)->right), environ_cp, terminal, sh);
 		reset_fd(terminal);
-		sh->pipe->stdincpy = dup(STDIN_FILENO);
-		sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
-		sh->pipe->redir_in = 0;
-		sh->pipe->redir_out = 0;
 	}
 	else if (head->type == PIPE)
-	{
-		sh->pipe->piping = 1;
 		exec_pipe((t_pipenode *)head, environ_cp, terminal, sh);
-	}
 	else if (head->type == REDIR)
 		exec_redir((t_redir *)head, environ_cp, terminal, sh);
 	else if (head->type == AGGREGATION)
@@ -61,5 +49,4 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		exec_tree((((t_ampersand *)head)->right), environ_cp, terminal, sh);
 		reset_fd(terminal);
 	}
-
 }
