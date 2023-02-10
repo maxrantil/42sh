@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:43 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:04:31 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/10 18:51:38 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	ft_unset(t_shell *sh, char **cmd)
 	{
 		if (ft_env_get(sh, *(cmd + i), sh->env))
 		{
+			if (ft_strnequ(*(cmd + i), "PATH", 4))
+				hash_clear(sh->ht);
 			ptr = ft_strjoin(*(cmd + i), "=");
 			ft_env_remove(sh, ptr);
 			ft_strdel(&ptr);
