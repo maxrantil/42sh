@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/09 14:16:45 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:38:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,7 +451,7 @@ int				check_if_user_exe(char *cmd, char **dest);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
 
 /*					EXPANSION				*/
-void			ft_catinate_expansion(t_shell *sh, char **splits, char **buff);
+void			ft_catinate_expansion(t_shell *sh, char **splits, char **buff, char qoute);
 void			ft_expansion(t_shell *sh, char **cmd);
 char			*ft_expansion_dollar(t_shell *sh, char *str);
 char			*ft_expansion_tilde(t_shell *sh, char *str);
@@ -619,7 +619,7 @@ int				is_semi_or_amp(char c);
 void			free_tokens(t_token **tokens);
 int				is_nl(char c);
 int				is_seperator(char c);
-void			tok_quote_flag(char *line, int *end, char *quote_flag);
+void			tok_quote_flag(char *line, int *end, char *quote_flag, char *braces);
 
 /*					UTILITIES				*/
 void			banner_print(void);

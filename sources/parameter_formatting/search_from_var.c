@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_from_var.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 13:51:59 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:08:39 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ static char	*find_from_end(char *haystack, char *needle)
 {
 	int	len;
 	int	len_needle;
-	int	k;
-	int	i;
+	// int	k;
+	// int	i;
 
 	len = (int)ft_strlen(haystack);
-	k = 0;
-	i = 0;
+	// k = 0;
+	// i = 0;
 	ft_printf("haystack %s len [%d]]\n",haystack, len);
 	while (len > 0)
 	{
@@ -104,12 +104,12 @@ static char	*find_from_begin_last(char *haystack, char *needle)
 {
 	int	len;
 	int	len_needle;
-	int	k;
-	int	i;
+	// int	k;
+	// int	i;
 
 	len = (int)ft_strlen(haystack) - 1;
-	k = 0;
-	i = 0;
+	// k = 0;
+	// i = 0;
 	ft_printf("haystack [%s] needle [%s]\n", haystack, needle);
 	while (len > 0)
 	{
@@ -137,13 +137,13 @@ static char	*find_from_first_last(char *haystack, char *needle)
 {
 	int	len;
 	int	len_needle;
-	int	k;
-	int	i;
+	// int	k;
+	// int	i;
 	char	*temp;
 
 	len = (int)ft_strlen(haystack) - 1;
-	k = 0;
-	i = 0;
+	// k = 0;
+	// i = 0;
 	ft_printf("haystack [%s] needle [%s]\n", haystack, needle);
 	while (len > 0)
 	{
