@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 18:49:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:50:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 		return (ft_hash(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "exit"))
 		return (ft_exit(sh, *cmd));
-	else if (!ft_strcmp(**cmd, "fg")) //ADD TO IS_BUILTIN STARTING HERE
+	else if (!ft_strcmp(**cmd, "fg"))
 		return (ft_fg(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "bg"))
 		return (ft_bg(sh, *cmd));
