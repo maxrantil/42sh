@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_node_delete.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 22:10:49 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 15:35:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:15:12 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	bg_node_delete(t_shell *sh, t_bg_jobs **curr)
 
 	prev = (*curr)->prev;
 	next = (*curr)->next;
-	queue_delete(sh, *curr);
+	delete_from_queue(sh, *curr);
 	remove_node(curr);
 	if (prev)
 		prev->next = next;
