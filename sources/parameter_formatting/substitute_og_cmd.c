@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_param.c                                       :+:      :+:    :+:   */
+/*   substitute_og_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 21:02:40 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 09:52:23 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ char *sent_start(char *cmd)
 	return (fresh);
 }
 
-void	free_er(t_param *pa, char **cmd, char **subst_cmd, int *j)
+void	substitute_og_cmd(t_param *pa, char **cmd, int *j)
 {
 	char	*temp;
 	char	*start;
 	char	*end;
 
-	(void)subst_cmd;
 	start = sent_start(*cmd);
 	end = ft_strdup(&(*cmd)[*j]);
 	temp = ft_strjoin(start, pa->expanded);

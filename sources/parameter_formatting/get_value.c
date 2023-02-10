@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 08:48:28 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 08:52:14 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static char *display_error(t_shell *sh, char *var, char *subst)
 	temp = (char **)ft_memalloc(sizeof(char *) * 2);
 	temp[0] = ft_expansion_dollar(sh, var);
 	temp[1] = NULL;
+	expanded = NULL;
 	if (!*temp[0] && subst[1])
 			ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
 	else if (!*temp[0] && !subst[1])
@@ -80,6 +81,7 @@ static char *alternate_value(t_shell *sh, char *var, char *subst)
 	temp = (char **)ft_memalloc(sizeof(char *) * 2);
 	temp[0] = ft_expansion_dollar(sh, var);
 	temp[1] = NULL;
+	expanded = NULL;
 	if (temp[0][0])
 	{
 		if (subst && *subst)
@@ -109,7 +111,5 @@ char	*get_value(t_shell *sh, char *var, char *subst, int format)
 		expanded = display_error(sh, var, subst);
 	else if (format == ALTERNATE_VALUE)
 		expanded = alternate_value(sh, var, subst);
-	// if (*var)
-	//ft_strdel(&var);
 	return (expanded);
 }

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 08:38:30 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:17:24 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,15 @@
 # define ALTERNATE_VALUE 3
 
 typedef union u_treenode	t_treenode;
+
+/*			PARAMETER EXPANSION INTEGERS		*/
+typedef struct s_pa_ints
+{
+	int	i;
+	int	j;
+	int	ret;
+	int	err;
+}	t_pa_ints;
 
 /*					TOKEN STRUCT			*/
 typedef struct s_token
@@ -501,9 +510,10 @@ char			*retokenize(char *subst, int *i);
 char			*substitute_or_create(t_shell *sh, char *cmd, int *ret);
 char			*search_from_var(t_shell *sh, char *cmd, int *ret);
 int				param_format(char **cmd);
-void			free_er(t_param *pa, char **cmd, char **subst_cmd, int *j);
+void			substitute_og_cmd(t_param *pa, char **cmd, int *j);
 char			*remove_braces(char *str);
 char			*get_value(t_shell *sh, char *var, char *subst, int format);
+int				format_mode(char op);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

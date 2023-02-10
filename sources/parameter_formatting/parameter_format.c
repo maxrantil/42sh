@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 22:43:07 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:35:53 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,71 +285,87 @@ char *separate_form(char *cmd)
 	return (fresh);
 }
 
-int param_format(char **cmd)
+void	free_attrs(t_param *pa, char **new_cmd)
 {
-	int i;
-	int k;
-	int j;
-	int ret;
-	int err;
-	t_param pa;
+	int	k;
+
+	k = 0;
+	while (k < 100)
+		ft_strdel(&pa->list[k++]);
+	free(pa->list);
+	ft_strdel(&pa->expanded);
+	ft_strdel(&(*new_cmd));
+}
+
+char	*init_form_cycle(t_param *pa, char *cmd, t_pa_ints *ints)
+{
 	char *new_cmd;
-	char *subst_cmd;
+	init_pa(pa);
+	ints->ret = 0;
+	new_cmd = NULL;
+	if (ft_strnequ(&cmd[ints->j], "${", 2))
+	{
+		new_cmd = separate_form(&cmd[ints->j]);
+		ints->j += ft_strlen(new_cmd);
+	}
+	return (new_cmd);
+}
+
+int	perform_param_expans(char *cmd, t_param *pa, int *ret)
+{
+	int	err;
 
 	err = 0;
-	i = -1;
-	j = 0;
-	new_cmd = NULL;
-	while (cmd[++i])
+	if (splits(cmd, pa, ret) && *ret == 0)
 	{
-		while (cmd[i][j])
+		;
+	}
+	if (*ret == 0)
+		retoken_into_list(pa);
+	if (expander(pa, *ret))
+		err = 1;
+	if (*ret == 0 && joiner(g_sh, pa, cmd, *ret) && *ret == 0)
+		err = -1;
+	if (*ret == 1)
+	{
+		err = -1;
+	}
+	return (err);
+}
+
+void init_pa_ints(t_pa_ints *ints, char **new_cmd)
+{
+	ints->err = 0;
+	ints->i = -1;
+	ints->j = 0;
+	ints->ret = 0;
+	(*new_cmd) = NULL;
+}
+
+int param_format(char **cmd)
+{
+	t_param pa;
+	t_pa_ints ints;
+	char *new_cmd;
+
+	init_pa_ints(&ints, &new_cmd);
+	while (cmd[++ints.i])
+	{
+		while (cmd[ints.i][ints.j])
 		{
-			k = 0;
-			init_pa(&pa);
-			ret = 0;
-			if (ft_strnequ(&cmd[i][j], "${", 2))
-			{
-				new_cmd = separate_form(&cmd[i][j]);
-				j += ft_strlen(new_cmd);
-			}
+			new_cmd = init_form_cycle(&pa, cmd[ints.i], &ints);
 			if (check_syntax(new_cmd))
 			{
-				if (splits(new_cmd, &pa, &ret) && ret == 0)
-				{
-					// ft_printf("new_cmd %s\n", new_cmd);
-					// ft_printf("expanded %s %d\n", pa.expanded, ret);
-					;
-				}
-				if (ret == 0)
-					retoken_into_list(&pa);
-				if (expander(&pa, ret))
-					err = 1;
-				if (ret == 0 && joiner(g_sh, &pa, new_cmd, ret) && ret == 0)
-					err = -1;
-				if (ret == 1)
-				{
-					err = -1;
-					break;
-				}
+				if (perform_param_expans(new_cmd, &pa, &ints.ret) == 0)
+					substitute_og_cmd(&pa, &cmd[ints.i], &ints.j);
 				else
-				{
-					// ft_printf("expanded %s %d\n", pa.expanded, ret);
-					free_er(&pa, &cmd[i], &subst_cmd, &j);
-				}
+					break ;
 			}
-			ft_strdel(&new_cmd);
-			if (cmd[i] && cmd[i][j])
-				j++;
-			while (k < 100)
-				ft_strdel(&pa.list[k++]);
-			free(pa.list);
-			ft_strdel(&pa.expanded);
+			if (cmd[ints.i] && cmd[ints.i][ints.j])
+				ints.j++;
+			free_attrs(&pa, &new_cmd);
 		}
-		j = 0;
+		ints.j = 0;
 	}
-	// while (k < 100)
-	// 	ft_strdel(&pa.list[k++]);
-	// free(pa.list);
-	// ft_strdel(&pa.expanded);
-	return (err);
+	return (ints.err);
 }
