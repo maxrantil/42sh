@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 12:24:19 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:46:48 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	int pid;
 
-	if (/*sh->pipe->write_pipe[0] >= 0*/ sh->pipe->piping)
+	if (sh->pipe->piping)
 	{
 		pid = fork_wrap();
 		if (sh->pipe->pid == 0)
 			sh->pipe->pid = pid;
-		// if (pid)
-		// 	update_fg_job(sh, pid, *cmd);
+		if (pid)
+			update_fg_job(sh, pid, *cmd);
 		if (pid == 0)
 		{
 			ft_signal_dfl();
@@ -36,13 +36,6 @@ static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 			cmd_comparisons(sh, cmd, environ_cp);
 			exit(1);
 		}
-		// waitpid(-1, 0, WUNTRACED);
-		// waitpid(pid, 0, WUNTRACED);
-			// close(sh->pipe->write_pipe[1]);
-			// close(sh->pipe->read_pipe[1]);
-		// waitpid(sh->pipe->pid, &status, WUNTRACED); //What this should be? It works?
-		// close(sh->pipe->write_pipe[1]);
-		// sh->pipe->write_pipe[1] = -1;
 		return (1);
 	}
 	return(0);

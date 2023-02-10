@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 12:24:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:46:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 		pid = fork_wrap();
 		if (g_sh->pipe->pid == 0)
 			g_sh->pipe->pid = pid;
-		// g_sh->pipe->pid = pid;
-		// if (pid)
-		// 	update_fg_job(g_sh, pid, args);
+		if (pid)
+			update_fg_job(g_sh, pid, args);
 		if (pid == 0)
 		{
-			//We only want to pipe stdout if we are not redir_out
 			ft_signal_dfl();
 			if (!g_sh->pipe->redir_out && g_sh->pipe->write_pipe[1] >= 0 && dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
 			{
@@ -50,9 +48,6 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 			waitpid(pid, &status, WNOHANG | WUNTRACED);
 		else if (!g_sh->pipe->piping)
 			waitpid(pid, &status, WUNTRACED);
-				// close(g_sh->pipe->write_pipe[1]);
-			// close(g_sh->pipe->read_pipe[1]);
-		
 	}
 	return (status);
 }
