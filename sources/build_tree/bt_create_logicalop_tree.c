@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/03 13:22:43 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:16:23 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,14 @@ static t_treenode	*create_logical_op_node(t_token *tokens,
 	((t_logicalop *)logical_op)->left
 		= create_command_tree(tokens, idx_logical_op + 1, start_of_left_cmd + 1);
 	if (((t_logicalop *)logical_op)->right == NULL)
-		((t_logicalop *)logical_op)->right
-			= create_command_tree(tokens, start_of_left_cmd + 2, semicol);
+	{
+		if (start_of_left_cmd + 2 < semicol)
+			((t_logicalop *)logical_op)->right
+				= create_command_tree(tokens, start_of_left_cmd + 2, semicol);
+		else //THIS IS THE LATEST CHANGE
+			((t_logicalop *)logical_op)->right
+				= NULL;
+	}
 	return (logical_op);
 }
 
