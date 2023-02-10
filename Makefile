@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/10 11:52:09 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/10 12:39:39 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -322,6 +322,13 @@ FILES			= \
 				$(PARAM_FORM)init_pa \
 				$(PARAM_FORM)variable_length \
 				$(PARAM_FORM)perform_param_expans \
+				$(PARAM_FORM)init_subs_session \
+				$(PARAM_FORM)subs_session_free \
+				$(PARAM_FORM)find_word \
+				$(PARAM_FORM)remove_globstars \
+				$(PARAM_FORM)find_from_end \
+				$(PARAM_FORM)find_from_begin_glob \
+				$(PARAM_FORM)is_substring_id \
 				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \

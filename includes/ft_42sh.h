@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 11:46:04 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:39:26 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,18 @@ typedef struct s_pa_ints
 	int	ret;
 	int	err;
 }	t_pa_ints;
+
+/*			PARAMETER EXPANSION SUBSTRING	*/
+typedef struct s_sub
+{
+	char	*expanded;
+	char	*needle;
+	char	*haystack;
+	char	op[3];
+	char	*strip;
+	char	*temp_sub;
+	char	*temp_hays;
+}	t_sub;
 
 /*					TOKEN STRUCT			*/
 typedef struct s_token
@@ -527,8 +539,15 @@ char			*variable_length(char *str);
 int				perform_param_expans(char *cmd, t_param *pa, int *ret);
 char			*get_flag(char *cmd, int *ret);
 void			init_pa(t_param *pa);
-void 			init_pa_ints(t_pa_ints *ints, char **new_cmd);
+void			init_pa_ints(t_pa_ints *ints, char **new_cmd);
 void			free_attrs(t_param *pa, char **new_cmd);
+void			init_subs_session(t_sub *sub, char *cmd);
+void			subs_session_free(t_sub *sub);
+char			*ft_find_word(char *haystack, char *needle, char *op);
+void			remove_globstars(char **needle, int *glob);
+char			*find_from_end(char *haystack, char *needle);
+char			*find_from_begin_glob(char *haystack, char *needle);
+int				is_substring_id(char *needle);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);
