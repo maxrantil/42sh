@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 10:17:24 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 11:46:04 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@
 # define ASSIGN_DEFAULT 1
 # define DISPLAY_ERR 2
 # define ALTERNATE_VALUE 3
+# define GET_VALUE ':'
+# define SUBSTRING_BEGIN '#'
+# define SUBSTRING_END '%'
+# define STRING_LEN "$#"
 
 typedef union u_treenode	t_treenode;
 
@@ -514,6 +518,17 @@ void			substitute_og_cmd(t_param *pa, char **cmd, int *j);
 char			*remove_braces(char *str);
 char			*get_value(t_shell *sh, char *var, char *subst, int format);
 int				format_mode(char op);
+int				join_values(t_shell *sh, t_param *pa, char *cmd, int ret);
+char			*get_operator(char *cmd, int *ret);
+int				is_param_exp_char(char *flag);
+int				splitter(char *cmd, t_param *pa, int *ret);
+int				expander(t_param *pa, int ret);
+char			*variable_length(char *str);
+int				perform_param_expans(char *cmd, t_param *pa, int *ret);
+char			*get_flag(char *cmd, int *ret);
+void			init_pa(t_param *pa);
+void 			init_pa_ints(t_pa_ints *ints, char **new_cmd);
+void			free_attrs(t_param *pa, char **new_cmd);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

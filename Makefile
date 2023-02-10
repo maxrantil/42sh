@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/10 09:51:58 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/10 11:52:09 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -311,6 +311,17 @@ FILES			= \
 				$(PARAM_FORM)remove_braces \
 				$(PARAM_FORM)get_value \
 				$(PARAM_FORM)format_mode \
+				$(PARAM_FORM)join_values \
+				$(PARAM_FORM)get_operator \
+				$(PARAM_FORM)is_param_exp_char \
+				$(PARAM_FORM)splitter \
+				$(PARAM_FORM)expander \
+				$(PARAM_FORM)get_flag \
+				$(PARAM_FORM)init_pa_ints \
+				$(PARAM_FORM)free_attrs \
+				$(PARAM_FORM)init_pa \
+				$(PARAM_FORM)variable_length \
+				$(PARAM_FORM)perform_param_expans \
 				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
