@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 01:20:10 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:29:00 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_session_init(t_shell *sh)
 	sh->ampersand = false;
 	g_sh = sh;
 	g_t = sh->term;
-	sh->jobs = NULL;
 	sh->bg_node = NULL;
 	sh->process_count = 0;
 	sh->exit_stat = 0;
@@ -38,7 +37,6 @@ void	ft_session_init(t_shell *sh)
 	sh->head = NULL;
 	sh->tmp_env_key = NULL;
 	sh->tokens = NULL;
-	sh->jobs = ft_init_jobs();
 	sh->pipe = ft_memalloc(sizeof(t_pipe));
 	sh->pipe->write_pipe[0] = -1;
 	sh->pipe->write_pipe[1] = -1;

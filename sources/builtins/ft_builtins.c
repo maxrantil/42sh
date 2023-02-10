@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 14:46:48 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:27:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 		return (ft_jobs(sh));
 	else if (!ft_strcmp(**cmd, "type"))
 		return (type_command(sh, *cmd, *environ_cp));
+	else if (!ft_strcmp(**cmd, "unalias"))
+		return (unalias(sh, *cmd));
+	else if (!ft_strcmp(**cmd, "alias"))
+		return (alias(sh, *cmd));
 	return (1);
 }
 

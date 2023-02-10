@@ -6,7 +6,7 @@
 #    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/08 17:25:36 by jniemine         ###   ########.fr        #
+#    Updated: 2023/02/10 16:27:45 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ LEAK_CHECK			= -g
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-#CFLAGS				+= 	-Werror
+CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses
@@ -62,6 +62,7 @@ endif
 SOURCES 		= 	sources
 INCLUDES		= 	includes/
 LIBRARIES 		= 	libft/
+ALIAS			=	alias/
 BUILDTREE		=	build_tree/
 BUILTIN_UTILS	= 	builtin_utils/
 BUILTIN			= 	builtins/
@@ -89,7 +90,29 @@ SOURCE_COUNT = $(words $(FILES))
 H_FILES 	= 	ft_42sh \
 				keyboard \
 
+
 FILES			= \
+				$(ALIAS)alias \
+				$(ALIAS)alias_array_handling \
+				$(ALIAS)alias_string_handling \
+				$(ALIAS)alias_string_handling2 \
+				$(ALIAS)alias_utilities \
+				$(ALIAS)convert_alias \
+				$(ALIAS)convert_alias2 \
+				$(ALIAS)get_alias \
+				$(ALIAS)init_alias \
+				$(ALIAS)match_alias \
+				$(ALIAS)print_alias \
+				$(ALIAS)unalias \
+				$(ALIAS)validate_alias \
+				$(ALIAS)ft_copy_doublearray \
+				$(ALIAS)ft_create_empty_str_array \
+				$(ALIAS)ft_dub_doublearray \
+				$(ALIAS)ft_exit_error \
+				$(ALIAS)ft_free_doublearray \
+				$(ALIAS)ft_iswhitespace \
+				$(ALIAS)ft_strarray_size \
+				$(ALIAS)ft_strcount \
 				$(BUILDTREE)build_tree \
 				$(BUILDTREE)make_arg_array \
 				$(BUILDTREE)bt_utils \
@@ -148,10 +171,10 @@ FILES			= \
 				$(EXECTREE)exe_logicalop \
 				$(EXPANSION)ft_catinate_expansion \
 				$(EXPANSION)ft_expansion \
-				$(EXPANSION)ft_expansion_utils \
 				$(EXPANSION)ft_expansion_dollar \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
+				$(EXPANSION)ft_quote_bslash_removal \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
@@ -189,6 +212,7 @@ FILES			= \
 				$(FT_TEST)ft_test_le \
 				$(FT_TEST)ft_test_lt \
 				$(FT_TEST)ft_test_ne \
+				$(FT_TEST)ft_test_no_flags \
 				$(FT_TEST)ft_test_not_equal \
 				$(FT_TEST)ft_test_not_return_last \
 				$(FT_TEST)ft_test_p \
@@ -211,7 +235,6 @@ FILES			= \
 				$(INITIALIZE)ft_init_fg_node \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
-				$(INITIALIZE)ft_init_jobs \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
@@ -307,8 +330,28 @@ FILES			= \
 				$(PARAM_FORM)retokenize \
 				$(PARAM_FORM)substitute_or_create \
 				$(PARAM_FORM)search_from_var \
-				$(PARAM_FORM)free_param \
+				$(PARAM_FORM)substitute_og_cmd \
 				$(PARAM_FORM)remove_braces \
+				$(PARAM_FORM)get_value \
+				$(PARAM_FORM)format_mode \
+				$(PARAM_FORM)join_values \
+				$(PARAM_FORM)get_operator \
+				$(PARAM_FORM)is_param_exp_char \
+				$(PARAM_FORM)splitter \
+				$(PARAM_FORM)expander \
+				$(PARAM_FORM)get_flag \
+				$(PARAM_FORM)init_pa_ints \
+				$(PARAM_FORM)free_attrs \
+				$(PARAM_FORM)init_pa \
+				$(PARAM_FORM)variable_length \
+				$(PARAM_FORM)perform_param_expans \
+				$(PARAM_FORM)init_subs_session \
+				$(PARAM_FORM)subs_session_free \
+				$(PARAM_FORM)find_word \
+				$(PARAM_FORM)remove_globstars \
+				$(PARAM_FORM)find_from_end \
+				$(PARAM_FORM)find_from_begin_glob \
+				$(PARAM_FORM)is_substring_id \
 				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
@@ -357,6 +400,7 @@ $(NAME): libft/libft.a $(OBJECTS) $(O_PATHS)
 
 $(OBJECTS):
 	@make -C $(LIBRARIES)
+	@mkdir -p $(OBJECTS)/$(ALIAS)
 	@mkdir -p $(OBJECTS)/$(BUILDTREE)
 	@mkdir -p $(OBJECTS)/$(BUILTIN)
 	@mkdir -p $(OBJECTS)/$(BUILTIN_UTILS)

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_param.c                                       :+:      :+:    :+:   */
+/*   ft_create_empty_str_array.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 14:24:46 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/01/17 19:28:22 by rvuorenl          #+#    #+#             */
+/*   Updated: 2023/02/09 13:53:32 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+#include "libft.h"
 
-void	free_er(t_param *pa, char **cmd, int i)
+char	**ft_create_empty_str_array(int size)
 {
-	ft_strdel(&cmd[i]);
-	cmd[i] = ft_strdup(pa->expanded);
-	ft_strdel(&pa->expanded);
-	ft_strdel(&pa->var);
-	ft_strdel(&pa->subs);
-	ft_strdel(&pa->strip);
+	char	**arr;
+
+	arr = (char **) malloc(sizeof(char *) * (size + 1));
+	if (!arr)
+		exit(2);
+	while (size >= 0)
+		arr[size--] = NULL;
+	return (arr);
 }
