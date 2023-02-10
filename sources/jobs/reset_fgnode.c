@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset_fgnode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:26:45 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/10 01:23:15 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:35:35 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	reset_fgnode(t_shell *sh)
 {
-	// ft_putstr_fd("RESET FG NODE", 2);
 	sh->fg_node->gpid = 0;
 	if (sh->fg_node->pid)
 		ft_memdel((void **)&sh->fg_node->pid);
