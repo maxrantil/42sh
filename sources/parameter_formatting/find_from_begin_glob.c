@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   find_from_begin_glob.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 22:39:55 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 12:36:24 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 12:36:49 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
+char	*find_from_begin_glob(char *haystack, char *needle)
 {
-	int		i;
+	int	i;
+	int	j;
 
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	while (str[i])
+	i = 0;
+	while (haystack[i])
 	{
-		str[i] = str[i + 1];
+		j = 0;
+		while (haystack[i] == needle[j])
+		{
+			i++;
+			j++;
+			if (!haystack[i])
+			{
+				return (haystack);
+			}
+			if (!needle[j])
+			{
+				//ft_printf(" haystack [%s] \n", &haystack[i]);
+				return (&haystack[i]);
+			}
+		}
 		i++;
 	}
-	return (str);
+	return (haystack);
 }

@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   is_param_exp_char.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 22:39:55 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 11:15:36 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 11:15:55 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
+int is_param_exp_char(char *flag)
 {
-	int		i;
-
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	while (str[i])
-	{
-		str[i] = str[i + 1];
-		i++;
-	}
-	return (str);
+	if (*flag == '\0')
+		return (0);
+	else if (flag[0] == ':')
+		return (flag[1] == '-' || flag[1] == '+'
+			|| flag[1] == '=' || flag[1] == '?');
+	return ((flag[0] == '%' && flag[1]) || (flag[0] == '#' && flag[1]));
 }

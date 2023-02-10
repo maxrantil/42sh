@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   remove_globstars.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 22:39:55 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 12:33:53 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 12:34:17 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
+void	remove_globstars(char **needle, int *glob)
 {
-	int		i;
+	int	len;
 
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	while (str[i])
+	*glob = 0;
+	len = ft_strlen(*needle);
+	while (**needle == '*')
 	{
-		str[i] = str[i + 1];
-		i++;
+		*glob = 1;
+		(*needle)++;
 	}
-	return (str);
+	while ((*needle)[len - 1] == '*')
+	{
+		*glob = 3;
+		(*needle)[len - 1] = '\0';
+		len--;
+	}
 }

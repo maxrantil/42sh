@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   get_flag.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 22:39:55 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 11:40:55 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 11:41:19 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
+char *get_flag(char *cmd, int *ret)
 {
-	int		i;
+	int i;
 
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	while (str[i])
-	{
-		str[i] = str[i + 1];
+	i = 2;
+	(void)ret;
+	// ft_printf("getting flag %s\n",cmd);
+	if (!cmd[1])
+		return (NULL);
+	while (ft_isalnum(cmd[i]))
 		i++;
-	}
-	return (str);
+	// if (!check_flag(cmd[i]))
+	// 	*ret = -1;
+	return (cmd + i);
 }

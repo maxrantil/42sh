@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   variable_length.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 22:39:55 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 11:36:38 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 11:37:19 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
-{
-	int		i;
+extern t_shell *g_sh;
 
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
+char *variable_length(char *str)
+{
+	char *var;
+	char *temp;
+	int i;
+	int k;
+
+	i = 0;
+	k = 0;
+	var = ft_strnew(ft_strlen(str));
 	while (str[i])
 	{
-		str[i] = str[i + 1];
-		i++;
+		var[k++] = str[i++];
+		if (str[i] == '#')
+			i++;
 	}
-	return (str);
+	temp = ft_expansion_dollar(g_sh, var);
+	i = ft_strlen(temp);
+	return (ft_itoa(i));
 }

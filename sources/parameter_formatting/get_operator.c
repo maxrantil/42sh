@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   get_operator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 22:39:55 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 11:13:00 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 11:15:22 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
+char *get_operator(char *cmd, int *ret)
 {
-	int		i;
+	int i;
 
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	while (str[i])
-	{
-		str[i] = str[i + 1];
+	i = 2;
+	(void)ret;
+	// ft_printf("getting operator %s\n",cmd);
+	if (!cmd[1])
+		return (NULL);
+	while (ft_isalnum(cmd[i]))
 		i++;
-	}
-	return (str);
+	// ft_printf("getting operator %s\n",cmd + i);
+	if (!is_param_exp_char(&cmd[i]) && cmd[i] != '}')
+		*ret = -1;
+	return (cmd + i);
 }

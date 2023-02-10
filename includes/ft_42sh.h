@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/09 20:38:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:43:00 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,38 @@
 /* For print_tree */
 # define COUNT 10
 
+/* Parameter expansions */
+# define USE_DEFAULT 0
+# define ASSIGN_DEFAULT 1
+# define DISPLAY_ERR 2
+# define ALTERNATE_VALUE 3
+# define GET_VALUE ':'
+# define SUBSTRING_BEGIN '#'
+# define SUBSTRING_END '%'
+# define STRING_LEN "$#"
+
 typedef union u_treenode	t_treenode;
+
+/*			PARAMETER EXPANSION INTEGERS		*/
+typedef struct s_pa_ints
+{
+	int	i;
+	int	j;
+	int	ret;
+	int	err;
+}	t_pa_ints;
+
+/*			PARAMETER EXPANSION SUBSTRING	*/
+typedef struct s_sub
+{
+	char	*expanded;
+	char	*needle;
+	char	*haystack;
+	char	op[3];
+	char	*strip;
+	char	*temp_sub;
+	char	*temp_hays;
+}	t_sub;
 
 /*					TOKEN STRUCT			*/
 typedef struct s_token
@@ -581,8 +612,28 @@ char			*retokenize(char *subst, int *i);
 char			*substitute_or_create(t_shell *sh, char *cmd, int *ret);
 char			*search_from_var(t_shell *sh, char *cmd, int *ret);
 int				param_format(char **cmd);
-void			free_er(t_param *pa, char **cmd, int i);
+void			substitute_og_cmd(t_param *pa, char **cmd, int *j);
 char			*remove_braces(char *str);
+char			*get_value(t_shell *sh, char *var, char *subst, int format);
+int				format_mode(char op);
+int				join_values(t_shell *sh, t_param *pa, char *cmd, int ret);
+char			*get_operator(char *cmd, int *ret);
+int				is_param_exp_char(char *flag);
+int				splitter(char *cmd, t_param *pa, int *ret);
+int				expander(t_param *pa, int ret);
+char			*variable_length(char *str);
+int				perform_param_expans(char *cmd, t_param *pa, int *ret);
+char			*get_flag(char *cmd, int *ret);
+void			init_pa(t_param *pa);
+void			init_pa_ints(t_pa_ints *ints, char **new_cmd);
+void			free_attrs(t_param *pa, char **new_cmd);
+void			init_subs_session(t_sub *sub, char *cmd);
+void			subs_session_free(t_sub *sub);
+char			*ft_find_word(char *haystack, char *needle, char *op);
+void			remove_globstars(char **needle, int *glob);
+char			*find_from_end(char *haystack, char *needle);
+char			*find_from_begin_glob(char *haystack, char *needle);
+int				is_substring_id(char *needle);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

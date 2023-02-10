@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   init_subs_session.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 22:39:55 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 12:21:59 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 12:22:20 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
+void init_subs_session(t_sub *sub, char *cmd)
 {
-	int		i;
-
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	while (str[i])
-	{
-		str[i] = str[i + 1];
-		i++;
-	}
-	return (str);
+	sub->expanded = NULL;
+	sub->needle = NULL;
+	sub->haystack = NULL;
+	ft_memset(sub->op, '\0', 3);
+	sub->strip = ft_strdup(cmd);
+	sub->strip = remove_braces(sub->strip);
+	sub->temp_hays = NULL;
+	sub->temp_sub = NULL;
 }
