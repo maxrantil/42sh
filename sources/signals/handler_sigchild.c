@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 17:11:54 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:55:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,6 @@ static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 			return ;
 		}
 		ptr++;
-	}
-}
-
-static void	reset_pipes(t_shell *sh)
-{
-	if (sh->pipe->pipefd[0] > -1 || sh->pipe->pipefd[1] > -1)
-	{
-		sh->pipe->redirecting = 0;
-		reset_fd(sh->terminal);
-		close(sh->pipe->pipefd[0]);
-		close(sh->pipe->pipefd[1]);
-		sh->pipe->pipefd[0] = -1;
-		sh->pipe->pipefd[1] = -1;
 	}
 }
 
