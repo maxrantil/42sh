@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 16:27:36 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:23:47 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ static int is_builtin(char *cmd)
 	if (!ft_strcmp(cmd, "set") || !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "unset")\
 		|| !ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "exit")\
 		|| !ft_strcmp(cmd, "hash") || !ft_strcmp(cmd, "history") || !ft_strcmp(cmd, "test")\
-		|| !ft_strcmp(cmd, "fc"))
+		|| !ft_strcmp(cmd, "fc") || !ft_strcmp(cmd, "fg") || !ft_strcmp(cmd, "bg")\
+		|| !ft_strcmp(cmd, "jobs") || !ft_strcmp(cmd, "type") || !ft_strcmp(cmd, "alias")\
+		|| !ft_strcmp(cmd, "unalias"))
 		return (1);
 	return (0);
 }
