@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 14:46:29 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:27:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 	status = ft_execve(&cmd, head, access, environ_cp);
 	if (access)
 	{
-		sh->exit_stat = status >> 8;
 		if (!hash)
 			hash_init_struct(sh, cmd, 1);
 	}
