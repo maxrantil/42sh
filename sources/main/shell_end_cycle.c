@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/10 01:25:35 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:55:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void    notify_completed_jobs(t_shell *sh)
     {
         if (ptr->status == DONE || ptr->status == TERMINATED)
 		{
-            // display_job_node(sh, ptr);
+            display_job_node(sh, ptr);
 			bg_node_delete(sh, &ptr);
 		}
 		else
@@ -68,13 +68,6 @@ void	shell_end_cycle(t_shell *sh)
 	free_node(sh->head);
 	free_tokens(&sh->tokens);
 	reset_fd(sh->terminal);
-	sh->pipe->stdincpy = dup(STDIN_FILENO);
-	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
-	sh->pipe->redir_out = 0;
-	sh->pipe->redir_in = 0;
-	sh->pipe->piping = 0;
-	while(ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
-		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);
 	notify_completed_jobs(sh);
 	init_window_size(sh->term);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 16:27:49 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:15:44 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ typedef struct s_logicalop
 typedef struct s_cmdnode
 {
 	int		type;
-	int 	redir_out;
+	int		redirecting;
 	char	**cmd;
 
 }	t_cmdnode;
@@ -258,16 +258,11 @@ typedef struct s_bg_jobs
 	struct s_bg_jobs	*next;
 }						t_bg_jobs;
 
-/*				PIPE DATA				*/
+/*				PIPE STRUCT					*/
 typedef struct s_pipe
 {
-	int		pid; //Is this even used?
-	int		piping;
-	int		new_pipe;
-	int		write_pipe[2];
-	int		read_pipe[2];
-	int		redir_out;
-	int		redir_in;
+	int		pipefd[2];
+	int		redirecting;
 	int		stdincpy;
 	int		stdoutcpy;
 }			t_pipe;
@@ -583,19 +578,18 @@ char			**ft_var_get(t_shell *sh, char *key, int *count);
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
 void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
-char			**dup_dbl_ptr(char **cmd);
+void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
 void			display_suspended_job(t_shell *sh);
 void			display_pipeline_cmd(t_bg_jobs *job);
-void    		queue_delete(t_shell *sh, t_bg_jobs *process);
+char			**dup_dbl_ptr(char **cmd);
 void			reset_fgnode(t_shell *sh);
 void			set_process_group(t_shell *sh, pid_t pid);
 void			add_to_queue(t_shell *sh, int index);
 void			init_cmd(t_shell *sh, t_bg_jobs *bg_node);
 void			init_pid(t_shell *sh, t_bg_jobs *bg_node);
-void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			transfer_to_bg(t_shell *sh, int status);
 void			transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 size_t			triple_ptr_len(char ***arr);

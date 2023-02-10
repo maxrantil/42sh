@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   triple_ptr_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:21:41 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 10:42:42 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:32:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	triple_ptr_len(char ***arr)
 	size_t	len;
 
 	len = 0;
-	while (arr && *arr && **arr && *(arr + len))
+	while (*(arr + len))
 		len++;
 	return (len);
 }
