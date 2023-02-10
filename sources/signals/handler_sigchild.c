@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 14:45:56 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:34:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,6 @@ static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 	}
 }
 
-// static void	reset_pipes(t_shell *sh)
-// {
-// 	if (sh->pipe->write_pipe[0] > -1 || sh->pipe->write_pipe[1] > -1)
-// 	{
-// 		sh->pipe->redir_out = 0;
-// 		sh->pipe->redir_in = 0;
-// 		reset_fd(sh->terminal);
-// 		// close(sh->pipe->write_pipe[0]);
-// 		close(sh->pipe->write_pipe[1]);
-// 		// sh->pipe->write_pipe[0] = -1;
-// 		sh->pipe->write_pipe[1] = -1;
-// 	}
-// }
-
-#include <errno.h>
- #include <stdio.h>
 void	handler_sigchild(int num)
 {
 	int		status;
@@ -115,7 +99,6 @@ void	handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
 			if (WIFSIGNALED(status))
