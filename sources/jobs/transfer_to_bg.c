@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/08 17:30:13 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:18:08 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	signaled_from_background(t_bg_jobs *job, int status)
 	ft_memmove(&g_sh->process_queue[1], \
 	&g_sh->process_queue[0], (g_sh->process_count/*  - 1 */) * sizeof(int));
 	g_sh->process_queue[0] = job->index;
+	g_sh->process_count++; // here  or one line up?
 }
 
 static bool	fg_to_bg(t_shell *sh, t_bg_jobs	**job, int status)

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:43 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 17:15:04 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/10 18:13:54 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int ft_bg(t_shell *sh, char **cmd)
 				{
 						delete_from_queue(sh, job);
 						add_to_index_pos_of_queue(sh, job);
+						sh->process_count++; // here  or one line up?
 						job->status = RUNNING;
 						killpg(job->gpid, SIGCONT);
 				}
