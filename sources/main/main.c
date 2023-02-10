@@ -36,7 +36,7 @@ void	main_loop(t_shell *sh)
 		if (*(sh->term->inp))
 		{
 			sh->line = ft_lexer(sh->term);
-			alias_convert_line(&(sh->line), sh);
+			// alias_convert_line(&(sh->line), sh);
 			sh->tokens = chop_line(sh->line, sh->tokens, 1);
 			sh->head = build_tree(&sh->tokens);
 			if (sh->head && ((t_semicolon *)sh->head)->left)

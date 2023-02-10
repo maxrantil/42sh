@@ -132,6 +132,7 @@ void	handler_sigchild(int num)
 		else //if suspended it goes here
 		{
 			ft_putchar('\n');
+			--g_sh->process_count;
 			transfer_to_bg(g_sh, STOPPED);
 			// display_suspended_job(g_sh);
 			reset_fgnode(g_sh);
