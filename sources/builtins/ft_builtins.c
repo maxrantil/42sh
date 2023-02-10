@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/09 16:17:52 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:24:19 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,18 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp);
 
 static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
-	// int status;
+	int pid;
 
-	if (sh->pipe->write_pipe[0] >= 0)
+	if (/*sh->pipe->write_pipe[0] >= 0*/ sh->pipe->piping)
 	{
-		sh->pipe->pid = fork_wrap();
+		pid = fork_wrap();
 		if (sh->pipe->pid == 0)
+			sh->pipe->pid = pid;
+		// if (pid)
+		// 	update_fg_job(sh, pid, *cmd);
+		if (pid == 0)
 		{
+			ft_signal_dfl();
 			if (!sh->pipe->redir_out && sh->pipe->write_pipe[1] >= 0 && dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
 			{
 				ft_err_print("dup2", NULL, "failed", 2);
@@ -31,8 +36,10 @@ static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 			cmd_comparisons(sh, cmd, environ_cp);
 			exit(1);
 		}
+		// waitpid(-1, 0, WUNTRACED);
+		// waitpid(pid, 0, WUNTRACED);
 			// close(sh->pipe->write_pipe[1]);
-			// close(sh->pipe->read_pipe[0]);
+			// close(sh->pipe->read_pipe[1]);
 		// waitpid(sh->pipe->pid, &status, WUNTRACED); //What this should be? It works?
 		// close(sh->pipe->write_pipe[1]);
 		// sh->pipe->write_pipe[1] = -1;

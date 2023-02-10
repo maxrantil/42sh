@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 18:15:46 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:56:41 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ void	handler_sigchild(int num)
 
 	if (num == SIGCHLD)
 	{
-		pid = waitpid(-1, &status, WNOHANG);
+		// pid = waitpid(-1, &status, WNOHANG);
+		// pid = waitpid(-1, &status, WNOHANG);
+		
 		// reset_pipes(g_sh);
 		if (pid > 0) // this means that the process is exited, via completion or termination
 		{
@@ -124,6 +126,7 @@ void	handler_sigchild(int num)
 		}
 		else //if suspended it goes here
 		{
+			ft_putstr_fd("Suspended: \n", 2);
 			ft_putchar('\n');
 			transfer_to_bg(g_sh, STOPPED);
 			// display_suspended_job(g_sh);

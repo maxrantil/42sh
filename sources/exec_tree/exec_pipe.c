@@ -41,6 +41,26 @@ int	pipe_wrap(int write_pipe[])
 	return (0);
 }
 
+void print_pids(void)
+{
+	int pid;
+	int i = 0;
+	pid = fork_wrap();
+	if (pid == 0)
+	{
+		while(g_sh->fg_node->pid[i])
+		{
+			ft_putstr_fd("PIDPRINT: ", 2);
+			ft_putnbr_fd(g_sh->fg_node->pid[i], 2);
+			ft_putchar_fd(' ', 2);
+			++i;
+		}
+		ft_putstr_fd("\n", 2);
+		exit(0);
+	}
+	wait(0);
+}
+
 void	exec_pipe(t_pipenode *pipenode, \
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
@@ -54,6 +74,7 @@ void	exec_pipe(t_pipenode *pipenode, \
 	// close(sh->pipe->read_pipe[1]);
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
 	sh->pipe->read_pipe[0] = dup(sh->pipe->write_pipe[0]);
+	// print_pids();
 	// if (pipe_wrap(sh->pipe->read_pipe))
 		// return ;
 	// if (dup2(sh->pipe->read_pipe[1], sh->pipe->write_pipe[0]) < 0)
@@ -76,8 +97,11 @@ void	exec_pipe(t_pipenode *pipenode, \
 	close(sh->pipe->read_pipe[1]);
 	sh->pipe->read_pipe[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
+	waitpid(-1, 0, WUNTRACED);
+	// waitpid(-1, 0, WUNTRACED);
+	// print_pids();
 	// print_fg_node(sh);
-		waitpid(sh->pipe->pid, &status, WUNTRACED);
+		// waitpid(sh->pipe->pid, &status, WUNTRACED);
 	//Add more waits?? For both children?? We already wait once in builtins if it's part of pipe. So if not builtin wait twice?
 	// if (sh->ampersand)
 		// waitpid(sh->fg_node->gpid, &status, WNOHANG | WUNTRACED);
