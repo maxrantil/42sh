@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/09 13:53:10 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 08:38:30 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@
 
 /* For print_tree */
 # define COUNT 10
+
+/* Parameter expansions */
+# define USE_DEFAULT 0
+# define ASSIGN_DEFAULT 1
+# define DISPLAY_ERR 2
+# define ALTERNATE_VALUE 3
 
 typedef union u_treenode	t_treenode;
 
@@ -497,6 +503,7 @@ char			*search_from_var(t_shell *sh, char *cmd, int *ret);
 int				param_format(char **cmd);
 void			free_er(t_param *pa, char **cmd, char **subst_cmd, int *j);
 char			*remove_braces(char *str);
+char			*get_value(t_shell *sh, char *var, char *subst, int format);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

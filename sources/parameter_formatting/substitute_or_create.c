@@ -6,71 +6,11 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/09 21:16:51 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 08:49:19 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-char	*subst_param(t_shell *sh, char *var, char *subst, int format)
-{
-	char	*expanded;
-	char	**temp;
-
-	expanded = NULL;
-	temp = (char **)ft_memalloc(sizeof(char *) * 2);
-	temp[0] = ft_expansion_dollar(sh, var);
-	temp[1] = NULL;
-	if (format == 0)
-	{
-		//ft_strdel(&expanded);
-		if (!*temp[0])
-			expanded = ft_strdup(subst + 1);
-		else
-			expanded = ft_strdup(var);
-	}
-	else if (format == 1)
-	{
-		//ft_strdel(&expanded);
-		if (!*temp[0])
-		{
-			expanded = ft_strdup(subst + 1);
-			temp[0] = ft_strjoin(var + 1, subst);
-			add_var(sh, temp);
-		}
-		else
-			expanded = ft_strdup(temp[0]);
-	}
-	else if (format == 2)
-	{
-		//ft_strdel(&expanded);
-		if (!*temp[0] && subst[1])
-			ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
-		else if (!*temp[0] && !subst[1])
-			ft_printf("42sh: %s: parameter null or unset\n", var + 1);
-		else
-			expanded = ft_strdup(temp[0]);
-	}
-	else if (format == 3)
-	{
-		if (temp[0][0])
-		{
-			if (subst && *subst)
-			{
-				if (subst[0] == '+')
-					expanded = ft_strdup(subst + 1);
-				else
-					expanded = ft_strdup(subst);
-			}
-		}
-	}
-	ft_strdel(&temp[0]);
-	ft_strdel(&temp[1]);
-	free(temp);
-	// if (*var)
-	//ft_strdel(&var);
-	return (expanded);
-}
 
 int	format_mode(char op)
 {
@@ -78,13 +18,13 @@ int	format_mode(char op)
 
 	format = -1;
 	if (op == '-')
-		format = 0;
+		format = USE_DEFAULT;
 	else if (op == '=')
-		format = 1;
+		format = ASSIGN_DEFAULT;
 	else if (op == '?')
-		format = 2;
+		format = DISPLAY_ERR;
 	else if (op == '+')
-		format = 3;
+		format = ALTERNATE_VALUE;
 	return (format);
 }
 
@@ -143,7 +83,7 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	}
 	ft_printf("subs %s\n",  param.subs);
 	if (!param.expanded || !*param.expanded)
-		param.expanded = subst_param(sh, param.var, param.subs, format);
+		param.expanded = get_value(sh, param.var, param.subs, format);
 	// if (*param.expanded == '$')
 	// 	param.expanded = ft_strnew(1);
 	//ft_printf("expanded %s\n",  param.expanded);

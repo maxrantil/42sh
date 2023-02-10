@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/09 13:53:26 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/10 08:38:08 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -309,6 +309,7 @@ FILES			= \
 				$(PARAM_FORM)search_from_var \
 				$(PARAM_FORM)free_param \
 				$(PARAM_FORM)remove_braces \
+				$(PARAM_FORM)get_value \
 				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
