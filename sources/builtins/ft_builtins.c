@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 16:27:36 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:42:13 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	int pid;
 
-	if (sh->pipe->piping)
+	if (sh->pipe->piping || sh->ampersand)
 	{
 		pid = fork_wrap();
 		if (sh->pipe->pid == 0)
