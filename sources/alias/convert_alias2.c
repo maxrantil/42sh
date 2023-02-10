@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 21:52:54 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/09 10:55:12 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:33:33 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ char	*convert_first(t_shell *sh, char ***dup_alias, char **line, char *cont)
 	convert_first_word(dup_alias, &first_word, sh->alias_size);
 	free_and_refill_dup_alias(dup_alias, sh->alias);
 	ft_strdel(line);
-	*line = ft_strdup(first_word);
-	ft_strdel(&first_word);
+	if (first_word)
+	{
+		*line = ft_strdup(first_word);
+		ft_strdel(&first_word);
+	}
+	else
+		*line = ft_strdup("");
 	return (post_content);
 }
 
