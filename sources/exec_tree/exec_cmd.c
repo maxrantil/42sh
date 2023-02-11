@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 18:27:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:45:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 extern t_shell	*g_sh;
 
-static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
+static void	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
 {
 	int		status;
 	int		pid;
@@ -49,7 +49,6 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 		else if (!g_sh->pipe->piping)
 			waitpid(pid, &status, WUNTRACED);
 	}
-	return (status);
 }
 
 // void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
@@ -85,7 +84,6 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;
 	int		access;
-	int		status;
 	int		hash;
 
 	if (!head->cmd[0])
@@ -97,7 +95,7 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 	if (!hash && !check_if_user_exe(head->cmd[0], &cmd))
 		cmd = search_bin(head->cmd[0], *environ_cp);
 	access = check_access(cmd, head->cmd, sh);
-	status = ft_execve(&cmd, head, access, environ_cp);
+	ft_execve(&cmd, head, access, environ_cp);
 	if (access)
 	{
 		if (!hash)

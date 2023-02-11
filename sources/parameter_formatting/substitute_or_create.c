@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitute_or_create.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 13:19:20 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:48:47 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 		}
 	}
 	subs = get_temp_subst(&param, sh, ret);
+	if (subs)
+		ft_printf("Should this variable be here? | Ignoring error message");
 	format = format_mode(param.op);
 	if (!param.expanded || !*param.expanded)
 		param.expanded = get_value(sh, param.var, param.subs, format);

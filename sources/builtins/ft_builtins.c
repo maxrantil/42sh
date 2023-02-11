@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/11 13:33:36 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/11 20:01:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int		ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		if (param_format(*cmd) == -1)
 			return (0);
 		ft_expansion(sh, *cmd);
+		if (!***cmd)
+			return (0);
 		*(cmd) += ft_variables(sh, cmd);
 		if (**cmd && !is_builtin(**cmd))
 			return (1);
