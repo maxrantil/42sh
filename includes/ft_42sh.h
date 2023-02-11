@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 18:11:25 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:19:27 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,7 +337,7 @@ int				validate_cd_options(t_shell *session, char **commands, \
 char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
 				int to_skip);
 int				cd_multi_command_validation(t_shell *sesh, char **commands);
-int				str_only_contains_chars(char *str, char *options);
+int				str_only_contains_chars(char *str, char *options, t_shell *sh);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
