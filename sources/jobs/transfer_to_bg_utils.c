@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:32:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 17:19:25 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:00:58 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_pid(t_shell *sh, t_bg_jobs *bg_node)
 	int	len;
 
 	len = 0;
-	while (sh->fg_node->pid[len])
+	while (sh->fg_node->pid && sh->fg_node->pid[len])
 		len++;
 	bg_node->pid = (pid_t *)ft_memalloc(sizeof(pid_t) * (len + 1));
 	bg_node->pid[len] = 0;

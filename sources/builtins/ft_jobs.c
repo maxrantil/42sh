@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_jobs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:00:54 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 14:10:27 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:00:06 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	validate_options(t_shell *session, char **commands)
 	int		i;
 
 	i = 1;
-	while(commands[i])
+	while(commands[i] && commands[i][0] == '-')
 	{
 		if (ft_strequ(commands[i], "--"))
 		{
