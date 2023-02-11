@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_fetch_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:15 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 17:23:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/08 20:11:50 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ t_bg_jobs	*bg_fetch_node(t_shell *sh, char **cmd)
 
 	i = 0;
 	if (!*(cmd + 1) || !ft_strcmp("%", *(cmd + 1)) \
-	|| !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)))
+	|| !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)) || !ft_strcmp("+", *(cmd + 1)))
 		return (process_getpid(sh, 0, cmd, '+'));
-	if (!ft_strcmp("%-", *(cmd + 1)))
+	if (!ft_strcmp("%-", *(cmd + 1)) || !ft_strcmp("-", *(cmd + 1)))
 		return (process_getpid(sh, 0, cmd, '-'));
 	if (cmd[1][i] == '%')
 		++i;

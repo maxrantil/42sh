@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 23:07:15 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:06:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ void	main_loop(t_shell *sh)
 		if (*(sh->term->inp))
 		{
 			sh->line = ft_lexer(sh->term);
-			alias_convert_line(&(sh->line), sh);
-			// ft_printf("a\n");
-			// sleep(2);
+			// alias_convert_line(&(sh->line), sh);
 			sh->tokens = chop_line(sh->line, sh->tokens, 1);
 			// ft_printf("b\n");
 			// sleep(2);
