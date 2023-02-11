@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:59:28 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/11 00:07:19 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:15:08 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,9 @@ void	alias_convert_line(char **line, t_shell *sh)
 		// print_alias_all(sh->alias, sh);		// DEL
 
 
-	ft_printf("BEF (%s) (%d)\n", *line, ft_strlen(*line));
+	// ft_printf("BEF (%s) (%d)\n", *line, ft_strlen(*line));
 	convert_alias(line, sh, 0);
-	ft_printf("AFT (%s) (%d)\n", *line, ft_strlen(*line));
+	// ft_printf("AFT (%s) (%d)\n", *line, ft_strlen(*line));
 	i = 0;
 	// ft_printf("mid \n");
 	// sleep(2);
@@ -158,7 +158,7 @@ void	alias_convert_line(char **line, t_shell *sh)
 		// if (check_command_separator(&(*line)[i]))		// old
 		if (is_command_separator((*line)[i]))
 		{
-			ft_printf("\ta_c_l loop   (%s) i (%d)\n", *line, i);
+			// ft_printf("\ta_c_l loop   (%s) i (%d)\n", *line, i);
 			// ft_printf("\ta_c_l loop-i (%s)\n", &((*line)[i]));
 
 			i += skip_to_next_word_separator(&(*line)[i]);
@@ -166,8 +166,8 @@ void	alias_convert_line(char **line, t_shell *sh)
 			// i--;
 			// ft_printf("a (%d)(%s)\n", i, *line);
 			pre_semicolon = save_pre_semicolon(*line, i);
-			ft_printf("b (%d)(%s)\n", i, *line);
-			ft_printf("pre (%d)(%s)\n", i, pre_semicolon);
+			// ft_printf("b (%d)(%s)\n", i, *line);
+			// ft_printf("pre (%d)(%s)\n", i, pre_semicolon);
 			if (convert_alias(line, sh, i))
 				update_alias_line(line, &pre_semicolon);
 			else
@@ -180,7 +180,7 @@ void	alias_convert_line(char **line, t_shell *sh)
 		}
 		i++;
 	}
-	ft_printf("\tFINAL line (%s)\n\n", *line);		// FULLY CONVERTED LINE
+	// ft_printf("\tFINAL line (%s)\n\n", *line);		// FULLY CONVERTED LINE
 	// sleep(3);
 
 	//
