@@ -67,9 +67,9 @@ t_bg_jobs	*bg_fetch_node(t_shell *sh, char **cmd)
 
 	i = 0;
 	if (!*(cmd + 1) || !ft_strcmp("%", *(cmd + 1)) \
-	|| !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)))
+	|| !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)) || !ft_strcmp("+", *(cmd + 1)))
 		return (process_getpid(sh, 0, cmd, '+'));
-	if (!ft_strcmp("%-", *(cmd + 1)))
+	if (!ft_strcmp("%-", *(cmd + 1)) || !ft_strcmp("-", *(cmd + 1)))
 		return (process_getpid(sh, 0, cmd, '-'));
 	if (cmd[1][i] == '%')
 		++i;

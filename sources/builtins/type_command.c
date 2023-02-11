@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:32:14 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/06 12:14:48 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/06 19:57:05 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,17 @@ static int	is_built_in(char *command)
 
 static int	is_alias(char *command, t_shell *sh)
 {
-	int		i;
+	int		pos;
+	char	*content;
 
-	i = 0;
-	(void)sh;//
-	(void)command;//
-	// while(sh->aliases[i])
-	// {
-	// 	if (ft_strequ(command, "<alias key>") == 1)
-	// 	{
-	// 		ft_printf("%s is aliased to '%s'\n", command, "<alias value>");
-	// 		return (1);
-	// 	}
-	// 	i++;
-	// }
+	pos = check_alias_match(sh->alias, command);
+	if (pos != -1)
+	{
+		content = get_alias_content_no_quotes(sh->alias[pos]);
+		ft_printf("%s is aliased to '%s'\n", command, content);
+		ft_strdel(&content);
+		return (1);
+	}
 	return (0);
 }
 

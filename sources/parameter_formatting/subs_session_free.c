@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_param.c                                       :+:      :+:    :+:   */
+/*   subs_session_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/08 14:24:46 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/10 12:23:22 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 13:24:28 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	free_er(t_param *pa, char **cmd, int i)
+void	subs_session_free(t_sub *sub)
 {
-	ft_strdel(&cmd[i]);
-	cmd[i] = ft_strdup(pa->expanded);
-	ft_strdel(&pa->expanded);
-	ft_strdel(&pa->var);
-	ft_strdel(&pa->subs);
-	ft_strdel(&pa->strip);
+	ft_strdel(&sub->needle);
+	ft_strdel(&sub->strip);
+	ft_strdel(&sub->haystack);
+	ft_strdel(&sub->temp_hays);
 }

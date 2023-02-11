@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:20:38 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/29 21:20:41 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:32:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,23 @@ int	is_seperator(char c)
 		|| c == ';' || c == '&');
 }
 
-void	tok_quote_flag(char *line, int *end, char *quote_flag)
+void	tok_quote_flag(char *line, int *end, char *quote, char *braces)
 {
 	if (line[*end] == '\'' || (line[*end] == '\"' \
-	&& (!*end || !special_char_check(line, *end, '\\'))))
+	&& (!*end || !special_char_check(line, *end - 1, '\\'))))
 	{
-		if (!*quote_flag)
-			*quote_flag = line[*end];
-		else if (*quote_flag == line[*end])
-			*quote_flag = 0;
+		if (!*quote)
+			*quote = line[*end];
+		else if (*quote == line[*end])
+			*quote = 0;
+	}
+	else if (line[*end] == L_BRAC || (line[*end] == R_BRAC \
+	&& (!*end || !special_char_check(line, *end - 1, '$'))))
+	{
+		if (!*braces)
+			*braces = line[*end];
+		else if (*braces == line[*end])
+			*braces = 0;
 	}
 	++(*end);
 }

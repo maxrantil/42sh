@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:21:00 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/03 13:46:33 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/07 13:09:42 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_treenode	*init_cmd_node(char *cmd)
 	new = ft_memalloc(sizeof(*new));
 	new->type = CMD;
 	((t_cmdnode *)new)->type = CMD;
-	((t_cmdnode *)new)->redirecting = 0;
+	((t_cmdnode *)new)->redir_out = 0;
 	((t_cmdnode *)new)->cmd = make_arg_array(cmd);
 	return (new);
 }

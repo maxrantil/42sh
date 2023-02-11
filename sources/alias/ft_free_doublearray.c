@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   queue_delete.c                                     :+:      :+:    :+:   */
+/*   ft_free_doublearray.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 15:33:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 16:23:04 by mbarutel         ###   ########.fr       */
+/*   Created: 2022/09/28 19:22:31 by rvuorenl          #+#    #+#             */
+/*   Updated: 2023/02/06 16:48:00 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+#include "../../libft/includes/libft.h"
 
-void	queue_delete(t_shell *sh, t_bg_jobs *process)
+void	ft_free_doublearray(char ***array)
 {
 	int	i;
 
 	i = -1;
-	while (++i < sh->process_count)
+	if (*array)
 	{
-		if (process->index == sh->process_queue[i])
-		{
-			ft_memmove(&sh->process_queue[i], &sh->process_queue[i + 1], \
-			(sh->process_count - 1 - i) * sizeof(int));
-			sh->process_count--;
-			break ;
-		}
+		while ((*array)[++i])
+			ft_strdel(&(*array)[i]);
+		free((*array)[i]);
+		free(*array);
+		*array = NULL;
 	}
 }

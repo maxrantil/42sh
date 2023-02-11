@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_42sh.h"
 
 static int	validate_options(t_shell *session, char **commands)

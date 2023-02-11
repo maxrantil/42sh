@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:15:33 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/01 11:17:09 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:11:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	validity_check(char *line)
 	ptr = NULL;
 	if (*line == ';' || *line == '|' || *line == '&')
 		ptr = line;
-	else if (line[ft_strlen(line) - 1] == '|')
+	else if (line[ft_strlen(line) - 1] == '|' && !special_char_check(line, ft_strlen(line) - 2, '\\'))
 		ptr = &line[ft_strlen(line) - 1];
 	if (ptr)
 	{

@@ -1,2 +1,2 @@
-asdf && echo hello || echo pallo | wc
-Fix pipes with builtins
+aggregation + pipe combo breaks up, did not test closefd yeasdf && echo hello || echo pallo | wc
+TEST CLOSEFD REDIR AGGRE WITH PIPES

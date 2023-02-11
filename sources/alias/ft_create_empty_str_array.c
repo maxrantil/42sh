@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_jobs.c                                     :+:      :+:    :+:   */
+/*   ft_create_empty_str_array.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 11:46:13 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/28 15:42:35 by jniemine         ###   ########.fr       */
+/*   Created: 2023/01/17 19:28:22 by rvuorenl          #+#    #+#             */
+/*   Updated: 2023/02/09 13:53:32 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+#include "libft.h"
 
-t_job *ft_init_jobs(void)
+char	**ft_create_empty_str_array(int size)
 {
-	t_job *jobs;
+	char	**arr;
 
-	jobs = (t_job *)ft_memalloc(sizeof(t_job));
-	jobs->shared_mem_ptr = NULL;
-	jobs->shared_mem_idx_ptr = NULL;
-	jobs->shared_mem_id = -1;
-	jobs->shared_mem_index = -1;
-	jobs->cmd = NULL;
-	return (jobs);
+	arr = (char **) malloc(sizeof(char *) * (size + 1));
+	if (!arr)
+		exit(2);
+	while (size >= 0)
+		arr[size--] = NULL;
+	return (arr);
 }
