@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:10:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 19:07:21 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/10 19:16:46 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	ft_cd(t_shell *sh, char **cmd)
 	if (!ft_cd_expand(sh, cmd, &path) && \
 	!ft_cd_addr_check(*(cmd + sh->option_count + 1), sh->is_flag_on, sh))
 	{
+		ft_printf("legacy code!\n");
 		if (chdir(*(cmd + sh->option_count + 1)))
 			sh->exit_stat = 1;
 		else
