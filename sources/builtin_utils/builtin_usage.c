@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_usage.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:22:13 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/06 12:13:19 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/11 13:21:33 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,9 @@ void	print_usage(char *command, char c)
 		ft_printf("cd: usage: cd [-L | -P] [dir]\n");
 	if (ft_strequ(command, "type"))
 		ft_printf("type: usage: type name [name ...]\n");
+	if (ft_strequ(command, "jobs"))
+	{
+		ft_printf("jobs: usage: jobs [-lp] [jobspec ...]");
+		ft_printf(" or jobs -x command [args]\n");
+	}
 }

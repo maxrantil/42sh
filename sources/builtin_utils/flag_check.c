@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 18:52:21 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/10 18:09:20 by spuustin         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/02/11 13:33:15 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_42sh.h"
 
@@ -18,7 +19,7 @@
 	return 1 for true, 0 for false (bool rather than success)
 */
 
-int	str_only_contains_chars(char *str, char *options)
+int	str_only_contains_chars(char *str, char *options, t_shell *session)
 {
 	int	i;
 	int	j;
@@ -26,26 +27,23 @@ int	str_only_contains_chars(char *str, char *options)
 
 	i = 1;
 	j = 0;
-	ft_printf("options are: %s\n", options);
 	opt_count = ft_strlen(options);
 	while (str[i])
 	{
 		while (options[j])
 		{
 			if (str[i] == options[j])
-			{
-				ft_printf("they match in idx %d\n", j);
 				break ;
-			}
 			j++;
-			ft_printf("j is %d\n", j);
 		}
 		if (j == opt_count)
+		{
+			session->option = str[i];
 			return (0);
+		}
 		j = 0;
 		i++;
 	}
-	ft_printf("i think only valid options were given!\n");
 	return (1);
 }
 
@@ -77,9 +75,9 @@ static int	str_only_contains_char(char *str, char c)
 int	check_flag(t_shell *sh, char **commands, char flag)
 {
 	int	i;
-	int	flag_on;
+	// int	flag_on;
 
-	flag_on = 0;
+	// flag_on = 0;
 	i = 1;
 	while (commands[i])
 	{
@@ -109,6 +107,9 @@ int	cd_errors(int mode)
 
 int	validate_cd_options(t_shell *sh, char **cmds, int i, int d_dash)
 {
+	char	c;
+
+	c = 0;
 	while (cmds[i][0] == '-')
 	{
 		if (!cmds[i][1])
@@ -121,9 +122,9 @@ int	validate_cd_options(t_shell *sh, char **cmds, int i, int d_dash)
 			d_dash = 1;
 			break ;
 		}
-		if (str_only_contains_chars(cmds[i], "LP") == 0)
+		if (str_only_contains_chars(cmds[i], "LP", sh) == c)
 		{
-			print_usage("cd", cmds[i][str_only_contains_chars(cmds[i], "LP")]);
+			print_usage("cd", sh->option);
 			return (1);
 		}
 		i++;
