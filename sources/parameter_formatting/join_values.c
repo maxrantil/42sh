@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 10:57:45 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:21:25 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 12:00:40 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,9 @@ int join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 	{
 		if (substitute_value(pa, &ret))
 		{
+			ft_printf("pa->expanded [%s]\n", pa->expanded);
 			ft_strdel(&pa->subs);
-			return(1);
+			return (1);
 		}
 			
 		// subs = substitute_or_create(g_sh, pa->subs, &ret);
@@ -84,7 +85,7 @@ int join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 	else if (pa->oper[0] == SUBSTRING_BEGIN || pa->oper[0] == SUBSTRING_END)
 	{
 		if (substitute_substring(pa, &ret))
-			return(1);
+			return (1);
 		// subs = search_from_var(g_sh, pa->subs, &ret);
 		// if (!subs)
 		// 	return (1);

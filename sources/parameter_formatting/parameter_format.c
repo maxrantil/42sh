@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 17:02:56 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:37:04 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int param_format(char **cmd)
 	t_param pa;
 	t_pa_ints ints;
 	char *new_cmd;
+	int	ret;
 
 	init_pa_ints(&ints, &new_cmd);
 	while (cmd[++ints.i])
@@ -80,17 +81,18 @@ int param_format(char **cmd)
 			new_cmd = init_form_cycle(&pa, cmd[ints.i], &ints);
 			if (check_syntax(new_cmd))
 			{
-				if (perform_param_expans(new_cmd, &pa, &ints.ret) == 0)
-					substitute_og_cmd(&pa, &cmd[ints.i], &ints.j);
-				else
+				ret = perform_param_expans(new_cmd, &pa, &ints.ret);
+				substitute_og_cmd(&pa, &cmd[ints.i], &ints.j);
+				if (ret != 0)
 				{
 					free_attrs(&pa, &new_cmd);
+					if (ints.ret == -1)
+						return (-1);
 					break ;
 				}
-					
 			}
-			if (cmd[ints.i] && cmd[ints.i][ints.j])
-				ints.j++;
+			//if (cmd[ints.i] && cmd[ints.i][ints.j])
+			ints.j++;
 			free_attrs(&pa, &new_cmd);
 		}
 		ints.j = 0;

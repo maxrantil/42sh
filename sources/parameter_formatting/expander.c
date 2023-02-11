@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:29:33 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:20:13 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 11:58:41 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	substitute_value(t_param *pa, int *ret, char *cmd)
 	char *temp;
 	char *subs;
 
+	ft_printf("jju\n");
 	subs = substitute_or_create(g_sh, cmd, ret);
 	temp = ft_strjoin(pa->expanded, subs);
 	ft_strdel(&pa->expanded);

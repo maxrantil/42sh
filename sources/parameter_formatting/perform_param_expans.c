@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:38:41 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:21:29 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 12:02:00 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,22 @@ int	perform_param_expans(char *cmd, t_param *pa, int *ret)
 	int	err;
 
 	err = 0;
-	if (splitter(cmd, pa, ret) && *ret == 0)
+	if (!splitter(cmd, pa, ret) && *ret == 0)
 	{
 		;
 	}
+	else
+		return (-1);
 	if (*ret == 0)
 		retoken_into_list(pa);
 	if (expander(pa, *ret))
-		err = 1;
-	if (*ret == 0 && join_values(g_sh, pa, cmd, *ret) && *ret == 0)
+		;
+	if (*ret == 0 && join_values(g_sh, pa, cmd, *ret))
 		err = -1;
 	if (*ret == 1)
 	{
 		err = -1;
 	}
-	return (err);
+	ft_printf("%d\n", err);
+;	return (err);
 }

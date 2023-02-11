@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:20:43 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 11:48:25 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ char	*get_value(t_shell *sh, char *var, char *subst, int format)
 		expanded = display_error(sh, var, subst);
 	else if (format == ALTERNATE_VALUE)
 		expanded = alternate_value(sh, var, subst);
+	ft_printf("expanded in get value%s\n", expanded);
 	return (expanded);
 }
