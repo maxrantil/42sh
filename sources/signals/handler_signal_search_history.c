@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_signal_search_history.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:04:37 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 12:26:52 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/10 21:29:59 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 18:35:43 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:05:28 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-		if (pid > 0) // this means that the process is exited, via completion or termination
+		if (pid > 0 ) // this means that the process is exited, via completion or termination
 		{
 			if (WIFSIGNALED(status))
 			{
@@ -111,7 +111,7 @@ void	handler_sigchild(int num)
 				g_sh->exit_stat = WEXITSTATUS(status);
 			}
 		}
-		else //if suspended it goes here
+		else if (!g_sh->pipe->piping) //if suspended it goes here CONDITION IS FOR PIPE, PROBABLY NEEDS TO BE FANCIER
 		{
 			ft_putchar('\n');
 			--g_sh->process_count;
@@ -121,5 +121,4 @@ void	handler_sigchild(int num)
 			g_sh->exit_stat = 146;
 		}
 		}
-
 }
