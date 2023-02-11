@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 16:27:49 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 21:44:00 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,7 @@ typedef struct s_shell
 	int				exit_stat;
 	int				is_flag_on;
 	int				option_count;
+	char			option;
 	bool			ampersand;
 	int				exit_confirm;
 }				t_shell;
@@ -364,7 +365,7 @@ typedef struct s_shell
 	int		convert_alias(char **line, t_shell *sh, int pos);
 	void	alias_convert_line(char **line, t_shell *sh);
 //	alias_string_handling2.c
-	void	get_first_word_move_post(char **post_content, char **next_word);
+	void	get_first_word_move_post(char **post, char **next, char **line);
 	char	*get_mid_word(char *line);
 void	trim_mid_word(char **mid, char **orig_post);
 	char	*save_pre_semicolon(char *line, int pos);
@@ -380,6 +381,8 @@ char	*construct_alias(char *cmd, t_shell *sh);
 void	add_alias(t_shell *sh, char *cmd);
 void	add_or_print_alias(char **args, t_shell *sh);
 int		alias(t_shell *sh, char **args);
+
+	int		is_command_separator(char command);
 // int	validate_char_range(char *str, int i, int start);	// no need ?
 // int	validate_reserved_keywords(char *str);			// no need ?
 // void	convert_dollar_tilde(char *cmd, int i, t_shell *sh);	// no need ?
@@ -446,6 +449,7 @@ int				validate_cd_options(t_shell *session, char **commands, \
 char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
 				int to_skip);
 int				cd_multi_command_validation(t_shell *sesh, char **commands);
+int				str_only_contains_chars(char *str, char *options, t_shell *sh);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -456,7 +460,7 @@ int				ft_set(t_shell *sh, char ***cmd);
 int				ft_exit(t_shell *sesh, char **commands);
 int				ft_fg(t_shell *sh, char **cmd);
 int				ft_export(t_shell *sh, char **cmd);
-int				ft_jobs(t_shell *sh);
+int				ft_jobs(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
 int				type_command(t_shell *sesh, char **commands, char **env);
 

@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 10:58:22 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/09 11:00:25 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/10 23:37:25 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_alias_match(char **aliases, char *cmd)
 	char	*tmp_cmd;
 
 	if (!cmd || !aliases)
-		return (0);
+		return (-1);
 	i = -1;
 	while (aliases[++i])
 	{
@@ -42,7 +42,10 @@ int	match_first_word(char **alias, char *line)
 	if (!line || !alias)
 		return (-1);
 	first_word = get_first_word(line);
+	// ft_printf(" ASD first (%s)\n", first_word);
+	// ft_printf(" ASD line  (%s)\n", line);
 	pos = check_alias_match(alias, first_word);
+	// ft_printf(" ASD pos  (%d)\n", pos);
 	ft_strdel(&first_word);
 	return (pos);
 }

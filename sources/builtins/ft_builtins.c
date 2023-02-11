@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 18:50:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:29:05 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 	else if (!ft_strcmp(**cmd, "bg"))
 		return (ft_bg(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "jobs"))
-		return (ft_jobs(sh));
+		return (ft_jobs(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "type"))
 		return (type_command(sh, *cmd, *environ_cp));
 	else if (!ft_strcmp(**cmd, "unalias"))
