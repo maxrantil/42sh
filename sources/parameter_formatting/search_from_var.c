@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 14:50:47 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:03:16 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,4 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	subs_session_free(&sub);
 	return (sub.expanded);
 }
+

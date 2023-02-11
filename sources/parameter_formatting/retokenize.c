@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:49:04 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/07 09:38:46 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:03:10 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,4 @@ char	*retokenize(char *subst, int *i)
 	ft_strdel(&trimmed);
 	return (fresh);
 }
+

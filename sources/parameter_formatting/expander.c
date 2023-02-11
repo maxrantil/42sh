@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:29:33 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 14:39:04 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:04:01 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ static	int	substring_substitution(t_param *pa, int *ret, char *cmd)
 
 int expander(t_param *pa, int ret)
 {
-	int i;
-	char *temp;
-	char *subs;
+	int	i;
 
 	i = -1;
 	while (pa->list[++i])
@@ -79,3 +77,4 @@ int expander(t_param *pa, int ret)
 	}
 	return (0);
 }
+

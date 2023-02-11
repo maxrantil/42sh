@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 15:10:28 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 15:18:56 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:04:36 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_var_validity(char *var)
 		i++;
 	if (var[i] == '{')
 		i++;
-	if (ft_isalpha(var[i]) || !ft_isalpha(var[i]) && var[i] == '_')
+	if (ft_isalpha(var[i]) || (!ft_isalpha(var[i]) && var[i] == '_'))
 		i++;
 	while (var[i])
 	{
