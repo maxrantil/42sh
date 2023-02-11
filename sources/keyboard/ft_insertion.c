@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 07:56:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 12:44:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:48:28 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_insertion_char(t_term *t)
 	if ((t->inp[t->index - 1] == D_QUO || t->inp[t->index - 1] == S_QUO) \
 		&& !t->heredoc)
 	{
-		if (!special_char_check(t->inp, t->index - 2, '\\'))
+		if (!special_char_check(t->inp, t->index - 1, '\\'))
 			ft_quote_flag_reset(t);
 	}
 	else if (t->inp[t->index - 1] == '<' && !t->heredoc && !t->quote)

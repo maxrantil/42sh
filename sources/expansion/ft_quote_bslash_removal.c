@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quote_bslash_removal.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 13:38:31 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 13:19:19 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:50:31 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_qoute_parse(char *buff, char *quote, int len)
 {
-	if (!len || buff[len - 1] != '\\' || !special_char_check(buff, len - 1, '\\'))
+	if (!len || buff[len - 1] != '\\' || !special_char_check(buff, len, '\\'))
 	{
 		if (!(*quote))
 			*quote = buff[len];
@@ -74,7 +74,7 @@ void	ft_quote_blash_removal(char *buff)
 			handle_quotes(buff, len, &quote, &skip);
 		else if (buff[len] == '\\' && !skip)
 			ft_blash_parse(buff, &quote, len);
-		else if (buff[len] == '\n' && len && special_char_check(buff, len - 1, '\\') && !skip)
+		else if (buff[len] == '\n' && len && special_char_check(buff, len, '\\') && !skip)
 			handle_newline(buff, len);
 		len--;
 	}
