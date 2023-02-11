@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/11 11:33:07 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:57:33 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	int pid;
 
-	if (sh->pipe->piping)
+	if (sh->pipe->piping || sh->ampersand)
 	{
 		pid = fork_wrap();
 		if (sh->pipe->pid == 0)
@@ -77,12 +77,12 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 		return (ft_hash(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "exit"))
 		return (ft_exit(sh, *cmd));
-	else if (!ft_strcmp(**cmd, "fg")) //ADD TO IS_BUILTIN STARTING HERE
+	else if (!ft_strcmp(**cmd, "fg"))
 		return (ft_fg(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "bg"))
 		return (ft_bg(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "jobs"))
-		return (ft_jobs(sh));
+		return (ft_jobs(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "type"))
 		return (type_command(sh, *cmd, *environ_cp));
 	else if (!ft_strcmp(**cmd, "unalias"))

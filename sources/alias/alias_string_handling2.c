@@ -6,24 +6,61 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:11:04 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/09 11:17:52 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/10 22:19:07 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	get_first_word_move_post(char **post_content, char **next_word)
+void	get_first_word_move_post(char **post, char **next, char **line)
 {
 	char	*new_post;
+	char	*separator;
+	int		i;
+	int 	j;
 
-	if (*next_word)
-		ft_strdel(next_word);
-	if (!(*post_content))
+	if (*next)
+		ft_strdel(next);
+	if (!(*post))
 		return ;
-	*next_word = get_first_word(*post_content);
-	new_post = get_post_content(*post_content, *next_word);
-	ft_strdel(post_content);
-	*post_content = ft_strdup(new_post);
+	i = 0;
+	j = 0;
+	while ((*post)[i] && ft_iswhitespace((*post)[i]))
+		i++;
+	while ((*post)[i + j] && is_command_separator((*post)[i + j]))
+		j++;
+
+	if (j > 0)
+	{
+		// ft_printf("here\n");
+		separator = ft_strsub(*post, 0, i + j);
+		// ft_printf("separator (%s)\n", separator);
+		// ft_printf("post (%s)\n", *post);
+
+		j = 0;
+		while (separator[j] && ft_iswhitespace(separator[j]))
+		{
+			ft_memmove(&(separator)[0], &(separator)[1], ft_strlen(separator));
+			j = 0;
+		}
+		// ft_printf("post (%s)\n", *post);
+		new_post = get_post_content(*post, separator);
+		// ft_printf("new post (%s)\n", new_post);
+		append_to_converted(line, &separator, NULL);
+		*next = ft_strdup("");
+		// ft_printf("here2\n\n");
+		// ft_memmove()
+	}
+	else
+	{
+		*next = get_first_word(*post);
+		new_post = get_post_content(*post, *next);
+	}
+	// ft_printf("xx next (%s)\n", *next);
+	// ft_printf("xx post (%s)\n", *post);
+	// ft_printf("xx new_post (%s)\n", new_post);
+	ft_strdel(post);
+	*post = ft_strdup(new_post);
 	ft_strdel(&new_post);
 }
 
