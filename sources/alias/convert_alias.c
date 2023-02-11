@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:59:28 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/11 14:15:08 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:22:50 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,8 @@ void	alias_convert_line(char **line, t_shell *sh)
 	// ft_printf("\tFINAL line (%s)\n\n", *line);		// FULLY CONVERTED LINE
 	// sleep(3);
 
+	if (!validate_whitespace(*line))
+		ft_strdel(line);
 	//
 	// ft_strdel(line);
 	// 	*line = ft_strdup("echo hello");
