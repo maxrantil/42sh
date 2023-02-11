@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/09 15:49:30 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:17:58 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 	struct stat	buf;
 	int			open_fd;
 
+	int ret;
+
+	//TODO it seems that even thoug fd 3 and 4 are open, but they are not opened by shell, they are not in the list of open fds and should produce an error
 	open_fd_if_needed(node->close_fd, terminal);
 	open_fd = -1;
 	if (is_nb(node->dest))

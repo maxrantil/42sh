@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 17:59:41 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/11 17:02:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	ft_session_init(t_shell *sh)
 	sh->pipe->write_pipe[0] = -1;
 	sh->pipe->write_pipe[1] = -1;
 	sh->pipe->pid = -1;
-	sh->pipe->stdincpy = dup(STDIN_FILENO);
-	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
 	sh->pipe->new_pipe = 1;
@@ -54,4 +53,8 @@ void	ft_session_init(t_shell *sh)
 	sh->option_count = 0;
 	ft_init_fg_node(sh);
 	sh->exit_confirm = -1;
+	reset_fd(sh);
+	sh->pipe->stdincpy = dup(STDIN_FILENO);
+	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 21:44:00 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:03:13 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -612,7 +612,7 @@ char			*ft_heredoc(t_term *t, char *str);
 
 /*				   MAIN 					*/
 void			shell_end_cycle(t_shell *sh);
-void			reset_fd(char *terminal);
+void			reset_fd(t_shell *sh);
 
 /*				PARAM_FORM					*/
 void			add_var_to_list(t_shell *sh, char *var, char *subst);

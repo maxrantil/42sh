@@ -70,7 +70,7 @@ void	exec_pipe(t_pipenode *pipenode, \
 		waitpid(-1, 0, WUNTRACED);
 		waitpid(-1, 0, WUNTRACED);
 	}
-	reset_fd(terminal);
+	reset_fd(sh);
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	close(sh->pipe->write_pipe[0]);
