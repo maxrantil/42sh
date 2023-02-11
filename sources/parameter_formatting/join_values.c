@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 10:57:45 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 12:00:40 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:50:53 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ static int	substitute_substring(t_param *pa, int *ret)
 	return (0);
 }
 
-static void	init_join(t_param *pa, int *ret)
+static void	init_join(t_param *pa)
 {
 	ft_strdel(&pa->subs);
 	pa->subs = ft_strjoin(pa->var, pa->expanded);
 	ft_strdel(&pa->var);
-	pa->oper = get_operator(pa->subs, ret);
+	pa->oper = get_operator(pa->subs);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strnew(1);
 }
@@ -63,7 +63,7 @@ int join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 	// pa->oper = get_operator(pa->subs, &ret);
 	// ft_strdel(&pa->expanded);
 	// pa->expanded = ft_strnew(1);
-	init_join(pa, &ret);
+	init_join(pa);
 	if (pa->oper[0] == GET_VALUE)
 	{
 		if (substitute_value(pa, &ret))
@@ -102,13 +102,13 @@ int join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 	if (!pa->expanded && !*pa->expanded)
 		pa->expanded = ft_strnew(1);
 	ft_strdel(&pa->subs);
-	if (ret == -1)
-	{
+	// if (ret == -1)
+	// {
 		
-		ft_strdel(&pa->expanded);
-		ft_printf("42sh: %s: bad substitution\n", cmd);
-		return (-1);
-	}
+	// 	ft_strdel(&pa->expanded);
+	// 	ft_printf("42sh: %s: bad substitution\n", cmd);
+	// 	return (-1);
+	// }
 	//ft_strdel(&pa->expanded);
 	return (0);
 }

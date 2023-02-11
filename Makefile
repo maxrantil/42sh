@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/11 12:20:47 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/11 15:23:41 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -351,7 +351,7 @@ FILES			= \
 				$(PARAM_FORM)find_from_end \
 				$(PARAM_FORM)find_from_begin_glob \
 				$(PARAM_FORM)is_substring_id \
-				$(PARAM_FORM)check_variable_validity \
+				$(PARAM_FORM)check_substitution \
 				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \

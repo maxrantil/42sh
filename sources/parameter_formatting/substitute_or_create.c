@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 12:42:46 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:11:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static char *get_temp_subst(t_param *param, t_shell *sh, int *ret)
 		param->subs = ft_strdup(subs);
 		ft_strdel(&subs);
 	}
+	// else
+	// 	param->subs = ft_strnew(1);
 	return (subs);
 }
 
@@ -68,11 +70,10 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 {
 	t_param	param;
 	int		format;
-	char	*subs;
 
-	subs = NULL;
 	format = -1;
 	init_param(&param, cmd);
+	ft_printf("cmd %s\n", cmd);
 	if (ft_strchr(param.strip, ':'))
 	{
 		if (split_param(&param))
@@ -92,12 +93,12 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 			return (param.expanded);
 		}
 	}
-	subs = get_temp_subst(&param, sh, ret);
+	get_temp_subst(&param, sh, ret);
 	format = format_mode(param.op);
+	ft_printf("var [%s] subs [%s]\n", param.var, param.subs);
 	if (!param.expanded || !*param.expanded)
 		param.expanded = get_value(sh, param.var, param.subs, format);
 	del_param(&param, 0);
-	ft_printf(" param.expanded subs or create %s\n", param.expanded);
 	return (param.expanded);
 }
 
