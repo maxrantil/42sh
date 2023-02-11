@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_logicalop_tree.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/03 13:22:43 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:59:05 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,37 @@ static int	logical_op_type(t_token *tokens, int logical_op)
 	return (LOGICAL_OR);
 }
 
-static t_treenode	*create_logical_op_node(t_token *tokens,
-					int idx_logical_op, int semicol)
+static t_treenode    *create_logical_op_node(t_token *tokens,
+                    int idx_logical_op, int semicol)
 {
-	t_treenode	*logical_op;
-	int			next_op_node;
-	int			start_of_left_cmd;
+    t_treenode    *logical_op;
+    int            next_op_node;
+    int            start_of_left_cmd;
 
-	logical_op = init_logical_op(logical_op_type(tokens, idx_logical_op));
-	next_op_node = next_logical_op(tokens, idx_logical_op + 1, semicol);
-	if (next_op_node >= 0)
-		((t_logicalop *)logical_op)->right
-			= create_logical_op_node(tokens, next_op_node, semicol);
-	start_of_left_cmd = idx_logical_op + 1;
-	while (start_of_left_cmd < semicol
-		&& !is_semicolon_or_ampersand(tokens[start_of_left_cmd].token)
-		&& !is_logicalop(tokens[start_of_left_cmd].token))
-		++start_of_left_cmd;
-	if (start_of_left_cmd > 0)
-		--start_of_left_cmd;
-	((t_logicalop *)logical_op)->left
-		= create_command_tree(tokens, idx_logical_op + 1, start_of_left_cmd + 1);
-	if (((t_logicalop *)logical_op)->right == NULL)
-		((t_logicalop *)logical_op)->right
-			= create_command_tree(tokens, start_of_left_cmd + 2, semicol);
-	return (logical_op);
+    logical_op = init_logical_op(logical_op_type(tokens, idx_logical_op));
+    next_op_node = next_logical_op(tokens, idx_logical_op + 1, semicol);
+    if (next_op_node >= 0)
+        ((t_logicalop *)logical_op)->right
+            = create_logical_op_node(tokens, next_op_node, semicol);
+    start_of_left_cmd = idx_logical_op + 1;
+    while (start_of_left_cmd < semicol
+        && !is_semicolon_or_ampersand(tokens[start_of_left_cmd].token)
+        && !is_logicalop(tokens[start_of_left_cmd].token))
+        ++start_of_left_cmd;
+    if (start_of_left_cmd > 0)
+        --start_of_left_cmd;
+    ((t_logicalop *)logical_op)->left
+        = create_command_tree(tokens, idx_logical_op + 1, start_of_left_cmd + 1);
+    if (((t_logicalop *)logical_op)->right == NULL)
+    {
+        if (start_of_left_cmd + 2 < semicol)
+            ((t_logicalop *)logical_op)->right
+                = create_command_tree(tokens, start_of_left_cmd + 2, semicol);
+        else //THIS IS THE LATEST CHANGE
+            ((t_logicalop *)logical_op)->right
+                = NULL;
+    }
+    return (logical_op);
 }
 
 t_treenode	*create_logical_op_tree(t_token *tokens, int i_tok, int semicol)

@@ -5,10 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/10 18:02:19 by rvuorenl         ###   ########.fr        #
+#    Created: Invalid date        by                   #+#    #+#              #
+#    Updated: 2023/02/11 14:21:39 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 #COLORS
 SHELL 				:= /bin/bash
@@ -244,7 +245,6 @@ FILES			= \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
 				$(JOBS)display_job_node \
-				$(JOBS)queue_delete \
 				$(JOBS)reset_fgnode \
 				$(JOBS)reset_cmd \
 				$(JOBS)set_process_group \
