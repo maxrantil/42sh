@@ -1,0 +1,2 @@
+echo < file | cat -e
+cat < file | cat -e //SEGFAULT //does not pipe

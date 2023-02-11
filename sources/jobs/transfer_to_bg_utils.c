@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:32:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 16:33:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:19:25 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	delete_from_queue(t_shell *sh, t_bg_jobs *process)
 		if (process->index == sh->process_queue[i])
 		{
 			ft_memmove(&sh->process_queue[i], &sh->process_queue[i + 1], \
-			(sh->process_count - 1 - i) * sizeof(int));
+			(sh->process_count/*  - 1 */ /* - i */) * sizeof(int));
 			sh->process_count--;
 			break ;
 		}
@@ -73,6 +73,6 @@ void	add_to_queue(t_shell *sh, int index)
 		tmp = tmp->next;
 	}
 	ft_memmove(&sh->process_queue[i + 1], \
-	&sh->process_queue[i], (sh->process_count - 1) * sizeof(int));
+	&sh->process_queue[i], (sh->process_count/*  - 1 */) * sizeof(int));
 	sh->process_queue[i] = index;
 }

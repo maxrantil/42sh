@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/10 15:18:14 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/11 11:21:49 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-# LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -244,7 +244,6 @@ FILES			= \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
 				$(JOBS)display_job_node \
-				$(JOBS)queue_delete \
 				$(JOBS)reset_fgnode \
 				$(JOBS)reset_cmd \
 				$(JOBS)set_process_group \

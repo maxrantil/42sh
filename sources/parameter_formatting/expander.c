@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:29:33 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 17:04:01 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/11 11:20:13 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,3 @@ int expander(t_param *pa, int ret)
 	}
 	return (0);
 }
-

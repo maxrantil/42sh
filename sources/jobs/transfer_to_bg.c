@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/07 18:11:31 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:18:08 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+extern t_shell	*g_sh;
 
 static t_bg_jobs	*init_bg_node(t_shell *sh, int status, \
 int index, t_bg_jobs *prev)
@@ -29,11 +31,16 @@ int index, t_bg_jobs *prev)
 	return (bg_node);
 }
 
-static void	signalled_from_background(t_bg_jobs *job, int status)
+static void	signaled_from_background(t_bg_jobs *job, int status)
 {
 	while (job->next)
 		job = job->next;
 	job->status = status;
+	delete_from_queue(g_sh, job);
+	ft_memmove(&g_sh->process_queue[1], \
+	&g_sh->process_queue[0], (g_sh->process_count/*  - 1 */) * sizeof(int));
+	g_sh->process_queue[0] = job->index;
+	g_sh->process_count++; // here  or one line up?
 }
 
 static bool	fg_to_bg(t_shell *sh, t_bg_jobs	**job, int status)
@@ -49,7 +56,7 @@ static bool	fg_to_bg(t_shell *sh, t_bg_jobs	**job, int status)
 			(*job)->status = status;
 			delete_from_queue(sh, *job);
 			ft_memmove(&sh->process_queue[1], \
-			&sh->process_queue[0], (sh->process_count - 1) * sizeof(int));
+			&sh->process_queue[0], (sh->process_count/*  - 1 */) * sizeof(int));
 			sh->process_queue[0] = (*job)->index;
 			return (false);
 		}
@@ -73,14 +80,11 @@ void	transfer_to_bg(t_shell *sh, int status)
 		}
 		if (sh->fg_node->gpid == 0)
 		{
-			signalled_from_background(sh->bg_node, status);
+			signaled_from_background(sh->bg_node, status);
 			return ;
 		}
-		else
-		{
-			if (fg_to_bg(sh, &job, status))
-				job->next = init_bg_node(sh, status, job->index + 1, job);
-		}
+		else if (fg_to_bg(sh, &job, status))
+			job->next = init_bg_node(sh, status, job->index + 1, job);
 	}
 	else
 		ft_putendl_fd("42sh: too many jobs\n", 2);
