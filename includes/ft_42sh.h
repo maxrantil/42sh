@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 16:27:49 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:10:39 by spuustin         ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +297,7 @@ typedef struct s_shell
 	int				exit_stat;
 	int				is_flag_on;
 	int				option_count;
+	char			option;
 	bool			ampersand;
 	int				exit_confirm;
 }				t_shell;
@@ -446,6 +448,7 @@ int				validate_cd_options(t_shell *session, char **commands, \
 char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
 				int to_skip);
 int				cd_multi_command_validation(t_shell *sesh, char **commands);
+int				str_only_contains_chars(char *str, char *options, t_shell *sh);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -456,7 +459,7 @@ int				ft_set(t_shell *sh, char ***cmd);
 int				ft_exit(t_shell *sesh, char **commands);
 int				ft_fg(t_shell *sh, char **cmd);
 int				ft_export(t_shell *sh, char **cmd);
-int				ft_jobs(t_shell *sh);
+int				ft_jobs(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
 int				type_command(t_shell *sesh, char **commands, char **env);
 

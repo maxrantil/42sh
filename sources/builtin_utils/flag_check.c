@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   flag_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:52:21 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/09 20:05:56 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:10:35 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ft_42sh.h"
 
@@ -18,7 +19,7 @@
 	return 1 for true, 0 for false (bool rather than success)
 */
 
-static int	str_only_contains_chars(char *str, char *options)
+int	str_only_contains_chars(char *str, char *options, t_shell *session)
 {
 	int	i;
 	int	j;
@@ -36,11 +37,14 @@ static int	str_only_contains_chars(char *str, char *options)
 			j++;
 		}
 		if (j == opt_count)
-			return (i);
+		{
+			session->option = str[i];
+			return (0);
+		}
 		j = 0;
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 /*
@@ -103,6 +107,9 @@ int	cd_errors(int mode)
 
 int	validate_cd_options(t_shell *sh, char **cmds, int i, int d_dash)
 {
+	char	c;
+
+	c = 0;
 	while (cmds[i][0] == '-')
 	{
 		if (!cmds[i][1])
@@ -115,9 +122,9 @@ int	validate_cd_options(t_shell *sh, char **cmds, int i, int d_dash)
 			d_dash = 1;
 			break ;
 		}
-		if (str_only_contains_chars(cmds[i], "LP") != 0)
+		if (str_only_contains_chars(cmds[i], "LP", sh) == c)
 		{
-			print_usage("cd", cmds[i][str_only_contains_chars(cmds[i], "LP")]);
+			print_usage("cd", sh->option);
 			return (1);
 		}
 		i++;
