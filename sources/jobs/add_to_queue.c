@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reset_cmd.c                                        :+:      :+:    :+:   */
+/*   add_to_queue.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 16:20:34 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/11 18:24:50 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/11 18:09:39 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/11 18:22:47 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	reset_cmd(char ****cmd)
+void	add_to_queue(t_shell *sh, int index)
 {
-	char	***tofree;
+	int			i;
+	t_bg_jobs	*tmp;
 
-	tofree = *cmd;
-	while (tofree && *tofree)
+	i = 0;
+	tmp = sh->bg_node;
+	while (tmp)
 	{
-		ft_arrclean(*tofree);
-		++tofree;
+		if (tmp->index == sh->process_queue[i])
+		{
+			if (tmp->status == STOPPED)
+			{
+				i++;
+				tmp = sh->bg_node;
+			}
+		}
+		tmp = tmp->next;
 	}
-	ft_memdel((void **)&(*cmd));
-	(*cmd) = NULL;
+	++sh->process_count;
+	ft_memmove(&sh->process_queue[i + 1], \
+	&sh->process_queue[i], sh->process_count * sizeof(int));
+	sh->process_queue[i] = index;
 }

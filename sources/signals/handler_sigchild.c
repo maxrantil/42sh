@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 19:02:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:29:43 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	handler_sigchild(int num)
 		else //if suspended it goes here
 		{
 			ft_putchar('\n');
-			--g_sh->process_count;
 			transfer_to_bg(g_sh, STOPPED);
 			display_suspended_job(g_sh);
 			reset_fgnode(g_sh);
