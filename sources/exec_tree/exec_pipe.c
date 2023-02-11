@@ -60,8 +60,16 @@ void	exec_pipe(t_pipenode *pipenode, \
 	close(sh->pipe->read_pipe[1]);
 	sh->pipe->read_pipe[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
-	waitpid(-1, 0, WUNTRACED);
-	waitpid(-1, 0, WUNTRACED);
+	if (sh->ampersand)
+	{
+		waitpid(-1, 0, WNOHANG | WUNTRACED);
+		waitpid(-1, 0, WNOHANG | WUNTRACED);
+	}
+	else
+	{
+		waitpid(-1, 0, WUNTRACED);
+		waitpid(-1, 0, WUNTRACED);
+	}
 	reset_fd(terminal);
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);

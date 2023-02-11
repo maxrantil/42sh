@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/11 13:33:36 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:29:05 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	int pid;
 
-	if (sh->pipe->piping)
+	if (sh->pipe->piping || sh->ampersand)
 	{
 		pid = fork_wrap();
 		if (sh->pipe->pid == 0)
@@ -77,7 +77,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 		return (ft_hash(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "exit"))
 		return (ft_exit(sh, *cmd));
-	else if (!ft_strcmp(**cmd, "fg")) //ADD TO IS_BUILTIN STARTING HERE
+	else if (!ft_strcmp(**cmd, "fg"))
 		return (ft_fg(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "bg"))
 		return (ft_bg(sh, *cmd));

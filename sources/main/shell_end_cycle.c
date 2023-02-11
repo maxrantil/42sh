@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/11 13:34:18 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/11 15:29:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void    notify_completed_jobs(t_shell *sh)
     {
         if (ptr->status == DONE || ptr->status == TERMINATED)
 		{
-            // display_job_node(sh, ptr);
+            display_job_node(sh, ptr);
 			bg_node_delete(sh, &ptr);
 		}
 		else
