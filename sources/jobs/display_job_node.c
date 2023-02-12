@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_job_node.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:32:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 13:57:56 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:28:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	display_state(int status)
 		ft_printf("%2s%-24s", "", "Terminated");
 	else if (status == SUSPENDED)
 		ft_printf("%2s%-24s", "", "Suspended");
+	else if (status == EXITED)
+		ft_printf("%2s%-24s", "", "Exited 127");
 	else
 		ft_printf("%2s%-24s", "", "Running");
 }

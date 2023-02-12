@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 18:29:43 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/12 16:25:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,11 @@ void	handler_sigchild(int num)
 			}
 			else
 			{
-				change_process_status(g_sh->bg_node, pid, DONE);
 				g_sh->exit_stat = WEXITSTATUS(status);
+				if (g_sh->exit_stat == 127)
+					change_process_status(g_sh->bg_node, pid, EXITED);
+				else
+					change_process_status(g_sh->bg_node, pid, DONE);
 			}
 		}
 		else //if suspended it goes here

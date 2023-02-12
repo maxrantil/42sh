@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:00:54 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/12 16:11:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:26:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_jobs(t_shell *sh, char **commands)
 	while (job)
 	{
 		display_job_with_flags(sh, job);	
-		if (job->status == DONE || job->status == TERMINATED)
+		if (job->status == DONE || job->status == TERMINATED || job->status == EXITED)
 			bg_node_delete(sh, &job);
 		else
 			job = job->next;
