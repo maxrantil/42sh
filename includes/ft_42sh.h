@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/11 17:03:13 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:48:26 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,7 @@ typedef struct s_pipe
 	int		redir_in;
 	int		stdincpy;
 	int		stdoutcpy;
+	int		fd_aliases[SH_FD_MAX + 1];
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -481,9 +482,8 @@ char			*search_bin(char *cmd, char **environ_cp);
 void			error_exit(char *msg);
 size_t			calc_chptr(char **arr);
 int				fork_wrap(void);
-void			open_fd_if_needed(int fd, char *terminal);
+void			open_fd_if_needed(int *fd, char *terminal, t_shell *sh);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
-void			open_fd_if_needed(int fd, char *terminal);
 
 /*					EXECUTE_UTILS			*/
 int				check_access(char *cmd, char **args, t_shell *sh);
@@ -692,5 +692,11 @@ void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
 void			reset_cmd(char ****cmd);
 void			jobs_exit_check(t_shell *sh);
+int				give_alias_for_fd(t_shell *sh, int *fd);
+int				alias_fd_if_necessary(t_shell *sh, int *fd);
+int				close_fd_alias_if_necessary(t_shell *sh, int fd);
+int				is_aliased_fd(t_shell *sh, int open_fd);
+void			print_aliases(t_shell *sh);
+int				is_alias_fd(t_shell *sh, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:13:07 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/11 16:25:03 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 01:22:15 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,40 +37,43 @@ static void	close_previously_closed(int fd, int *closefd)
 	i = 0;
 	while (i < fd)
 	{
+		ft_printf("I: %d\n", i);
 		if (i != SH_FD_MAX && closefd[i] == 1 && close(i) < 0)
 		{
 			ft_err_print(NULL, "open_fd_if_needed", "close failed", 2);
-			break ;
+			exit(-1);
 		}
 		++i;
 	}
 }
 
-void	open_fd_if_needed(int fd, char *terminal)
+void	open_fd_if_needed(int *fd, char *terminal, t_shell *sh)
 {
 	struct stat	buf;
 	int			*closefd;
 	int			i;
 	int			len;
 
-	if (fd <= 0)
+	if (alias_fd_if_necessary(sh, fd))
+		return ;
+	if (*fd <= 0)
 		len = 2;
 	else
-		len = fd + 1;
+		len = *fd + 1;
 	closefd = ft_memalloc(sizeof(*closefd) * len);
 	closefd[0] = 0;
 	closefd[1] = 0;
 	i = 0;
-	if (fstat(fd, &buf) < 0 || fcntl(fd, F_GETFD) < 0)
+	if (fstat(*fd, &buf) < 0 || fcntl(*fd, F_GETFD) < 0)
 	{
-		while (i <= fd)
+		while (i <= *fd)
 		{
-			if (fstat(i, &buf) < 0 || fcntl(fd, F_GETFD) < 0)
+			if (fstat(i, &buf) < 0 || fcntl(*fd, F_GETFD) < 0)
 				closefd[i] = 1;
 			++i;
 		}
-		open_until_fd(fd, terminal);
-		close_previously_closed(fd, closefd);
+		open_until_fd(*fd, terminal);
+		close_previously_closed(*fd, closefd);
 	}
 	free(closefd);
 }

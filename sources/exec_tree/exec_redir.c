@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/09 15:49:30 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:09:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	exec_redir(t_redir *node, char ***environ_cp,
 {
 	int	fd;
 
+	//Test if close_fd has an alias, and close the alias instead
 	if (!test_file_access_for_type(node->filepath,
 			node->close_fd, &node->open_flags))
 		return ;
-	open_fd_if_needed(node->close_fd, terminal);
+	open_fd_if_needed(&node->close_fd, terminal, sh);
 	fd = open(node->filepath, node->open_flags, node->rights);
 	if (fd < 0)
 	{

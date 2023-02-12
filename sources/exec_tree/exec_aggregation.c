@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/11 18:17:58 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:53:13 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 	struct stat	buf;
 	int			open_fd;
 
-	int ret;
-
-	//TODO it seems that even thoug fd 3 and 4 are open, but they are not opened by shell, they are not in the list of open fds and should produce an error
-	open_fd_if_needed(node->close_fd, terminal);
+	open_fd_if_needed(&node->close_fd, terminal, sh);
 	open_fd = -1;
 	if (is_nb(node->dest))
 		open_fd = ft_atoi(node->dest);
@@ -63,7 +60,10 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 		redir_to_file(node, sh);
 		return ;
 	}
-	if (fstat(open_fd, &buf) < 0)
+	// print_aliases(sh);
+	// If open_fd has an alias, then print bad file descriptor
+	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
+		|| is_aliased_fd(sh, open_fd) || is_alias_fd(sh, open_fd))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		return ;
@@ -71,7 +71,7 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 	if (dup2(open_fd, node->close_fd) < 0)
 	{
 		ft_err_print(NULL, "dup2", "failed", 2);
-		return ;
+		return ; //WE SHOULD TERMINATE HERE
 	}
 	if (sh->pipe->write_pipe[1] > 0)
 	{
