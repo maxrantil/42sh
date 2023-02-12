@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:00:54 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/12 16:26:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:49:56 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	validate_options(t_shell *sh, char **commands)
 	int		i;
 
 	i = 1;
-	while(commands[i] && commands[i][0] == '-')
+	while(commands[i])
 	{
 		if (ft_strequ(commands[i], "--"))
 		{
@@ -26,12 +26,15 @@ static int	validate_options(t_shell *sh, char **commands)
 		}
 		if (commands[i][0] != '-')
 			break;
-		else if (str_only_contains_chars(commands[i], "lp", sh) == 0)
+		if (str_only_contains_chars(commands[i], "lp", sh) == 0)
+		{
+			sh->option_count = i;
 			return (0);
+		}
 		sh->option = commands[i][ft_strlen(commands[i]) - 1];
 		i++;
 	}
-	sh->option_count = i - 1;
+	sh->option_count = i;
 	return (1);
 }
 
@@ -50,31 +53,39 @@ static void	display_fetched_jobs(t_shell *sh, char **cmd)
 	int			i;
 	t_bg_jobs	*job;
 
-	i = -1;
+	i = 0;
 	job = NULL;
 	while (cmd[++i])
 	{
 		if (*(cmd[i]) == '-')
 			job = sh->bg_node;
 		else
-			job = bg_fetch_node(sh, &cmd[i]);
+		{
+			job = bg_fetch_node(sh, &cmd[i - 1]);
+		}
 		if (job)
 			display_job_with_flags(sh, job);
-		++i;
 	}
 }
 
 int	ft_jobs(t_shell *sh, char **commands)
 {
 	t_bg_jobs	*job;
+	bool		skip;
 	
+	skip = false;
 	if (!validate_options(sh, commands))
-		return (0);
+	{
+		print_usage("jobs", sh->option);
+		skip = true;
+	}
 	if (commands[sh->option_count + 1])
 	{
 		display_fetched_jobs(sh, &commands[sh->option_count]);
 		return (0);
 	}
+	if (skip)
+		return (0);
 	job = sh->bg_node;
 	while (job)
 	{
