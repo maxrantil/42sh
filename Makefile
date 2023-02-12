@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/11 13:07:32 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/11 18:11:12 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-# LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -238,11 +238,13 @@ FILES			= \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
+				$(JOBS)add_to_queue \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
+				$(JOBS)delete_from_queue \
 				$(JOBS)display_job_node \
 				$(JOBS)reset_fgnode \
 				$(JOBS)reset_cmd \

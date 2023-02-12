@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:00:54 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 21:30:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:11:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	validate_options(t_shell *sh, char **commands)
 	int		i;
 
 	i = 1;
-	while(commands[i])
+	while(commands[i] && commands[i][0] == '-')
 	{
 		if (ft_strequ(commands[i], "--"))
 		{

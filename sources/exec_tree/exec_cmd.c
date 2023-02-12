@@ -6,11 +6,9 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/11 19:45:31 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:11:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "ft_42sh.h"
 
