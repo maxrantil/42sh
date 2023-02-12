@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 18:20:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/12 18:05:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 			display_job_node(sh, job);
 			return (0);
 		}
-		display_pipeline_cmd(job);
+		display_pipeline_cmd(sh, job);
 		if (job->status == STOPPED || job->status == SUSPENDED)
 			killpg(job->gpid, SIGCONT);
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &job->gpid) == -1)
