@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/11 15:29:12 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:26:34 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void    notify_completed_jobs(t_shell *sh)
  */
 void	shell_end_cycle(t_shell *sh)
 {
+
 	free_node(sh->head);
 	free_tokens(&sh->tokens);
 	reset_fd(sh->terminal);

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/10 18:18:08 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/11 18:25:41 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static void	signaled_from_background(t_bg_jobs *job, int status)
 		job = job->next;
 	job->status = status;
 	delete_from_queue(g_sh, job);
+	g_sh->process_count++;
 	ft_memmove(&g_sh->process_queue[1], \
-	&g_sh->process_queue[0], (g_sh->process_count/*  - 1 */) * sizeof(int));
+	&g_sh->process_queue[0], g_sh->process_count * sizeof(int));
 	g_sh->process_queue[0] = job->index;
-	g_sh->process_count++; // here  or one line up?
 }
 
 static bool	fg_to_bg(t_shell *sh, t_bg_jobs	**job, int status)
@@ -55,8 +55,9 @@ static bool	fg_to_bg(t_shell *sh, t_bg_jobs	**job, int status)
 		{
 			(*job)->status = status;
 			delete_from_queue(sh, *job);
+			sh->process_count++;
 			ft_memmove(&sh->process_queue[1], \
-			&sh->process_queue[0], (sh->process_count/*  - 1 */) * sizeof(int));
+			&sh->process_queue[0], sh->process_count * sizeof(int));
 			sh->process_queue[0] = (*job)->index;
 			return (false);
 		}
@@ -71,7 +72,7 @@ void	transfer_to_bg(t_shell *sh, int status)
 {
 	t_bg_jobs	*job;
 
-	if (++sh->process_count < JOBS_MAX)
+	if (sh->process_count < JOBS_MAX)
 	{
 		if (!sh->bg_node)
 		{
