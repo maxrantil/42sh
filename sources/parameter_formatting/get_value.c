@@ -6,13 +6,13 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 15:59:13 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:05:27 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static char *use_default_value(t_shell *sh, char *var, char *subst)
+static char	*use_default_value(t_shell *sh, char *var, char *subst)
 {
 	char	*expanded;
 	char	**temp;
@@ -52,7 +52,7 @@ static char	*assign_default_value(t_shell *sh, char *var, char *subst)
 	return (expanded);
 }
 
-static char *display_error(t_shell *sh, char *var, char *subst)
+static char	*display_error(t_shell *sh, char *var, char *subst)
 {
 	char	*expanded;
 	char	**temp;
@@ -62,7 +62,7 @@ static char *display_error(t_shell *sh, char *var, char *subst)
 	temp[1] = NULL;
 	expanded = NULL;
 	if (!*temp[0] && subst[1])
-			ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
+		ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
 	else if (!*temp[0] && !subst[1])
 		ft_printf("42sh: %s: parameter null or unset\n", var + 1);
 	else
@@ -73,7 +73,7 @@ static char *display_error(t_shell *sh, char *var, char *subst)
 	return (expanded);
 }
 
-static char *alternate_value(t_shell *sh, char *var, char *subst)
+static char	*alternate_value(t_shell *sh, char *var, char *subst)
 {
 	char	*expanded;
 	char	**temp;
@@ -86,12 +86,13 @@ static char *alternate_value(t_shell *sh, char *var, char *subst)
 	{
 		if (subst && *subst)
 		{
-			ft_printf("perkele %s\n", temp[0]);
 			if (subst[0] == '+')
 				expanded = ft_strdup(subst + 1);
 			else
 				expanded = ft_strdup(subst);
 		}
+		else
+			expanded = ft_strnew(1);
 	}
 	ft_strdel(&temp[0]);
 	ft_strdel(&temp[1]);

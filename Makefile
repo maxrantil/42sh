@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/11 16:57:41 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/12 13:55:30 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ LEAK_CHECK			= -g
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-CFLAGS				+= 	-Werror
+#CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses

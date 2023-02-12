@@ -6,23 +6,24 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 16:11:56 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:58:57 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 
-static int split_param(t_param *param)
+static int	split_param(t_param *param)
 {
 	ft_strdel(&param->subs);
 	ft_strdel(&param->var);
 	param->subs = ft_strdup(ft_strchr(param->strip, ':'));
-	param->subs = (char *)ft_memmove(param->subs, param->subs + 1, ft_strlen(param->subs));
+	param->subs = \
+	(char *)ft_memmove(param->subs, param->subs + 1, ft_strlen(param->subs));
 	param->op = param->subs[0];
-	// if (!is_param_exp_char(param->subs))
-	// 	return (1);
-	param->var = ft_strndup(param->strip, ft_strlen(param->strip) - (ft_strlen(param->subs)) - 1);
+	param->var = \
+	ft_strndup(param->strip, ft_strlen(param->strip) \
+	- (ft_strlen(param->subs) + 1));
 	return (0);
 }
 
@@ -36,7 +37,7 @@ static void	init_param(t_param *param, char *cmd)
 	param->strip = remove_braces(param->strip);
 }
 
-static void del_param(t_param *param, int opt)
+static void	del_param(t_param *param, int opt)
 {
 	ft_strdel(&param->subs);
 	ft_strdel(&param->strip);
@@ -45,13 +46,14 @@ static void del_param(t_param *param, int opt)
 		ft_strdel(&param->expanded);
 }
 
-static char *get_temp_subst(t_param *param, t_shell *sh, int *ret)
+static char	*get_temp_subst(t_param *param, t_shell *sh, int *ret)
 {
 	char	*subs;
 
 	subs = NULL;
-	if ((ft_strnequ(param->subs + 1, "${", 2) && ft_strchr(param->subs , '#'))
-		|| (ft_strnequ(param->subs + 1, "${", 2) && ft_strchr(param->subs , '%')))
+	if ((ft_strnequ(param->subs + 1, "${", 2) && ft_strchr(param->subs, '#'))
+		|| (ft_strnequ(param->subs + 1, "${", 2)
+			&& ft_strchr(param->subs, '%')))
 		subs = search_from_var(sh, param->subs + 1, ret);
 	else if (ft_strnequ(param->subs + 1, "${", 2))
 		subs = substitute_or_create(sh, param->subs + 1, ret);
@@ -61,28 +63,18 @@ static char *get_temp_subst(t_param *param, t_shell *sh, int *ret)
 		param->subs = ft_strdup(subs);
 		ft_strdel(&subs);
 	}
-	// else
-	// 	param->subs = ft_strnew(1);
 	return (subs);
 }
 
-char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
+char	*substitute_or_create(t_shell *sh, char *cmd, int *ret)
 {
 	t_param	param;
 	int		format;
 
 	format = -1;
 	init_param(&param, cmd);
-	ft_printf("cmd %s\n", cmd);
 	if (ft_strchr(param.strip, ':'))
-	{
-		if (split_param(&param))
-		{
-			ft_printf("here\n");
-			*ret = -1;
-			return (NULL);
-		}
-	}
+		split_param(&param);
 	else
 	{
 		param.expanded = ft_expansion_dollar(sh, param.strip);
@@ -95,7 +87,6 @@ char *substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	}
 	get_temp_subst(&param, sh, ret);
 	format = format_mode(param.op);
-	ft_printf("var [%s] subs [%s]\n", param.var, param.subs);
 	if (!param.expanded || !*param.expanded)
 		param.expanded = get_value(sh, param.var, param.subs, format);
 	del_param(&param, 0);

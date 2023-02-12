@@ -6,17 +6,16 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:42:48 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:20:45 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:50:59 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void init_pa_ints(t_pa_ints *ints, char **new_cmd)
+void init_pa_ints(t_pa_ints *ints)
 {
 	ints->err = 0;
 	ints->i = -1;
 	ints->j = 0;
 	ints->ret = 0;
-	(*new_cmd) = NULL;
 }

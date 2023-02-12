@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/11 16:57:27 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:48:37 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -633,7 +633,7 @@ char			*variable_length(char *str);
 int				perform_param_expans(char *cmd, t_param *pa, int *ret);
 char			*get_flag(char *cmd, int *ret);
 void			init_pa(t_param *pa);
-void			init_pa_ints(t_pa_ints *ints, char **new_cmd);
+void			init_pa_ints(t_pa_ints *ints);
 void			free_attrs(t_param *pa, char **new_cmd);
 void			init_subs_session(t_sub *sub, char *cmd);
 void			subs_session_free(t_sub *sub, int opt);

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:38:41 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 16:27:51 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:48:58 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void retoken_into_list(t_param *pa)
 
 	i = 0;
 	j = 0;
+	if (!pa->subs[0])
+		pa->list[i] = retokenize(pa->var, &j);
 	while (pa->subs[j])
 	{
 		pa->list[i++] = retokenize(pa->subs, &j);
@@ -33,9 +35,7 @@ int	perform_param_expans(char *cmd, t_param *pa, int *ret)
 
 	err = 0;
 	if (!splitter(cmd, pa, ret) && *ret == 0)
-	{
 		;
-	}
 	else
 		return (-1);
 	if (*ret == 0)
@@ -48,6 +48,5 @@ int	perform_param_expans(char *cmd, t_param *pa, int *ret)
 	{
 		err = -1;
 	}
-	ft_printf("%d\n", err);
-;	return (err);
+	return (err);
 }
