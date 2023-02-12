@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:20:42 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/12 16:47:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:10:08 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char *arg, char *cmd)
 static bool	prefix_search(t_bg_jobs	**ret, t_bg_jobs *head, \
 char *arg, char *cmd)
 {
-	if (ft_strstr(**head->cmd, cmd))
+	if (!ft_strncmp(**head->cmd, cmd, ft_strlen(cmd)))
 	{
 		if (!(*ret))
 			*ret = head;
