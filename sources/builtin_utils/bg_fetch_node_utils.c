@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_fetch_node_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:20:42 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 17:24:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:47:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ char *arg, char *cmd)
 {
 	if (ft_strstr(**head->cmd, cmd))
 	{
-		if (!*ret)
+		if (!(*ret))
 			*ret = head;
 		else
 		{
-			ft_printf("42sh: %s: %s: ambiguous job spec\n", *arg, cmd);
+			ft_printf("42sh: %s: %s: ambiguous job spec\n", arg, cmd);
 			return (false);
 		}
 	}
