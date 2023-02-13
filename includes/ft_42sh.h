@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/12 18:03:55 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 09:11:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,8 +436,8 @@ int i_tok, int end);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_cd_addr_check(char *file, int p_option, t_shell *session);
-t_bg_jobs		*search_via_cmd(t_shell *sh, char **cmd);
-t_bg_jobs		*bg_fetch_node(t_shell *sh, char **cmd);
+t_bg_jobs		*search_via_cmd(t_shell *sh, char *arg, char *cmd);
+t_bg_jobs		*bg_fetch_node(t_shell *sh, char *args, char *cmd);
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
 void			ft_env_remove(t_shell *sh, char *env_to_clean);
 int				ft_env_append(t_shell *sh, char **arg);

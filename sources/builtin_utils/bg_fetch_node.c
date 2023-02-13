@@ -6,13 +6,13 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:15 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/12 20:49:18 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 09:14:05 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static t_bg_jobs	*search_via_index(t_shell *sh, int index, char **cmd)
+static t_bg_jobs	*search_via_index(t_shell *sh, int index, char *cmd)
 {
 	t_bg_jobs	*head;
 
@@ -23,11 +23,11 @@ static t_bg_jobs	*search_via_index(t_shell *sh, int index, char **cmd)
 			return (head);
 		head = head->next;
 	}
-	ft_printf("42sh: %s: no such job\n", *cmd);
+	ft_printf("42sh: %s: no such job\n", cmd);
 	return (NULL);
 }
 
-static t_bg_jobs	*search_via_queue(t_shell *sh, char sign, char **cmd)
+static t_bg_jobs	*search_via_queue(t_shell *sh, char sign, char *cmd)
 {
 	int			count;
 	int			target;
@@ -48,35 +48,26 @@ static t_bg_jobs	*search_via_queue(t_shell *sh, char sign, char **cmd)
 	}
 	if (count == 1)
 		return (sh->bg_node);
-	ft_printf("42sh: %s: no such job\n", *cmd);
+	ft_printf("42sh: %s: no such job\n", cmd);
 	return (NULL);
 }
 
-t_bg_jobs	*process_getpid(t_shell *sh, int index, char **cmd, char sign)
-{
-	if (sign)
-		return (search_via_queue(sh, sign, cmd));
-	if (index)
-		return (search_via_index(sh, --index, cmd));
-	return (search_via_cmd(sh, cmd));
-}
-
-t_bg_jobs	*bg_fetch_node(t_shell *sh, char **cmd)
+t_bg_jobs	*bg_fetch_node(t_shell *sh, char *args, char *cmd)
 {
 	int	i;
 
 	i = 0;
-	ft_printf("here %s\n", *(cmd + 1));
-	if (!*(cmd + 1) || !ft_strcmp("%", *(cmd + 1)) \
-	|| !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)) || !ft_strcmp("+", *(cmd + 1)))
-		return (process_getpid(sh, 0, cmd, '+'));
-	if (!ft_strcmp("%-", *(cmd + 1)) || !ft_strcmp("-", *(cmd + 1)))
-		return (process_getpid(sh, 0, cmd, '-'));
-	if (cmd[1][i] == '%')
+	if (!args || !ft_strcmp("%", args) \
+	|| !ft_strcmp("%%", args) || !ft_strcmp("%+", args) \
+	|| !ft_strcmp("+", args))
+		return (search_via_queue(sh, '+', cmd));
+	if (!ft_strcmp("%-", args) || !ft_strcmp("-", args))
+		return (search_via_queue(sh, '-', cmd));
+	if (args[i] == '%')
 		++i;
-	if (ft_isdigit(cmd[1][i]))
-		return (process_getpid(sh, ft_atoi(&cmd[1][i]), cmd, 0));
+	if (ft_isdigit(args[i]))
+		return (search_via_index(sh, ft_atoi(&args[i]) - 1, cmd));
 	else
-		return (process_getpid(sh, 0, cmd, 0));
+		return (search_via_cmd(sh, args, cmd));
 	return (NULL);
 }
