@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 11:04:33 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:20:51 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	alias_fd_if_necessary(t_shell *sh, int *fd)
 
 	i = 0;
 	if (*fd >= SH_FD_MAX)
-		ft_exit_error("Too many open filedescriptors\n", -1);
+		return 0;
 	if (is_aliased_fd(sh, *fd))
 	{
 		*fd = sh->pipe->fd_aliases[*fd];
@@ -49,7 +49,7 @@ int	alias_fd_if_necessary(t_shell *sh, int *fd)
 
 int close_fd_alias_if_necessary(t_shell *sh, int fd)
 {
-	if (sh->pipe->fd_aliases[fd] != -1)
+	if (fd <= SH_FD_MAX && sh->pipe->fd_aliases[fd] != -1)
 	{
 		close(sh->pipe->fd_aliases[fd]);
 		sh->pipe->fd_aliases[fd] = -1;
@@ -60,7 +60,7 @@ int close_fd_alias_if_necessary(t_shell *sh, int fd)
 
 int is_aliased_fd(t_shell *sh, int open_fd)
 {
-	if (sh->pipe->fd_aliases[open_fd] != -1)
+	if (open_fd <= SH_FD_MAX && sh->pipe->fd_aliases[open_fd] != -1)
 		return (1);
 	return (0);
 }
@@ -94,6 +94,7 @@ void print_aliases(t_shell *sh)
 
 int close_fd_alias(t_shell *sh, int fd)
 {
-	sh->pipe->fd_aliases[fd] = -1;
+	if (fd <= SH_FD_MAX)
+		sh->pipe->fd_aliases[fd] = -1;
 	return (1);
 }

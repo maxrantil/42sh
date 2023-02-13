@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:13:07 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 11:21:40 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:11:18 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ static void	close_previously_closed(int fd, int *closefd)
 	i = 0;
 	while (i < fd)
 	{
-		ft_printf("I: %d FD: %d\n", i, fd);
 		if (i != SH_FD_MAX  && closefd[i] == 1)
 		{
 			close(i);
 			// ft_err_print(NULL, "open_fd_if_needed", "close failed", 2);
 			// exit(-1);
 		}
-		ft_printf("AFER\n");
 		++i;
 	}
 }
@@ -71,7 +69,7 @@ void	open_fd_if_needed(int *fd, char *terminal, t_shell *sh)
 	{
 		while (i <= *fd)
 		{
-			if (fstat(i, &buf) < 0 || fcntl(*fd, F_GETFD) < 0)
+			if (fstat(i, &buf) < 0 /*|| fcntl(*fd, F_GETFD) < 0*/)
 				closefd[i] = 1;
 			++i;
 		}
