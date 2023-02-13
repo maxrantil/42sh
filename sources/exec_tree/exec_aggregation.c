@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/13 00:53:13 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:06:41 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		return ;
 	}
-	if (dup2(open_fd, node->close_fd) < 0)
+	if (close_fd_alias(sh, node->close_fd) && dup2(open_fd, node->close_fd) < 0) 
 	{
 		ft_err_print(NULL, "dup2", "failed", 2);
-		return ; //WE SHOULD TERMINATE HERE
+		exit (1);
 	}
 	if (sh->pipe->write_pipe[1] > 0)
 	{

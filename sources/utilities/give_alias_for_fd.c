@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 01:12:43 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:04:33 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,10 @@ void print_aliases(t_shell *sh)
 			ft_printf("ALIAS: %d -> %d\n", i, sh->pipe->fd_aliases[i]);
 		++i;
 	}
+}
+
+int close_fd_alias(t_shell *sh, int fd)
+{
+	sh->pipe->fd_aliases[fd] = -1;
+	return (1);
 }

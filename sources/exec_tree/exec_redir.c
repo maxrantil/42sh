@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/13 00:09:55 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:05:46 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	exec_redir(t_redir *node, char ***environ_cp,
 		ft_err_print(NULL, node->filepath, "open failed", 2);
 		return ;
 	}
-	if (dup2(fd, node->close_fd) < 0)
+	if (close_fd_alias(sh, node->close_fd) && dup2(fd, node->close_fd) < 0)
 	{
 		ft_err_print(NULL, "exec_redir", "dup2 failed", 2);
 		return ;

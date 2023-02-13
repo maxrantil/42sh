@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 00:48:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:05:01 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -698,5 +698,6 @@ int				close_fd_alias_if_necessary(t_shell *sh, int fd);
 int				is_aliased_fd(t_shell *sh, int open_fd);
 void			print_aliases(t_shell *sh);
 int				is_alias_fd(t_shell *sh, int fd);
+int				close_fd_alias(t_shell *sh, int fd);
 
 #endif
