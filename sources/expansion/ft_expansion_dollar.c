@@ -74,10 +74,11 @@ static void	qoute_check(char **split, int index, char *qoute, char *ch)
 	int	bslash;
 
 	bslash = 0;
-	while ((index - 1) > 0 && split[index - 1] && !ft_strcmp(split[index - 1], "\\"))
+	while ((index - 1) > 0 && split[index - 1]
+		&& !ft_strcmp(split[index - 1], "\\"))
 	{
 		bslash++;
-		index--;	
+		index--;
 	}
 	if (bslash % 2 == 0)
 	{
@@ -112,9 +113,10 @@ char	*ft_expansion_dollar(t_shell *sh, char *str)
 	split_dollar = ft_special_ch_split(str);
 	while (split_dollar[++i])
 	{
-		if (!ft_strcmp(split_dollar[i], "\'") || !ft_strcmp(split_dollar[i], "\""))
+		if (!ft_strcmp(split_dollar[i], "\'")
+			|| !ft_strcmp(split_dollar[i], "\""))
 			qoute_check(split_dollar, i, &qoute, split_dollar[i]);
-		ft_catinate_expansion(sh, &split_dollar[i], &buff , qoute);
+		ft_catinate_expansion(sh, &split_dollar[i], &buff, qoute);
 	}
 	ft_memdel((void **)&split_dollar);
 	return (buff);

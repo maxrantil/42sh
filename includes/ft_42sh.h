@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 14:26:13 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 20:58:33 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <limits.h>
 # include <sys/shm.h>
 # include <signal.h>
+# include <dirent.h>
+# include <fcntl.h>
+# include <pwd.h>
 
 # if __gnu_linux__
 #  include <fcntl.h>
@@ -508,6 +511,9 @@ char			*ft_expansion_dollar(t_shell *sh, char *str);
 char			*ft_expansion_tilde(t_shell *sh, char *str);
 char			*ft_expansion_excla(char *str, int i);
 void			ft_quote_blash_removal(char *buff);
+char			*user_expansions(char *str);
+char			*passwd_user(char *input);
+void			join_paths(char **user, char **temp, char **path, int opt);
 
 /*				FT_TEST				*/
 int				ft_test_b(char **arg);
