@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:11:04 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/10 22:19:07 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:35:52 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ void	get_first_word_move_post(char **post, char **next, char **line)
 
 	if (j > 0)
 	{
-		// ft_printf("here\n");
 		separator = ft_strsub(*post, 0, i + j);
-		// ft_printf("separator (%s)\n", separator);
-		// ft_printf("post (%s)\n", *post);
 
 		j = 0;
 		while (separator[j] && ft_iswhitespace(separator[j]))
@@ -43,22 +40,15 @@ void	get_first_word_move_post(char **post, char **next, char **line)
 			ft_memmove(&(separator)[0], &(separator)[1], ft_strlen(separator));
 			j = 0;
 		}
-		// ft_printf("post (%s)\n", *post);
 		new_post = get_post_content(*post, separator);
-		// ft_printf("new post (%s)\n", new_post);
 		append_to_converted(line, &separator, NULL);
 		*next = ft_strdup("");
-		// ft_printf("here2\n\n");
-		// ft_memmove()
 	}
 	else
 	{
 		*next = get_first_word(*post);
 		new_post = get_post_content(*post, *next);
 	}
-	// ft_printf("xx next (%s)\n", *next);
-	// ft_printf("xx post (%s)\n", *post);
-	// ft_printf("xx new_post (%s)\n", new_post);
 	ft_strdel(post);
 	*post = ft_strdup(new_post);
 	ft_strdel(&new_post);
