@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 11:49:27 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 11:50:07 by mrantil          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/02/13 12:54:27 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,14 @@
 # define STRING_LEN "$#"
 
 typedef union u_treenode	t_treenode;
+
+/*		       	   TOKENIZER FLAGS				*/
+typedef	struct	s_token_flags
+{
+	char	quote;
+	char	braces;
+	int		braces_count;	
+}				t_token_flags;
 
 /*			PARAMETER EXPANSION INTEGERS		*/
 typedef struct s_pa_ints
@@ -684,8 +692,7 @@ int				is_semi_or_amp(char c);
 void			free_tokens(t_token **tokens);
 int				is_nl(char c);
 int				is_seperator(char c);
-void			tok_quote_flag(char *line, int *end, char \
-*quote_flag, char *braces);
+void			tok_quote_flag(char *line, int *end, t_token_flags *flags);
 
 /*					UTILITIES				*/
 void			banner_print(void);

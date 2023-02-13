@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:33:29 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/27 11:04:04 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:55:43 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	ft_init_to_zero(t_term *t)
 	t->bracket = 0;
 	t->total_row = 0;
 	t->history_row = -1;
+	t->bracket_count = 0;
 	t->total_row_cpy = 0;
 	t->clipboard.type = 0;
 }
