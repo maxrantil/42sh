@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   check_variable_validity.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 17:03:04 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/10 15:10:28 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/10 17:04:36 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
+int	check_var_validity(char *var)
 {
-	int		i;
+	int	i;
 
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	while (str[i])
+	i = 0;
+	if (var[i] == '$')
+		i++;
+	if (var[i] == '{')
+		i++;
+	if (ft_isalpha(var[i]) || (!ft_isalpha(var[i]) && var[i] == '_'))
+		i++;
+	while (var[i])
 	{
-		str[i] = str[i + 1];
+		if (!ft_isalnum(var[i]) && var[i] != '}')
+			return (0);
 		i++;
 	}
-	return (str);
+	return (1);
 }
-
