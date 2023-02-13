@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:18:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 13:14:21 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:31:59 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ static int	check_variable(int *i, char *cmd, int *ret, t_param *pa)
 
 	temp = &cmd[*i];
 	(*i) += 2;
-	if (!get_subs(cmd))
-		return (1);
+	
 	k = -1;
 	if (!ft_isalpha(cmd[*i]) && cmd[*i] != '_' && cmd[*i] != '?')
 		return (set_values(temp, ret, pa));
@@ -78,6 +77,8 @@ static int	check_variable(int *i, char *cmd, int *ret, t_param *pa)
 	retu = is_param_exp_char(&cmd[*i]);
 	if (!retu && cmd[*i] != '}')
 		return (set_values(temp, ret, pa));
+	if (!get_subs(cmd))
+		return (1);
 	return (0);
 }
 

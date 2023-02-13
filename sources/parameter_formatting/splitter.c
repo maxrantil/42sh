@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:19:56 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 13:14:39 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:24:27 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ extern t_shell	*g_sh;
 
 static void	first_split(char *cmd, t_param *pa, int *ret)
 {
+	// char	*temp;
 	pa->strip = ft_strdup(cmd);
 	remove_braces(pa->strip);
 	pa->subs = ft_strdup(get_flag(pa->strip + 1, ret));
@@ -25,6 +26,10 @@ static void	first_split(char *cmd, t_param *pa, int *ret)
 		*pa->subs = pa->op;
 	pa->var = ft_strndup(pa->strip, \
 	ft_strlen(pa->strip) - (ft_strlen(pa->subs)));
+	// temp = ft_strtrim(pa->subs);
+	// ft_strdel(&pa->subs);
+	// pa->subs = ft_strdup(temp);
+	ft_printf("pa->subs [%s]\npa->var [%s]\n", pa->subs, pa->var);
 	ft_strdel(&pa->strip);
 }
 
