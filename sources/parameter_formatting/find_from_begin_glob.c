@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_from_begin_glob.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:36:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 13:24:42 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/11 11:20:19 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

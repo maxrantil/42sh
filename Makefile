@@ -6,7 +6,7 @@
 #    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/12 23:35:19 by jniemine         ###   ########.fr        #
+#    Updated: 2023/02/13 11:28:36 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,11 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-# LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-CFLAGS				+= 	-Werror
+#CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses
@@ -238,11 +238,13 @@ FILES			= \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
+				$(JOBS)add_to_queue \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
+				$(JOBS)delete_from_queue \
 				$(JOBS)display_job_node \
 				$(JOBS)reset_fgnode \
 				$(JOBS)reset_cmd \
@@ -254,6 +256,7 @@ FILES			= \
 				$(JOBS)update_fg_job \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
+				$(HISTORY)ft_history_print_error \
 				$(HISTORY)ft_history_expansion \
 				$(HISTORY)ft_history_write_to_file \
 				$(KEYBOARD)ft_add_nl_last_row \
@@ -351,6 +354,7 @@ FILES			= \
 				$(PARAM_FORM)find_from_end \
 				$(PARAM_FORM)find_from_begin_glob \
 				$(PARAM_FORM)is_substring_id \
+				$(PARAM_FORM)check_substitution \
 				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \

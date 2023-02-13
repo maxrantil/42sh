@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_fetch_node_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:20:42 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/07 17:24:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 08:30:07 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char *arg, char *cmd)
 			}
 			else
 			{
-				ft_printf("42sh: %s: %s: ambiguous job spec\n", *arg, cmd);
+				ft_printf("42sh: %s: %s: ambiguous job spec\n", arg, cmd);
 				return (false);
 			}
 		}
@@ -41,29 +41,29 @@ char *arg, char *cmd)
 static bool	prefix_search(t_bg_jobs	**ret, t_bg_jobs *head, \
 char *arg, char *cmd)
 {
-	if (ft_strstr(**head->cmd, cmd))
+	if (!ft_strncmp(**head->cmd, cmd, ft_strlen(cmd)))
 	{
-		if (!*ret)
+		if (!(*ret))
 			*ret = head;
 		else
 		{
-			ft_printf("42sh: %s: %s: ambiguous job spec\n", *arg, cmd);
+			ft_printf("42sh: %s: %s: ambiguous job spec\n", arg, cmd);
 			return (false);
 		}
 	}
 	return (true);
 }
 
-static int	get_start_point(char **cmd, bool *substring_flag)
+static int	get_start_point(char *arg, bool *substring_flag)
 {
 	int	i;
 
 	i = 0;
 	*substring_flag = false;
-	if (cmd[1][i] == '%')
+	if (arg[i] == '%')
 	{
 		++i;
-		if (cmd[1][i] == '?')
+		if (arg[i] == '?')
 		{
 			++i;
 			*substring_flag = true;
@@ -72,7 +72,7 @@ static int	get_start_point(char **cmd, bool *substring_flag)
 	return (i);
 }
 
-t_bg_jobs	*search_via_cmd(t_shell *sh, char **cmd)
+t_bg_jobs	*search_via_cmd(t_shell *sh, char *arg, char *cmd)
 {
 	int			i;
 	t_bg_jobs	*ret;
@@ -80,23 +80,23 @@ t_bg_jobs	*search_via_cmd(t_shell *sh, char **cmd)
 	bool		substring_flag;
 
 	ret = NULL;
-	i = get_start_point(cmd, &substring_flag);
+	i = get_start_point(arg, &substring_flag);
 	head = sh->bg_node;
 	while (head)
 	{
 		if (substring_flag)
 		{
-			if (!substring_search(&ret, head, *cmd, &cmd[1][i]))
+			if (!substring_search(&ret, head, cmd, &arg[i]))
 				return (NULL);
 		}
 		else
 		{
-			if (!prefix_search(&ret, head, *cmd, &cmd[1][i]))
+			if (!prefix_search(&ret, head, cmd, &arg[i]))
 				return (NULL);
 		}
 		head = head->next;
 	}
 	if (!ret)
-		ft_printf("42sh: %s: no such job\n", *cmd);
+		ft_printf("42sh: %s: no such job\n", cmd);
 	return (ret);
 }

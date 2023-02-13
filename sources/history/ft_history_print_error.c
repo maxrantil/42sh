@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_braces.c                                    :+:      :+:    :+:   */
+/*   ft_history_print_error.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 17:03:04 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/13 11:10:35 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/13 11:16:37 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*remove_braces(char *str)
+int	ft_history_print_error(char *str, int prefix)
 {
-	int		i;
-
-	i = 1;
-	if (!str[1] || str[1] != '{')
-		return (str);
-	str[1] = str[2];
-	str[ft_strlen(str) - 1] = '\0';
-	while (str[i])
-	{
-		str[i] = str[i + 1];
-		i++;
-	}
-	return (str);
+	ft_putstr_fd("\n42sh: !", 2);
+	if (prefix == 2)
+		ft_putstr_fd("-", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": event not found\n", 2);
+	return (0);
 }
-

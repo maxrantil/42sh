@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 19:02:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:00:42 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,18 @@ void	handler_sigchild(int num)
 			}
 			else
 			{
-				change_process_status(g_sh->bg_node, pid, DONE);
 				g_sh->exit_stat = WEXITSTATUS(status);
+				if (g_sh->exit_stat == 127)
+					change_process_status(g_sh->bg_node, pid, EXITED);
+				else
+					change_process_status(g_sh->bg_node, pid, DONE);
 			}
 		}
 		else //if suspended it goes here
 		{
 			ft_putchar('\n');
-			--g_sh->process_count;
 			transfer_to_bg(g_sh, STOPPED);
 			display_suspended_job(g_sh);
-			reset_fgnode(g_sh);
 			g_sh->exit_stat = 146;
 		}
 		}

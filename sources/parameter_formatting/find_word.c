@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:26:17 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 13:24:31 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 10:45:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,8 @@ static char	*find_from_begin_last(char *haystack, char *needle)
 {
 	int	len;
 	int	len_needle;
-	int	k;
-	int	i;
 
 	len = (int)ft_strlen(haystack) - 1;
-	k = 0;
-	i = 0;
 //	ft_printf("haystack [%s] needle [%s]\n", haystack, needle);
 	while (len > 0)
 	{
@@ -75,13 +71,9 @@ static char	*find_from_first_last(char *haystack, char *needle)
 {
 	int	len;
 	int	len_needle;
-	int	k;
-	int	i;
 	char	*temp;
 
 	len = (int)ft_strlen(haystack) - 1;
-	k = 0;
-	i = 0;
 	while (len > 0)
 	{
 		len_needle = (int)ft_strlen(needle) - 1;

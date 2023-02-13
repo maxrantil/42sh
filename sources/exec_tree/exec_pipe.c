@@ -27,7 +27,7 @@ int	fork_wrap(void)
 
 	pid = fork();
 	if (pid == -1)
-		error_exit("fork failed\n");
+		exit_error(g_sh, 1, "ERROR: fork failed");
 	return (pid);
 }
 

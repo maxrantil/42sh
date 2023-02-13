@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 11:05:01 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:28:52 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@
 # define DONE 3
 # define TERMINATED 4
 # define SUSPENDED 5
+# define EXITED 6
 
 /* For print_tree */
 # define COUNT 10
@@ -436,8 +437,8 @@ int i_tok, int end);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_cd_addr_check(char *file, int p_option, t_shell *session);
-t_bg_jobs		*search_via_cmd(t_shell *sh, char **cmd);
-t_bg_jobs		*bg_fetch_node(t_shell *sh, char **cmd);
+t_bg_jobs		*search_via_cmd(t_shell *sh, char *arg, char *cmd);
+t_bg_jobs		*bg_fetch_node(t_shell *sh, char *args, char *cmd);
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
 void			ft_env_remove(t_shell *sh, char *env_to_clean);
 int				ft_env_append(t_shell *sh, char **arg);
@@ -545,6 +546,7 @@ void			hash_print(t_hash **ht);
 /*			  		 HISTORY				*/
 int				ft_history(t_term *t, char **cmd);
 void			ft_history_get(t_term *t);
+int				ft_history_print_error(char *str, int prefix);
 int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);
 
@@ -592,7 +594,7 @@ void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
 void			display_suspended_job(t_shell *sh);
-void			display_pipeline_cmd(t_bg_jobs *job);
+void			display_pipeline_cmd(t_shell *sh, t_bg_jobs *job);
 char			**dup_dbl_ptr(char **cmd);
 void			reset_fgnode(t_shell *sh);
 void			set_process_group(t_shell *sh, pid_t pid);
@@ -625,7 +627,7 @@ char			*remove_braces(char *str);
 char			*get_value(t_shell *sh, char *var, char *subst, int format);
 int				format_mode(char op);
 int				join_values(t_shell *sh, t_param *pa, char *cmd, int ret);
-char			*get_operator(char *cmd, int *ret);
+char			*get_operator(char *cmd);
 int				is_param_exp_char(char *flag);
 int				splitter(char *cmd, t_param *pa, int *ret);
 int				expander(t_param *pa, int ret);
@@ -633,15 +635,17 @@ char			*variable_length(char *str);
 int				perform_param_expans(char *cmd, t_param *pa, int *ret);
 char			*get_flag(char *cmd, int *ret);
 void			init_pa(t_param *pa);
-void			init_pa_ints(t_pa_ints *ints, char **new_cmd);
+void			init_pa_ints(t_pa_ints *ints);
 void			free_attrs(t_param *pa, char **new_cmd);
 void			init_subs_session(t_sub *sub, char *cmd);
-void			subs_session_free(t_sub *sub);
+void			subs_session_free(t_sub *sub, int opt);
 char			*ft_find_word(char *haystack, char *needle, char *op);
 void			remove_globstars(char **needle, int *glob);
 char			*find_from_end(char *haystack, char *needle);
 char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
+int				check_var_validity(char *var);
+int 			check_substitutions(char *cmd, int *ret, t_param *pa);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

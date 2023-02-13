@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 07:56:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 12:44:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:59:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_insertion_char(t_term *t)
 	if ((t->inp[t->index - 1] == D_QUO || t->inp[t->index - 1] == S_QUO) \
 		&& !t->heredoc)
 	{
-		if (!special_char_check(t->inp, t->index - 2, '\\'))
+		if (!special_char_check(t->inp, t->index - 1, '\\'))
 			ft_quote_flag_reset(t);
 	}
 	else if (t->inp[t->index - 1] == '<' && !t->heredoc && !t->quote)
@@ -59,7 +59,7 @@ static void	ft_insertion_enter(t_term *t)
 		t->term_val[1]++;
 		return ;
 	}
-	if (!t->heredoc)
+	if (!t->heredoc && !t->quote && !t->bracket)
 		t->bslash = special_char_check(t->inp, t->bytes, '\\');
 	delim_row = t->total_row;
 	while (delim_row && !ft_is_prompt_line(t, delim_row))

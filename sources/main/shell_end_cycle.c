@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/12 23:00:58 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:29:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void    notify_completed_jobs(t_shell *sh)
     ptr = sh->bg_node;
     while (ptr)
     {
-        if (ptr->status == DONE || ptr->status == TERMINATED)
+		if (ptr->status == DONE || ptr->status == TERMINATED || ptr->status == EXITED)
 		{
             display_job_node(sh, ptr);
 			bg_node_delete(sh, &ptr);
@@ -65,6 +65,7 @@ static void    notify_completed_jobs(t_shell *sh)
  */
 void	shell_end_cycle(t_shell *sh)
 {
+
 	free_node(sh->head);
 	free_tokens(&sh->tokens);
 	reset_fd(sh);
