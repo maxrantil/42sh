@@ -6,14 +6,14 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 11:57:15 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:58:04 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 static int	cmd_comparisons_continue(t_shell *sh, char ***cmd, \
-										char ***environ_cp);
+										char ***environ_cp)
 {
 	if (!ft_strcmp(**cmd, "test"))
 		return (ft_test(sh, *cmd));
