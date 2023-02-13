@@ -1,0 +1,5 @@
+ls -l | tail -n 2
+ls -l | head -n 5 | tail -n 2
+ls -l | head -n 5 > lol | cat lol
+ls -l | head -n 5 > lol ; cat lol
+ls -l | head -n 5 > lol | cat lol | tail -n 2 > lmao ; cat lmao

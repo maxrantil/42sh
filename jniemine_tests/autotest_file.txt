@@ -1,0 +1,1 @@
+echo 'TODO: after the line - Perform the following commands and check that the display is compliant:'
