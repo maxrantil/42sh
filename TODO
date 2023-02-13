@@ -12,3 +12,5 @@ Test all kind of redir aggre and closefd with aliased and alias fd's
 also use 255 and over
 
 ls 56>&1> Incorrect output
+
+>&- 0>&- >lol ls -l; cat lol

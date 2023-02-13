@@ -1,8 +1,8 @@
-#You can use hash in main to exclude files, not in the subtest though
-basic_tests.txt
+#You can use hash in main exclude files
+#basic_tests.txt
 #eval_form.txt
-#test1.txt
-#fail.txt
+#/Users/jniemine/Workspace/42sh/jniemine_tests/tests/test1.txt
+/Users/jniemine/Workspace/42sh/jniemine_tests/tests/fail.txt
 #test2.txt
 #test_pipe.txt
 #test_close_fd.txt
