@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/13 17:13:32 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/13 21:33:59 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -254,6 +254,9 @@ FILES			= \
 				$(JOBS)transfer_to_bg \
 				$(JOBS)triple_ptr_len \
 				$(JOBS)update_fg_job \
+				$(JOBS)wait_for_job \
+				$(JOBS)reap_process \
+				$(JOBS)update_job_status \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_print_error \

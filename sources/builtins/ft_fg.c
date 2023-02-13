@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 17:11:48 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:18:15 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_fg(t_shell *sh, char **cmd)
 {
 	t_bg_jobs	*job;
-	int			status;
 
 	job = bg_fetch_node(sh, *(cmd + 1), "fg");
 	if (job)
@@ -32,8 +31,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 			exit_error(sh, 1, "ioctl error\n");
 		transfer_to_fg(sh, job);
 		job->status = RUNNING;
-		waitpid(*job->pid, &status, WUNTRACED);
-		catch_suspended_process(sh, status);
+		wait_for_job(sh, job->gpid);	
 	}
 	return (0);
 }

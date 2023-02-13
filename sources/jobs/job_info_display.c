@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_info_display.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:49:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 11:05:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:53:51 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,14 @@ void	display_bg_job(t_shell *sh)
 	ft_putstr_fd("\n", sh->pipe->stdoutcpy);
 }
 
-void	display_suspended_job(t_shell *sh) // This needs to updated
+void	display_suspended_job(t_shell *sh, int pid) // This needs to updated
 {
 	t_bg_jobs	*ptr;
-
-	if (sh->fg_node->gpid == 0)
-	{
-		display_job_node(sh, get_latest_job(sh));
-		return ;
-	}
+	
 	ptr = sh->bg_node;
 	while (ptr)
 	{
-		if (ptr->gpid == sh->fg_node->gpid)
+		if (ptr->gpid == pid)
 			break ;
 		ptr = ptr->next;
 	}

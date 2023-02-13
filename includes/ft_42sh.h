@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 17:12:55 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:10:29y mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -493,7 +493,6 @@ size_t			calc_chptr(char **arr);
 int				fork_wrap(void);
 void			open_fd_if_needed(int fd, char *terminal);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
-void			open_fd_if_needed(int fd, char *terminal);
 
 /*					EXECUTE_UTILS			*/
 int				check_access(char *cmd, char **args, t_shell *sh);
@@ -603,7 +602,7 @@ void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
-void			display_suspended_job(t_shell *sh);
+void			display_suspended_job(t_shell *sh, int pid);
 void			display_pipeline_cmd(t_shell *sh, t_bg_jobs *job);
 char			**dup_dbl_ptr(char **cmd);
 void			reset_fgnode(t_shell *sh);
@@ -615,6 +614,10 @@ void			transfer_to_bg(t_shell *sh, int status);
 void			transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
+void			open_fd_if_needed(int fd, char *terminal);
+void			wait_for_job(t_shell *sh, int pid);
+void 			reap_process(t_shell *sh);
+void			update_job_status(t_shell *sh, int status, int pid);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 

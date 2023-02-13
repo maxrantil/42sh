@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/12 16:27:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:35:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,11 @@ void	shell_end_cycle(t_shell *sh)
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
 	sh->pipe->piping = 0;
-	while(ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
+	if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
 		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);
 	notify_completed_jobs(sh);
+	reap_process(sh);
 	init_window_size(sh->term);
 	reset_fgnode(sh);
 }

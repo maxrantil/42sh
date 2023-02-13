@@ -14,6 +14,8 @@
 
 extern t_shell	*g_sh;
 
+
+
 static void	ft_execve(char **cmd, t_cmdnode *head, \
 						int access, char ***environ_cp)
 {
@@ -45,13 +47,7 @@ static void	ft_execve(char **cmd, t_cmdnode *head, \
 		else
 			exit(127); // command not found
 	}
-	if (g_sh->ampersand)
-		waitpid(pid, &status, WNOHANG | WUNTRACED);
-	else if (!g_sh->pipe->piping)
-	{
-		waitpid(pid, &status, WUNTRACED);
-		catch_suspended_process(g_sh, status);	
-	}
+	wait_for_job(g_sh, pid);
 }
 
 // void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
