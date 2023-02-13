@@ -52,7 +52,7 @@ static char *get_subs(char *cmd)
 		subs = ft_strchr(cmd, '#');
 	else if (ft_strchr(cmd, '%'))
 		subs = ft_strchr(cmd, '%');
-	else 
+	else
 		subs = NULL;
 	return (subs);
 }
@@ -61,12 +61,9 @@ static int	check_variable(int *i, char *cmd, int *ret, t_param *pa)
 {
 	char	*temp;
 	int		retu;
-	int		k;
 
 	temp = &cmd[*i];
 	(*i) += 2;
-	
-	k = -1;
 	if (!ft_isalpha(cmd[*i]) && cmd[*i] != '_' && cmd[*i] != '?')
 		return (set_values(temp, ret, pa));
 	if (cmd[*i] == '?')
