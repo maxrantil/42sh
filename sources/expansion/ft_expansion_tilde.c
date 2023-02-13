@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expansion_tilde.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:57:35 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:04:43 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 16:25:58 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,17 @@ char	*ft_expansion_tilde(t_shell *sh, char *str)
 	char	*key;
 	char	**env;
 	int		stilde;
+	char	*user;
 
 	env = NULL;
 	stilde = 0;
 	key = tilde_key(str, &stilde);
+	user = user_expansions(str);
+	if (user)
+	{
+		ft_strdel(&user);
+		return (user_expansions(str));
+	}
 	if (key)
 	{
 		env = ft_env_get(sh, key, sh->env);

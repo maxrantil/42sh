@@ -30,7 +30,22 @@ $> echo ${PWD:?}
 /Users/mviinika/workspace/42sh
 $>
 ---------------
-
-
-> echo ${PWD:+jee${PWD}}
-> echo ${PWD}
+$> cd / ; echo ${PWD:+jee${PWD}}
+jee/
+$>
+---------------
+$> cd / ; echo ${PWD:+jee${PWD}jee  } | cat -e
+jee/jee$
+$>
+---------------
+$> cd / ; echo ${PWD:+jee ${PWD} jee } | cat -e
+jee / jee$
+$>
+---------------
+$> unset foo faa fuu ; echo ${foo:=${faa:=kylla}}
+kylla
+$>
+---------------
+$> unset foo faa fuu ; echo ${foo:=${PWD:+${faa:-${PWD:+${PWD:+bar}}}}}
+bar
+$>

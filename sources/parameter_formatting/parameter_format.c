@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 10:22:40 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:16:59 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ int	param_format(char **cmd)
 			ret = proceed_to_execute(&pa, &ints, cmd, &ret);
 			if (ret == -1)
 				return (-1);
-			else if (ret == 1)
-				break ;
 		}
 		ints.j = 0;
 	}
