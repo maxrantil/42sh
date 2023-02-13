@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:50:32 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/08 18:10:29 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:59:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@
 */
 static int	validate_input(t_shell *sh, char **cmd, int argc, int punctu)
 {
-	/* int		argc;
-
-	argc = ft_arrlen(cmd); */
 	if (argc > (4 + punctu))
 		ft_err_print(NULL, "test", "too many arguments", 2);
 	else if (argc == (4 + punctu) \
@@ -41,10 +38,6 @@ static int	validate_input(t_shell *sh, char **cmd, int argc, int punctu)
 			&& !ft_test_is_unary(cmd[1 + punctu]))
 		ft_err_print("test", cmd[1 + punctu], \
 		"unary operator expected", 2);
-	/* else if (argc == (2 + punctu))
-		ft_test_no_flags(cmd);
-	else if (argc < (2 + punctu))
-		ft_putstr_fd("42sh: test: too few arguments, need spaces between arguments\n", 2); */
 	else
 		return (0);
 	sh->exit_stat = 2;
