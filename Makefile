@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/13 10:43:59 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/13 11:11:46 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -256,6 +256,7 @@ FILES			= \
 				$(JOBS)update_fg_job \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
+				$(HISTORY)ft_history_print_error \
 				$(HISTORY)ft_history_expansion \
 				$(HISTORY)ft_history_write_to_file \
 				$(KEYBOARD)ft_add_nl_last_row \

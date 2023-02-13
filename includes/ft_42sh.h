@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 10:44:07 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:14:27 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -546,6 +546,7 @@ void			hash_print(t_hash **ht);
 /*			  		 HISTORY				*/
 int				ft_history(t_term *t, char **cmd);
 void			ft_history_get(t_term *t);
+int				ft_history_print_error(char *str, int prefix);
 int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);
 
