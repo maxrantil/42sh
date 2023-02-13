@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:20:38 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 11:52:56 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:13:44 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	tok_quote_flag(char *line, int *end, t_token_flags *flags)
 		else if (flags->quote == line[*end])
 			flags->quote = 0;
 	}
-	else if ((line[*end] == L_BRAC && (!*end || special_char_check(line, *end, '$'))) || line[*end] == R_BRAC)
+	else if ((line[*end] == L_BRAC \
+	&& (!*end || special_char_check(line, *end, '$'))) || line[*end] == R_BRAC)
 	{
 		if (!flags->braces || flags->braces == line[*end])
 		{
