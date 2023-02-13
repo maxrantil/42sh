@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_info_display.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:49:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/12 18:14:05 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:05:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	display_bg_job(t_shell *sh)
 	t_bg_jobs	*ptr;
 
 	ptr = get_latest_job(sh);
-	ft_putstr_fd("[", sh->pipe->stdincpy);
-	ft_putnbr_fd(ptr->index + 1, sh->pipe->stdincpy);
-	ft_putstr_fd("] ", sh->pipe->stdincpy);
-	ft_putnbr_fd(ptr->gpid, sh->pipe->stdincpy);
-	ft_putstr_fd("\n", sh->pipe->stdincpy);
+	ft_putstr_fd("[", sh->pipe->stdoutcpy);
+	ft_putnbr_fd(ptr->index + 1, sh->pipe->stdoutcpy);
+	ft_putstr_fd("] ", sh->pipe->stdoutcpy);
+	ft_putnbr_fd(ptr->gpid, sh->pipe->stdoutcpy);
+	ft_putstr_fd("\n", sh->pipe->stdoutcpy);
 }
 
 void	display_suspended_job(t_shell *sh) // This needs to updated
@@ -74,9 +74,9 @@ void	display_pipeline_cmd(t_shell *sh, t_bg_jobs *job)
 	cmd = job->cmd;
 	while (*cmd)
 	{
-		ft_print_dbl_array_fd(*(cmd++), sh->pipe->stdincpy);
+		ft_print_dbl_array_fd(*(cmd++), sh->pipe->stdoutcpy);
 		if (*(cmd))
-			ft_putstr_fd(" | ", sh->pipe->stdincpy);
+			ft_putstr_fd(" | ", sh->pipe->stdoutcpy);
 	}
-	ft_putstr_fd(" &\n", sh->pipe->stdincpy);
+	ft_putstr_fd(" &\n", sh->pipe->stdoutcpy);
 }
