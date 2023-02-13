@@ -41,7 +41,9 @@ int	perform_param_expans(char *cmd, t_param *pa, int *ret)
 	if (*ret == 0)
 		retoken_into_list(pa);
 	if (expander(pa, *ret))
+	{
 		;
+	}
 	if (*ret == 0 && join_values(g_sh, pa, cmd, *ret))
 		err = -1;
 	if (*ret == 1)

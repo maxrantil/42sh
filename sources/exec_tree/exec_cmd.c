@@ -83,7 +83,6 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;
 	int		access;
-	int		status;
 	int		hash;
 
 	if (!head->cmd[0])
@@ -95,7 +94,7 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 	if (!hash && !check_if_user_exe(head->cmd[0], &cmd))
 		cmd = search_bin(head->cmd[0], *environ_cp);
 	access = check_access(cmd, head->cmd, sh);
-	status = ft_execve(&cmd, head, access, environ_cp);
+	ft_execve(&cmd, head, access, environ_cp);
 	if (access)
 	{
 		if (!hash)
