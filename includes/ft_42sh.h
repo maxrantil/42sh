@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 12:54:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:26:13 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef	struct	s_token_flags
 {
 	char	quote;
 	char	braces;
-	int		braces_count;	
+	int		braces_count;
 }				t_token_flags;
 
 /*			PARAMETER EXPANSION INTEGERS		*/
@@ -519,7 +519,6 @@ int				ft_test_d(char **arg);
 int				ft_test_e(char **arg);
 int				ft_test_eq(char **arg);
 int				ft_test_equal(char **arg);
-int				ft_test_error_int_print(char *arg);
 int				ft_test_f(char **arg);
 int				ft_test_g(char **arg);
 int				ft_test_ge(char **arg);
@@ -704,6 +703,8 @@ int				ft_err_print(char *file, char *cmd, char *msg, int fd);
 int				ft_isseparator(char c);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
+int				ft_prog_error_int_print(char *arg, char *prog);
+int				int_check_validity(char *arg, char *prog);
 void			reset_cmd(char ****cmd);
 void			jobs_exit_check(t_shell *sh);
 

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:56:45 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 11:27:02 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:15:02 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	fc_get_flags(t_fc *fc, char **cmd)
 			}
 			if (!turn_on_flags(fc, &cmd[i][j]))
 				return (0);
-			i++;
 			j = 0;
+			i++;
 		}
 	}
 	fc->flags = i;
