@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/10 14:57:25 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:54:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		sh->ampersand = true;
 		exec_tree((((t_ampersand *)head)->left), environ_cp, terminal, sh);
 		transfer_to_bg(sh, RUNNING);
-		reset_fgnode(sh);
 		display_bg_job(sh);
+		reset_fgnode(sh);
+		// ft_printf("stdout: %d\n", sh->pipe->stdoutcpy);
 		sh->ampersand = false;
 		reset_fd(terminal);
 		exec_tree((((t_ampersand *)head)->right), environ_cp, terminal, sh);

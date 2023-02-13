@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/11 18:26:34 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/12 16:27:00 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void    notify_completed_jobs(t_shell *sh)
     ptr = sh->bg_node;
     while (ptr)
     {
-        if (ptr->status == DONE || ptr->status == TERMINATED)
+		if (ptr->status == DONE || ptr->status == TERMINATED || ptr->status == EXITED)
 		{
             display_job_node(sh, ptr);
 			bg_node_delete(sh, &ptr);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_from_end.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:35:19 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:20:24 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:45:20 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,8 @@ char	*find_from_end(char *haystack, char *needle)
 {
 	int	len;
 	int	len_needle;
-	int	k;
-	int	i;
 
 	len = (int)ft_strlen(haystack);
-	k = 0;
-	i = 0;
 	//ft_printf("haystack %s len [%d]]\n",haystack, len);
 	while (len > 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/11 15:21:11 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:39:09 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 extern t_shell	*g_sh;
 
-static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
+static void	ft_execve(char **cmd, t_cmdnode *head, \
+						int access, char ***environ_cp)
 {
 	int		status;
 	int		pid;
@@ -22,15 +23,14 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 
 	args = head->cmd;
 	status = 0;
-	pid = -1;
-	if (access)
+	pid = fork_wrap();
+	if (g_sh->pipe->pid == 0)
+		g_sh->pipe->pid = pid;
+	if (pid)
+		update_fg_job(g_sh, pid, args);
+	if (pid == 0)
 	{
-		pid = fork_wrap();
-		if (g_sh->pipe->pid == 0)
-			g_sh->pipe->pid = pid;
-		if (pid)
-			update_fg_job(g_sh, pid, args);
-		if (pid == 0)
+		if (access)
 		{
 			ft_signal_dfl();
 			if (!g_sh->pipe->redir_out && g_sh->pipe->write_pipe[1] >= 0 && dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
@@ -42,12 +42,13 @@ static int	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp
 				exe_fail(cmd, args, environ_cp);
 			exit(1);
 		}
-		if (g_sh->ampersand)
-			waitpid(pid, &status, WNOHANG | WUNTRACED);
-		else if (!g_sh->pipe->piping)
-			waitpid(pid, &status, WUNTRACED);
+		else
+			exit(127); // command not found
 	}
-	return (status);
+	if (g_sh->ampersand)
+		waitpid(pid, &status, WNOHANG | WUNTRACED);
+	else if (!g_sh->pipe->piping)
+		waitpid(pid, &status, WUNTRACED);
 }
 
 // void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
@@ -83,7 +84,6 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;
 	int		access;
-	int		status;
 	int		hash;
 
 	if (!head->cmd[0])
@@ -95,7 +95,7 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 	if (!hash && !check_if_user_exe(head->cmd[0], &cmd))
 		cmd = search_bin(head->cmd[0], *environ_cp);
 	access = check_access(cmd, head->cmd, sh);
-	status = ft_execve(&cmd, head, access, environ_cp);
+	ft_execve(&cmd, head, access, environ_cp);
 	if (access)
 	{
 		if (!hash)

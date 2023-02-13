@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/13 10:28:37 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/13 13:16:46 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -256,6 +256,7 @@ FILES			= \
 				$(JOBS)update_fg_job \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
+				$(HISTORY)ft_history_print_error \
 				$(HISTORY)ft_history_expansion \
 				$(HISTORY)ft_history_write_to_file \
 				$(KEYBOARD)ft_add_nl_last_row \

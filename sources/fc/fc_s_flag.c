@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:18:26 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/08 16:09:40 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:29:30 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static int	fc_s_only(t_shell *sh, char ***cmd, int specific)
 	ft_strdel(&sh->term->history_arr[sh->term->history_size - 1]);
 	sh->term->history_arr[sh->term->history_size - 1] = \
 	ft_strdup(sh->term->history_arr[sh->term->history_size - specific]);
-	// ft_freeda((void ***)cmd, calc_chptr(*cmd)); // leak problem  here I think
 	ft_arrclean(*cmd);
 	ft_putendl_fd(sh->term->history_arr[sh->term->history_size - specific], 2);
 	*cmd = \
@@ -65,15 +64,16 @@ static int	fc_s_only(t_shell *sh, char ***cmd, int specific)
 
 static int	specific(t_shell *sh, t_fc *fc, char ***cmd)
 {
-	int specific;
+	int	specific;
 
 	specific = ft_atoi((*cmd)[fc->flags]);
-	if (specific > (int)sh->term->history_size - 1 || specific < (int)-sh->term->history_size)
+	if (specific > (int)sh->term->history_size - 1 \
+	|| specific < (int)-sh->term->history_size)
 		return (fc_print_error(6));
 	else if (specific == 0)
 		specific = 2;
 	else if (specific < 0)
-		specific =  (specific * -1) + 1;
+		specific = (specific * -1) + 1;
 	else
 		specific = sh->term->history_size - specific + 1;
 	fc_s_only(sh, cmd, specific);
