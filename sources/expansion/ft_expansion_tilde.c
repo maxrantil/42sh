@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:57:35 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 16:25:58 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:49:14 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ static char	*stilde_join(char *env, char *str)
 	return (ft_strdup(str));
 }
 
+static int	init_user(char *str, char **user)
+{
+	*user = user_expansions(str);
+	if (*user)
+		return (1);
+	return (0);
+}
+
 /**
  * It takes a string and returns a string with the tilde expanded.
  *
@@ -60,12 +68,8 @@ char	*ft_expansion_tilde(t_shell *sh, char *str)
 	env = NULL;
 	stilde = 0;
 	key = tilde_key(str, &stilde);
-	user = user_expansions(str);
-	if (user)
-	{
-		ft_strdel(&user);
-		return (user_expansions(str));
-	}
+	if (init_user(str, &user))
+		return (user);
 	if (key)
 	{
 		env = ft_env_get(sh, key, sh->env);

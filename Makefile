@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/13 15:33:41 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/13 20:22:14 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -177,6 +177,7 @@ FILES			= \
 				$(EXPANSION)ft_quote_bslash_removal \
 				$(EXPANSION)user_expansions \
 				$(EXPANSION)passwd_user \
+				$(EXPANSION)join_paths \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
