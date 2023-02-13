@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/12 16:23:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:39:09 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 extern t_shell	*g_sh;
 
-static void	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
+static void	ft_execve(char **cmd, t_cmdnode *head, \
+						int access, char ***environ_cp)
 {
 	int		status;
 	int		pid;
