@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 12:54:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:49:09 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef	struct	s_token_flags
 {
 	char	quote;
 	char	braces;
-	int		braces_count;	
+	int		braces_count;
 }				t_token_flags;
 
 /*			PARAMETER EXPANSION INTEGERS		*/
@@ -370,7 +370,7 @@ size_t			strip_quotes_single(char *str, size_t quote1);
 int				check_command_separator(char *line);
 void			convert_first_word(char ***alias, char **line, int size);
 char			*check_valid_input(char *line, int i);
-int				convert_alias(char **line, t_shell *sh, int pos);
+// int				convert_alias(char **line, t_shell *sh, int pos);
 void			alias_convert_line(char **line, t_shell *sh);
 //	alias_string_handling2.c
 void			get_first_word_move_post(char **post, char **next, char **line);
@@ -381,17 +381,27 @@ void			remove_quotes_cmd(char *cmd);
 //	convert_alias2.c
 int				check_next_conversion(char *alias);
 void			update_alias_line(char **line, char **pre_semicolon);
-char			*convert_first(t_shell *sh, char ***dup_alias, \
-char **line, char *cont);
-void			conversion_loop(t_shell *sh, char **line, char **content);
-void			conversion_dispatch(t_shell *sh, char **line, \
-char **cont, int pos);
+// char			*convert_first(t_shell *sh, char ***dup_alias,
+// char **line, char *cont);
+// void			conversion_loop(t_shell *sh, char **line, char **content);
+// void			conversion_dispatch(t_shell *sh, char **line,
+// char **cont, int pos);
 //	alias.c
 char			*construct_alias(char *cmd, t_shell *sh);
 void			add_alias(t_shell *sh, char *cmd);
 void			add_or_print_alias(char **args, t_shell *sh);
 int				alias(t_shell *sh, char **args);
 
+size_t  total_line_len(char *pre, char *convert, char *post, char **new_line);
+void    free_parsed_alias_line(char **pre, char **conv, char **post, \
+char **new_line);
+void    connect_alias_pieces(char **pre, char **convert, char **post, \
+char **line);
+char	*convert_first(char ***dup, char ***alias, char **line, char *cont);
+void	conversion_loop(char ***alias, char **line, char **content);
+void	conversion_dispatch(char ***alias, char **line, char **content, int pos);
+int	convert_alias(char ***dup_alias, char **line, int i);
+void	check_line_separators(char ***alias, char **line);
 int				is_command_separator(char command);
 // int	validate_char_range(char *str, int i, int start);	// no need ?
 // int	validate_reserved_keywords(char *str);			// no need ?
