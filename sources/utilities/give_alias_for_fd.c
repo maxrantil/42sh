@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 12:20:51 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:53:25 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	alias_fd_if_necessary(t_shell *sh, int *fd)
 	int i;
 
 	i = 0;
-	if (*fd >= SH_FD_MAX)
+	if (*fd < 3 || *fd >= SH_FD_MAX)
 		return 0;
 	if (is_aliased_fd(sh, *fd))
 	{

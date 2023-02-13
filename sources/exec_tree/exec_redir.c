@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/13 14:56:49 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:22:03 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	exec_redir(t_redir *node, char ***environ_cp,
 	if (!test_file_access_for_type(node->filepath,
 			node->close_fd, &node->open_flags))
 		return ;
-	ft_printf("closefd: %d\n", node->close_fd);
+	// ft_printf("closefd: %d\n", node->close_fd);
 	open_fd_if_needed(&node->close_fd, terminal, sh);
-	ft_printf("closefd_after: %d\n", node->close_fd);
+	// ft_printf("closefd_after: %d\n", node->close_fd);
 	fd = open(node->filepath, node->open_flags, node->rights);
 	if (fd < 0)
 	{
@@ -72,10 +72,11 @@ void	exec_redir(t_redir *node, char ***environ_cp,
 	}
 	exec_tree(node->cmd, environ_cp, terminal, sh);
 	//Reset redirected back to original fd
-	alias_fd_if_necessary(sh, &node->close_fd);
-	if (dup2(node->close_fd, fd) < 0)
-	{
-		ft_err_print(NULL, "exec_redir", "dup2 failed", 2);
-		exit(1);
-	}
+	// alias_fd_if_necessary(sh, &node->close_fd);
+	// if (dup2(node->close_fd, fd) < 0)
+	// {
+	// 	ft_err_print(NULL, "exec_redir", "dup2dup failed", 2);
+
+	// 	exit(1);
+	// }
 }
