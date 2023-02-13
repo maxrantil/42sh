@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fc_get_start_for_lists.c                           :+:      :+:    :+:   */
+/*   fc_lflag_get_start_and_end.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 18:33:47 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:27:41 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	get_end(t_shell *sh, char *cmd)
 	return (end);
 }
 
-int	fc_lflag_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd) //need more handling with too big numbers
+int	fc_lflag_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 {
 	fc->start = -1;
 	if (!(*cmd)[fc->flags])

@@ -6,13 +6,13 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:56:45 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/03 15:37:02 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:27:02 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static int usage(void)
+static int	usage(void)
 {
 	ft_putendl_fd("42sh: fc: invalid option", 2);
 	ft_putstr_fd("fc: usage: fc [-e ename] [-lnr] ", 2);
@@ -23,7 +23,7 @@ static int usage(void)
 static int	turn_on_flags(t_fc *fc, char *str)
 {
 	if (!str)
-		return (1); // is this null check correct?
+		return (1);
 	while (*str)
 	{
 		if (*str == 's')
@@ -52,7 +52,7 @@ int	fc_get_flags(t_fc *fc, char **cmd)
 	if (cmd && cmd[i])
 	{
 		j = 0;
-		while (cmd[i] && cmd[i][j] && cmd[i][j] == '-') // add check for - only flag
+		while (cmd[i] && cmd[i][j] && cmd[i][j] == '-')
 		{
 			j++;
 			if (cmd[i] && cmd[i][j] == '-')
