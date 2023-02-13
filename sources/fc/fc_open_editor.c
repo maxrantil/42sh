@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:41:27 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:05:54 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:28:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	fc_open_editor(char *editor, t_shell *sh, t_fc *fc, char ***cmd)
 	if (fork_wrap() == 0)
 	{
 		if (execve(editor, fc->filename, sh->env) == -1)
-			ft_putendl_fd("42sh: Error execve, fc_open_editor() from ft_fc().", 2);
+			ft_putendl_fd("42sh: \
+			Error execve, fc_open_editor() from ft_fc().", 2);
 		exit(1);
 	}
 	wait(0);
