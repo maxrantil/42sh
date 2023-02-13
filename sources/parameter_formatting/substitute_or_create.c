@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitute_or_create.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/12 16:58:57 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:46:07 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

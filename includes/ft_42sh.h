@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/12 16:48:37 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:44:07 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@
 # define DONE 3
 # define TERMINATED 4
 # define SUSPENDED 5
+# define EXITED 6
 
 /* For print_tree */
 # define COUNT 10
@@ -435,8 +436,8 @@ int i_tok, int end);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_cd_addr_check(char *file, int p_option, t_shell *session);
-t_bg_jobs		*search_via_cmd(t_shell *sh, char **cmd);
-t_bg_jobs		*bg_fetch_node(t_shell *sh, char **cmd);
+t_bg_jobs		*search_via_cmd(t_shell *sh, char *arg, char *cmd);
+t_bg_jobs		*bg_fetch_node(t_shell *sh, char *args, char *cmd);
 int				ft_env_temp(t_shell *sh, char **cmd, int i);
 void			ft_env_remove(t_shell *sh, char *env_to_clean);
 int				ft_env_append(t_shell *sh, char **arg);
@@ -592,7 +593,7 @@ void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
 void			display_suspended_job(t_shell *sh);
-void			display_pipeline_cmd(t_bg_jobs *job);
+void			display_pipeline_cmd(t_shell *sh, t_bg_jobs *job);
 char			**dup_dbl_ptr(char **cmd);
 void			reset_fgnode(t_shell *sh);
 void			set_process_group(t_shell *sh, pid_t pid);
