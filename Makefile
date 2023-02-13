@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/13 20:22:14 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/13 20:58:25 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -203,7 +203,6 @@ FILES			= \
 				$(FT_TEST)ft_test_e \
 				$(FT_TEST)ft_test_eq \
 				$(FT_TEST)ft_test_equal \
-				$(FT_TEST)ft_test_error_int_print \
 				$(FT_TEST)ft_test_f \
 				$(FT_TEST)ft_test_g \
 				$(FT_TEST)ft_test_ge \
@@ -382,11 +381,13 @@ FILES			= \
 				$(UTILITIES)exit_error \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
+				$(UTILITIES)ft_prog_error_int_print \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
+				$(UTILITIES)int_check_validity \
 				$(UTILITIES)jobs_exit_check \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))

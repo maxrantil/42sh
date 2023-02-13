@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 11:58:04 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:25:18 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 	if (**cmd == NULL)
 		return (0);
 	if (!ft_strcmp(**cmd, "fc"))
-		ft_fc(sh, cmd);
+		if (ft_fc(sh, cmd) < 0)
+			return (0);
 	if (**cmd && !ft_strcmp(**cmd, "set"))
 		return (ft_set(sh, cmd));
 	else if (**cmd && !ft_strcmp(**cmd, "export"))
