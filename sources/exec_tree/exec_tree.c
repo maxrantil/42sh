@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/13 11:29:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:40:43 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		reset_fgnode(sh);
 		display_bg_job(sh);
 		sh->ampersand = false;
-		reset_fd(sh);
+		// reset_fd(sh);
 		exec_tree((((t_ampersand *)head)->right), environ_cp, terminal, sh);
 		reset_fd(sh);
 	}

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/13 11:06:41 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:17:02 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 	struct stat	buf;
 	int			open_fd;
 
+		ft_printf("closefd_aggre: %d\n", node->close_fd);
 	open_fd_if_needed(&node->close_fd, terminal, sh);
+		ft_printf("closefd_aggre_afte: %d\n", node->close_fd);
 	open_fd = -1;
 	if (is_nb(node->dest))
 		open_fd = ft_atoi(node->dest);
@@ -60,15 +62,21 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 		redir_to_file(node, sh);
 		return ;
 	}
-	// print_aliases(sh);
+	print_aliases(sh);
 	// If open_fd has an alias, then print bad file descriptor
+	// if (is_aliased_fd(sh, open_fd))
+	// {
+	// 	ft_printf("is_aliased_fd: %d\n", open_fd);
+	// 	open_fd = sh->pipe->fd_aliases[open_fd];
+	// 	ft_printf("is_aliased_fd after: %d\n", open_fd);
+	// }
 	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
-		|| is_aliased_fd(sh, open_fd) || is_alias_fd(sh, open_fd))
+		|| (!is_aliased_fd(sh, open_fd) && is_alias_fd(sh, open_fd)))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		return ;
 	}
-	if (close_fd_alias(sh, node->close_fd) && dup2(open_fd, node->close_fd) < 0) 
+	if (close_fd_alias(sh, node->close_fd) && dup2(open_fd, node->close_fd) < 0)
 	{
 		ft_err_print(NULL, "dup2", "failed", 2);
 		exit (1);

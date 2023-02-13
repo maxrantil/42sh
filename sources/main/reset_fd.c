@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 20:31:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 00:21:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:09:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	reset_fd(t_shell *sh)
 	}
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
-	sh->pipe->fd_aliases[sh->pipe->stdincpy] = open(terminal, O_RDWR);
-	sh->pipe->fd_aliases[sh->pipe->stdoutcpy] = open(terminal, O_RDWR);
-	if (sh->pipe->fd_aliases[sh->pipe->stdincpy] < 0
-		|| sh->pipe->fd_aliases[sh->pipe->stdoutcpy] < 0)
+	sh->pipe->fd_aliases[STDIN_FILENO] = sh->pipe->stdincpy;
+	sh->pipe->fd_aliases[STDOUT_FILENO] = sh->pipe->stdoutcpy;
+	if (sh->pipe->fd_aliases[STDIN_FILENO] < 0
+		|| sh->pipe->fd_aliases[STDOUT_FILENO] < 0)
 		ft_exit_error("open failed\n", -1);
 }
 
