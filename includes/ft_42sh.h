@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 21:44:00 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:48:37 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -625,7 +625,7 @@ char			*remove_braces(char *str);
 char			*get_value(t_shell *sh, char *var, char *subst, int format);
 int				format_mode(char op);
 int				join_values(t_shell *sh, t_param *pa, char *cmd, int ret);
-char			*get_operator(char *cmd, int *ret);
+char			*get_operator(char *cmd);
 int				is_param_exp_char(char *flag);
 int				splitter(char *cmd, t_param *pa, int *ret);
 int				expander(t_param *pa, int ret);
@@ -633,15 +633,17 @@ char			*variable_length(char *str);
 int				perform_param_expans(char *cmd, t_param *pa, int *ret);
 char			*get_flag(char *cmd, int *ret);
 void			init_pa(t_param *pa);
-void			init_pa_ints(t_pa_ints *ints, char **new_cmd);
+void			init_pa_ints(t_pa_ints *ints);
 void			free_attrs(t_param *pa, char **new_cmd);
 void			init_subs_session(t_sub *sub, char *cmd);
-void			subs_session_free(t_sub *sub);
+void			subs_session_free(t_sub *sub, int opt);
 char			*ft_find_word(char *haystack, char *needle, char *op);
 void			remove_globstars(char **needle, int *glob);
 char			*find_from_end(char *haystack, char *needle);
 char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
+int				check_var_validity(char *var);
+int 			check_substitutions(char *cmd, int *ret, t_param *pa);
 
 /*			  		 SIGNALS				*/
 void			signal_exec(int num);

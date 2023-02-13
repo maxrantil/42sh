@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/11 18:11:12 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/12 17:02:56 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-CFLAGS				+= 	-Werror
+#CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses
@@ -353,6 +353,7 @@ FILES			= \
 				$(PARAM_FORM)find_from_end \
 				$(PARAM_FORM)find_from_begin_glob \
 				$(PARAM_FORM)is_substring_id \
+				$(PARAM_FORM)check_substitution \
 				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
