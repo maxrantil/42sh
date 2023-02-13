@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/12 16:25:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:00:42 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	handler_sigchild(int num)
 			ft_putchar('\n');
 			transfer_to_bg(g_sh, STOPPED);
 			display_suspended_job(g_sh);
-			reset_fgnode(g_sh);
 			g_sh->exit_stat = 146;
 		}
 		}
