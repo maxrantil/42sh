@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 12:54:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:12:55 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -706,5 +706,6 @@ void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
 void			reset_cmd(char ****cmd);
 void			jobs_exit_check(t_shell *sh);
+void			catch_suspended_process(t_shell *sh, int status);
 
 #endif

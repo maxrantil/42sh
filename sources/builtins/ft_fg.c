@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 12:36:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:11:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 		transfer_to_fg(sh, job);
 		job->status = RUNNING;
 		waitpid(*job->pid, &status, WUNTRACED);
+		catch_suspended_process(sh, status);
 	}
 	return (0);
 }

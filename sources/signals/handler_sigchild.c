@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler_sigchild.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:13:55 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 11:00:42 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 17:10:03 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,18 @@ static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 	}
 }
 
+static void	signaled_from_background(t_bg_jobs *job, int status)
+{
+	while (job->next)
+		job = job->next;
+	job->status = status;
+	delete_from_queue(g_sh, job);
+	g_sh->process_count++;
+	ft_memmove(&g_sh->process_queue[1], \
+	&g_sh->process_queue[0], g_sh->process_count * sizeof(int));
+	g_sh->process_queue[0] = job->index;
+}
+
 void	handler_sigchild(int num)
 {
 	int		status;
@@ -93,34 +105,36 @@ void	handler_sigchild(int num)
 	if (num == SIGCHLD)
 	{
 		pid = waitpid(-1, &status, WNOHANG);
-		if (pid > 0) // this means that the process is exited, via completion or termination
+		if (pid)
 		{
-			if (WIFSIGNALED(status))
+			while (pid > 0)
 			{
-				if (WTERMSIG(status))
+				if (WIFSIGNALED(status))
 				{
-					ft_putchar('\n');
-					check_fg_pipeline(g_sh, pid);
-					change_process_status(g_sh->bg_node, pid, TERMINATED);
-					g_sh->exit_stat = WTERMSIG(status) + 128;
+					if (WTERMSIG(status))
+					{
+						ft_putchar('\n');
+						check_fg_pipeline(g_sh, pid);
+						change_process_status(g_sh->bg_node, pid, TERMINATED);
+						g_sh->exit_stat = WTERMSIG(status) + 128;
+					}
 				}
-			}
-			else
-			{
-				g_sh->exit_stat = WEXITSTATUS(status);
-				if (g_sh->exit_stat == 127)
-					change_process_status(g_sh->bg_node, pid, EXITED);
-				else
-					change_process_status(g_sh->bg_node, pid, DONE);
+				else if (WIFEXITED(status))
+				{
+					g_sh->exit_stat = WEXITSTATUS(status);
+					if (g_sh->exit_stat == 127)
+						change_process_status(g_sh->bg_node, pid, EXITED);
+					else
+						change_process_status(g_sh->bg_node, pid, DONE);
+				}
+				pid = waitpid(-1, &status, WNOHANG);
 			}
 		}
-		else //if suspended it goes here
+		else if (pid == 0 && !g_sh->fg_node->gpid)
 		{
 			ft_putchar('\n');
-			transfer_to_bg(g_sh, STOPPED);
+			signaled_from_background(g_sh->bg_node, STOPPED);
 			display_suspended_job(g_sh);
-			g_sh->exit_stat = 146;
 		}
-		}
-
+	}
 }

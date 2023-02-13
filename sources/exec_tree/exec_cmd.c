@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 11:39:09 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 15:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ static void	ft_execve(char **cmd, t_cmdnode *head, \
 	if (g_sh->ampersand)
 		waitpid(pid, &status, WNOHANG | WUNTRACED);
 	else if (!g_sh->pipe->piping)
+	{
 		waitpid(pid, &status, WUNTRACED);
+		catch_suspended_process(g_sh, status);	
+	}
 }
 
 // void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
