@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:59:23 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 18:07:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:26:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int	arg_qty_loop(char *cmd, t_token_flags *flags)
 	int	pos;
 	int	len;
 
-	pos = 0;
 	len = 0;
-	while (cmd[pos])
+	while (cmd)
 	{
+		pos = 0;
 		len++;
 		while (cmd[pos])
 		{
@@ -35,7 +35,6 @@ static int	arg_qty_loop(char *cmd, t_token_flags *flags)
 		if (!cmd[pos])
 			break ;
 		cmd = ft_skip_space(&cmd[pos]);
-		pos = 0;
 	}
 	return (len);
 }
@@ -46,9 +45,9 @@ static void	collect_args_loop(char **array, char *cmd, t_token_flags *flags)
 	int		pos;
 
 	i = 0;
-	pos = 0;
-	while (cmd[pos])
+	while (cmd)
 	{
+		pos = 0;
 		while (cmd[pos])
 		{
 			tok_quote_flag(cmd, &pos, flags);
@@ -63,7 +62,6 @@ static void	collect_args_loop(char **array, char *cmd, t_token_flags *flags)
 		if (!cmd[pos])
 			break ;
 		cmd = ft_skip_space(&cmd[pos]);
-		pos = 0;
 	}
 	array[i] = NULL;
 }
