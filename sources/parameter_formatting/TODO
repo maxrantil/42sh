@@ -4,3 +4,33 @@ search is off by one in cases like this:
 
 $>"echo ${PWD:+${PWD#/home}"
 $>e/miika/workspace/42sh
+
+
+
+
+----------TESTS------------
+
+$> echo ${SHELL}
+/bin/zsh
+$>
+---------------
+$> echo ${PWD:+}
+
+$>
+---------------
+$> echo ${PWD:-}
+/Users/mviinika/workspace/42sh
+$>
+---------------
+$> echo ${PWD:=}
+/Users/mviinika/workspace/42sh
+$>
+---------------
+$> echo ${PWD:?}
+/Users/mviinika/workspace/42sh
+$>
+---------------
+
+
+> echo ${PWD:+jee${PWD}}
+> echo ${PWD}

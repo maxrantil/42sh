@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/12 17:02:56 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/13 10:28:37 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,11 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-LEAK_CHECK			+=	-fsanitize=address
+#LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-#CFLAGS				+= 	-Werror
+CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses

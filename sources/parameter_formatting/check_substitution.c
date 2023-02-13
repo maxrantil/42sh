@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:18:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/12 16:37:06 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:14:21 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,32 @@ static int	set_values(char *temp, int *ret, t_param *pa)
 	return (1);
 }
 
+static char *get_subs(char *cmd)
+{
+	char	*subs;
+
+	if (ft_strchr(cmd, ':'))
+		subs = ft_strchr(cmd, ':');
+	else if (ft_strchr(cmd, '#'))
+		subs = ft_strchr(cmd, '#');
+	else if (ft_strchr(cmd, '%'))
+		subs = ft_strchr(cmd, '%');
+	else 
+		subs = NULL;
+	return (subs);
+}
+
 static int	check_variable(int *i, char *cmd, int *ret, t_param *pa)
 {
 	char	*temp;
 	int		retu;
+	int		k;
 
 	temp = &cmd[*i];
 	(*i) += 2;
-	retu = 0;
+	if (!get_subs(cmd))
+		return (1);
+	k = -1;
 	if (!ft_isalpha(cmd[*i]) && cmd[*i] != '_' && cmd[*i] != '?')
 		return (set_values(temp, ret, pa));
 	if (cmd[*i] == '?')
@@ -68,8 +86,6 @@ int	check_substitutions(char *cmd, int *ret, t_param *pa)
 	int		i;
 
 	i = 0;
-	if (!ft_strchr(cmd, ':') && !ft_strchr(cmd, '#') && !ft_strchr(cmd, '%'))
-		return (1);
 	while (cmd[i])
 	{
 		if (ft_strnequ("${", &cmd[i], 2))

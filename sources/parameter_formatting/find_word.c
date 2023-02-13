@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:26:17 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:20:28 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:57:35 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,14 @@ static char	*find_from_begin(char *haystack, char *needle)
 
 	i = 0;
 	j = 0;
-	//ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[i], &needle[j], j);
 	while (haystack[i] == needle[j])
 	{
-		//ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[i], &needle[j], j);
 		i++;
 		j++;
-		if (!haystack[i])
-		{
+		if (!haystack[i] && needle[j])
 			return (NULL);
-		}
 		if (!needle[j])
-		{
-			//ft_printf(" haystack [%s] \n", &haystack[i]);
 			return (&haystack[i]);
-		}
 	}
 	return (haystack);
 }
@@ -42,21 +35,13 @@ static char	*find_from_begin_last(char *haystack, char *needle)
 {
 	int	len;
 	int	len_needle;
-	int	k;
-	int	i;
 
 	len = (int)ft_strlen(haystack) - 1;
-	k = 0;
-	i = 0;
-//	ft_printf("haystack [%s] needle [%s]\n", haystack, needle);
 	while (len > 0)
 	{
 		len_needle = (int)ft_strlen(needle) - 1;
-		//ft_printf("haystack [%c] needle [%c]\n", haystack[len], needle[len_needle]);
 		while (haystack[len] == needle[len_needle])
 		{
-			//ft_printf("haystack [%s] needle [%s] %d\n", &haystack[len], &needle[len_needle], len_needle);
-			//ft_printf(" haystack [%s] needle [%s] [%d]\n", &haystack[*i], &needle[*j], j);
 			len--;
 			len_needle--;
 			if (len < 0 && len_needle > 0)
@@ -75,13 +60,9 @@ static char	*find_from_first_last(char *haystack, char *needle)
 {
 	int	len;
 	int	len_needle;
-	int	k;
-	int	i;
 	char	*temp;
 
 	len = (int)ft_strlen(haystack) - 1;
-	k = 0;
-	i = 0;
 	while (len > 0)
 	{
 		len_needle = (int)ft_strlen(needle) - 1;
@@ -138,7 +119,6 @@ char	*ft_find_word(char *haystack, char *needle, char *op)
 	remove_globstars(&needle, &glob);
 	if (*haystack)
 	{
-		//ft_printf("haystack %sglob %d needle %s %s\n",haystack, glob, needle, op);
 		if (glob && ft_strequ("#", op))
 			return (find_from_begin_glob(haystack, needle));
 		else if ((!glob && ft_strequ("#", op))
