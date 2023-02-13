@@ -10,3 +10,5 @@ Is the segfaulthandler the reason?? Stop happens in exe_open_fd_if_needed.c:clos
 
 Test all kind of redir aggre and closefd with aliased and alias fd's
 also use 255 and over
+
+ls 56>&1> Incorrect output

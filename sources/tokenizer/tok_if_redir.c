@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:11:18 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/30 15:07:55 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:41:19 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 static int	traverse_to_end(char *line, int *end)
 {
-	while (line[*end] && ft_isspace(line[*end]))
-		++(*end);
-	if (redir_error(&line[*end]))
-	{
-		*end = -1;
-		return (1);
-	}
+	ft_printf("LINE: %s\n", &line[*end]);
+	/* Why do we need this? It is breaking in situtations like 56>&1 >&56*/
+	// while (line[*end] && ft_isspace(line[*end]))
+	// 	++(*end);
+	// if (redir_error(&line[*end]))
+	// {
+	// 	*end = -1;
+	// 	return (1);
+	// }
 	while (line[*end] && !ft_isspace(line[*end]) && !is_seperator(line[*end]))
 		++(*end);
 	while (ft_isspace(line[*end]))
