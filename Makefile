@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/14 13:43:42 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/14 15:30:18 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -162,10 +162,13 @@ FILES			= \
 				$(EXECTREE)exec_tree \
 				$(EXECTREE)exec_cmd \
 				$(EXECTREE)exec_pipe \
+				$(EXECTREE)exec_ampersand \
 				$(EXECTREE)exec_redir \
 				$(EXECTREE)exec_closefd \
 				$(EXECTREE)exec_aggregation \
+				$(EXECTREE)exec_semicolon \
 				$(EXECTREE)search_bin \
+				$(EXECTREE)fork_wrap \
 				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
 				$(EXECTREE)exe_logicalop \

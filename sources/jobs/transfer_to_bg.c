@@ -6,13 +6,11 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 16:56:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:59:24 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-extern t_shell	*g_sh;
 
 static t_bg_jobs	*init_bg_node(t_shell *sh, int status, \
 int index, t_bg_jobs *prev)
@@ -30,18 +28,6 @@ int index, t_bg_jobs *prev)
 	bg_node->next = NULL;
 	return (bg_node);
 }
-
-// static void	signaled_from_background(t_bg_jobs *job, int status)
-// {
-// 	while (job->next)
-// 		job = job->next;
-// 	job->status = status;
-// 	delete_from_queue(g_sh, job);
-// 	g_sh->process_count++;
-// 	ft_memmove(&g_sh->process_queue[1], \
-// 	&g_sh->process_queue[0], g_sh->process_count * sizeof(int));
-// 	g_sh->process_queue[0] = job->index;
-// }
 
 static bool	fg_to_bg(t_shell *sh, t_bg_jobs	**job, int status)
 {
@@ -79,11 +65,6 @@ void	transfer_to_bg(t_shell *sh, int status)
 			sh->bg_node = init_bg_node(sh, status, 0, NULL);
 			return ;
 		}
-		// if (sh->fg_node->gpid == 0)
-		// {
-		// 	signaled_from_background(sh->bg_node, status);
-		// 	return ;
-		// }
 		else if (fg_to_bg(sh, &job, status))
 			job->next = init_bg_node(sh, status, job->index + 1, job);
 	}

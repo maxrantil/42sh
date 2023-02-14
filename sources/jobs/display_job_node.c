@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:32:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 13:48:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:08:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	display_state(t_shell *sh, int status)
 {
-	char 	*str;
+	char	*str;
 	int		len;
 
 	if (status == DONE)
@@ -59,10 +59,17 @@ void	display_job_node(t_shell *sh, t_bg_jobs *job)
 	}
 }
 
+/**
+ * It displays the job's index, the job's pid, the job's status, 
+ * and the job's command.
+ * 
+ * @param sh the shell structure
+ * @param job the job to display
+ */
 void	display_job_pipeline(t_shell *sh, t_bg_jobs *job)
 {
 	int	i;
-	
+
 	if (job)
 	{
 		i = -1;
