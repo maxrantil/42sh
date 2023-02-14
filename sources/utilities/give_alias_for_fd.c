@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 16:53:25 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/14 09:44:57 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	alias_fd_if_necessary(t_shell *sh, int *fd)
 
 int close_fd_alias_if_necessary(t_shell *sh, int fd)
 {
-	if (fd <= SH_FD_MAX && sh->pipe->fd_aliases[fd] != -1)
+	if (fd > 1 && fd <= SH_FD_MAX && sh->pipe->fd_aliases[fd] != -1)
 	{
 		close(sh->pipe->fd_aliases[fd]);
 		sh->pipe->fd_aliases[fd] = -1;
