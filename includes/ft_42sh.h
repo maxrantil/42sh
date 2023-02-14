@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 18:49:09 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:56:09 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,7 +387,7 @@ void			update_alias_line(char **line, char **pre_semicolon);
 // void			conversion_dispatch(t_shell *sh, char **line,
 // char **cont, int pos);
 //	alias.c
-char			*construct_alias(char *cmd, t_shell *sh);
+char			*construct_alias(char *cmd);
 void			add_alias(t_shell *sh, char *cmd);
 void			add_or_print_alias(char **args, t_shell *sh);
 int				alias(t_shell *sh, char **args);
