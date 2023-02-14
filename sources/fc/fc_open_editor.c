@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:41:27 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:05:54 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 14:19:46 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static void	init_filename(char ***filename, char *editor)
 	(*filename)[2] = NULL;
 }
 
-static void	print_to_file(t_shell *sh, t_fc *fc, char ***cmd, int fd)
+static int	print_to_file(t_shell *sh, t_fc *fc, char ***cmd, int fd)
 {
 	if (!fc_get_start_and_end(sh, fc, cmd))
-		return ;
+		return (0);
 	if (fc->start <= fc->end)
 	{
 		while (++fc->start < fc->end)
@@ -39,6 +39,7 @@ static void	print_to_file(t_shell *sh, t_fc *fc, char ***cmd, int fd)
 		while (--fc->start > fc->end)
 			ft_putendl_fd(sh->term->history_arr[fc->start], fd);
 	}
+	return (1);
 }
 
 void	fc_open_editor(char *editor, t_shell *sh, t_fc *fc, char ***cmd)
@@ -52,11 +53,16 @@ void	fc_open_editor(char *editor, t_shell *sh, t_fc *fc, char ***cmd)
 		fc_print_error(2);
 		return ;
 	}
-	print_to_file(sh, fc, cmd, fd);
+	if (!print_to_file(sh, fc, cmd, fd))
+	{
+		close(fd);
+		return ;
+	}
 	if (fork_wrap() == 0)
 	{
 		if (execve(editor, fc->filename, sh->env) == -1)
-			ft_putendl_fd("42sh: Error execve, fc_open_editor() from ft_fc().", 2);
+			ft_putendl_fd("42sh: \
+			Error execve, fc_open_editor() from ft_fc().", 2);
 		exit(1);
 	}
 	wait(0);

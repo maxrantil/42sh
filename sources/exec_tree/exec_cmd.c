@@ -14,7 +14,8 @@
 
 extern t_shell	*g_sh;
 
-static void	ft_execve(char **cmd, t_cmdnode *head, int access, char ***environ_cp)
+static void	ft_execve(char **cmd, t_cmdnode *head, \
+						int access, char ***environ_cp)
 {
 	int		status;
 	int		pid;

@@ -15,6 +15,29 @@
 t_shell		*g_sh;
 t_term		*g_t;
 
+static void	ft_session_init_continue(t_shell *sh)
+{
+
+	sh->pipe->stdincpy = dup(STDIN_FILENO);
+	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+
+	sh->pipe->write_pipe[0] = -1;
+	sh->pipe->write_pipe[1] = -1;
+	sh->pipe->pid = -1;
+	sh->pipe->redir_out = 0;
+	sh->pipe->redir_in = 0;
+	sh->pipe->new_pipe = 1;
+	sh->pipe->piping = 0;
+	sh->pipe->pid = 0;
+	ft_memset(sh->pipe->fd_aliases, -1, sizeof(int) * SH_FD_MAX);
+	hash_init(sh);
+	sh->is_flag_on = 0;
+	sh->option_count = 0;
+	ft_init_fg_node(sh);
+	sh->exit_confirm = -1;
+	reset_fd(sh);
+}
+
 /**
  * It initializes the session struct.
  *
@@ -39,19 +62,5 @@ void	ft_session_init(t_shell *sh)
 	sh->tmp_env_key = NULL;
 	sh->tokens = NULL;
 	sh->pipe = ft_memalloc(sizeof(t_pipe));
-	sh->pipe->write_pipe[0] = -1;
-	sh->pipe->write_pipe[1] = -1;
-	sh->pipe->pid = -1;
-	sh->pipe->redir_out = 0;
-	sh->pipe->redir_in = 0;
-	sh->pipe->new_pipe = 1;
-	sh->pipe->piping = 0;
-	sh->pipe->pid = 0;
-	ft_memset(sh->pipe->fd_aliases, -1, sizeof(int) * SH_FD_MAX);
-	hash_init(sh);
-	sh->is_flag_on = 0;
-	sh->option_count = 0;
-	ft_init_fg_node(sh);
-	sh->exit_confirm = -1;
-	reset_fd(sh);
+	ft_session_init_continue(sh);
 }

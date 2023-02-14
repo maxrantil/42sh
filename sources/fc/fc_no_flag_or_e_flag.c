@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:35:13 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:06:57 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:31:50 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	fc_read_file(t_fc *fc, char **ret_cmd)
 	int		fd;
 	char	*new_cmd;
 
+	new_cmd = NULL;
 	fd = open(fc->filename[1], O_RDONLY);
 	if (fd == -1)
 		return (fc_print_error(2));

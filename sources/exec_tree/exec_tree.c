@@ -49,8 +49,9 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		sh->ampersand = true;
 		exec_tree((((t_ampersand *)head)->left), environ_cp, terminal, sh);
 		transfer_to_bg(sh, RUNNING);
-		reset_fgnode(sh);
 		display_bg_job(sh);
+		reset_fgnode(sh);
+		// ft_printf("stdout: %d\n", sh->pipe->stdoutcpy);
 		sh->ampersand = false;
 		// reset_fd(sh);
 		exec_tree((((t_ampersand *)head)->right), environ_cp, terminal, sh);

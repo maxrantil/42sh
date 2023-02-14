@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 08:56:38 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:36:41 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 	{
 		if (job->status == DONE || job->status == TERMINATED)
 		{
-			display_job_node(sh, job);
+			ft_err_print(NULL, "fg", "job has terminated", 2);
 			return (0);
 		}
 		display_pipeline_cmd(sh, job);
