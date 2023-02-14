@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 14:32:28 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/14 14:34:09 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -718,5 +718,6 @@ int				is_aliased_fd(t_shell *sh, int open_fd);
 void			print_aliases(t_shell *sh);
 int				is_alias_fd(t_shell *sh, int fd);
 int				close_fd_alias(t_shell *sh, int fd);
+void			init_flags_struct(t_token_flags *flags);
 
 #endif

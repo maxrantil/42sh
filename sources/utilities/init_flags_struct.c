@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_for_job.c                                     :+:      :+:    :+:   */
+/*   init_flags_struct.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 13:00:44 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/14 13:41:52 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/14 13:42:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	wait_for_job(t_shell *sh, int pid)
+void	init_flags_struct(t_token_flags *flags)
 {
-	int	status;
-
-	if (sh->ampersand)
-		waitpid(pid, &status, WNOHANG | WUNTRACED);
-	else if (!sh->pipe->piping)
-		waitpid(pid, &status, WUNTRACED);
-	if (!sh->ampersand)
-		update_job_status(sh, status, pid);
+	flags->quote = 0;
+	flags->braces = 0;
+	flags->braces_count = 0;
 }

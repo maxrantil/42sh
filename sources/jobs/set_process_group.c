@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_process_group.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/14 13:16:21 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:30:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	set_process_group(t_shell *sh, pid_t pid)
 	if (!sh->fg_node->gpid)
 	{
 		setpgid(pid, 0);
+		// ft_printf("setpgid %d\n", pid);
 		sh->fg_node->gpid = pid;
 		if (!sh->ampersand)
 		{
