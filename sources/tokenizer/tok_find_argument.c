@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:39 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/13 12:15:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:46:12 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ char	*find_argument(char *line, int *i, int *start, int *end)
 	char			*ret;
 	t_token_flags	flags[1];
 
-	flags->quote = 0;
-	flags->braces = 0;
-	flags->braces_count = 0;
+	init_flags_struct(flags);
 	ret = if_redir_or_logical(line, i, start, end);
 	if (*end == -1)
 		return (NULL);

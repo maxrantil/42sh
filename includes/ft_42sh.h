@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 12:10:01 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/14 13:44:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -718,5 +718,6 @@ int				is_aliased_fd(t_shell *sh, int open_fd);
 void			print_aliases(t_shell *sh);
 int				is_alias_fd(t_shell *sh, int fd);
 int				close_fd_alias(t_shell *sh, int fd);
+void			init_flags_struct(t_token_flags *flags);
 
 #endif
