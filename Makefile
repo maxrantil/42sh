@@ -6,7 +6,7 @@
 #    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/13 18:01:38 by rvuorenl         ###   ########.fr        #
+#    Updated: 2023/02/14 18:27:39 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,11 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-# LEAK_CHECK			+=	-fsanitize=address
+#LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-#CFLAGS				+= 	-Werror
+CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses
@@ -162,10 +162,13 @@ FILES			= \
 				$(EXECTREE)exec_tree \
 				$(EXECTREE)exec_cmd \
 				$(EXECTREE)exec_pipe \
+				$(EXECTREE)exec_ampersand \
 				$(EXECTREE)exec_redir \
 				$(EXECTREE)exec_closefd \
 				$(EXECTREE)exec_aggregation \
+				$(EXECTREE)exec_semicolon \
 				$(EXECTREE)search_bin \
+				$(EXECTREE)fork_wrap \
 				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
 				$(EXECTREE)exe_logicalop \
@@ -175,6 +178,9 @@ FILES			= \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
 				$(EXPANSION)ft_quote_bslash_removal \
+				$(EXPANSION)user_expansions \
+				$(EXPANSION)passwd_user \
+				$(EXPANSION)join_paths \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
@@ -200,7 +206,6 @@ FILES			= \
 				$(FT_TEST)ft_test_e \
 				$(FT_TEST)ft_test_eq \
 				$(FT_TEST)ft_test_equal \
-				$(FT_TEST)ft_test_error_int_print \
 				$(FT_TEST)ft_test_f \
 				$(FT_TEST)ft_test_g \
 				$(FT_TEST)ft_test_ge \
@@ -254,6 +259,9 @@ FILES			= \
 				$(JOBS)transfer_to_bg \
 				$(JOBS)triple_ptr_len \
 				$(JOBS)update_fg_job \
+				$(JOBS)wait_for_job \
+				$(JOBS)reap_process \
+				$(JOBS)update_job_status \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_print_error \
@@ -355,7 +363,6 @@ FILES			= \
 				$(PARAM_FORM)find_from_begin_glob \
 				$(PARAM_FORM)is_substring_id \
 				$(PARAM_FORM)check_substitution \
-				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \
@@ -379,11 +386,15 @@ FILES			= \
 				$(UTILITIES)exit_error \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
+				$(UTILITIES)ft_prog_error_int_print \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
+				$(UTILITIES)give_alias_for_fd \
+				$(UTILITIES)init_flags_struct \
+				$(UTILITIES)int_check_validity \
 				$(UTILITIES)jobs_exit_check \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:32:14 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 11:06:18 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:08:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	display_state(t_shell *sh, int status)
 {
-	char 	*str;
+	char	*str;
 	int		len;
 
 	if (status == DONE)
@@ -29,7 +29,6 @@ static void	display_state(t_shell *sh, int status)
 		str = "Exited";
 	else
 		str = "Running";
-	
 	ft_putstr_fd("  ", sh->pipe->stdoutcpy);
 	ft_putstr_fd(str, sh->pipe->stdoutcpy);
 	len = 24 - ft_strlen(str);
@@ -53,17 +52,24 @@ void	display_job_node(t_shell *sh, t_bg_jobs *job)
 	{
 		ft_putstr_fd("[", sh->pipe->stdoutcpy);
 		ft_putnbr_fd(job->index + 1, sh->pipe->stdoutcpy);
-		ft_putstr_fd("] ", sh->pipe->stdoutcpy);
+		ft_putstr_fd("]", sh->pipe->stdoutcpy);
 		print_queue(sh, job->index);
 		display_state(sh, job->status);
 		display_pipeline_cmd(sh, job);
 	}
 }
 
+/**
+ * It displays the job's index, the job's pid, the job's status, 
+ * and the job's command.
+ * 
+ * @param sh the shell structure
+ * @param job the job to display
+ */
 void	display_job_pipeline(t_shell *sh, t_bg_jobs *job)
 {
 	int	i;
-	
+
 	if (job)
 	{
 		i = -1;

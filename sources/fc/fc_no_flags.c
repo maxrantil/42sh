@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:27:59 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 11:28:00 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:16:52 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	fc_no_flags(t_fc *fc)
 {
 	if (fc->l == false \
-		&& fc->r == false \
-		&& fc->s == false \
-		&& fc->e == 0 \
-		&& fc->n == false)
+	&& fc->r == false \
+	&& fc->s == false \
+	&& fc->e == 0 \
+	&& fc->n == false)
 		return (1);
 	return (0);
 }

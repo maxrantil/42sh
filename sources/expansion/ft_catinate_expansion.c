@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_catinate_expansion.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:40 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/09 17:15:24 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:52:16 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static void	if_buf(t_shell *sh, char **splits, char **buff, char **tofree)
  * @param split_dollar This is the string that is being split by the dollar sign.
  * @param buff This is the buffer that will be returned.
  */
-void	ft_catinate_expansion(t_shell *sh, char **splits, char **buff, char qoute)
+void	ft_catinate_expansion(t_shell *sh, char **splits, \
+								char **buff, char qoute)
 {
 	char	*tofree;
 

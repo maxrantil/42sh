@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 15:56:09 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:27:29 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <limits.h>
 # include <sys/shm.h>
 # include <signal.h>
+# include <dirent.h>
+# include <fcntl.h>
+# include <pwd.h>
 
 # if __gnu_linux__
 #  include <fcntl.h>
@@ -92,7 +95,7 @@
 typedef union u_treenode	t_treenode;
 
 /*		       	   TOKENIZER FLAGS				*/
-typedef	struct	s_token_flags
+typedef struct s_token_flags
 {
 	char	quote;
 	char	braces;
@@ -279,6 +282,7 @@ typedef struct s_pipe
 	int		redir_in;
 	int		stdincpy;
 	int		stdoutcpy;
+	int		fd_aliases[SH_FD_MAX + 1];
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -491,9 +495,13 @@ char *terminal, t_shell *sh);
 void			exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh);
 void			exec_pipe(t_pipenode *pipenode, char ***environ_cp, \
 char *terminal, t_shell *sh);
+void			exec_ampersand(t_ampersand *head, char ***environ_cp, \
+char *terminal, t_shell *sh);
 void			exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_aggregate(t_aggregate *node, char ***environ_cp, \
+char *terminal, t_shell *sh);
+void			exec_semicolon(t_semicolon *head, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_closefd(t_closefd *node, char ***environ_cp, \
 char *terminal, t_shell *sh);
@@ -501,9 +509,8 @@ char			*search_bin(char *cmd, char **environ_cp);
 void			error_exit(char *msg);
 size_t			calc_chptr(char **arr);
 int				fork_wrap(void);
-void			open_fd_if_needed(int fd, char *terminal);
+void			open_fd_if_needed(int *fd, char *terminal, t_shell *sh);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
-void			open_fd_if_needed(int fd, char *terminal);
 
 /*					EXECUTE_UTILS			*/
 int				check_access(char *cmd, char **args, t_shell *sh);
@@ -518,6 +525,9 @@ char			*ft_expansion_dollar(t_shell *sh, char *str);
 char			*ft_expansion_tilde(t_shell *sh, char *str);
 char			*ft_expansion_excla(char *str, int i);
 void			ft_quote_blash_removal(char *buff);
+char			*user_expansions(char *str);
+char			*passwd_user(char *input);
+void			join_paths(char **user, char **temp, char **path, int opt);
 
 /*				FT_TEST				*/
 int				ft_test_b(char **arg);
@@ -529,7 +539,6 @@ int				ft_test_d(char **arg);
 int				ft_test_e(char **arg);
 int				ft_test_eq(char **arg);
 int				ft_test_equal(char **arg);
-int				ft_test_error_int_print(char *arg);
 int				ft_test_f(char **arg);
 int				ft_test_g(char **arg);
 int				ft_test_ge(char **arg);
@@ -613,7 +622,7 @@ void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
-void			display_suspended_job(t_shell *sh);
+void			display_suspended_job(t_shell *sh, int pid);
 void			display_pipeline_cmd(t_shell *sh, t_bg_jobs *job);
 char			**dup_dbl_ptr(char **cmd);
 void			reset_fgnode(t_shell *sh);
@@ -625,6 +634,9 @@ void			transfer_to_bg(t_shell *sh, int status);
 void			transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
+void			wait_for_job(t_shell *sh, int pid);
+void			reap_process(t_shell *sh);
+void			update_job_status(t_shell *sh, int status, int pid);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 
@@ -634,7 +646,7 @@ char			*ft_heredoc(t_term *t, char *str);
 
 /*				   MAIN 					*/
 void			shell_end_cycle(t_shell *sh);
-void			reset_fd(char *terminal);
+void			reset_fd(t_shell *sh);
 
 /*				PARAM_FORM					*/
 void			add_var_to_list(t_shell *sh, char *var, char *subst);
@@ -668,15 +680,11 @@ int				check_var_validity(char *var);
 int				check_substitutions(char *cmd, int *ret, t_param *pa);
 
 /*			  		 SIGNALS				*/
-void			signal_exec(int num);
 void			ft_signal_keyboard(int num);
 void			search_history_sigs(int num);
 void			ft_signal_dfl(void);
-void			set_signal_exec(void);
-void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
 void			set_signal_search_history(void);
-void			handler_sigchild(int num);
 
 /*					TERMIOS				*/
 int				ft_getent(void);
@@ -700,7 +708,6 @@ int				validate_tokens(t_token *tokens);
 /*					TOKENIZER UTILS			*/
 int				is_semi_or_amp(char c);
 void			free_tokens(t_token **tokens);
-int				is_nl(char c);
 int				is_seperator(char c);
 void			tok_quote_flag(char *line, int *end, t_token_flags *flags);
 
@@ -714,7 +721,17 @@ int				ft_err_print(char *file, char *cmd, char *msg, int fd);
 int				ft_isseparator(char c);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
+int				ft_prog_error_int_print(char *arg, char *prog);
+int				int_check_validity(char *arg, char *prog);
 void			reset_cmd(char ****cmd);
 void			jobs_exit_check(t_shell *sh);
+int				give_alias_for_fd(t_shell *sh, int *fd);
+int				alias_fd_if_necessary(t_shell *sh, int *fd);
+int				close_fd_alias_if_necessary(t_shell *sh, int fd);
+int				is_aliased_fd(t_shell *sh, int open_fd);
+void			print_aliases(t_shell *sh);
+int				is_alias_fd(t_shell *sh, int fd);
+int				close_fd_alias(t_shell *sh, int fd);
+void			init_flags_struct(t_token_flags *flags);
 
 #endif

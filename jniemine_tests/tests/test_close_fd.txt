@@ -1,0 +1,14 @@
+>&- echo stdoutclosed
+1>&- echo stdoutclosed
+>&- doesnotexist
+0>&- doesnotexist
+1>&- doesnotexist
+2>&- doesnotexist
+0>&- echo stdinclosed
+>&- ; echo stdout
+echo stdin > stdin.txt
+0<&- cat < stdin.txt
+cat < stdin.txt 0<&-
+rm stdin.txt 2>/dev/null
+2>&- doesnotexist
+2>&- 2>&1 ls asfd;

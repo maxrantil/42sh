@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:19:56 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/12 16:56:05 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:22:20 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	first_split(char *cmd, t_param *pa, int *ret)
 	pa->subs = ft_strdup(get_flag(pa->strip + 1, ret));
 	pa->op = pa->subs[0];
 	pa->subs = (char *)ft_memmove(pa->subs, pa->subs + 1, ft_strlen(pa->subs));
+	if (!*pa->subs)
+		*pa->subs = pa->op;
 	pa->var = ft_strndup(pa->strip, \
 	ft_strlen(pa->strip) - (ft_strlen(pa->subs)));
 	ft_strdel(&pa->strip);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 13:15:33 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/11 19:56:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:54:47 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static int	validity_check(char *line)
 	ptr = NULL;
 	if (*line == ';' || *line == '|' || *line == '&')
 		ptr = line;
-	else if (line[ft_strlen(line) - 1] == '|' && !special_char_check(line, ft_strlen(line) - 1, '\\'))
+	else if (line[ft_strlen(line) - 1] == '|' \
+	&& !special_char_check(line, ft_strlen(line) - 1, '\\'))
 		ptr = &line[ft_strlen(line) - 1];
 	if (ptr)
 	{
@@ -89,7 +90,6 @@ t_token	*chop_line(char *line, t_token *args, size_t pointer_n)
 		while (ft_isspace(line[cur]))
 			++cur;
 	}
-	// print_tokens(args);
 	ft_strdel(&line);
 	return (args);
 }

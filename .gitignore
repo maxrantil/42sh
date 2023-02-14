@@ -57,3 +57,8 @@ dkms.conf
 
 # VSCode
 .vscode/
+
+#mrantil test
+mrantil_test/
+
+.DS_Store

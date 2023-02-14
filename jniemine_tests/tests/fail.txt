@@ -1,0 +1,4 @@
+doesnotexist
+./Makefile
+libft
+./libft
