@@ -669,7 +669,6 @@ void			set_signal_exec(void);
 void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
 void			set_signal_search_history(void);
-void			handler_sigchild(int num);
 
 /*					TERMIOS				*/
 int				ft_getent(void);
@@ -709,6 +708,5 @@ void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
 void			reset_cmd(char ****cmd);
 void			jobs_exit_check(t_shell *sh);
-void			catch_suspended_process(t_shell *sh, int status);
 
 #endif

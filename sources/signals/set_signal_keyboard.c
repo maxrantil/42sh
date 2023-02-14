@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_signal_keyboard.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 14:34:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 21:02:31 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:21:44 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	set_signal_keyboard(void)
 	sig = 0;
 	while (++sig < 32)
 	{
-//		if (sig == SIGCHLD)
-//			signal(sig, handler_sigchild);
 		if (sig == SIGTTIN)
 			signal(sig, SIG_IGN);
 		else if (sig == SIGTTOU)
