@@ -1,2 +1,16 @@
 aggregation + pipe combo breaks up, did not test closefd yeasdf && echo hello || echo pallo | wc
 TEST CLOSEFD REDIR AGGRE WITH PIPES
+Fileaggregation works with >&3 and >&4, it should not. If we close those, something else breaks also in stdin for example
+
+$> ls 56>&1 >&56
+42sh: syntax error near unexpected token: `>'
+
+Currently stops with ls 56>file without error or seg????? 
+Is the segfaulthandler the reason?? Stop happens in exe_open_fd_if_needed.c:close_previously_closed
+
+Test all kind of redir aggre and closefd with aliased and alias fd's
+also use 255 and over
+
+ls 56>&1> Incorrect output
+
+>&- 0>&- >lol ls -l; cat lol

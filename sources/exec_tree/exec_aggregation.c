@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/09 15:49:30 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:22:56 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 	struct stat	buf;
 	int			open_fd;
 
-	open_fd_if_needed(node->close_fd, terminal);
+	open_fd_if_needed(&node->close_fd, terminal, sh);
 	open_fd = -1;
 	if (is_nb(node->dest))
 		open_fd = ft_atoi(node->dest);
@@ -60,15 +60,19 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 		redir_to_file(node, sh);
 		return ;
 	}
-	if (fstat(open_fd, &buf) < 0)
+	// print_aliases(sh);
+	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
+		|| (!is_aliased_fd(sh, open_fd) && is_alias_fd(sh, open_fd)))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		return ;
 	}
-	if (dup2(open_fd, node->close_fd) < 0)
+	if (is_aliased_fd(sh, open_fd))
+		open_fd = sh->pipe->fd_aliases[open_fd];
+	if (close_fd_alias(sh, node->close_fd) && dup2(open_fd, node->close_fd) < 0)
 	{
 		ft_err_print(NULL, "dup2", "failed", 2);
-		return ;
+		exit (1);
 	}
 	if (sh->pipe->write_pipe[1] > 0)
 	{

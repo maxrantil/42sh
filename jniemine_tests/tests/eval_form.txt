@@ -1,0 +1,30 @@
+foo
+/bin/ls
+/bin/ls -laF
+/bin/ls -l -a -F
+echo "It works"
+echo It works
+cd /dev/fd;/bin/pwd
+cd ../../;/bin/pwd
+cd;/bin/pwd
+cd -;/bin/pwd
+cd ~/Downloads/;/bin/pwd
+env
+setenv FOO=bar;/usr/bin/env
+setenv FOO=bar;/usr/bin/env;unsetenv FOO;/usr/bin/env
+setenv FOO=bar;/usr/bin/env;unsetenv FOO;unsetenv FOO;/usr/bin/env
+unsetenv PATH;setenv "PATH=/bin:/usr/bin";ls
+unsetenv PATH;ls
+unsetenv PATH;/bin/ls
+	  /bin/ls	-l 		-A
+ls | cat -e
+ls | sort | cat -e
+base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -
+echo "Testing redirections," > /tmp/test.txt;cat /tmp/test.txt;rm -f /tmp/test.txt
+echo "Testing redirections," > /tmp/test.txt;echo "with multiple lines" >> /tmp/test.txt;cat /tmp/test.txt;rm /tmp/test.txt 2>/dev/null
+echo "Testing redirections," > /tmp/test.txt;echo "with multiple lines" >> /tmp/test.txt;cat /tmp/test.txt;wc -c < tmp/test.txt;rm /tmp/test.txt 2>/dev/null
+ls -1; touch newfile ; ls -1;rm newfile 2>/dev/null
+mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi;cd ..;rm test
+rm nosuchfile 2>&-
+rm nosuchfile 2>&1 | cat -e
+echo "No dollar character" 1>&2 | cat -e

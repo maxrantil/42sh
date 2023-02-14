@@ -389,6 +389,7 @@ FILES			= \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
+				$(UTILITIES)give_alias_for_fd \
 				$(UTILITIES)int_check_validity \
 				$(UTILITIES)jobs_exit_check \
 
