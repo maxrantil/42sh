@@ -17,50 +17,58 @@ import time
 #TODO
 #Stop it after N commands for enter
 async def main(connection):
-    #Path to test main
-    path_to_test_main = '/Users/jniemine/Workspace/42sh/jniemine_tests/tests/test_main.txt'
-    #Path to shell
-    path_to_shell = '/Users/jniemine/Workspace/42sh/42sh\n'
-    #Number of ran tests before Enter
-    enter_cap = 3
-    
-    # Add a tab to the current window:
-    app = await iterm2.async_get_app(connection)
-    window = app.current_terminal_window
-    if window is not None:
-        #create main tab
-        main = await window.async_create_tab()
-        await main.async_activate()
-        await main.async_set_title('~ Awesome Tests ~')
-        sess = main.current_session
-        
-        #split main
-        sub = await sess.async_split_pane(vertical=True)
+	#Path to test main
+	path_to_test_main = '/Users/jniemine/Workspace/42sh/jniemine_tests/tests/test_main.txt'
+	#Path to shell
+	path_to_shell = '/Users/jniemine/Workspace/42sh/42sh'
+	#Number of ran tests before Enter
+	enter_cap = 3
 
-        #Start your shell
-        await sess.async_send_text(path_to_shell)
-        #Start bash
-        await sub.async_send_text('/bin/bash')
-        #send commands from file
-        path_to_test = open(path_to_test_main, 'r')
-        for path in path_to_test:
-            if path.startswith("#"):
-                continue
-            path = path.rstrip("\n")
-            test_main = open(path, 'r')
-            commands = test_main.readlines()
-            
-            enter_press = 0;
-            for cmd in commands:
-                if cmd.startswith("#"):
-                    continue
-            #cmd = cmd.rstrip("\n")
-            #print(f'CMD: {cmd}')
-                time.sleep(0.5)
-                await sub.async_send_text(cmd)
-                await sess.async_send_text(cmd)
-    else:
-        # You can view this message in the script console.
-        print("No current window")
+	# Add a tab to the current window:
+	app = await iterm2.async_get_app(connection)
+	window = app.current_terminal_window
+	if window is not None:
+		#create main tab
+		main = await window.async_create_tab()
+		await main.async_activate()
+		await main.async_set_title('~ Awesome Tests ~')
+		sess = main.current_session
+
+		#split main
+		sub = await sess.async_split_pane(vertical=True)
+
+		#Start your shell
+		time.sleep(1)
+		await sess.async_send_text(path_to_shell)
+		#Start bash
+		time.sleep(1)
+		await sub.async_send_text('/bin/bash')
+		await sub.async_send_text("\n")
+		await sess.async_send_text("\n")
+		await sub.async_send_text('clear\n')
+		await sess.async_send_text('clear\n')
+		#time.sleep(0.5)
+
+		#send commands from file
+		path_to_test = open(path_to_test_main, 'r')
+		for path in path_to_test:
+			if path[0] == "#":
+				continue
+			path = path.rstrip("\n")
+			test_main = open(path, 'r')
+			commands = test_main.readlines()
+
+			enter_press = 0;
+			for cmd in commands:
+				if cmd[0] == "#":
+					continue
+			#cmd = cmd.rstrip("\n")
+			#print(f'CMD: {cmd}')
+				time.sleep(0.5)
+				await sub.async_send_text(cmd)
+				await sess.async_send_text(cmd)
+	else:
+		# You can view this message in the script console.
+		print("No current window")
 
 iterm2.run_until_complete(main)
