@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/14 10:44:04 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/14 13:43:42 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -390,6 +390,7 @@ FILES			= \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
 				$(UTILITIES)give_alias_for_fd \
+				$(UTILITIES)init_flags_struct \
 				$(UTILITIES)int_check_validity \
 				$(UTILITIES)jobs_exit_check \
 

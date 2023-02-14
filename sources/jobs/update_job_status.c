@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_job_status.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:28:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 08:41:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:47:32 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	update_job_status(t_shell *sh, int status, int pid)
 	{
 		if (WTERMSIG(status))
 		{
-			ft_putchar('\n');
+			// ft_putchar('\n');
 			check_fg_pipeline(sh, pid);
 			change_process_status(sh->bg_node, pid, TERMINATED);
 			sh->exit_stat = WTERMSIG(status) + 127;
@@ -81,7 +81,7 @@ void	update_job_status(t_shell *sh, int status, int pid)
 	}
 	else if (WIFSTOPPED(status))
 	{
-		ft_putchar('\n');
+		// ft_putchar('\n');
         change_process_status(sh->bg_node, pid, STOPPED);
         if (sh->fg_node->gpid)
             transfer_to_bg(sh, STOPPED);

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:59:23 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 18:26:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:42:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,6 @@ static void	collect_args_loop(char **array, char *cmd, t_token_flags *flags)
 		cmd = ft_skip_space(&cmd[pos]);
 	}
 	array[i] = NULL;
-}
-
-static void	init_flags_struct(t_token_flags *flags)
-{
-	flags->quote = 0;
-	flags->braces = 0;
-	flags->braces_count = 0;
 }
 
 static int	arg_qty(char *cmd, t_token_flags *flags)
