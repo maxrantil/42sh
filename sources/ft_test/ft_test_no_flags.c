@@ -6,13 +6,13 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:06:42 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/08 18:11:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:59:31 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int		ft_test_no_flags(char **str)
+int	ft_test_no_flags(char **str)
 {
 	if (str[1][0] == '\0')
 		return (0);

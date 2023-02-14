@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 09:23:06 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 16:51:05 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:22:13 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_quote_flag_reset(t_term *t)
 	t->quote = 0;
 	t->heredoc = 0;
 	t->bracket = 0;
+	t->bracket_count = 0;
 	if (t->delim)
 		ft_strdel(&t->delim);
 	while (t->inp[++i])

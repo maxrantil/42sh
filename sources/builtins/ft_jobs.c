@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_jobs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:00:54 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 09:11:03 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:53:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,17 @@ static void	display_fetched_jobs(t_shell *sh, char **cmd)
 int	ft_jobs(t_shell *sh, char **commands)
 {
 	t_bg_jobs	*job;
-	bool		skip;
 
-	skip = false;
 	if (!validate_options(sh, commands))
 	{
 		print_usage("jobs", sh->option);
-		skip = true;
+		return (0);
 	}
 	if (commands[sh->option_count])
 	{
 		display_fetched_jobs(sh, &commands[sh->option_count]);
 		return (0);
 	}
-	if (skip)
-		return (0);
 	job = sh->bg_node;
 	while (job)
 	{
