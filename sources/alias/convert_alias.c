@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:59:28 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/13 20:32:49 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:32:23 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,23 +214,27 @@ void	check_line_separators(char ***alias, char **line)
 	}
 }
 
+char	**init_alias_conv(char **alias, char **pre, char **conv, char **post)
+{
+	*pre = NULL;
+	*conv = NULL;
+	*post = NULL;
+	return (ft_dup_doublearray(alias));
+}
 
 void	alias_convert_line(char **line, t_shell *sh)
 {
 	char	**dup_alias;
-	char	*post;
-	char	*conversion;
 	char	*pre;
+	char	*conversion;
+	char	*post;
 	int		i;
 	int		j;
 
     if (!validate_whitespace(*line))
       return ;
-	dup_alias = ft_dup_doublearray(sh->alias);
+	dup_alias = init_alias_conv(sh->alias, &pre, &conversion, &post);
 	i = ft_strlen(*line) - 1;
-	pre = NULL;
-	post = NULL;
-	conversion = NULL;
 	while (i >= 0)
 	{
 		j = i;
