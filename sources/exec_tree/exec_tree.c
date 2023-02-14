@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/13 12:54:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:40:43 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,12 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 	if (head->type == SEMICOLON)
 	{
 		exec_tree((((t_semicolon *)head)->left), environ_cp, terminal, sh);
-
 		sh->pipe->redir_in = 0;
 		sh->pipe->redir_out = 0;
-		reset_fd(terminal); // Always redup after reset_fd
-		sh->pipe->stdincpy = dup(STDIN_FILENO);
-		sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+		reset_fd(sh);
 		if (head && ((t_semicolon *)head)->right)
 			exec_tree((((t_semicolon *)head)->right), environ_cp, terminal, sh);
-		reset_fd(terminal);
-		sh->pipe->stdincpy = dup(STDIN_FILENO);
-		sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+		reset_fd(sh);
 		sh->pipe->redir_in = 0;
 		sh->pipe->redir_out = 0;
 	}
@@ -58,9 +53,9 @@ void	exec_tree(t_treenode *head, char ***environ_cp,
 		reset_fgnode(sh);
 		// ft_printf("stdout: %d\n", sh->pipe->stdoutcpy);
 		sh->ampersand = false;
-		reset_fd(terminal);
+		// reset_fd(sh);
 		exec_tree((((t_ampersand *)head)->right), environ_cp, terminal, sh);
-		reset_fd(terminal);
+		reset_fd(sh);
 	}
 
 }

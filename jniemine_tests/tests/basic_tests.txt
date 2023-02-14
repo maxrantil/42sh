@@ -1,0 +1,91 @@
+doesnotexist
+echo $?
+cp ./moi.out forbidden_moi&& chmod 000 forbidden_moi
+./forbidden_moi
+echo $?
+/bin/ls
+echo $?
+ls
+echo $?
+/bin/ls -alF
+echo $?
+/bin/ls -l -a -F
+echo $?
+ls > /tmp/ftsh_ls_out /
+echo ================
+cat /tmp/ftsh_ls_out
+< /tmp/ftsh_ls_out cat -e >> /tmp/ftsh_ls_out
+echo ================
+cat /tmp/ftsh_ls_out
+echo 1 >out >&2 2>err
+echo 2 >out 2>err
+cat err
+echo ================
+cat out
+echo 'todo: non-standard fd > dup_fd'
+echo 'todo: cat 4 non-standard fd$'
+cat <&4
+echo abc >redir_one_to_all
+cat 9 abc$
+cat <&- abc
+ls doesnotexist . 2>&1 >/dev/null
+ls doesnotexist . >/dev/null 2>&1
+ls | sort -rn | cat -e
+base64 < /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g
+ps a | grep 'base64' | grep -v 'grep'
+ls -1; touch test_file; ls -1
+exit 1 | exit 2 | exit 3; echo "stayin' alive"
+echo out >&-; echo out2
+echo out >&- | echo out2
+echo out >&- && echo out2
+echo out >&- || echo out2
+exit abc
+echo $?
+exit 1 2 3
+echo $?
+cd /usr/sbin
+/bin/pwd
+cd -
+cd srcs/signal
+pwd
+cd /tmp
+/bin/pwd
+cd
+/bin/pwd
+cd /tmp
+pwd
+cd /bin
+cd -L /tmp; cd -P ..
+pwd
+type type ls
+ls -l && ls
+ls doesnotexist || echo "Notice me senpai"
+echo $?
+echo 'No error' || echo 'You cant see me'
+echo $?
+false && echo foo || echo bar
+true || echo foo && echo bar
+a=hello b=world; b=42 echo ${a}_${b} && echo ${b}
+directory=/ ls_opt=-atr
+ls ${ls_opt} ${directory}
+echo ${empty}|cat -e
+set
+set | grep -E '(a|b)='
+env
+env | grep -E '(a|b)='
+export b
+printenv b
+ONESHOT= env | grep ONESHOT
+env | grep ONESHOT
+unset a b
+env | grep -E '(a|b)='
+set | grep -E '(a|b)='
+unset PATH
+PATH=/bin:/usr/bin
+mkdir testdir
+echo $?
+ls -1 | grep testdir
+true; echo $?; false; echo $?
+mkfifo fifo
+ls -lR /usr >fifo 2>&1 &
+echo 'TODO: after the line - Perform the following commands and check that the display is compliant:'

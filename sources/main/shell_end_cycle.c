@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/12 16:27:00 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:29:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ void	shell_end_cycle(t_shell *sh)
 
 	free_node(sh->head);
 	free_tokens(&sh->tokens);
-	reset_fd(sh->terminal);
+	reset_fd(sh);
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
 	sh->pipe->piping = 0;
+	ft_memset(sh->pipe->fd_aliases, -1, sizeof(int) * SH_FD_MAX);
 	while(ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
 		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);

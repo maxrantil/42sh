@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 20:58:33 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:28:52 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,7 @@ typedef struct s_pipe
 	int		redir_in;
 	int		stdincpy;
 	int		stdoutcpy;
+	int		fd_aliases[SH_FD_MAX + 1];
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -494,9 +495,8 @@ char			*search_bin(char *cmd, char **environ_cp);
 void			error_exit(char *msg);
 size_t			calc_chptr(char **arr);
 int				fork_wrap(void);
-void			open_fd_if_needed(int fd, char *terminal);
+void			open_fd_if_needed(int *fd, char *terminal, t_shell *sh);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
-void			open_fd_if_needed(int fd, char *terminal);
 
 /*					EXECUTE_UTILS			*/
 int				check_access(char *cmd, char **args, t_shell *sh);
@@ -629,7 +629,7 @@ char			*ft_heredoc(t_term *t, char *str);
 
 /*				   MAIN 					*/
 void			shell_end_cycle(t_shell *sh);
-void			reset_fd(char *terminal);
+void			reset_fd(t_shell *sh);
 
 /*				PARAM_FORM					*/
 void			add_var_to_list(t_shell *sh, char *var, char *subst);
@@ -713,5 +713,12 @@ int				ft_prog_error_int_print(char *arg, char *prog);
 int				int_check_validity(char *arg, char *prog);
 void			reset_cmd(char ****cmd);
 void			jobs_exit_check(t_shell *sh);
+int				give_alias_for_fd(t_shell *sh, int *fd);
+int				alias_fd_if_necessary(t_shell *sh, int *fd);
+int				close_fd_alias_if_necessary(t_shell *sh, int fd);
+int				is_aliased_fd(t_shell *sh, int open_fd);
+void			print_aliases(t_shell *sh);
+int				is_alias_fd(t_shell *sh, int fd);
+int				close_fd_alias(t_shell *sh, int fd);
 
 #endif

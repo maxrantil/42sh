@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 12:00:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/12 23:00:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,25 @@ t_term		*g_t;
 
 static void	ft_session_init_continue(t_shell *sh)
 {
+
+	sh->pipe->stdincpy = dup(STDIN_FILENO);
+	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+
 	sh->pipe->write_pipe[0] = -1;
 	sh->pipe->write_pipe[1] = -1;
 	sh->pipe->pid = -1;
-	sh->pipe->stdincpy = dup(STDIN_FILENO);
-	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
 	sh->pipe->new_pipe = 1;
 	sh->pipe->piping = 0;
 	sh->pipe->pid = 0;
+	ft_memset(sh->pipe->fd_aliases, -1, sizeof(int) * SH_FD_MAX);
 	hash_init(sh);
 	sh->is_flag_on = 0;
 	sh->option_count = 0;
 	ft_init_fg_node(sh);
 	sh->exit_confirm = -1;
+	reset_fd(sh);
 }
 
 /**
