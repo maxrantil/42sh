@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 21:52:54 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/13 20:33:39 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:21:10 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	conversion_loop(char ***alias, char **line, char **content)
 		free_and_refill_dup_alias(&dup_alias, *alias);
 	}
 	append_to_converted(line, &next_word, &post_content);
+	ft_free_doublearray(&dup_alias);
 	ft_strdel(content);
 }
 

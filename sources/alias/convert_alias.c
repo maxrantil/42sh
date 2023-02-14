@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:59:28 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 17:47:31 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:20:51 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,16 @@ char	**init_alias_conv(char **alias, char **pre, char **conv, char **post)
 	return (ft_dup_doublearray(alias));
 }
 
+void	trim_alias_line(char **line)
+{
+	char	*trimmed;
+
+	trimmed = ft_strtrim(*line);
+	ft_strdel(line);
+	*line = ft_strdup(trimmed);
+	ft_strdel(&trimmed);
+}
+
 void	alias_convert_line(char **line, t_shell *sh)
 {
 	char	**dup_alias;
@@ -257,5 +267,6 @@ void	alias_convert_line(char **line, t_shell *sh)
 	ft_free_doublearray(&dup_alias);
 	if (!validate_whitespace(*line))
 		ft_strdel(line);
-    // ft_printf("\tFINAL (%s)\n", *line);
+	else
+		trim_alias_line(line);
 }
