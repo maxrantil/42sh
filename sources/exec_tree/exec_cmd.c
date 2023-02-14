@@ -19,12 +19,12 @@ extern t_shell	*g_sh;
 static void	ft_execve(char **cmd, t_cmdnode *head, \
 						int access, char ***environ_cp)
 {
-	int		status;
+	// int		status;
 	int		pid;
 	char	**args;
 
 	args = head->cmd;
-	status = 0;
+	// status = 0;
 	pid = fork_wrap();
 	if (g_sh->pipe->pid == 0)
 		g_sh->pipe->pid = pid;

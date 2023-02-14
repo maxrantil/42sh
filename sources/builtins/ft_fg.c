@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 21:18:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 08:42:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	ft_fg(t_shell *sh, char **cmd)
 			return (0);
 		}
 		display_pipeline_cmd(sh, job);
-		if (job->status == STOPPED || job->status == SUSPENDED)
-			killpg(job->gpid, SIGCONT);
 		if (ioctl(STDIN_FILENO, TIOCSPGRP, &job->gpid) == -1)
 			exit_error(sh, 1, "ioctl error\n");
+		if (job->status == STOPPED || job->status == SUSPENDED)
+			killpg(job->gpid, SIGCONT);
 		transfer_to_fg(sh, job);
 		job->status = RUNNING;
 		wait_for_job(sh, job->gpid);	

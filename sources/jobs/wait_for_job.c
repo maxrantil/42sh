@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 22:03:48 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 08:40:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	wait_for_job(t_shell *sh, int pid)
 	if (sh->ampersand)
 		wait_flag |= WNOHANG;
 	waitpid(pid, &status, wait_flag);
-	update_job_status(sh, status, pid);
+	if (!sh->ampersand)
+		update_job_status(sh, status, pid);
 }
