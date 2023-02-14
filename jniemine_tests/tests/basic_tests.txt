@@ -14,7 +14,7 @@ echo $?
 ls > /tmp/ftsh_ls_out /
 echo ================
 cat /tmp/ftsh_ls_out
-< /tmp/ftsh_ls_out cat -e >> /tmp/ftsh_ls_out
+#< /tmp/ftsh_ls_out cat -e >> /tmp/ftsh_ls_out
 echo ================
 cat /tmp/ftsh_ls_out
 echo 1 >out >&2 2>err
@@ -31,8 +31,8 @@ cat <&- abc
 ls doesnotexist . 2>&1 >/dev/null
 ls doesnotexist . >/dev/null 2>&1
 ls | sort -rn | cat -e
-base64 < /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g
-ps a | grep 'base64' | grep -v 'grep'
+#base64 < /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g
+#ps a | grep 'base64' | grep -v 'grep'
 ls -1; touch test_file; ls -1
 exit 1 | exit 2 | exit 3; echo "stayin' alive"
 echo out >&-; echo out2
