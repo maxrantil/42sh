@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 12:10:01 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/14 14:32:28 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@
 typedef union u_treenode	t_treenode;
 
 /*		       	   TOKENIZER FLAGS				*/
-typedef	struct	s_token_flags
+typedef struct s_token_flags
 {
 	char	quote;
 	char	braces;
@@ -621,7 +621,7 @@ void			transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void			wait_for_job(t_shell *sh, int pid);
-void 			reap_process(t_shell *sh);
+void			reap_process(t_shell *sh);
 void			update_job_status(t_shell *sh, int status, int pid);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
