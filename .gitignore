@@ -61,4 +61,4 @@ dkms.conf
 #mrantil test
 mrantil_test/
 
-.DS_
+.DS_Store
