@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 12:57:02 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:40:18 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		ft_expansion(sh, *cmd);
 		if (!***cmd)
 			return (0);
-		*(cmd) += ft_variables(sh, cmd);
+		ft_variables(sh, &cmd);
 		if (**cmd && !is_builtin(**cmd))
 			return (1);
 		if (!fork_if_pipe(sh, cmd, environ_cp))
