@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:28:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 12:47:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:56:57 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
 	{
 		if (check_bg_pipeline(job, pid))
 			break ;
-        job = job->next;
+		job = job->next;
 	}
 	if (job)
 		job->status = status;
@@ -65,7 +65,6 @@ void	update_job_status(t_shell *sh, int status, int pid)
 	{
 		if (WTERMSIG(status))
 		{
-			// ft_putchar('\n');
 			check_fg_pipeline(sh, pid);
 			change_process_status(sh->bg_node, pid, TERMINATED);
 			sh->exit_stat = WTERMSIG(status) + 127;
@@ -81,10 +80,9 @@ void	update_job_status(t_shell *sh, int status, int pid)
 	}
 	else if (WIFSTOPPED(status))
 	{
-		// ft_putchar('\n');
-        change_process_status(sh->bg_node, pid, STOPPED);
-        if (sh->fg_node->gpid)
-            transfer_to_bg(sh, STOPPED);
+		change_process_status(sh->bg_node, pid, STOPPED);
+		if (sh->fg_node->gpid)
+			transfer_to_bg(sh, STOPPED);
 		display_suspended_job(sh, pid);
 		sh->exit_stat = WSTOPSIG(status) + 127;
 	}

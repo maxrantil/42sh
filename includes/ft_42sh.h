@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 14:34:09 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/14 15:26:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -485,9 +485,13 @@ char *terminal, t_shell *sh);
 void			exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh);
 void			exec_pipe(t_pipenode *pipenode, char ***environ_cp, \
 char *terminal, t_shell *sh);
+void			exec_ampersand(t_ampersand *head, char ***environ_cp, \
+char *terminal, t_shell *sh);
 void			exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_aggregate(t_aggregate *node, char ***environ_cp, \
+char *terminal, t_shell *sh);
+void			exec_semicolon(t_semicolon *head, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_closefd(t_closefd *node, char ***environ_cp, \
 char *terminal, t_shell *sh);

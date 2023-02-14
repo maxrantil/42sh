@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   update_fg_job.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/10 00:18:48 by jniemine         ###   ########.fr       */
+/*   Created: 2023/02/14 14:58:35 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/14 14:58:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_42sh.h"
 
+/**
+ * It sets the process group of the given pid that is first in the pipeline.
+ * It then appends the pid and command to the foreground node.
+ * 
+ * @param sh the shell struct
+ * @param pid the pid of the process that was just created
+ * @param cmd The command to be executed.
+ */
 void	update_fg_job(t_shell *sh, pid_t pid, char **cmd)
 {
 	set_process_group(sh, pid);

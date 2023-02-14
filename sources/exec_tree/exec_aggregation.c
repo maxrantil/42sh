@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_aggregation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/13 17:22:56 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:47:42 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ static int	test_file_access(char *file)
 
 static void	redir_to_file(t_aggregate *node, t_shell *sh)
 {
-	node->cmd = init_redir_wrap(ft_strdup(node->dest), node->cmd,
-			RE_OUT_ONE, node->close_fd);
+	node->cmd = init_redir_wrap(ft_strdup(node->dest), node->cmd, \
+	RE_OUT_ONE, node->close_fd);
 	exec_tree(node->cmd, &sh->env, sh->terminal, sh);
 }
 
-void	exec_aggregate(t_aggregate *node, char ***environ_cp,
-		char *terminal, t_shell *sh)
+void	exec_aggregate(t_aggregate *node, char ***environ_cp, \
+char *terminal, t_shell *sh)
 {
 	struct stat	buf;
 	int			open_fd;
@@ -60,7 +60,6 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 		redir_to_file(node, sh);
 		return ;
 	}
-	// print_aliases(sh);
 	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
 		|| (!is_aliased_fd(sh, open_fd) && is_alias_fd(sh, open_fd)))
 	{
@@ -70,10 +69,7 @@ void	exec_aggregate(t_aggregate *node, char ***environ_cp,
 	if (is_aliased_fd(sh, open_fd))
 		open_fd = sh->pipe->fd_aliases[open_fd];
 	if (close_fd_alias(sh, node->close_fd) && dup2(open_fd, node->close_fd) < 0)
-	{
-		ft_err_print(NULL, "dup2", "failed", 2);
-		exit (1);
-	}
+		exit_error(sh, 1, "dup2 failed");
 	if (sh->pipe->write_pipe[1] > 0)
 	{
 		close(sh->pipe->write_pipe[1]);
