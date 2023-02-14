@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:59:28 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/13 21:32:23 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:47:31 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,21 +194,16 @@ void	check_line_separators(char ***alias, char **line)
 				return ;
 			if (i > 0)
 				pre_semicolon = ft_strsub(*line, 0, i + 1);
-
 			conversion = ft_strsub(*line, i, ft_strlen(&(*line)[i]));
-
 			if (convert_alias(alias, &conversion, 0))
 			{
 				ft_strdel(line);
 				*line = ft_strjoin_three(pre_semicolon, "", conversion);
 				i--;
 			}
-			else
-			{
-				if (pre_semicolon)
-					ft_strdel(&pre_semicolon);
-				ft_strdel(&conversion);
-			}
+			if (pre_semicolon)
+				ft_strdel(&pre_semicolon);
+			ft_strdel(&conversion);
 		}
 		i++;
 	}
