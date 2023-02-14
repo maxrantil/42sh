@@ -20,6 +20,7 @@ unsetenv PATH;/bin/ls
 ls | cat -e
 ls | sort | cat -e
 base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -
+base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' - 's/0/NO/g'
 echo "Testing redirections," > /tmp/test.txt;cat /tmp/test.txt;rm -f /tmp/test.txt
 echo "Testing redirections," > /tmp/test.txt;echo "with multiple lines" >> /tmp/test.txt;cat /tmp/test.txt;rm /tmp/test.txt 2>/dev/null
 echo "Testing redirections," > /tmp/test.txt;echo "with multiple lines" >> /tmp/test.txt;cat /tmp/test.txt;wc -c < tmp/test.txt;rm /tmp/test.txt 2>/dev/null
