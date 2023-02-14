@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_keyboard.c                              :+:      :+:    :+:   */
+/*   ft_putstr_fd_len.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 14:34:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 10:21:44 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/13 21:40:17 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/14 10:42:21 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_42sh.h"
+#include "libft.h"
 
 /**
- * It sets the signal handler for all signals to the function ft_signal_keyboard
+ * Write a string to a file descriptor, but only write the first len characters.
+ * 
+ * @param str The string to be printed.
+ * @param fd The file descriptor to write to.
+ * @param len The length of the string to be printed.
  */
-void	set_signal_keyboard(void)
+void	ft_putstr_fd_len(char *str, int fd, int len)
 {
-	int	sig;
+	int ignore	__attribute__((unused));
 
-	sig = 0;
-	while (++sig < 32)
-	{
-		if (sig == SIGTTIN)
-			signal(sig, SIG_IGN);
-		else if (sig == SIGTTOU)
-			signal(sig, SIG_IGN);
-		else
-			signal(sig, ft_signal_keyboard);
-	}
+	ignore = write(fd, str, len);
 }

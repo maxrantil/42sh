@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/13 12:15:28 by jniemine         ###   ########.fr        #
+#    Updated: 2023/02/14 10:44:04 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -256,6 +256,9 @@ FILES			= \
 				$(JOBS)transfer_to_bg \
 				$(JOBS)triple_ptr_len \
 				$(JOBS)update_fg_job \
+				$(JOBS)wait_for_job \
+				$(JOBS)reap_process \
+				$(JOBS)update_job_status \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
 				$(HISTORY)ft_history_print_error \
@@ -357,7 +360,6 @@ FILES			= \
 				$(PARAM_FORM)find_from_begin_glob \
 				$(PARAM_FORM)is_substring_id \
 				$(PARAM_FORM)check_substitution \
-				$(SIGNALS)handler_sigchild \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \

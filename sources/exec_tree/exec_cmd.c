@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 11:29:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 extern t_shell	*g_sh;
 
+
+
 static void	ft_execve(char **cmd, t_cmdnode *head, \
 						int access, char ***environ_cp)
 {
-	int		status;
+	// int		status;
 	int		pid;
 	char	**args;
 
 	args = head->cmd;
-	status = 0;
+	// status = 0;
 	pid = fork_wrap();
 	if (g_sh->pipe->pid == 0)
 		g_sh->pipe->pid = pid;
@@ -45,10 +47,7 @@ static void	ft_execve(char **cmd, t_cmdnode *head, \
 		else
 			exit(127); // command not found
 	}
-	if (g_sh->ampersand)
-		waitpid(pid, &status, WNOHANG | WUNTRACED);
-	else if (!g_sh->pipe->piping)
-		waitpid(pid, &status, WUNTRACED);
+	wait_for_job(g_sh, pid);
 }
 
 // void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)

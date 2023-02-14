@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_signal_keyboard.c                              :+:      :+:    :+:   */
+/*   wait_for_job.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 14:34:34 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 10:21:44 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/14 10:11:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/**
- * It sets the signal handler for all signals to the function ft_signal_keyboard
- */
-void	set_signal_keyboard(void)
+void	wait_for_job(t_shell *sh, int pid)
 {
-	int	sig;
+	int	wait_flag;
+	int	status;
 
-	sig = 0;
-	while (++sig < 32)
-	{
-		if (sig == SIGTTIN)
-			signal(sig, SIG_IGN);
-		else if (sig == SIGTTOU)
-			signal(sig, SIG_IGN);
-		else
-			signal(sig, ft_signal_keyboard);
-	}
+	wait_flag = WUNTRACED;
+	if (sh->ampersand)
+		wait_flag |= WNOHANG;
+	waitpid(pid, &status, wait_flag);
+	if (!sh->ampersand)
+		update_job_status(sh, status, pid);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 11:28:52 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:46:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -608,7 +608,7 @@ void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
-void			display_suspended_job(t_shell *sh);
+void			display_suspended_job(t_shell *sh, int pid);
 void			display_pipeline_cmd(t_shell *sh, t_bg_jobs *job);
 char			**dup_dbl_ptr(char **cmd);
 void			reset_fgnode(t_shell *sh);
@@ -620,6 +620,10 @@ void			transfer_to_bg(t_shell *sh, int status);
 void			transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
+void			open_fd_if_needed(int fd, char *terminal);
+void			wait_for_job(t_shell *sh, int pid);
+void 			reap_process(t_shell *sh);
+void			update_job_status(t_shell *sh, int status, int pid);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 
@@ -663,15 +667,11 @@ int				check_var_validity(char *var);
 int				check_substitutions(char *cmd, int *ret, t_param *pa);
 
 /*			  		 SIGNALS				*/
-void			signal_exec(int num);
 void			ft_signal_keyboard(int num);
 void			search_history_sigs(int num);
 void			ft_signal_dfl(void);
-void			set_signal_exec(void);
-void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
 void			set_signal_search_history(void);
-void			handler_sigchild(int num);
 
 /*					TERMIOS				*/
 int				ft_getent(void);
@@ -695,7 +695,6 @@ int				validate_tokens(t_token *tokens);
 /*					TOKENIZER UTILS			*/
 int				is_semi_or_amp(char c);
 void			free_tokens(t_token **tokens);
-int				is_nl(char c);
 int				is_seperator(char c);
 void			tok_quote_flag(char *line, int *end, t_token_flags *flags);
 

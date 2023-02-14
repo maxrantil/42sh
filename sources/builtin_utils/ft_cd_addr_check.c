@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_addr_check.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:27:40 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 19:25:02 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:55:12 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	handle_option_l(char *file, t_shell *session)
 		else if (access(file, X_OK))
 			return (ft_err_print(file, "cd", "Permission denied", 1));
 		if (chdir(file) == -1)
-			write(2, "42sh: cd: chdir failed.\n", 25);
+			ft_putstr_fd("42sh: cd: chdir failed.\n", 2);
 	}
 	return (0);
 }

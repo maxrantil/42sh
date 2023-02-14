@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 11:29:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:35:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ void	shell_end_cycle(t_shell *sh)
 	sh->pipe->redir_in = 0;
 	sh->pipe->piping = 0;
 	ft_memset(sh->pipe->fd_aliases, -1, sizeof(int) * SH_FD_MAX);
-	while(ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
+	if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
 		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);
 	notify_completed_jobs(sh);
+	reap_process(sh);
 	init_window_size(sh->term);
 	reset_fgnode(sh);
 }
