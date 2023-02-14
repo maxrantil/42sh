@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 10:11:29 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:00:44 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	wait_for_job(t_shell *sh, int pid)
 {
-	int	wait_flag;
 	int	status;
 
-	wait_flag = WUNTRACED;
 	if (sh->ampersand)
-		wait_flag |= WNOHANG;
-	waitpid(pid, &status, wait_flag);
+		waitpid(pid, &status, WNOHANG | WUNTRACED);
+	else if (!sh->pipe->piping)
+		waitpid(pid, &status, WUNTRACED);
 	if (!sh->ampersand)
 		update_job_status(sh, status, pid);
 }
