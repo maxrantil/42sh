@@ -6,29 +6,92 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:04:27 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/13 20:35:22 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:19:19 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
+int	have_single_quotes(char *content)
+{
+	size_t	len;
+
+	if (content)
+		len = ft_strlen(content);
+	else
+		return (0);
+	if (len > 0)
+	{
+		if (content[0] == '\'' && content[len - 1] == '\'')
+			return (1);
+	}
+	return (0);
+}
+
+
+int	skip_single_quotes(char *str, int i)
+{
+	while (str[i] && str[i] != '\'')
+		i++;
+	if (!str[i])
+		return (i - 1);
+	return (i);
+}
+
+void	rm_double_quotes(char *str)
+{
+	int		i;
+	size_t	len;
+
+	// if (str)
+	// {
+	i = 0;
+	len = ft_strlen(str);
+	while (str[i])
+	{
+		if (str[i] == '\"')
+		{
+			if (!(str[i + 1]))
+				ft_memmove(&str[i], &str[i + 1], 1);
+			else
+				ft_memmove(&str[i], &str[i + 1], len - i);
+			len--;
+			str[len] = '\0';
+			i--;
+		}
+		else if (str[i] == '\'')
+		{
+			i = skip_single_quotes(str, i);
+		}
+		i++;
+	}
+	// }
+}
+
 void	add_quotes(char **content)
 {
 	char	*added_quotes;
 	char	*tmp;
-	int		i;
 
-	i = 0;
-	tmp = *content;
-	while (tmp[i])
+	if (*content)
+		tmp = ft_strtrim(*content);
+	else
+		tmp = NULL;
+	if (have_single_quotes(tmp))
 	{
-		if (tmp[i] == '\"' || tmp[i] == '\'')
-		{
-			strip_quotes_single(tmp, i);
-		}
-		i++;
+		ft_strdel(content);
+		*content = ft_strdup(tmp);
+		ft_strdel(&tmp);
+		return ;
 	}
-	added_quotes = ft_strjoin_three("\'", tmp, "\'");
+	if (tmp)
+	{
+		rm_double_quotes(tmp);
+		added_quotes = ft_strjoin_three("\'", tmp, "\'");
+		ft_strdel(&tmp);
+	}
+	else
+		added_quotes = ft_strdup("''");
 	ft_strdel(content);
 	*content = ft_strdup(added_quotes);
 	ft_strdel(&added_quotes);
