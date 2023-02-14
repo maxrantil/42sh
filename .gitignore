@@ -60,3 +60,5 @@ dkms.conf
 
 #mrantil test
 mrantil_test/
+
+.DS_
