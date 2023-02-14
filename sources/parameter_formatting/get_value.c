@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/12 13:05:27 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:47:26 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ static char	*use_default_value(t_shell *sh, char *var, char *subst)
 	temp[0] = ft_expansion_dollar(sh, var);
 	temp[1] = NULL;
 	if (!*temp[0])
-		expanded = ft_strdup(subst + 1);
+	{
+		if (subst[0] == '-')
+			expanded = ft_strdup(subst + 1);
+		else
+			expanded = ft_strdup(subst);
+	}
 	else
 		expanded = ft_strdup(var);
 	ft_strdel(&temp[0]);
@@ -41,6 +46,7 @@ static char	*assign_default_value(t_shell *sh, char *var, char *subst)
 	if (!*temp[0])
 	{
 		expanded = ft_strdup(subst + 1);
+		ft_strdel(&temp[0]);
 		temp[0] = ft_strjoin(var + 1, subst);
 		add_var(sh, temp);
 	}

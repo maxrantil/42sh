@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/14 10:22:26 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/14 10:44:04 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,11 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-# LEAK_CHECK			+=	-fsanitize=address
+#LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
-#CFLAGS				+= 	-Werror
+CFLAGS				+= 	-Werror
 endif
 ifeq ($(UNAME), Linux)
 TERMCAP				=	-lncurses
@@ -175,6 +175,9 @@ FILES			= \
 				$(EXPANSION)ft_expansion_tilde \
 				$(EXPANSION)ft_expansion_excla \
 				$(EXPANSION)ft_quote_bslash_removal \
+				$(EXPANSION)user_expansions \
+				$(EXPANSION)passwd_user \
+				$(EXPANSION)join_paths \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
@@ -200,7 +203,6 @@ FILES			= \
 				$(FT_TEST)ft_test_e \
 				$(FT_TEST)ft_test_eq \
 				$(FT_TEST)ft_test_equal \
-				$(FT_TEST)ft_test_error_int_print \
 				$(FT_TEST)ft_test_f \
 				$(FT_TEST)ft_test_g \
 				$(FT_TEST)ft_test_ge \
@@ -381,11 +383,13 @@ FILES			= \
 				$(UTILITIES)exit_error \
 				$(UTILITIES)ft_env_get \
 				$(UTILITIES)ft_err_print \
+				$(UTILITIES)ft_prog_error_int_print \
 				$(UTILITIES)free_node \
 				$(UTILITIES)calc_chptr \
 				$(UTILITIES)ft_isseparator \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
+				$(UTILITIES)int_check_validity \
 				$(UTILITIES)jobs_exit_check \
 
 H_PATHS 	= 	$(addsuffix .h, $(addprefix $(INCLUDES)/, $(H_FILES)))

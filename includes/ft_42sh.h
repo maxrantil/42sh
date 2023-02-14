@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 21:10:29y mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:46:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <limits.h>
 # include <sys/shm.h>
 # include <signal.h>
+# include <dirent.h>
+# include <fcntl.h>
+# include <pwd.h>
 
 # if __gnu_linux__
 #  include <fcntl.h>
@@ -96,7 +99,7 @@ typedef	struct	s_token_flags
 {
 	char	quote;
 	char	braces;
-	int		braces_count;	
+	int		braces_count;
 }				t_token_flags;
 
 /*			PARAMETER EXPANSION INTEGERS		*/
@@ -507,6 +510,9 @@ char			*ft_expansion_dollar(t_shell *sh, char *str);
 char			*ft_expansion_tilde(t_shell *sh, char *str);
 char			*ft_expansion_excla(char *str, int i);
 void			ft_quote_blash_removal(char *buff);
+char			*user_expansions(char *str);
+char			*passwd_user(char *input);
+void			join_paths(char **user, char **temp, char **path, int opt);
 
 /*				FT_TEST				*/
 int				ft_test_b(char **arg);
@@ -518,7 +524,6 @@ int				ft_test_d(char **arg);
 int				ft_test_e(char **arg);
 int				ft_test_eq(char **arg);
 int				ft_test_equal(char **arg);
-int				ft_test_error_int_print(char *arg);
 int				ft_test_f(char **arg);
 int				ft_test_g(char **arg);
 int				ft_test_ge(char **arg);
@@ -661,12 +666,9 @@ int				check_var_validity(char *var);
 int				check_substitutions(char *cmd, int *ret, t_param *pa);
 
 /*			  		 SIGNALS				*/
-void			signal_exec(int num);
 void			ft_signal_keyboard(int num);
 void			search_history_sigs(int num);
 void			ft_signal_dfl(void);
-void			set_signal_exec(void);
-void			ft_signal_ign(void);
 void			set_signal_keyboard(void);
 void			set_signal_search_history(void);
 
@@ -692,7 +694,6 @@ int				validate_tokens(t_token *tokens);
 /*					TOKENIZER UTILS			*/
 int				is_semi_or_amp(char c);
 void			free_tokens(t_token **tokens);
-int				is_nl(char c);
 int				is_seperator(char c);
 void			tok_quote_flag(char *line, int *end, t_token_flags *flags);
 
@@ -706,6 +707,8 @@ int				ft_err_print(char *file, char *cmd, char *msg, int fd);
 int				ft_isseparator(char c);
 void			ft_env_last_command(t_shell *sh, char **cmd);
 void			ft_print_dbl_array(char **cmd);
+int				ft_prog_error_int_print(char *arg, char *prog);
+int				int_check_validity(char *arg, char *prog);
 void			reset_cmd(char ****cmd);
 void			jobs_exit_check(t_shell *sh);
 
