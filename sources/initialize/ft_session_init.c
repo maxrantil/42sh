@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/12 23:00:12 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/14 11:34:58 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ t_term		*g_t;
 
 static void	ft_session_init_continue(t_shell *sh)
 {
-
-	sh->pipe->stdincpy = dup(STDIN_FILENO);
-	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
-
 	sh->pipe->write_pipe[0] = -1;
 	sh->pipe->write_pipe[1] = -1;
 	sh->pipe->pid = -1;
