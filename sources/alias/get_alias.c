@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:58:01 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/09 11:41:45 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/10 23:48:29 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,40 @@ char	*get_alias_content(char *alias)
 	return (content);
 }
 
+int	is_command_separator(char command)
+{
+	if (command == '|' || command == ';' || command == '&' )
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
+}
+
 char	*get_first_word(char *line)
 {
 	int	i;
 	int	j;
 
+	// ft_printf("FW line (%s)\n", line);
 	j = 0;
 	while (line[j] && ft_iswhitespace(line[j]))
+	{
 		j++;
+	}
 	i = j;
-	while (line[i] && !(ft_iswhitespace(line[i])))
+	// ft_printf("FW MID i (%d) j (%d)\n", i, j);
+	while (line[i] && !(ft_iswhitespace(line[i]))
+		&& !(is_command_separator(line[i])))
+		{
+			// ft_printf("FW LOOP i (%d) j (%d)\n", i, j);
 		i++;
+		}
+	// ft_printf("FW END i (%d) j (%d)\n", i, j);
+
+	// if (i - j == 0)
+	// 	return (NULL);
 	return (ft_strsub(line, j, i - j));
 }

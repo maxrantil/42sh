@@ -3,38 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   join_values.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 10:57:45 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 13:23:01 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:37:17 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-extern t_shell *g_sh;
+extern t_shell	*g_sh;
 
-static int	substitute_value(t_shell *sh, t_param *pa, int *ret)
+static int	substitute_value(t_param *pa, int *ret)
 {
 	char	*temp;
 	char	*subs;
 
-	subs = substitute_or_create(sh, pa->subs, ret);
+	subs = substitute_or_create(g_sh, pa->subs, ret);
 	temp = ft_strjoin(pa->expanded, subs);
-	ft_strdel(&subs);
 	if (temp == NULL)
 		return (1);
+	ft_strdel(&subs);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strdup(temp);
 	ft_strdel(&temp);
 	return (0);
 }
 
-static int	substitute_substring(t_shell *sh, t_param *pa, int *ret)
+static int	substitute_substring(t_param *pa, int *ret)
 {
 	char	*temp;
 	char	*subs;
-	subs = search_from_var(sh, pa->subs, ret);
+
+	subs = search_from_var(g_sh, pa->subs, ret);
 	if (!subs)
 		return (1);
 	temp = ft_strjoin(pa->expanded, subs);
@@ -42,63 +43,41 @@ static int	substitute_substring(t_shell *sh, t_param *pa, int *ret)
 	pa->expanded = ft_strdup(temp);
 	ft_strdel(&subs);
 	ft_strdel(&temp);
-	return 0;
+	return (0);
 }
 
-static void init_join(t_param *pa, int *ret)
+static void	init_join(t_param *pa)
 {
 	ft_strdel(&pa->subs);
 	pa->subs = ft_strjoin(pa->var, pa->expanded);
-	pa->oper = get_operator(pa->subs, ret);
+	ft_strdel(&pa->var);
+	pa->oper = get_operator(pa->subs);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strnew(1);
 }
 
-int join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
+int	join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 {
-	// ft_strdel(&pa->subs);
-	// pa->subs = ft_strjoin(pa->var, pa->expanded);
-	// pa->oper = get_operator(pa->subs, &ret);
-	// ft_strdel(&pa->expanded);
-	// pa->expanded = ft_strnew(1);
-	init_join(pa, &ret);
+	init_join(pa);
 	if (pa->oper[0] == GET_VALUE)
 	{
-		if (substitute_value(sh, pa, &ret))
-			return(1);
-		// subs = substitute_or_create(g_sh, pa->subs, &ret);
-		// temp = ft_strjoin(pa->expanded, subs);
-		// if (temp == NULL)
-		// 	return (1);
-		// ft_strdel(&pa->expanded);
-		// pa->expanded = ft_strdup(temp);
-		// ft_strdel(&subs);
-		// ft_strdel(&temp);
+		if (substitute_value(pa, &ret))
+		{
+			ft_strdel(&pa->subs);
+			return (1);
+		}
 	}
 	else if (pa->oper[0] == SUBSTRING_BEGIN || pa->oper[0] == SUBSTRING_END)
 	{
-		if (substitute_substring(sh, pa, &ret))
-			return(1);
-		// subs = search_from_var(g_sh, pa->subs, &ret);
-		// if (!subs)
-		// 	return (1);
-		// temp = ft_strjoin(pa->expanded, subs);
-		// ft_strdel(&pa->expanded);
-		// pa->expanded = ft_strdup(temp);
-		// ft_strdel(&subs);
-		// ft_strdel(&temp);
+		if (substitute_substring(pa, &ret))
+			return (1);
 	}
 	else if (ft_strnequ(pa->subs, STRING_LEN, 2))
 		pa->expanded = variable_length(pa->subs);
 	else
 		pa->expanded = ft_expansion_dollar(sh, cmd);
-	if (!pa->expanded || !*pa->expanded)
+	if (!pa->expanded && !*pa->expanded)
 		pa->expanded = ft_strnew(1);
-	if (ret == -1)
-	{
-		ft_strdel(&pa->expanded);
-		ft_printf("42sh: %s: bad substitution\n", cmd);
-		return (-1);
-	}
+	ft_strdel(&pa->subs);
 	return (0);
 }

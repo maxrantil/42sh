@@ -27,5 +27,10 @@ void	ft_signal_keyboard(int num)
 	if (num == SIGINT)
 		ft_restart_cycle(g_sh->term);
 	if (num == SIGSEGV)
-		exit_error(g_sh, 11, "Segmentation fault: 11");
+	{
+		ft_putendl_fd("Segmentation fault: 11", 2);
+		ft_history_write_to_file(g_sh->term);
+		ft_raw_disable(g_sh->orig_termios);
+		exit(num);
+	}
 }

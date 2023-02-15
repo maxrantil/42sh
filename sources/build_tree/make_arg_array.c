@@ -6,114 +6,89 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:59:23 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 14:00:35 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:42:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void	quote_brace_check(char *qoute, char *brace, int *brace_count, \
-char *cmd)
+static int	arg_qty_loop(char *cmd, t_token_flags *flags)
 {
-	if (*cmd == S_QUO || *cmd == D_QUO)
-	{
-		if (!*qoute)
-			*qoute = *cmd;
-		else if (*qoute == *cmd)
-			*qoute = 0;
-	}
-	if (*cmd == L_BRAC || *cmd == R_BRAC)
-	{
-		if (!*brace || *brace == *cmd)
-		{
-			++(*brace_count);
-			*brace = *cmd;
-		}
-		else if (*brace != *cmd)
-		{
-			if (*brace_count)
-				--(*brace_count);
-			else
-				*brace = 0;
-		}
-	}
-}
-
-static int	arg_qty_loop(char *cmd)
-{
-	int		len;
-	char	qoute;
-	char	brace;
-	int		brace_count;
+	int	pos;
+	int	len;
 
 	len = 0;
-	qoute = 0;
-	brace = 0;
-	brace_count = 0;
 	while (cmd)
 	{
+		pos = 0;
 		len++;
-		while (*cmd)
+		while (cmd[pos])
 		{
-			quote_brace_check(&qoute, &brace, &brace_count, cmd);
-			if (ft_isspace(*cmd) && !qoute && !brace && *cmd != '\n')
+			tok_quote_flag(cmd, &pos, flags);
+			if (ft_isspace(cmd[pos - 1]) && !flags->quote \
+			&& !flags->braces && cmd[pos - 1] != '\n')
+			{
+				--pos;
 				break ;
-			++cmd;
+			}
 		}
-		cmd = ft_skip_space(cmd);
+		if (!cmd[pos])
+			break ;
+		cmd = ft_skip_space(&cmd[pos]);
 	}
 	return (len);
 }
 
-static void	collect_args_loop(char **array, char *cmd)
+static void	collect_args_loop(char **array, char *cmd, t_token_flags *flags)
 {
 	int		i;
-	char	*ptr;
-	char	qoute;
-	char	brace;
-	int		brace_count;
+	int		pos;
 
 	i = 0;
-	qoute = 0;
-	brace = 0;
-	brace_count = 0;
 	while (cmd)
 	{
-		ptr = cmd;
-		while (*ptr)
+		pos = 0;
+		while (cmd[pos])
 		{
-			quote_brace_check(&qoute, &brace, &brace_count, ptr);
-			if (ft_isspace(*ptr) && !qoute && !brace && *ptr != '\n')
+			tok_quote_flag(cmd, &pos, flags);
+			if (ft_isspace(cmd[pos - 1]) && !flags->quote \
+			&& !flags->braces && cmd[pos - 1] != '\n')
+			{
+				--pos;
 				break ;
-			++ptr;
+			}
 		}
-		array[i++] = ft_strsub(cmd, 0, (size_t)(ptr - cmd));
-		cmd = ptr;
-		cmd = ft_skip_space(cmd);
+		array[i++] = ft_strsub(cmd, 0, pos);
+		if (!cmd[pos])
+			break ;
+		cmd = ft_skip_space(&cmd[pos]);
 	}
 	array[i] = NULL;
 }
 
-static int	arg_qty(char *cmd)
+static int	arg_qty(char *cmd, t_token_flags *flags)
 {
 	int		len;
 	char	*tofree;
 
 	tofree = cmd;
 	cmd = ft_skip_space(cmd);
-	len = arg_qty_loop(cmd);
+	len = arg_qty_loop(cmd, flags);
 	ft_strdel(&tofree);
+	init_flags_struct(flags);
 	return (len);
 }
 
 char	**make_arg_array(char *cmd)
 {
-	int		len;
-	char	**array;
+	int				len;
+	char			**array;
+	t_token_flags	flags;
 
-	len = arg_qty(ft_strdup(cmd));
+	init_flags_struct(&flags);
+	len = arg_qty(ft_strdup(cmd), &flags);
 	array = (char **)ft_memalloc(sizeof(char *) * (len + 1));
 	cmd = ft_skip_space(cmd);
-	collect_args_loop(array, cmd);
+	collect_args_loop(array, cmd, &flags);
 	return (array);
 }

@@ -6,13 +6,13 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 09:52:23 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 10:27:26 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char *sent_start(char *cmd)
+static char *sent_start(char *cmd)
 {
 	char *fresh;
 	int	i;
@@ -31,29 +31,36 @@ char *sent_start(char *cmd)
 	return (fresh);
 }
 
+static void free_all(t_param *pa, char **temp, char **start, char **end)
+{
+	if (pa->var)
+		ft_strdel(&pa->var);
+	if (pa->subs)
+		ft_strdel(&pa->subs);
+	ft_strdel(&(*temp));
+	if (pa->strip)
+		ft_strdel(&pa->strip);
+	ft_strdel(&(*start));
+	ft_strdel(&(*end));
+}
+
+
 void	substitute_og_cmd(t_param *pa, char **cmd, int *j)
 {
 	char	*temp;
 	char	*start;
 	char	*end;
 
+	start = NULL;
+	temp = NULL;
+	end = NULL;
 	start = sent_start(*cmd);
 	end = ft_strdup(&(*cmd)[*j]);
 	temp = ft_strjoin(start, pa->expanded);
-	*j = ft_strlen(temp) - 1;
+	*j = ft_strlen(temp);
 	ft_strdel(&(*cmd));
 	(*cmd) = ft_strjoin(temp, end);
-	if (!ft_strchr(*cmd, '$'))
-		*j = ft_strlen(*cmd) - 1;
-	ft_strdel(&pa->expanded);
-	if (pa->var)
-		ft_strdel(&pa->var);
-	if (pa->subs)
-		ft_strdel(&pa->subs);
-	ft_strdel(&temp);
-	if (pa->strip)
-		ft_strdel(&pa->strip);
-	ft_strdel(&start);
-	ft_strdel(&end);
+	(*j)--;
+	free_all(pa, &temp, &start, &end);
 }
 

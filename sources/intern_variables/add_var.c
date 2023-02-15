@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:03:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/03 11:38:49 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:51:07 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int add_var(t_shell *sh, char **cmd)
 	int k;
 
 	k = 0;
-	ft_printf("add var%s\n", cmd[0]);
 	while (cmd[k] && is_var(cmd[k]))
 	{
 		ret = 0;

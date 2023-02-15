@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:09:25 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/09 11:40:27 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/13 11:55:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_term
 	bool				fc_flag;
 	char				quote;
 	char				bracket;
+	char				bracket_count;
 }			t_term;
 
 int		ft_keyboard(t_term *t);

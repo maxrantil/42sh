@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perform_param_expans.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:38:41 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 13:24:20 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:02:11 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void retoken_into_list(t_param *pa)
 
 	i = 0;
 	j = 0;
+	// if (!pa->subs[0])
+	// 	pa->list[i] = retokenize(pa->var, &j);
 	while (pa->subs[j])
 	{
 		pa->list[i++] = retokenize(pa->subs, &j);
@@ -32,15 +34,17 @@ int	perform_param_expans(char *cmd, t_param *pa, int *ret)
 	int	err;
 
 	err = 0;
-	if (splitter(cmd, pa, ret) && *ret == 0)
-	{
+	if (!splitter(cmd, pa, ret) && *ret == 0)
 		;
-	}
+	else
+		return (-1);
 	if (*ret == 0)
 		retoken_into_list(pa);
 	if (expander(pa, *ret))
-		err = 1;
-	if (*ret == 0 && join_values(g_sh, pa, cmd, *ret) && *ret == 0)
+	{
+		;
+	}
+	if (*ret == 0 && join_values(g_sh, pa, cmd, *ret))
 		err = -1;
 	if (*ret == 1)
 	{

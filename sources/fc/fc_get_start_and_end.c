@@ -1,72 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fc_get_start_and_end.c                             :+:      :+:    :+:   */
+/*   fc_lflag_get_start_and_end.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 14:05:33 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 14:20:22 by mrantil          ###   ########.fr       */
+/*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/15 13:32:39 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void	no_argument(t_shell *sh, t_fc *fc)
+static int	get_pivot(t_shell *sh, char *cmd)
 {
-	fc->start = (int)sh->term->history_size - 3;
-	fc->end = (int)sh->term->history_size - 1;
+	int	start;
+
+	start = ft_atoi(cmd);
+	if (start == 0 || start == -1 || start > (int)sh->term->history_size)
+		start = sh->term->history_size - 2;
+	if (start < -1)
+	{
+		start = sh->term->history_size + start;
+		if (start < 0)
+			return (0);
+	}
+	return (start - 1);
 }
 
-static void	one_argument(t_shell *sh, t_fc *fc, char ***cmd)
+void	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 {
-	if ((*cmd)[fc->flags + fc->e][0] == '-')
-	{
-		fc->start = (int)sh->term->history_size \
-		+ ft_atoi((*cmd)[fc->flags + fc->e]) - 2;
-		fc->end = fc->start + 2;
-	}
-	else
-	{
-		fc->start = ft_atoi((*cmd)[fc->flags + fc->e]) - 2;
-		fc->end = ft_atoi((*cmd)[fc->flags + fc->e]);
-	}
-}
+	char	*cmd1;
+	char	*cmd2;
 
-static void	two_argument(t_shell *sh, t_fc *fc, char ***cmd)
-{
-	if ((*cmd)[fc->flags + fc->e][0] == '-')
-		fc->start = (int)sh->term->history_size \
-		+ ft_atoi((*cmd)[fc->flags + fc->e]);
-	else
-		fc->start = ft_atoi((*cmd)[fc->flags + fc->e]) - 2;
-	if ((*cmd)[fc->flags + 1 + fc->e][0] == '-')
+	cmd1 = (*cmd)[fc->flags + fc->e];
+	cmd2 = (*cmd)[fc->flags + fc->e + 1];
+	fc->start = 0;
+	fc->end = sh->term->history_size - 2;
+	if (!cmd1)
 	{
-		if ((*cmd)[fc->flags + fc->e][0] == '-')
-			fc->end = (int)sh->term->history_size \
-			+ ft_atoi((*cmd)[fc->flags + 1 + fc->e]) - 2;
-		else
-			fc->end = (int)sh->term->history_size \
-			+ ft_atoi((*cmd)[fc->flags + 1 + fc->e]) - 1;
+		if (sh->term->history_size > FC_LEN)
+			fc->start = sh->term->history_size - FC_LEN;
 	}
-	else
+	else if (cmd1 && !cmd2)
+		fc->start = get_pivot(sh, cmd1);
+	else if (cmd1 && cmd2)
 	{
-		if ((*cmd)[fc->flags + fc->e][0] == '-')
-			fc->end = ft_atoi((*cmd)[fc->flags + 1 + fc->e]) - 2;
-		else
-			fc->end = ft_atoi((*cmd)[fc->flags + 1 + fc->e]);
+		fc->start = get_pivot(sh, cmd1);
+		fc->end = get_pivot(sh, cmd2);
 	}
-}
-
-int	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
-{
-	if (!(*cmd)[fc->flags + fc->e])
-		no_argument(sh, fc);
-	else if ((*cmd)[fc->flags + fc->e] && !(*cmd)[fc->flags + 1 + fc->e])
-		one_argument(sh, fc, cmd);
-	else if ((*cmd)[fc->flags + fc->e] && (*cmd)[fc->flags + 1 + fc->e])
-		two_argument(sh, fc, cmd);
-	else
-		return (0);
-	return (1);
 }

@@ -6,29 +6,17 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/09 15:29:58y jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:20:47 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-extern t_shell	*g_sh;
 
 void	error_exit(char *msg)
 {
 	ft_putstr_fd("ERROR: ", STDERR_FILENO);
 	ft_putstr_fd(msg, STDERR_FILENO);
 	exit(-1);
-}
-
-int	fork_wrap(void)
-{
-	int	pid;
-
-	pid = fork();
-	if (pid == -1)
-		error_exit("fork failed\n");
-	return (pid);
 }
 
 int	pipe_wrap(int write_pipe[])
@@ -49,24 +37,25 @@ void	exec_pipe(t_pipenode *pipenode, \
 	sh->pipe->read_pipe[1] = dup(sh->pipe->write_pipe[1]);
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
 	sh->pipe->read_pipe[0] = dup(sh->pipe->write_pipe[0]);
+	//If stdin is closed, fails. If stdout is closed fails.
+	if (fcntl(STDIN_FILENO, F_GETFD) < 0)
+		dup2(sh->pipe->stdincpy, STDIN_FILENO); //PROTECT MAKE WRAP 
 	if (dup2(sh->pipe->read_pipe[0], STDIN_FILENO) < 0)
 	{
 		ft_err_print("dup", NULL, "failed in exec_pipe", 2);
 		exit (1);
 	}
-	g_sh->pipe->redir_out = 0;
+	sh->pipe->redir_out = 0;
 	close (sh->pipe->write_pipe[1]);
 	sh->pipe->write_pipe[1] = -1;
 	close(sh->pipe->read_pipe[1]);
 	sh->pipe->read_pipe[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
-	waitpid(-1, 0, WUNTRACED);
-	waitpid(-1, 0, WUNTRACED);
-	reset_fd(terminal);
-	sh->pipe->stdincpy = dup(STDIN_FILENO);
-	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
-	close(sh->pipe->write_pipe[0]);
-	close(sh->pipe->write_pipe[1]);
-	sh->pipe->write_pipe[1] = -1;
-	sh->pipe->write_pipe[0] = -1;
+	// reset_fd(sh);
+	// sh->pipe->stdincpy = dup(STDIN_FILENO);
+	// sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
+	// close(sh->pipe->write_pipe[0]);
+	// close(sh->pipe->write_pipe[1]);
+	// sh->pipe->write_pipe[1] = -1;
+	// sh->pipe->write_pipe[0] = -1;
 }

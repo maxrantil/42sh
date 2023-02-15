@@ -19,6 +19,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include "ft_printf.h"
 
 # define MAX_BUFF_SIZE 4096
@@ -139,5 +140,6 @@ char	*ft_strjoin_three(char *s1, char *s2, char *s3);
 int		ft_isdigit_loop(char *str);
 int		ft_intlen(long nbr);
 long	ft_atol(const char *nbr);
+void	ft_putstr_fd_len(char *str, int fd, int len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/09 19:09:44 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:18:38 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,24 @@
 
 int	ft_fg(t_shell *sh, char **cmd)
 {
-    t_bg_jobs   *job;
-	int		    status;
+	t_bg_jobs	*job;
 
-	job = bg_fetch_node(sh, cmd);
+	job = bg_fetch_node(sh, *(cmd + 1), "fg");
 	if (job)
 	{
 		if (job->status == DONE || job->status == TERMINATED)
 		{
-			display_job_node(sh, job);
+			ft_err_print(NULL, "fg", "job has terminated", 2);
 			return (0);
-		}	
-		display_pipeline_cmd(job);
+		}
+		display_pipeline_cmd(sh, job);
+		if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &job->gpid) == -1)
+			exit_error(sh, 1, "ioctl error\n");
 		if (job->status == STOPPED || job->status == SUSPENDED)
 			killpg(job->gpid, SIGCONT);
-		if (ioctl(STDIN_FILENO, TIOCSPGRP, &job->gpid) == -1)
-				exit(1); // this needs to be proper exit
 		transfer_to_fg(sh, job);
 		job->status = RUNNING;
-		waitpid(*job->pid, &status, WUNTRACED);
+		wait_for_job(sh, job->gpid);
 	}
 	return (0);
 }

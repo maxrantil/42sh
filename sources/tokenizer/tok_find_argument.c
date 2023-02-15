@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_find_argument.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:39 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/10 10:33:25 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:46:12 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,20 @@ static void	if_redir_with_fd_go_backwards(char *line, int *end)
 
 char	*find_argument(char *line, int *i, int *start, int *end)
 {
-	char	*ret;
-	char	quote;
-	char	braces;
+	char			*ret;
+	t_token_flags	flags[1];
 
-	quote = 0;
-	braces = 0;
+	init_flags_struct(flags);
 	ret = if_redir_or_logical(line, i, start, end);
 	if (*end == -1)
 		return (NULL);
 	if (ret)
 		return (ret);
-	if (!is_seperator(line[*end]) || special_char_check(line, *end - 1, '\\'))
+	if (!is_seperator(line[*end]) || special_char_check(line, *end, '\\'))
 	{
-		while (line[*end] && (!is_seperator(line[*end]) || special_char_check(line, *end - 1, '\\') || quote || braces))
-			tok_quote_flag(line, end, &quote, &braces);
+		while (line[*end] && (!is_seperator(line[*end]) || \
+		special_char_check(line, *end, '\\') || flags->quote || flags->braces))
+			tok_quote_flag(line, end, flags);
 		if_redir_with_fd_go_backwards(line, end);
 	}
 	else

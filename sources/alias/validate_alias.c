@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_alias.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:57:03 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/08 21:46:50 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:47:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	validate_alias_name_print(char *alias_name, int len)
 		if (alias_name[i] == '$' || alias_name[i] == '/'
 			|| alias_name[i] == '`')
 		{
-			write(2, "42sh: alias: ", 13);
-			write(2, alias_name, (size_t)len);
-			write(2, " invalid alias name\n", 20);
+			ft_putstr_fd("42sh: alias: ", 2);
+			ft_putstr_fd_len(alias_name, 2, (size_t)len);
+			ft_putstr_fd(" invalid alias name\n", 2);
 			return (0);
 		}
 		i++;

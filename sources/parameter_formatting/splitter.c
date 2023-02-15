@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:19:56 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 13:23:14 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 14:22:20 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-extern t_shell *g_sh;
+extern t_shell	*g_sh;
 
 static void	first_split(char *cmd, t_param *pa, int *ret)
 {
@@ -21,10 +21,14 @@ static void	first_split(char *cmd, t_param *pa, int *ret)
 	pa->subs = ft_strdup(get_flag(pa->strip + 1, ret));
 	pa->op = pa->subs[0];
 	pa->subs = (char *)ft_memmove(pa->subs, pa->subs + 1, ft_strlen(pa->subs));
-	pa->var = ft_strndup(pa->strip, ft_strlen(pa->strip) - (ft_strlen(pa->subs)));
+	if (!*pa->subs)
+		*pa->subs = pa->op;
+	pa->var = ft_strndup(pa->strip, \
+	ft_strlen(pa->strip) - (ft_strlen(pa->subs)));
+	ft_strdel(&pa->strip);
 }
 
-static void regular_dollar_expansion(char *cmd, t_param *pa, int *ret)
+static void	regular_dollar_expansion(char *cmd, t_param *pa, int *ret)
 {
 	ft_strdel(&pa->expanded);
 	pa->strip = ft_strdup(cmd);
@@ -34,20 +38,21 @@ static void regular_dollar_expansion(char *cmd, t_param *pa, int *ret)
 	*ret = 2;
 }
 
-int splitter(char *cmd, t_param *pa, int *ret)
+int	splitter(char *cmd, t_param *pa, int *ret)
 {
-	pa->oper = get_operator(cmd, ret);
-	if (is_param_exp_char(pa->oper))
+	pa->oper = get_operator(cmd);
+	if (check_substitutions(cmd, ret, pa) == 0)
 		first_split(cmd, pa, ret);
 	else if (*ret == -1)
 	{
-		ft_printf("42sh: %s: bad substitution\n", cmd);
+		ft_printf("42sh: %s: bad substitution\n", pa->expanded);
 		return (1);
 	}
 	else
 	{
 		regular_dollar_expansion(cmd, pa, ret);
-		return (1);
+		if (!pa->subs)
+			return (1);
 	}
 	return (0);
 }

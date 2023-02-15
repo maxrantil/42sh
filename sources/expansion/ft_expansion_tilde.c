@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expansion_tilde.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:57:35 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:04:43 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/14 15:11:28 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
  *
  * @return The key for the environment variable.
  */
+
 static char	*tilde_key(char *str, int *stilde)
 {
 	if (!ft_strcmp(str, "~+"))
@@ -42,6 +43,13 @@ static char	*stilde_join(char *env, char *str)
 	return (ft_strdup(str));
 }
 
+static int	init_user(char *str, char **user)
+{
+	*user = user_expansions(str);
+	if (*user)
+		return (1);
+	return (0);
+}
 /**
  * It takes a string and returns a string with the tilde expanded.
  *
@@ -55,10 +63,13 @@ char	*ft_expansion_tilde(t_shell *sh, char *str)
 	char	*key;
 	char	**env;
 	int		stilde;
+	char	*user;
 
 	env = NULL;
 	stilde = 0;
 	key = tilde_key(str, &stilde);
+	if (init_user(str, &user))
+		return (user);
 	if (key)
 	{
 		env = ft_env_get(sh, key, sh->env);
