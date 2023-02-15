@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fc_lflag_get_start_and_end.c                       :+:      :+:    :+:   */
+/*   fc_get_start_and_end.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 13:32:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 13:58:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 static int	get_pivot(t_shell *sh, char *cmd)
 {
-	int	start;
+	int	pivot;
 
-	start = ft_atoi(cmd);
-	if (start == 0 || start == -1 || start > (int)sh->term->history_size)
-		start = sh->term->history_size - 2;
-	if (start < -1)
+	pivot = ft_atoi(cmd);
+	if (pivot == 0 || pivot == -1 || pivot > (int)sh->term->history_size)
+		pivot = sh->term->history_size - 2;
+	if (pivot < -1)
 	{
-		start = sh->term->history_size + start;
-		if (start < 0)
+		pivot = sh->term->history_size + pivot;
+		if (pivot < 0)
 			return (0);
 	}
-	return (start - 1);
+	return (pivot - 1);
 }
 
 void	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)

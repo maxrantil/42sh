@@ -6,19 +6,11 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:56:45 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 13:15:02 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:14:25 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-static int	usage(void)
-{
-	ft_putendl_fd("42sh: fc: invalid option", 2);
-	ft_putstr_fd("fc: usage: fc [-e ename] [-lnr] ", 2);
-	ft_putendl_fd("[first] [last] or fc -s [pat=rep] [command]", 2);
-	return (0);
-}
 
 static int	turn_on_flags(t_fc *fc, char *str)
 {
@@ -37,7 +29,7 @@ static int	turn_on_flags(t_fc *fc, char *str)
 		else if (*str == 'e')
 			fc->e = 1;
 		else
-			return (usage());
+			return (fc_usage("invalid option"));
 		str++;
 	}
 	return (1);
@@ -60,7 +52,7 @@ int	fc_get_flags(t_fc *fc, char **cmd)
 				++i;
 				break ;
 			}
-			if (!turn_on_flags(fc, &cmd[i][j]))
+			if (turn_on_flags(fc, &cmd[i][j]) == -1)
 				return (0);
 			j = 0;
 			i++;

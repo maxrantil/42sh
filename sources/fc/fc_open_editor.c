@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:41:27 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 13:32:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 13:39:51 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static void	init_filename(char ***filename, char *editor)
 
 static int	print_to_file(t_shell *sh, t_fc *fc, char ***cmd, int fd)
 {
-	// if (!fc_get_start_and_end(sh, fc, cmd))
-	// 	return (0);
 	fc_get_start_and_end(sh, fc, cmd);
 	if (fc->start <= fc->end)
 	{

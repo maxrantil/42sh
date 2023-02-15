@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/15 09:27:24 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/15 14:08:21 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -193,6 +193,7 @@ FILES			= \
 				$(FC)fc_s_change \
 				$(FC)fc_s_flag \
 				$(FC)fc_update_history \
+				$(FC)fc_usage \
 				$(FC)ft_fc \
 				$(FT_TEST)ft_test_b \
 				$(FT_TEST)ft_test_c \
