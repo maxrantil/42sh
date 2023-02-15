@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 14:15:09 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 16:06:06 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ typedef struct s_fc
 	int		start;
 	int		end;
 	int		flags;
-	int		e;
+	bool	e;
 	bool	s;
 	bool	r;
 	bool	n;

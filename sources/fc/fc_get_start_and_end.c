@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 14:58:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 16:19:40 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 	char	*cmd1;
 	char	*cmd2;
 
-	cmd1 = (*cmd)[fc->flags + fc->e];
-	cmd2 = (*cmd)[fc->flags + fc->e + 1];
+	cmd1 = (*cmd)[fc->flags];
+	cmd2 = (*cmd)[fc->flags + 1];
 	fc->start = 0;
 	fc->end = sh->term->history_size - 2;
 	if (!cmd1)
