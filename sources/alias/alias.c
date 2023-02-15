@@ -6,13 +6,13 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:09:58 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 16:19:13 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:46:53 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*construct_alias(char *cmd)
+static char	*construct_alias(char *cmd)
 {
 	char	*alias;
 	char	*command;
@@ -27,7 +27,7 @@ char	*construct_alias(char *cmd)
 	return (alias);
 }
 
-void	add_alias(t_shell *sh, char *cmd)
+static void	add_alias(t_shell *sh, char *cmd)
 {
 	char	**new_alias_arr;
 	char	*new_alias;
@@ -37,13 +37,12 @@ void	add_alias(t_shell *sh, char *cmd)
 	new_alias = construct_alias(cmd);
 	new_cmd = get_alias_command(new_alias);
 	found_pos = check_alias_match(sh->alias, new_cmd);
-	if (found_pos != -1)	// already found,  replace
+	if (found_pos != -1)
 	{
 		ft_strdel(&(sh->alias[found_pos]));
 		sh->alias[found_pos] = ft_strdup(new_alias);
 	}
-	else 					/* Adding the alias to the array of aliases. */
-	// not found in known aliases, add
+	else
 	{
 		sh->alias_size++;
 		new_alias_arr = ft_create_empty_str_array(sh->alias_size);
@@ -57,7 +56,7 @@ void	add_alias(t_shell *sh, char *cmd)
 	sh->exit_stat = 0;
 }
 
-void	add_or_print_alias(char **args, t_shell *sh)
+static void	add_or_print_alias(char **args, t_shell *sh)
 {
 	int	i;
 

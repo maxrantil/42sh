@@ -6,7 +6,7 @@
 #    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/14 18:27:39 by rvuorenl         ###   ########.fr        #
+#    Updated: 2023/02/14 21:50:46 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ H_FILES 	= 	ft_42sh \
 
 FILES			= \
 				$(ALIAS)alias \
+				$(ALIAS)alias_add_quotes \
 				$(ALIAS)alias_array_handling \
 				$(ALIAS)alias_string_handling \
 				$(ALIAS)alias_string_handling2 \

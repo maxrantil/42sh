@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:59:28 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 18:20:51 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:47:04 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,46 +227,53 @@ void	trim_alias_line(char **line)
 	ft_strdel(&trimmed);
 }
 
+int	skip_cmd_separator(char *line, int i)
+{
+	while (i >= 0 && is_command_separator(line[i]))
+		i--;
+	while (i >= 0 && !is_command_separator(line[i]))
+		i--;
+	return (i);
+}
+
+void	finish_alias_conversion(char ***dup, char **line)
+{
+	ft_free_doublearray(dup);
+	if (!validate_whitespace(*line))
+		ft_strdel(line);
+	else
+		trim_alias_line(line);
+}
+
 void	alias_convert_line(char **line, t_shell *sh)
 {
-	char	**dup_alias;
 	char	*pre;
 	char	*conversion;
 	char	*post;
 	int		i;
 	int		j;
 
-    if (!validate_whitespace(*line))
-      return ;
-	dup_alias = init_alias_conv(sh->alias, &pre, &conversion, &post);
+	if (!validate_whitespace(*line))
+		return ;
+	sh->dup_alias = init_alias_conv(sh->alias, &pre, &conversion, &post);
 	i = ft_strlen(*line) - 1;
 	while (i >= 0)
 	{
-		j = i;
-		while (j >= 0 && is_command_separator((*line)[j]))  // skip separator
-			j--;
-		while (j >= 0 && !is_command_separator((*line)[j]))    // skip until -1 or separator
-			j--;
+		j = skip_cmd_separator(*line, i);
 		if ((*line)[i + 1])
 			post = ft_strsub(*line, i + 1, ft_strlen(&(*line)[i + 1]));
 		if (j == -1)
-		{
-		    conversion = ft_strsub(*line, 0, i + 1);
-		}
+			conversion = ft_strsub(*line, 0, i + 1);
 		else
 		{
-		    conversion = ft_strsub(*line, j + 1, i - j);
+			conversion = ft_strsub(*line, j + 1, i - j);
 			pre = ft_strsub(*line, 0, j + 1);
 		}
-        convert_alias(&dup_alias, &conversion, 0);
-		check_line_separators(&dup_alias, &conversion);
+		convert_alias(&(sh->dup_alias), &conversion, 0);
+		check_line_separators(&(sh->dup_alias), &conversion);
 		connect_alias_pieces(&pre, &conversion, &post, line);
-        free_and_refill_dup_alias(&dup_alias, sh->alias);
+		free_and_refill_dup_alias(&(sh->dup_alias), sh->alias);
 		i = j;
 	}
-	ft_free_doublearray(&dup_alias);
-	if (!validate_whitespace(*line))
-		ft_strdel(line);
-	else
-		trim_alias_line(line);
+	finish_alias_conversion(&(sh->dup_alias), line);
 }
