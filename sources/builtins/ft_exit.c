@@ -6,11 +6,30 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:16:30 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/15 22:26:26 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/15 22:40:04 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static int	long_exit_string(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+		{
+			ft_printf("42sh: exit: %s: numeric argument required\n", str);
+			return (2);
+		}
+		i++;
+	}
+	write(2, "42sh: exit: exit status longer than long long", 46);
+	write(2, ", exiting with 1\n", 18);
+	return (1);
+}
 
 static int	get_exit_status(char **commands)
 {
@@ -25,11 +44,7 @@ static int	get_exit_status(char **commands)
 		return (2);
 	}
 	if (status == -1)
-	{
-		write(2, "42sh: exit: exit status longer than long long", 46);
-		write(2, ", exiting with 1\n", 18);
-		return (1);
-	}
+		return (long_exit_string(commands[1]));
 	if (status > 255)
 		return (status % 256);
 	if (status < 0)
