@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 17:54:18 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/09 11:19:02 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:41:06 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	word_count(char *line)
 	return (word_count);
 }
 
-ssize_t	find_matching_quote(char *str, char quote)
+static ssize_t	find_matching_quote(char *str, char quote)
 {
 	ssize_t	i;
 

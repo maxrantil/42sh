@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/15 13:59:10 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/15 14:33:58 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ H_FILES 	= 	ft_42sh \
 
 FILES			= \
 				$(ALIAS)alias \
+				$(ALIAS)alias_add_quotes \
 				$(ALIAS)alias_array_handling \
 				$(ALIAS)alias_string_handling \
 				$(ALIAS)alias_string_handling2 \
