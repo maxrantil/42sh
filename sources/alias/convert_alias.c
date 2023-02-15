@@ -6,32 +6,11 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:59:28 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/15 12:47:04 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:39:03 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-int	check_command_separator(char *line)
-{
-	char	*first_word;
-	int		ret;
-
-	first_word = get_first_word(line);
-	if ((ft_strequ(first_word, "&&") == 1)
-		|| (ft_strequ(first_word, "||") == 1)
-		|| (ft_strequ(first_word, "&") == 1)
-		|| (ft_strequ(first_word, "|") == 1)
-		|| (ft_strequ(first_word, ";") == 1)
-	)
-	{
-		ret = 1;
-	}
-	else
-		ret = 0;
-	ft_strdel(&first_word);
-	return (ret);
-}
 
 //	converts only first word if found. rm converted tmp-alias to prevent loops
 void	convert_first_word(char ***alias, char **line, int size)
@@ -59,7 +38,17 @@ void	convert_first_word(char ***alias, char **line, int size)
 	}
 }
 
-char	*check_valid_input(char *line, int i)
+void	trim_alias_line(char **line)
+{
+	char	*trimmed;
+
+	trimmed = ft_strtrim(*line);
+	ft_strdel(line);
+	*line = ft_strdup(trimmed);
+	ft_strdel(&trimmed);
+}
+
+static char	*check_valid_input(char *line, int i)
 {
 	char	*arg;
 
@@ -102,178 +91,4 @@ int	convert_alias(char ***dup_alias, char **line, int i)
 	}
 	ft_strdel(&arg);
 	return (0);
-}
-
-size_t  total_line_len(char *pre, char *convert, char *post, char **new_line)
-{
-    size_t  tot_len;
-
-    tot_len = 0;
-    if (pre)
-        tot_len += ft_strlen(pre);
-    if (convert)
-        tot_len += ft_strlen(convert);
-    if (post)
-        tot_len += ft_strlen(post);
-    if (tot_len > 0)
-        *new_line = ft_strnew(tot_len);
-    return (tot_len);
-}
-
-void    free_parsed_alias_line(char **pre, char **conv, char **post, char **new_line)
-{
-    if (pre && *pre)
-        ft_strdel(pre);
-    if (conv && *conv)
-        ft_strdel(conv);
-    if (post && *post)
-        ft_strdel(post);
-    if (new_line && *new_line)
-        ft_strdel(new_line);
-}
-
-void    connect_alias_pieces(char **pre, char **convert, char **post, char **line)
-{
-    char    *new_line;
-
-    if (total_line_len(*pre, *convert, *post, &new_line))
-    {
-        ft_strdel(line);
-        if (*pre)
-        {
-            ft_strcpy(new_line, *pre);
-            if (*convert)
-                ft_strcat(new_line, *convert);
-            if (*post)
-                ft_strcat(new_line, *post);
-        }
-        else if (*convert)
-        {
-            ft_strcpy(new_line, *convert);
-            if (*post)
-                ft_strcat(new_line, *post);
-        }
-        else
-            ft_strcpy(new_line, *post);
-        *line = ft_strdup(new_line);
-        free_parsed_alias_line(pre, convert, post, &new_line);
-    }
-}
-
-int	skip_to_next_word_separator(char *line)
-{
-	int	i;
-
-	i = 1;
-	if (!line[i])
-		return (i);
-	while (line[i] && ft_iswhitespace(line[i]))
-		i++;
-	if (line[i])
-		return (i);
-	else
-		return (i - 1);
-}
-
-void	check_line_separators(char ***alias, char **line)
-{
-	int		i;
-	char	*pre_semicolon;
-	char	*conversion;
-
-	i = 0;
-	pre_semicolon = NULL;
-	conversion = NULL;
-	while ((*line)[i])
-	{
-		if (is_command_separator((*line)[i]))
-		{
-			while ((*line)[i] && is_command_separator((*line)[i]))
-				i++;
-			if (!(*line)[i])
-				return ;
-			if (i > 0)
-				pre_semicolon = ft_strsub(*line, 0, i + 1);
-			conversion = ft_strsub(*line, i, ft_strlen(&(*line)[i]));
-			if (convert_alias(alias, &conversion, 0))
-			{
-				ft_strdel(line);
-				*line = ft_strjoin_three(pre_semicolon, "", conversion);
-				i--;
-			}
-			if (pre_semicolon)
-				ft_strdel(&pre_semicolon);
-			ft_strdel(&conversion);
-		}
-		i++;
-	}
-}
-
-char	**init_alias_conv(char **alias, char **pre, char **conv, char **post)
-{
-	*pre = NULL;
-	*conv = NULL;
-	*post = NULL;
-	return (ft_dup_doublearray(alias));
-}
-
-void	trim_alias_line(char **line)
-{
-	char	*trimmed;
-
-	trimmed = ft_strtrim(*line);
-	ft_strdel(line);
-	*line = ft_strdup(trimmed);
-	ft_strdel(&trimmed);
-}
-
-int	skip_cmd_separator(char *line, int i)
-{
-	while (i >= 0 && is_command_separator(line[i]))
-		i--;
-	while (i >= 0 && !is_command_separator(line[i]))
-		i--;
-	return (i);
-}
-
-void	finish_alias_conversion(char ***dup, char **line)
-{
-	ft_free_doublearray(dup);
-	if (!validate_whitespace(*line))
-		ft_strdel(line);
-	else
-		trim_alias_line(line);
-}
-
-void	alias_convert_line(char **line, t_shell *sh)
-{
-	char	*pre;
-	char	*conversion;
-	char	*post;
-	int		i;
-	int		j;
-
-	if (!validate_whitespace(*line))
-		return ;
-	sh->dup_alias = init_alias_conv(sh->alias, &pre, &conversion, &post);
-	i = ft_strlen(*line) - 1;
-	while (i >= 0)
-	{
-		j = skip_cmd_separator(*line, i);
-		if ((*line)[i + 1])
-			post = ft_strsub(*line, i + 1, ft_strlen(&(*line)[i + 1]));
-		if (j == -1)
-			conversion = ft_strsub(*line, 0, i + 1);
-		else
-		{
-			conversion = ft_strsub(*line, j + 1, i - j);
-			pre = ft_strsub(*line, 0, j + 1);
-		}
-		convert_alias(&(sh->dup_alias), &conversion, 0);
-		check_line_separators(&(sh->dup_alias), &conversion);
-		connect_alias_pieces(&pre, &conversion, &post, line);
-		free_and_refill_dup_alias(&(sh->dup_alias), sh->alias);
-		i = j;
-	}
-	finish_alias_conversion(&(sh->dup_alias), line);
 }
