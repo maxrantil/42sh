@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/14 15:30:18 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/15 13:33:34 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -186,7 +186,6 @@ FILES			= \
 				$(FC)fc_free \
 				$(FC)fc_get_flags \
 				$(FC)fc_get_start_and_end \
-				$(FC)fc_lflag_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
 				$(FC)fc_no_flags \

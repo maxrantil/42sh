@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 15:26:22 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/15 13:33:55 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "keyboard.h"
 # include "ft_printf.h"
 # include <sys/stat.h>
-# include <limits.h>
 # include <sys/shm.h>
 # include <signal.h>
 # include <dirent.h>
@@ -581,9 +580,8 @@ void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
 int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
 t_fc *fc, char ***cmd);
 void			fc_free(t_fc *fc);
-int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_get_flags(t_fc *fc, char **cmd);
-int				fc_lflag_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
+void			fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_list_flags(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_no_flags(t_fc *fc);
