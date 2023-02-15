@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_closefd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/14 15:45:05 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:32:20 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,9 @@ char *terminal, t_shell *sh)
 	}
 	if (node->cmd)
 		exec_tree(node->cmd, environ_cp, terminal, sh);
+	/* Maybe use the open if closed function here??? */
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	open(sh->terminal, O_RDWR);
+	open(sh->terminal, O_RDWR);
 }

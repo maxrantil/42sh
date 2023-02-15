@@ -1,0 +1,58 @@
+$> mkdir empty && cd empty
+$> touch a? b* [c]; ls -1
+[c]
+a?
+b*
+$> echo a > aa && echo b > ab && cat -e a?
+a$
+b$
+$> rm -f *
+$> mkdir -p one/two
+$> echo 'four' > one/two/three
+$> echo 'six' > one/five
+$> cat ./*/*/* ./*/*
+four
+six
+cat: ./one/two: Is a directory
+$> ls /??r
+{{ Print "/var" and "/usr" directories content }}
+$> rm -rf ./*
+$> mkdir '[x' && touch '[x/foo'
+$> echo [*; echo *[x; echo [x/*
+[x
+[x
+[x/foo
+$> rm -rf *
+$> touch 'a[a-z][x' 'ab[x'
+$> echo a[a-z][*; echo a[a-z]*; echo a[a\-z]*
+ab[x
+ab[x
+a[a-z]*
+$> rm -f *
+$> touch ".bc" "abc" "bbc" "cbc" "-bc" '!bc' "+bc" ",bc" "0bc" "1bc"
+$> echo [ab-]*
+-bc abc bbc
+$> echo [-ab]*
+-bc abc bbc
+$> echo [!-ab]*
+!bc +bc ,bc 0bc 1bc cbc
+$> echo [!ab]*
+!bc +bc ,bc -bc 0bc 1bc cbc
+$> echo []ab]*
+abc bbc
+$> echo [+--]*
++bc ,bc -bc
+$> echo [--1]*
+-bc 0bc 1bc
+$> echo [z-a]*
+[z-a]*
+$> echo [a-a]bc
+abc
+$> rm -f * .*; ls -A
+$> touch aa bb cc 11 22 33
+$> echo **
+11 22 33 aa bb cc
+$> echo [!a-z]
+[!a-z]
+$> echo [4-z][A-b]
+aa bb

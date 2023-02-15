@@ -73,6 +73,7 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 			update_fg_job(sh, pid, *cmd);
 		if (pid == 0)
 		{
+			ft_putendl_fd("CHILD", 2);
 			ft_signal_dfl();
 			if (!sh->pipe->redir_out && sh->pipe->write_pipe[1] >= 0 \
 			&& dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 /**
  * It takes a string, and returns an integer
  *
@@ -39,9 +41,9 @@ int	ft_atoi(const char *nbr)
 		result = result * 10 + nbr[index] - '0';
 		index++;
 	}
-	if (result > 9223372036854775807UL && sign == 1)
+	if (result > INT_MAX && sign == 1)
 		return (-1);
-	if (result > 9223372036854775808UL && sign == -1)
+	if (result > INT_MAX && sign == -1)
 		return (0);
 	return ((int)(result * sign));
 }
