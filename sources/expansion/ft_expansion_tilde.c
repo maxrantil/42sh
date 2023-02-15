@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:57:35 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/13 20:49:14 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:11:28 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
  *
  * @return The key for the environment variable.
  */
+
 static char	*tilde_key(char *str, int *stilde)
 {
 	if (!ft_strcmp(str, "~+"))
@@ -49,7 +50,6 @@ static int	init_user(char *str, char **user)
 		return (1);
 	return (0);
 }
-
 /**
  * It takes a string and returns a string with the tilde expanded.
  *

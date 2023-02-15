@@ -6,13 +6,13 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:43:17 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:20:47 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:22:12 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void init_pa(t_param *pa)
+void	init_pa(t_param *pa)
 {
 	pa->subs = NULL;
 	pa->strip = NULL;

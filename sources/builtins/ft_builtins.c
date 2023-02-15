@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 13:25:18 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:26:09 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	cmd_comparisons_continue(t_shell *sh, char ***cmd, \
 	else if (!ft_strcmp(**cmd, "jobs"))
 		return (ft_jobs(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "type"))
-		return (type_command(sh, *cmd, *environ_cp));
+		return (type_command(sh, *cmd, *environ_cp, 1));
 	else if (!ft_strcmp(**cmd, "unalias"))
 		return (unalias(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "alias"))
@@ -73,6 +73,7 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 			update_fg_job(sh, pid, *cmd);
 		if (pid == 0)
 		{
+			ft_putendl_fd("CHILD", 2);
 			ft_signal_dfl();
 			if (!sh->pipe->redir_out && sh->pipe->write_pipe[1] >= 0 \
 			&& dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
@@ -112,7 +113,8 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		ft_expansion(sh, *cmd);
 		if (!***cmd)
 			return (0);
-		*(cmd) += ft_variables(sh, cmd);
+		if (!ft_variables(sh, &cmd))
+			return (0);
 		if (**cmd && !is_builtin(**cmd))
 			return (1);
 		if (!fork_if_pipe(sh, cmd, environ_cp))

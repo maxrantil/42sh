@@ -19,6 +19,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include "ft_printf.h"
 
 # define MAX_BUFF_SIZE 4096

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/08 17:29:01 by jniemine         ###   ########.fr       */
+/*   Created: 2023/02/11 17:16:30 by spuustin          #+#    #+#             */
+/*   Updated: 2023/02/11 17:16:42 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_42sh.h"
 

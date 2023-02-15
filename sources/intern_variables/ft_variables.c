@@ -6,30 +6,53 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/02 19:26:05 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:17:54 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int is_var(char *cmd)
+static int	is_changeable(char **cmd, int *ret)
 {
-	return ((ft_strchr(cmd, '=') && ft_isalpha(cmd[0]))
-		|| (ft_strchr(cmd, '=') && !ft_isalpha(cmd[0]) && cmd[0] == '_'));
-}
-
-int ft_variables(t_shell *sh, char ***cmd)
-{
-	int ret;
 	int	i;
 
 	i = 0;
-	ret = 0;
-	if (is_var(**cmd))
+	if (!is_var(cmd[i]))
+		return (1);
+	while (cmd[i])
 	{
-		ret = add_var(sh, *cmd);
-		while(sh->intr_vars[i])
-			ft_printf("intern var %s %c\n", sh->intr_vars[i++], **cmd[0]);
+		if (is_var(cmd[i]))
+			i++;
+		else
+			break ;
 	}
+	*ret = i;
+	if (cmd[i] != NULL)
+		return (i);
+	return (0);
+}
+
+int	ft_variables(t_shell *sh, char ****cmd)
+{
+	int		ret;
+	int		k;
+	char	*temp;
+
+	k = 0;
+	ret = 0;
+	if (!is_changeable(**cmd, &ret))
+		add_var(sh, **cmd);
+	else if (ret == 0)
+		return (1);
+	if (!(**cmd)[ret])
+		return (0);
+	while ((**cmd)[k + 1])
+	{
+		ft_strdel(&(**cmd)[k]);
+		temp = (**cmd)[k + 1];
+		(**cmd)[k] = ft_strdup(temp);
+		k++;
+	}
+	ft_strdel(&(**cmd)[k]);
 	return (ret);
 }

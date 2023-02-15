@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_variable_validity.c                          :+:      :+:    :+:   */
+/*   temp_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 15:10:28 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 17:04:36 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/15 13:57:13 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/15 14:23:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int	check_var_validity(char *var)
+void	temp_free(char ***temp)
 {
-	int	i;
-
-	i = 0;
-	if (var[i] == '$')
-		i++;
-	if (var[i] == '{')
-		i++;
-	if (ft_isalpha(var[i]) || (!ft_isalpha(var[i]) && var[i] == '_'))
-		i++;
-	while (var[i])
-	{
-		if (!ft_isalnum(var[i]) && var[i] != '}')
-			return (0);
-		i++;
-	}
-	return (1);
+	ft_strdel(temp[0]);
+	ft_strdel(temp[1]);
+	free(*temp);
 }

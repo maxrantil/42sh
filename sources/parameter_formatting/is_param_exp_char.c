@@ -6,13 +6,13 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:15:36 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 11:42:54 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:22:17 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int is_param_exp_char(char *flag)
+int	is_param_exp_char(char *flag)
 {
 	if (*flag == '\0')
 		return (0);

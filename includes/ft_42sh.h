@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 11:55:20 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:34:05 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "keyboard.h"
 # include "ft_printf.h"
 # include <sys/stat.h>
-# include <limits.h>
 # include <sys/shm.h>
 # include <signal.h>
 # include <dirent.h>
@@ -313,6 +312,7 @@ typedef struct s_shell
 	char			option;
 	bool			ampersand;
 	int				exit_confirm;
+	int				sym_link;
 }				t_shell;
 
 	/*	libft 	*/
@@ -468,13 +468,16 @@ int				ft_env_append(t_shell *sh, char **arg);
 int				ft_env_replace(t_shell *sh, char *envn, char **tmp_env);
 void			ft_dir_change(t_shell *sh);
 int				check_flag(t_shell *session, char **commands, char flag);
-void			print_usage(char *command, char c);
+int				print_usage(char *command, char c);
 int				validate_cd_options(t_shell *session, char **commands, \
 				int i, int dash_dash);
 char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
 				int to_skip);
 int				cd_multi_command_validation(t_shell *sesh, char **commands);
 int				str_only_contains_chars(char *str, char *options, t_shell *sh);
+char			*trim_dots(char *file, int i);
+void			trim_dot_dot_slash(char *path);
+void			manipulate_env(t_shell *session, char *file);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -487,7 +490,7 @@ int				ft_fg(t_shell *sh, char **cmd);
 int				ft_export(t_shell *sh, char **cmd);
 int				ft_jobs(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
-int				type_command(t_shell *sesh, char **commands, char **env);
+int				type_command(t_shell *sesh, char **commands, char **env, int i);
 
 /*					EXEC_TREE			*/
 int				check_access(char *cmd, char **args, t_shell *sh);
@@ -526,9 +529,7 @@ char			*ft_expansion_dollar(t_shell *sh, char *str);
 char			*ft_expansion_tilde(t_shell *sh, char *str);
 char			*ft_expansion_excla(char *str, int i);
 void			ft_quote_blash_removal(char *buff);
-char			*user_expansions(char *str);
-char			*passwd_user(char *input);
-void			join_paths(char **user, char **temp, char **path, int opt);
+char			*user_expansions(char *input);
 
 /*				FT_TEST				*/
 int				ft_test_b(char **arg);
@@ -592,9 +593,8 @@ void			fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc);
 int				fc_error_check_for_no_flag_or_e_flag(t_shell *sh, \
 t_fc *fc, char ***cmd);
 void			fc_free(t_fc *fc);
-int				fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_get_flags(t_fc *fc, char **cmd);
-int				fc_lflag_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
+void			fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_list_flags(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd);
 int				fc_no_flags(t_fc *fc);
@@ -609,7 +609,7 @@ void			fc_update_history(t_shell *sh, char ***cmd);
 int				ft_fc(t_shell *sh, char ***cmd);
 
 /*			  	INTERN VARIABLES			*/
-int				ft_variables(t_shell *sh, char ***cmd);
+int				ft_variables(t_shell *sh, char ****cmd);
 int				add_var(t_shell *sh, char **cmd);
 int				is_var(char *cmd);
 int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
@@ -664,7 +664,7 @@ char			*get_operator(char *cmd);
 int				is_param_exp_char(char *flag);
 int				splitter(char *cmd, t_param *pa, int *ret);
 int				expander(t_param *pa, int ret);
-char			*variable_length(char *str);
+void			variable_length(char *str, t_param *pa);
 int				perform_param_expans(char *cmd, t_param *pa, int *ret);
 char			*get_flag(char *cmd, int *ret);
 void			init_pa(t_param *pa);
@@ -679,6 +679,7 @@ char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
 int				check_var_validity(char *var);
 int				check_substitutions(char *cmd, int *ret, t_param *pa);
+void 			temp_free(char ***temp);
 
 /*			  		 SIGNALS				*/
 void			ft_signal_keyboard(int num);

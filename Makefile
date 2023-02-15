@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/14 21:50:46 by rvuorenl         ###   ########.fr        #
+#    Updated: 2023/02/15 14:33:58 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -180,14 +180,11 @@ FILES			= \
 				$(EXPANSION)ft_expansion_excla \
 				$(EXPANSION)ft_quote_bslash_removal \
 				$(EXPANSION)user_expansions \
-				$(EXPANSION)passwd_user \
-				$(EXPANSION)join_paths \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
 				$(FC)fc_get_flags \
 				$(FC)fc_get_start_and_end \
-				$(FC)fc_lflag_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
 				$(FC)fc_no_flags \
@@ -244,6 +241,7 @@ FILES			= \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
+				$(INTERN_VARS)is_var \
 				$(JOBS)add_to_queue \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
@@ -364,6 +362,7 @@ FILES			= \
 				$(PARAM_FORM)find_from_begin_glob \
 				$(PARAM_FORM)is_substring_id \
 				$(PARAM_FORM)check_substitution \
+				$(PARAM_FORM)temp_free \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \
