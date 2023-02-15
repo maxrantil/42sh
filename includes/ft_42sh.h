@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 14:34:05 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 18:12:42 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,7 +335,7 @@ void	free_and_refill_dup_alias(char ***dup_alias, char **original);
 //	alias_string_handling.c	(5)
 void	append_to_converted(char **line, char **next, char **post);
 void	trim_mid_word(char **mid, char **orig_post);
-char	*get_mid_word(char *line);
+char	*get_mid_word(char *line, char **next);
 //	alias_string_handling2.c 	(5)
 int		skip_to_second_word(char *line);
 void	remove_quotes_cmd(char *cmd);
@@ -359,12 +359,25 @@ int		unalias(t_shell *sh, char **args);
 //	validate_alias.c	(4)
 int		validate_alias(char *alias, int print_error);
 int		validate_whitespace(char *str);
+//	convert_line.c	(5)
+void	alias_convert_line(char **line, t_shell *sh);
+//	line_separators.c	(4)
+void	check_line_separators(char ***alias, char **line);
+int		is_command_separator(char command);
+//	connect_pieces.c
+void	connect_alias_pieces(char **pre, char **conv, char **post, char **line);
+//	convert_alias.c	(5)
+void	convert_first_word(char ***alias, char **line, int size);
+void	trim_alias_line(char **line);
+void	conversion_dispatch(char ***alias, char **line, char **cont, int pos);
+int		convert_alias(char ***dup_alias, char **line, int i);	// (2)
 
 
 //	conversions
-
-//	convert_alias.c
+void	connect_alias_pieces(char **pre, char **conv, char **post, char **line);
+	// (3)
 //	convert_alias2.c
+
 //	get_alias.c
 char	*get_post_content(char *line, char *arg);
 char	*get_alias_content_no_quotes(char *alias);
@@ -383,9 +396,9 @@ char	*get_first_word(char *line);
 // char			*get_first_word(char *line);					// MALLOC
 
 //	convert_alias.c
-int				check_command_separator(char *line);
+// int				check_command_separator(char *line);
 void			convert_first_word(char ***alias, char **line, int size);
-char			*check_valid_input(char *line, int i);
+// char			*check_valid_input(char *line, int i);
 // int				convert_alias(char **line, t_shell *sh, int pos);
 void			alias_convert_line(char **line, t_shell *sh);
 //	convert_alias2.c
@@ -397,7 +410,7 @@ void			update_alias_line(char **line, char **pre_semicolon);
 // void			conversion_dispatch(t_shell *sh, char **line,
 // char **cont, int pos);
 
-size_t  total_line_len(char *pre, char *convert, char *post, char **new_line);
+// size_t  total_line_len(char *pre, char *convert, char *post, char **new_line);
 void    free_parsed_alias_line(char **pre, char **conv, char **post, \
 char **new_line);
 void    connect_alias_pieces(char **pre, char **convert, char **post, \

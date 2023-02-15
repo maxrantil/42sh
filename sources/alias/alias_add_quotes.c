@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:48:14 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 21:53:52 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:44:07 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	add_quotes(char **content)
 	char	*tmp;
 
 	tmp = NULL;
-	if (*content)
+	if (*content)				// now removes extra space from 'ls  ', FIX
 		tmp = ft_strtrim(*content);
 	if (have_single_quotes(tmp))
 	{

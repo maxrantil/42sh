@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:09:58 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 22:46:53 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:44:26 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static char	*construct_alias(char *cmd)
 	char	*content;
 
 	content = get_alias_content(cmd);
+	ft_printf("cont ST  (%s)\n", content);
 	command = get_alias_command(cmd);
 	add_quotes(&content);
+	ft_printf("cont END (%s)\n", content);
 	alias = ft_strjoin_three(command, "=", content);
 	ft_strdel(&command);
 	ft_strdel(&content);

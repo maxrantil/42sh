@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:59:28 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/15 16:39:03 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:43:41 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,20 @@ static char	*check_valid_input(char *line, int i)
 		return (NULL);
 	}
 	return (arg);
+}
+
+void	conversion_dispatch(char ***alias, char **line, char **cont, int pos)
+{
+	if (check_next_conversion(*cont))
+	{
+		conversion_loop(alias, line, cont);
+	}
+	else
+	{
+		remove_alias_single(alias, pos, ft_strarray_size(*alias));
+		convert_first_word(alias, line, ft_strarray_size(*alias));
+		ft_strdel(cont);
+	}
 }
 
 int	convert_alias(char ***dup_alias, char **line, int i)

@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 21:52:54 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/15 11:43:49 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:45:21 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,9 @@ void	conversion_loop(char ***alias, char **line, char **content)
 	char	*mid_word;
 
 	dup_alias = NULL;
-	mid_word = get_mid_word(*content);
+	mid_word = get_mid_word(*content, &next_word);
 	post_content = convert_first(&dup_alias, alias, line, *content);
 	trim_mid_word(&mid_word, &post_content);
-	next_word = NULL;
 	append_to_converted(line, &mid_word, &next_word);
 	while (*content && (check_next_conversion(*content)))
 	{
@@ -86,27 +85,10 @@ void	conversion_loop(char ***alias, char **line, char **content)
 			append_to_converted(line, &next_word, &mid_word);
 		}
 		else
-		{
-			append_to_converted(line, &next_word, &post_content);
 			break ;
-		}
 		free_and_refill_dup_alias(&dup_alias, *alias);
 	}
 	append_to_converted(line, &next_word, &post_content);
 	ft_free_doublearray(&dup_alias);
 	ft_strdel(content);
-}
-
-void	conversion_dispatch(char ***alias, char **line, char **content, int pos)
-{
-	if (check_next_conversion(*content))
-	{
-		conversion_loop(alias, line, content);
-	}
-	else
-	{
-		remove_alias_single(alias, pos, ft_strarray_size(*alias));
-        convert_first_word(alias, line, ft_strarray_size(*alias));
-        ft_strdel(content);
-	}
 }
