@@ -184,7 +184,6 @@ FILES			= \
 				$(FC)fc_free \
 				$(FC)fc_get_flags \
 				$(FC)fc_get_start_and_end \
-				$(FC)fc_lflag_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
 				$(FC)fc_no_flags \

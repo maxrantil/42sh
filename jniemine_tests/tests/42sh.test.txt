@@ -1,0 +1,106 @@
+$> test -b /dev/disk0 && echo ok || echo wrong
+ok
+$> test -b /dev/console && echo ok || echo wrong
+wrong
+$> test -b DOESTNOTEXIST && echo ok || echo wrong
+wrong
+$> test -c /dev/disk0 && echo ok || echo wrong
+wrong
+$> test -c /dev/console && echo ok || echo wrong
+ok
+$> test -d /dev/disk0 && echo ok || echo wrong
+wrong
+$> test -d ${HOME} && echo ok || echo wrong
+ok
+$> test -d /dev/disk0 && echo ok || echo wrong
+wrong
+$> test -d ${HOME} && echo ok || echo wrong
+ok
+$> test -e /dev/null && echo ok || echo wrong
+ok
+$> test -e /usr/share/man/man2/execve.2 && echo ok || echo wrong
+ok
+$> test -e DOESTNOTEXIST && echo ok || echo wrong
+wrong
+$> test -f /dev/null && echo ok || echo wrong
+wrong
+$> test -f /usr/share/man/man2/execve.2 && echo ok || echo wrong
+ok
+$> test -L /dev/null && echo ok || echo wrong
+wrong
+$> test -L /var && echo ok || echo wrong
+ok
+$> cd /tmp
+$> touch notfifo && mkfifo fifo
+$> test -p fifo && echo ok || echo wrong
+ok
+$> test -p notfifo && echo ok || echo wrong
+wrong
+$> touch read noread; chmod u-r noread
+$> test -r read && echo ok || echo wrong
+ok
+$> test -r noread && echo ok || echo wrong
+wrong
+$> touch write nowrite; chmod u-w nowrite
+$> test -w write && echo ok || echo wrong
+ok
+$> test -w nowrite && echo ok || echo wrong
+wrong
+$> touch exec noexec; chmod u+x exec
+$> test -x exec && echo ok || echo wrong
+ok
+$> test -x noexec && echo ok || echo wrong
+wrong
+$> socketfile={{ Use one of the path output by "find /var/run -type s 2>/dev/null" }}
+$> test -S ${socketfile} && echo ok || echo wrong
+ok
+$> test -S /dev/null && echo ok || echo wrong
+wrong
+$> touch emptyfile; echo "not empty" > notempty
+$> test -s emptyfile && echo ok || echo wrong
+wrong
+$> test -s notempty && echo ok || echo wrong
+ok
+$> a='hello' b=''; unset c
+$> test ${a} && echo ok || echo wrong
+ok
+$> test ${b} && echo ok || echo wrong
+wrong
+$> test ${c} && echo ok || echo wrong
+wrong
+$> test -z ${a} && echo ok || echo wrong
+wrong
+$> test -z ${b} && echo ok || echo wrong
+ok
+$> test -z ${c} && echo ok || echo wrong
+ok
+$> test 'abc' = 'def' && echo ok || echo wrong
+wrong
+$> test 'abc' = 'abc' && echo ok || echo wrong
+ok
+$> test 'abc' != 'def' && echo ok || echo wrong
+ok
+$> test 'abc' != 'abc' && echo ok || echo wrong
+wrong
+$> test 0 -eq 1 && echo ok || echo wrong
+wrong
+$> test -1 -eq 1 && echo ok || echo wrong
+wrong
+$> test -1 -eq -1 && echo ok || echo wrong
+ok
+$> first='12' second='34'
+$> test ${first} -ne ${second} && echo ok || echo wrong
+ok
+$> test -1 -gt -2 && echo ok || echo wrong
+ok
+$> test 2 -ge 2 && echo ok || echo wrong
+ok
+$> test -2 -lt -2 && echo ok || echo wrong
+wrong
+$> test 3 -le +2 && echo ok || echo wrong
+wrong
+$> rm -rf tempdir; test ! -d tempdir && echo "tempdir removed"
+tempdir removed
+$> test zzz -eq 123 && echo ok || echo wrong
+{{ Optionnal error message indicating integer expected }}
+wrong
