@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_aggregation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/14 15:47:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:05:51 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char *terminal, t_shell *sh)
 {
 	struct stat	buf;
 	int			open_fd;
+
 
 	open_fd_if_needed(&node->close_fd, terminal, sh);
 	open_fd = -1;

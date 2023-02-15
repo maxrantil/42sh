@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/14 15:43:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:04:40 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char *terminal, t_shell *sh)
 	fd = open(node->filepath, node->open_flags, node->rights);
 	if (fd < 0)
 		exit_error(sh, 1, "open failed");
+	give_alias_for_fd(sh, &fd);
 	if (close_fd_alias(sh, node->close_fd) && dup2(fd, node->close_fd) < 0)
 		exit_error(sh, 1, "exec_redir dup2 failed");
 	if (node->cmd && node->cmd->type == CMD && node->close_fd == STDOUT_FILENO)

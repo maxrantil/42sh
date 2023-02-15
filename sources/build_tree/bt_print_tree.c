@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_print_tree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 20:22:15 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/31 15:18:08 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/14 23:39:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 void	split_print_tree_again(t_treenode *root, int lvl)
 {
 	if (root->type == AGGREGATION)
+	{
+		print_spaces(lvl);
+		check_type(root);
 		rec_print_tree(((t_aggregate *)root)->cmd, lvl);
+	}
 	else if (root->type == AMPERSAND)
 	{
 		rec_print_tree(((t_ampersand *)root)->right, lvl);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   give_alias_for_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/14 11:32:27 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 15:52:23 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,14 @@ void print_aliases(t_shell *sh)
 	while (i < SH_FD_MAX)
 	{
 		if (sh->pipe->fd_aliases[i] != -1)
+		{
 			ft_printf("ALIAS: %d -> %d\n", i, sh->pipe->fd_aliases[i]);
+			ft_putstr_fd("ALIAS: ", 2);
+			ft_putnbr_fd(i, 2);
+			ft_putstr_fd(" -> ", 2);
+			ft_putnbr_fd(sh->pipe->fd_aliases[i], 2);
+			ft_putchar_fd('\n', 2);
+		}
 		++i;
 	}
 }
