@@ -300,6 +300,7 @@ typedef struct s_shell
 	char			option;
 	bool			ampersand;
 	int				exit_confirm;
+	int				sym_link;
 }				t_shell;
 
 	/*	libft 	*/
@@ -442,13 +443,16 @@ int				ft_env_append(t_shell *sh, char **arg);
 int				ft_env_replace(t_shell *sh, char *envn, char **tmp_env);
 void			ft_dir_change(t_shell *sh);
 int				check_flag(t_shell *session, char **commands, char flag);
-void			print_usage(char *command, char c);
+int				print_usage(char *command, char c);
 int				validate_cd_options(t_shell *session, char **commands, \
 				int i, int dash_dash);
 char			*trim_dots_helper(char **sub_dirs, char *trimmed, int i, \
 				int to_skip);
 int				cd_multi_command_validation(t_shell *sesh, char **commands);
 int				str_only_contains_chars(char *str, char *options, t_shell *sh);
+char			*trim_dots(char *file, int i);
+void			trim_dot_dot_slash(char *path);
+void			manipulate_env(t_shell *session, char *file);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -461,7 +465,7 @@ int				ft_fg(t_shell *sh, char **cmd);
 int				ft_export(t_shell *sh, char **cmd);
 int				ft_jobs(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
-int				type_command(t_shell *sesh, char **commands, char **env);
+int				type_command(t_shell *sesh, char **commands, char **env, int i);
 
 /*					EXEC_TREE			*/
 int				check_access(char *cmd, char **args, t_shell *sh);

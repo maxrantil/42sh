@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 18:52:21 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/11 14:10:35 by spuustin         ###   ########.fr       */
+/*   Created: 2023/02/11 16:04:50 by spuustin          #+#    #+#             */
+/*   Updated: 2023/02/13 21:02:33 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_42sh.h"
 
@@ -75,9 +74,7 @@ static int	str_only_contains_char(char *str, char c)
 int	check_flag(t_shell *sh, char **commands, char flag)
 {
 	int	i;
-	// int	flag_on;
 
-	// flag_on = 0;
 	i = 1;
 	while (commands[i])
 	{
@@ -110,8 +107,10 @@ int	validate_cd_options(t_shell *sh, char **cmds, int i, int d_dash)
 	char	c;
 
 	c = 0;
-	while (cmds[i][0] == '-')
+	while (cmds[i] && cmds[i][0] == '-')
 	{
+		if (ft_strequ(cmds[i], "-"))
+			break ;
 		if (!cmds[i][1])
 			return (cd_errors(1));
 		if (cmds[i][1] && cmds[i][1] == '-' && !cmds[i][2])
@@ -123,10 +122,7 @@ int	validate_cd_options(t_shell *sh, char **cmds, int i, int d_dash)
 			break ;
 		}
 		if (str_only_contains_chars(cmds[i], "LP", sh) == c)
-		{
-			print_usage("cd", sh->option);
-			return (1);
-		}
+			return (print_usage("cd", sh->option));
 		i++;
 	}
 	if (cmds[i - 1 - d_dash][ft_strlen(cmds[i - 1]) - 1] == 'P')

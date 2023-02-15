@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:32:14 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/06 19:57:05 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:12:13 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 
 static int	is_built_in(char *command)
 {
-	static char *builtins[6] = {"echo", "cd", "env", "type", "hash", "exit"};
+	static char	*builtins[12] = {"echo", "cd", "env", "type", "hash", "exit",
+		"fg", "bg", "jobs", "export", "set", "unset"};
 	int			i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 12)
 	{
 		if (ft_strequ(builtins[i], command) == 1)
 		{
@@ -56,7 +57,7 @@ static int	is_hash(t_hash **ht)
 	int		i;
 
 	i = 0;
-	while(i < HASH_SIZE)
+	while (i < HASH_SIZE)
 	{
 		if (ht[i])
 			return (1);
@@ -65,44 +66,43 @@ static int	is_hash(t_hash **ht)
 	return (0);
 }
 
-static int	check_invalid_option(char *command)
+static void	print_bin(char *bin, char *command, t_shell *sh, int is_hashed)
 {
-	if (command[0] == '-' && command[1])
+	if (bin)
 	{
-		print_usage("type", command[1]);
-		return (1);
+		if (is_hashed == 1)
+			ft_printf("%s is hashed (%s)\n", command, bin);
+		else
+			ft_printf("%s is %s\n", command, bin);
+		sh->exit_stat = 0;
 	}
-	return (0);
+	else
+	{
+		ft_printf("42sh: type: %s: not found\n", command);
+		sh->exit_stat = 1;
+	}
 }
 
-int	type_command(t_shell *sh, char **commands, char **env)
+int	type_command(t_shell *sh, char **commands, char **env, int i)
 {
 	char	*bin;
-	int		i;
 	int		is_hashed;
 
-	i = 1;
-	if (check_invalid_option(commands[1]) == 1)
+	if (!commands[1])
 		return (0);
+	if (commands[1][0] == '-' && commands[1][1] && commands[2])
+	{
+		sh->exit_stat = 2;
+		print_usage("type", commands[1][1]);
+		return (0);
+	}
 	while (commands[i])
 	{
 		if (!is_built_in(commands[i]) && !is_alias(commands[i], sh))
 		{
 			is_hashed = is_hash(sh->ht);
 			bin = search_bin(commands[i], env);
-			if (bin)
-			{
-				if (is_hashed == 1)
-					ft_printf("%s is hashed (%s)\n", commands[i], bin);
-				else
-					ft_printf("%s is %s\n", commands[i], bin);
-				sh->exit_stat = 0;
-			}
-			else
-			{
-				ft_printf("42sh: type: %s: not found\n", commands[i]);
-				sh->exit_stat = 1;
-			}
+			print_bin(bin, commands[i], sh, is_hashed);
 			ft_memdel((void *)&bin);
 		}
 		i++;

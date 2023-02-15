@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:04:15 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/08 20:11:50 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:28:13 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ t_bg_jobs	*bg_fetch_node(t_shell *sh, char **cmd)
 
 	i = 0;
 	if (!*(cmd + 1) || !ft_strcmp("%", *(cmd + 1)) \
-	|| !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)) || !ft_strcmp("+", *(cmd + 1)))
+	|| !ft_strcmp("%%", *(cmd + 1)) || !ft_strcmp("%+", *(cmd + 1)) || \
+	!ft_strcmp("+", *(cmd + 1)))
 		return (process_getpid(sh, 0, cmd, '+'));
 	if (!ft_strcmp("%-", *(cmd + 1)) || !ft_strcmp("-", *(cmd + 1)))
 		return (process_getpid(sh, 0, cmd, '-'));
