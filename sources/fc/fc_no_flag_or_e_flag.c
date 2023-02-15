@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:35:13 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 14:17:10 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 15:05:46 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int	fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd)
 
 	if (fc->e && !(*cmd)[fc->flags])
 		return (fc_usage("-e: option requires an argument"));
-	if (!(*cmd)[fc->flags] || fc_no_flags(fc))
+	// if (!(*cmd)[fc->flags] || fc_no_flags(fc))
+	if (!(*cmd)[fc->flags] || !fc->l)
 		editor = get_editor(fc, sh->env);
 	else
 	{
@@ -94,14 +95,17 @@ int	fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd)
 		if (ft_strnequ((*cmd)[fc->flags + 1], "--", 2))
 			fc->flags++;
 	}
+	ft_printf("1\n");
 	if (!editor)
 		return (fc_print_error(5));
 	fc_open_editor(editor, sh, fc, cmd);
 	if (!fc->filename)
 		return (0);
 	fc->ret_cmd = NULL;
+	ft_printf("2\n");
 	if (!fc_read_file(fc, &fc->ret_cmd))
 		return (empty_in_editor(sh, fc));
+	ft_printf("3\n");
 	fc_overwrite_history(sh, fc->ret_cmd);
 	fc_build_and_execute_new_tree(sh, fc);
 	return (0);

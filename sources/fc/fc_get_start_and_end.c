@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 13:58:21 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:58:56 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 	fc->end = sh->term->history_size - 2;
 	if (!cmd1)
 	{
-		if (sh->term->history_size > FC_LEN)
-			fc->start = sh->term->history_size - FC_LEN;
+		if (!fc->l)
+			fc->start = sh->term->history_size - 2;
+		else if (sh->term->history_size > FC_LEN)
+		 	fc->start = sh->term->history_size - FC_LEN;
 	}
 	else if (cmd1 && !cmd2)
 		fc->start = get_pivot(sh, cmd1);

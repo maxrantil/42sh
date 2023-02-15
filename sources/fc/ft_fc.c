@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:41:05 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 14:11:39 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 14:59:33 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_fc(t_shell *sh, char ***cmd)
 	ret = 0;
 	if (fc.s && !ft_strnequ((*cmd)[1], "-e", 2))
 		return (fc_s_flag(sh, &fc, cmd));
-	else if (fc.e || fc_no_flags(&fc))
+	else if (fc.e || !fc.l)
 		ret = fc_no_flag_or_e_flag(sh, &fc, cmd);
 	else if (fc.l)
 		return (fc_list_flags(sh, &fc, cmd));
