@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 17:01:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:49:11 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,7 @@ typedef struct s_shell
 	bool			ampersand;
 	int				exit_confirm;
 	int				sym_link;
+	int				arr_len;
 }				t_shell;
 
 	/*	libft 	*/
@@ -478,6 +479,14 @@ int				str_only_contains_chars(char *str, char *options, t_shell *sh);
 char			*trim_dots(char *file, int i);
 void			trim_dot_dot_slash(char *path);
 void			manipulate_env(t_shell *session, char *file);
+int				is_path_symlink(char *path);
+int				cd_minus_symlink(t_shell *sh, char *path);
+void			erase_last_subdir(char *path);
+int				resolve_dotdot_symlink(t_shell *sh, char **cmd);
+void			reset_options(t_shell *sh);
+char			*env_path(t_shell *sh, char *key);
+int				ft_chdir_expanded(t_shell *sh, char **path);
+
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
