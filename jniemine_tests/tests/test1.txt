@@ -1,4 +1,4 @@
-#ls
+ls
 >&- 0>&- >lol ls -l; cat lol
 >&- >lol ls -l; cat lol
 ls -l >&- >lol; cat lol

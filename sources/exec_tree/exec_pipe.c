@@ -3,32 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/09 15:29:58y jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:55:00 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-extern t_shell	*g_sh;
 
 void	error_exit(char *msg)
 {
 	ft_putstr_fd("ERROR: ", STDERR_FILENO);
 	ft_putstr_fd(msg, STDERR_FILENO);
 	exit(-1);
-}
-
-int	fork_wrap(void)
-{
-	int	pid;
-
-	pid = fork();
-	if (pid == -1)
-		exit_error(g_sh, 1, "ERROR: fork failed");
-	return (pid);
 }
 
 int	pipe_wrap(int write_pipe[])
@@ -54,22 +42,12 @@ void	exec_pipe(t_pipenode *pipenode, \
 		ft_err_print("dup", NULL, "failed in exec_pipe", 2);
 		exit (1);
 	}
-	g_sh->pipe->redir_out = 0;
+	sh->pipe->redir_out = 0;
 	close (sh->pipe->write_pipe[1]);
 	sh->pipe->write_pipe[1] = -1;
 	close(sh->pipe->read_pipe[1]);
 	sh->pipe->read_pipe[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
-	if (sh->ampersand)
-	{
-		waitpid(-1, 0, WNOHANG | WUNTRACED);
-		waitpid(-1, 0, WNOHANG | WUNTRACED);
-	}
-	else
-	{
-		waitpid(-1, 0, WUNTRACED);
-		waitpid(-1, 0, WUNTRACED);
-	}
 	reset_fd(sh);
 	sh->pipe->stdincpy = dup(STDIN_FILENO);
 	sh->pipe->stdoutcpy = dup(STDOUT_FILENO);

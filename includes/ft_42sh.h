@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 16:22:17 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:27:20 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@
 typedef union u_treenode	t_treenode;
 
 /*		       	   TOKENIZER FLAGS				*/
-typedef	struct	s_token_flags
+typedef struct s_token_flags
 {
 	char	quote;
 	char	braces;
@@ -485,9 +485,13 @@ char *terminal, t_shell *sh);
 void			exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh);
 void			exec_pipe(t_pipenode *pipenode, char ***environ_cp, \
 char *terminal, t_shell *sh);
+void			exec_ampersand(t_ampersand *head, char ***environ_cp, \
+char *terminal, t_shell *sh);
 void			exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_aggregate(t_aggregate *node, char ***environ_cp, \
+char *terminal, t_shell *sh);
+void			exec_semicolon(t_semicolon *head, char ***environ_cp, \
 char *terminal, t_shell *sh);
 void			exec_closefd(t_closefd *node, char ***environ_cp, \
 char *terminal, t_shell *sh);
@@ -619,7 +623,7 @@ void			transfer_to_fg(t_shell *sh, t_bg_jobs *bg_node);
 size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void			wait_for_job(t_shell *sh, int pid);
-void 			reap_process(t_shell *sh);
+void			reap_process(t_shell *sh);
 void			update_job_status(t_shell *sh, int status, int pid);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
@@ -716,5 +720,6 @@ int				is_aliased_fd(t_shell *sh, int open_fd);
 void			print_aliases(t_shell *sh);
 int				is_alias_fd(t_shell *sh, int fd);
 int				close_fd_alias(t_shell *sh, int fd);
+void			init_flags_struct(t_token_flags *flags);
 
 #endif

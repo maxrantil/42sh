@@ -1,4 +1,5 @@
-aggregation + pipe combo breaks up, did not test closefd yeasdf && echo hello || echo pallo | wc
+aggregation + pipe combo breaks up, did not test closefd yeasdf && echo hello || echo pallo | w
+
 TEST CLOSEFD REDIR AGGRE WITH PIPES
 Fileaggregation works with >&3 and >&4, it should not. If we close those, something else breaks also in stdin for example
 
@@ -13,4 +14,5 @@ also use 255 and over
 
 ls 56>&1> Incorrect output
 
->&- 0>&- >lol ls -l; cat lol
+< file cat //breaks stdin
+base64 | head -c 5 //Hangs because of endless output from base64

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 15:09 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/14 13:35:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,71 +14,41 @@
 
 extern t_shell	*g_sh;
 
-
+static void	child_execute(char **cmd, t_cmdnode *head, \
+int access, char ***environ_cp)
+{
+	if (access)
+	{
+		ft_signal_dfl();
+		if (!g_sh->pipe->redir_out && g_sh->pipe->write_pipe[1] >= 0 \
+		&& dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
+		{
+			ft_err_print("dup2", NULL, "failed", 2);
+			exit(1);
+		}
+		if (!cmd || execve(*cmd, head->cmd, *environ_cp) < 0)
+			exe_fail(cmd, head->cmd, environ_cp);
+		exit(1);
+	}
+	else
+		exit(127);
+}
 
 static void	ft_execve(char **cmd, t_cmdnode *head, \
-						int access, char ***environ_cp)
+int access, char ***environ_cp)
 {
-	// int		status;
 	int		pid;
-	char	**args;
 
-	args = head->cmd;
-	// status = 0;
 	pid = fork_wrap();
 	if (g_sh->pipe->pid == 0)
 		g_sh->pipe->pid = pid;
 	if (pid)
-		update_fg_job(g_sh, pid, args);
+		update_fg_job(g_sh, pid, head->cmd);
 	if (pid == 0)
-	{
-		if (access)
-		{
-			ft_signal_dfl();
-			if (!g_sh->pipe->redir_out && g_sh->pipe->write_pipe[1] >= 0 && dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
-			{
-				ft_err_print("dup2", NULL, "failed", 2);
-				exit(1);
-			}
-			if (!cmd || execve(*cmd, args, *environ_cp) < 0)
-				exe_fail(cmd, args, environ_cp);
-			exit(1);
-		}
-		else
-			exit(127); // command not found
-	}
+		child_execute(cmd, head, access, environ_cp);
 	wait_for_job(g_sh, pid);
 }
 
-// void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
-// {
-// 	char	*cmd;
-// 	int		access;
-// 	int		status;
-// 	int		hash;
-// 	char	**args;
-
-// 	args = head->cmd;
-// 	if (!args[0])
-// 		return ;
-// 	if (sh->term->fc_flag)
-// 		print_args(args);
-// 	if (!ft_builtins(sh, &args, environ_cp))
-// 		return ;
-// 	hash = 0;
-// 	cmd = hash_check(sh, args[0], &hash);
-// 	if (!hash && !check_if_user_exe(args[0], &cmd))
-// 		cmd = search_bin(args[0], *environ_cp);
-// 	access = check_access(cmd, args, sh);
-// 	status = ft_execve(&cmd, head, access, environ_cp);
-// 	if (access)
-// 	{
-// 		sh->exit_stat = status >> 8;
-// 		if (!hash)
-// 			hash_init_struct(sh, cmd, 1);
-// 	}
-// 	ft_memdel((void **)&cmd);
-// }
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 {
 	char	*cmd;

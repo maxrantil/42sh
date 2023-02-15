@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 15:06:33 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 10:27:26 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,16 @@ void	substitute_og_cmd(t_param *pa, char **cmd, int *j)
 	char	*start;
 	char	*end;
 
+	start = NULL;
+	temp = NULL;
+	end = NULL;
 	start = sent_start(*cmd);
 	end = ft_strdup(&(*cmd)[*j]);
 	temp = ft_strjoin(start, pa->expanded);
-	*j = ft_strlen(temp) - 1;
+	*j = ft_strlen(temp);
 	ft_strdel(&(*cmd));
 	(*cmd) = ft_strjoin(temp, end);
-	if (!ft_strchr(*cmd, '$'))
-		*j = ft_strlen(*cmd) - 1;
-	ft_strdel(&pa->expanded);
-	pa->expanded = ft_strtrim((*cmd));
-	if (!pa->expanded)
-		pa->expanded = ft_strnew(1);
-	ft_strdel(&(*cmd));
-	(*cmd) = ft_strdup(pa->expanded);
-	ft_strdel(&pa->expanded);
-	*j += ft_strlen(*cmd) - ft_strlen(temp);
-	if (*j >= (int)ft_strlen(*cmd))
-		*j = ft_strlen(*cmd) - 1;
+	(*j)--;
 	free_all(pa, &temp, &start, &end);
 }
 

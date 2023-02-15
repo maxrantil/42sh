@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/14 14:16:24 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/15 09:27:24 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -162,10 +162,13 @@ FILES			= \
 				$(EXECTREE)exec_tree \
 				$(EXECTREE)exec_cmd \
 				$(EXECTREE)exec_pipe \
+				$(EXECTREE)exec_ampersand \
 				$(EXECTREE)exec_redir \
 				$(EXECTREE)exec_closefd \
 				$(EXECTREE)exec_aggregation \
+				$(EXECTREE)exec_semicolon \
 				$(EXECTREE)search_bin \
+				$(EXECTREE)fork_wrap \
 				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
 				$(EXECTREE)exe_logicalop \
@@ -389,6 +392,7 @@ FILES			= \
 				$(UTILITIES)ft_last_command_update \
 				$(UTILITIES)ft_print_dbl_array \
 				$(UTILITIES)give_alias_for_fd \
+				$(UTILITIES)init_flags_struct \
 				$(UTILITIES)int_check_validity \
 				$(UTILITIES)jobs_exit_check \
 
