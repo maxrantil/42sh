@@ -6,13 +6,13 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 11:37:27 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:23:21 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static char *get_needle_and_op(char *strip, char *op, char *cmd)
+static char	*get_needle_and_op(char *strip, char *op, char *cmd)
 {
 	char	*needle;
 	int		k;
@@ -85,4 +85,3 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	subs_session_free(&sub, 1);
 	return (sub.expanded);
 }
-

@@ -3,63 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:53:08 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/06 12:14:13 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/13 19:02:37 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	build_trimmed(char **trimmed, char *src)
-{
-	char	*temp;
-
-	if (!*trimmed)
-			*trimmed = ft_strjoin("/", src);
-	else
-	{
-		temp = *trimmed;
-		*trimmed = ft_strjoin_three(*trimmed, "/", src);
-		ft_memdel((void *)&temp);
-	}
-}
-
-char	*trim_dots_helper(char **arr, char *trimmed, int i, int to_skip)
-{
-	while (arr[i])
-	{
-		while (ft_strequ(arr[i], ".") || \
-		(arr[i + 1] && ft_strequ(arr[i + 1], "..")))
-		{
-			if (ft_strequ(arr[i + 1], ".."))
-					to_skip++;
-			i++;
-		}
-		i += to_skip;
-		if (arr[i] && !ft_strequ(arr[i], "..") && !ft_strequ(arr[i], "."))
-		{
-			build_trimmed(&trimmed, arr[i]);
-		}
-		to_skip = 0;
-		i++;
-	}
-	return (trimmed);
-}
-
 int	cd_multi_command_validation(t_shell *sh, char **commands)
 {
-	if (commands[1][0] != '-')
+	sh->option = 'e';
+	if (!commands[1] || (ft_strequ(commands[1], "-") && !commands[2]))
+		return (0);
+	if (commands[1][0] == '-' && validate_cd_options(sh, commands, 1, 0) == 1)
+	{
+		sh->exit_stat = 1;
+		return (1);
+	}
+	if (ft_arrlen(commands) - sh->option_count > 2)
 	{
 		ft_err_print(NULL, "cd", "too many arguments", 1);
 		sh->exit_stat = 1;
 		return (1);
 	}
-	if (validate_cd_options(sh, commands, 1, 0) == 1)
-	{
-		sh->exit_stat = 1;
-		return (1);
-	}
 	return (0);
+}
+
+static int	skip_sub_dir(char *path, int i)
+{
+	int		slashes;
+
+	slashes = 0;
+	while (slashes < 2 && i >= 0)
+	{
+		if (path[i] == '/')
+			slashes++;
+		i--;
+	}
+	return (i + 1);
+}
+
+void	trim_dot_dot_slash(char *path)
+{
+	int		i;
+	int		idx;
+	int		len;
+
+	i = 0;
+	while (path[i])
+	{
+		if (path[i] && path[i + 1] && path[i + 2] && path[i] == '.'
+			&& path[i + 1] == '.' && path[i + 2] == '/')
+		{
+			idx = skip_sub_dir(path, i);
+			len = ft_strlen(path + i + 2);
+			ft_memmove(&path[idx], &path[i + 2], len);
+			path[idx + len] = '\0';
+			i = idx;
+		}
+		i++;
+	}
+}
+
+char	*trim_dots(char *file, int i)
+{
+	size_t	post_len;
+	char	*path;
+
+	path = ft_strdup(file);
+	while (path[i])
+	{
+		if (path[i] && path[i + 1] && path[i] == '.' && path[i + 1] == '/' \
+			&& path[i - 1] && path[i - 1] != '.')
+		{
+			post_len = ft_strlen(&(path[i]));
+			ft_memmove(&path[i], &path[i + 2], post_len);
+			path[i + post_len] = '\0';
+			i--;
+		}
+		i++;
+	}
+	trim_dot_dot_slash(path);
+	ft_memdel((void *)&file);
+	return (path);
 }
