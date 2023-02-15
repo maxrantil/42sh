@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/14 20:38:33 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:26:09 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	cmd_comparisons_continue(t_shell *sh, char ***cmd, \
 	else if (!ft_strcmp(**cmd, "jobs"))
 		return (ft_jobs(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "type"))
-		return (type_command(sh, *cmd, *environ_cp));
+		return (type_command(sh, *cmd, *environ_cp, 1));
 	else if (!ft_strcmp(**cmd, "unalias"))
 		return (unalias(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "alias"))
