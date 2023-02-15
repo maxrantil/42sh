@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/15 15:52:23 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:00:51 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void print_aliases(t_shell *sh)
 	}
 }
 
+//Maybe do recursive closing if the alias has an alias?
 int close_fd_alias(t_shell *sh, int fd)
 {
 	if (fd <= SH_FD_MAX)
