@@ -6,13 +6,13 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:46:14 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/14 12:52:51 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:54:03 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int is_var(char *cmd)
+int	is_var(char *cmd)
 {
 	return ((ft_strchr(cmd, '=') && ft_isalpha(cmd[0]))
 		|| (ft_strchr(cmd, '=') && !ft_isalpha(cmd[0]) && cmd[0] == '_'));
