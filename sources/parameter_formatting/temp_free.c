@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_pa.c                                          :+:      :+:    :+:   */
+/*   temp_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 11:43:17 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:22:12 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/15 13:57:13 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/15 14:23:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	init_pa(t_param *pa)
+void	temp_free(char ***temp)
 {
-	pa->subs = NULL;
-	pa->strip = NULL;
-	pa->var = NULL;
-	pa->list = (char **)ft_memalloc(sizeof(char *) * 100);
-	pa->expanded = ft_strnew(1);
-	pa->op = 0;
+	ft_strdel(temp[0]);
+	ft_strdel(temp[1]);
+	free(*temp);
 }

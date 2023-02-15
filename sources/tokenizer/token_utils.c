@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 21:20:38 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 12:13:44 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/15 13:39:14 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	tok_quote_flag(char *line, int *end, t_token_flags *flags)
 	else if ((line[*end] == L_BRAC \
 	&& (!*end || special_char_check(line, *end, '$'))) || line[*end] == R_BRAC)
 	{
-		if (!flags->braces || flags->braces == line[*end])
+		if ((!flags->braces || flags->braces == line[*end]) && line[*end] == L_BRAC)
 		{
 			flags->braces = line[*end];
 			++flags->braces_count;

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:35:19 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/14 12:49:52 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:21:24 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ char	*find_from_end(char *haystack, char *needle)
 			}
 			if (len_needle == 0)
 			{
-				haystack = ft_strndup(haystack, ft_strlen(haystack) - ft_strlen(needle));
+				haystack = ft_strndup(haystack, \
+				ft_strlen(haystack) - ft_strlen(needle));
 				return (haystack);
 			}
 		}
