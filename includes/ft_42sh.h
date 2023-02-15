@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 13:33:55 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 09:27:20 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -514,9 +514,7 @@ char			*ft_expansion_dollar(t_shell *sh, char *str);
 char			*ft_expansion_tilde(t_shell *sh, char *str);
 char			*ft_expansion_excla(char *str, int i);
 void			ft_quote_blash_removal(char *buff);
-char			*user_expansions(char *str);
-char			*passwd_user(char *input);
-void			join_paths(char **user, char **temp, char **path, int opt);
+char			*user_expansions(char *input);
 
 /*				FT_TEST				*/
 int				ft_test_b(char **arg);
@@ -596,7 +594,7 @@ void			fc_update_history(t_shell *sh, char ***cmd);
 int				ft_fc(t_shell *sh, char ***cmd);
 
 /*			  	INTERN VARIABLES			*/
-int				ft_variables(t_shell *sh, char ***cmd);
+int				ft_variables(t_shell *sh, char ****cmd);
 int				add_var(t_shell *sh, char **cmd);
 int				is_var(char *cmd);
 int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);

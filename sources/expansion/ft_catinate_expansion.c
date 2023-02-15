@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:40 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 20:52:16 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:54:47 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*ft_find_env(t_shell *sh, char *arg)
 
 static void	dollar_questionmark(t_shell *sh, char **splits, char ***str)
 {
-	**str = ft_strdup(ft_itoa(sh->exit_stat));
+	**str = ft_itoa(sh->exit_stat);
 	if (*(*splits + 2))
 		**str = strjoin_head(**str, *splits + 2);
 }

@@ -6,27 +6,18 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:24:20 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 20:49:59 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:44:27 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static int	is_valid_user(char *input, char *name)
-{
-	if (ft_strcmp(&input[1], name) == 0 && input[0] != '.' && input[1] != '.')
-		return (1);
-	return (0);
-}
-
-static char	*init_user_exp(char *str, char **user, DIR **dir, char **temp)
+static char	*init_user_exp(char *str, char **temp, char **user)
 {
 	(*temp) = NULL;
+	(*user) = NULL;
 	if (!str[1] || str[1] == '/')
-	{
-		closedir(*dir);
 		return (NULL);
-	}
 	(*temp) = ft_strchr(str, '/');
 	if ((*temp))
 	{
@@ -41,39 +32,37 @@ static char	*init_user_exp(char *str, char **user, DIR **dir, char **temp)
 	return ((*temp));
 }
 
-int	init_dir_open(DIR **dir, struct dirent **entity, char **path)
+static char	*get_uid(char *input)
 {
-	*dir = opendir("/Users");
-	*path = NULL;
-	if (*dir == NULL)
-		return (0);
-	*entity = readdir(*dir);
-	return (1);
+	struct passwd	*passwd;
+
+	passwd = getpwnam(input);
+	if (!passwd)
+		return (NULL);
+	return (ft_strdup(passwd->pw_dir));
 }
 
-char	*user_expansions(char *str)
+char	*user_expansions(char *input)
 {
-	DIR				*dir;
-	struct dirent	*entity;
-	char			*path;
-	char			*user;
-	char			*temp;
+	char	*uid;
+	char	*user;
+	int		i;
+	char	*path;
+	char	*temp;
 
-	if (!init_dir_open(&dir, &entity, &path))
+	i = 0;
+	path = NULL;
+	if (!init_user_exp(input, &temp, &user))
 		return (NULL);
-	if (!init_user_exp(str, &user, &dir, &temp))
-		return (NULL);
-	while (entity != NULL)
+	uid = get_uid(&user[1]);
+	if (!uid)
 	{
-		if (is_valid_user(user, entity->d_name))
-		{
-			closedir(dir);
-			join_paths((&user), &temp, &path, 1);
-			return (path);
-		}
-		entity = readdir(dir);
+		ft_strdel(&temp);
+		return (NULL);
 	}
-	closedir(dir);
-	join_paths(&user, &temp, &path, 0);
+	path = ft_strjoin(uid, temp);
+	ft_strdel(&temp);
+	ft_strdel(&uid);
+	ft_strdel(&user);
 	return (path);
 }

@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_variable_validity.c                          :+:      :+:    :+:   */
+/*   is_var.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 15:10:28 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/10 17:04:36 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/14 12:46:14 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/14 12:52:51 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int	check_var_validity(char *var)
+int is_var(char *cmd)
 {
-	int	i;
-
-	i = 0;
-	if (var[i] == '$')
-		i++;
-	if (var[i] == '{')
-		i++;
-	if (ft_isalpha(var[i]) || (!ft_isalpha(var[i]) && var[i] == '_'))
-		i++;
-	while (var[i])
-	{
-		if (!ft_isalnum(var[i]) && var[i] != '}')
-			return (0);
-		i++;
-	}
-	return (1);
+	return ((ft_strchr(cmd, '=') && ft_isalpha(cmd[0]))
+		|| (ft_strchr(cmd, '=') && !ft_isalpha(cmd[0]) && cmd[0] == '_'));
 }
