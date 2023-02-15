@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 14:34:05 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 17:01:14 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 
 /* For fc builtin */
 # define FC_FLAGS "srnl"
-# define FC_LEN 18
+# define FC_LEN 17
 # define SH_PATH_MAX 2048
 // # define PATH_MAX 2048
 
@@ -233,7 +233,7 @@ typedef struct s_fc
 	int		start;
 	int		end;
 	int		flags;
-	int		e;
+	bool	e;
 	bool	s;
 	bool	r;
 	bool	n;
@@ -606,6 +606,7 @@ int				fc_print_error(int check);
 int				fc_s_change(t_shell *sh, char ***cmd);
 int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_update_history(t_shell *sh, char ***cmd);
+int				fc_usage(char *str);
 int				ft_fc(t_shell *sh, char ***cmd);
 
 /*			  	INTERN VARIABLES			*/
