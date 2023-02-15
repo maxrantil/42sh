@@ -3,31 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 13:47:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 20:38:33 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void	delete_var(t_shell *sh, int *i)
-{
-	ft_strdel(&sh->intr_vars[*i]);
-	sh->intr_vars[*i] = sh->intr_vars[*i + 1];
-	while (sh->intr_vars[*i + 1])
-	{
-		sh->intr_vars[*i] = sh->intr_vars[*i + 1];
-		*i += 1;
-	}
-	sh->intr_vars[*i] = NULL;
-}
-
-static int find_var_key(t_shell *sh, char *cmd, int var_len)
+static int	find_var_key(t_shell *sh, char *cmd, int var_len)
 {
 	int	i;
-	int ret;
+	int	ret;
 
 	i = 0;
 	ret = 0;
@@ -65,34 +53,15 @@ static int	key_check(int ch)
 		return (1);
 }
 
-int	print_exported(t_shell *sh, char *cmd)
+static void	insert_variable(t_shell *sh, char **cmd, int i)
 {
-	char		*value;
-	char		*key;
-	int			i;
-	static int	first;
-
-	(void)cmd;
-	i = 0;
-	value = NULL;
-	while (sh->env[i])
+	if (!key_check(*(*(cmd + i))))
 	{
-		value = ft_strchr(sh->env[i], '=') + 1;
-		key = ft_strndup(sh->env[i], \
-		ft_strlen(sh->env[i]) - ft_strlen(value));
-		if (ft_strequ(key, "_=") && !first)
-		{
-			first = 1;
-			ft_printf("export %s\"%s\"\n", key, value);
-		}
-		else if (ft_strequ(key, "_=") && first)
-			i++;
-		else
-			ft_printf("export %s\"%s\"\n", key, value);
-		i++;
-		ft_strdel(&key);
+		key_check_fail_msg(cmd, i);
+		sh->exit_stat = 1;
 	}
-	return (0);
+	else if (!ft_env_replace(sh, *(cmd + i), NULL))
+		ft_env_append(sh, cmd + i);
 }
 
 /**
@@ -112,26 +81,15 @@ int	ft_export(t_shell *sh, char **cmd)
 	i = 0;
 	sh->exit_stat = 0;
 	key = NULL;
-	if (!cmd[1])
-	{
-		print_exported(sh, NULL);
+	if (check_export_print(sh, cmd))
 		return (0);
-	}
 	while (*(cmd + ++i))
 	{
-		key = ft_strjoin(*(cmd + i) ,"=");
+		key = ft_strjoin(*(cmd + i),"=");
 		if (ft_strnequ(key, "PATH=", 5))
 			hash_clear(sh->ht);
 		if (ft_strchr(*(cmd + i), '='))
-		{
-			if (!key_check(*(*(cmd + i))))
-			{
-				key_check_fail_msg(cmd, i);
-				sh->exit_stat = 1;
-			}
-			else if (!ft_env_replace(sh, *(cmd + i), NULL))
-				ft_env_append(sh, cmd + i);
-		}
+			insert_variable(sh, cmd, i);
 		find_var_key(sh, key, ft_strlen(key));
 		ft_strdel(&key);
 	}

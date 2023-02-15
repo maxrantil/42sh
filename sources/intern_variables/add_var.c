@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:03:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 15:15:50 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:22:19 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,6 @@ static int	get_var_len(char *input)
 	}
 	return (var_len);
 }
-static void	add_var_quotes(t_shell *sh, int i)
-{
-	char	*value;
-	char	*key;
-	char	*temp;
-
-	value = ft_strchr(sh->intr_vars[i], '=');
-	key = ft_strndup(sh->intr_vars[i], ft_strlen(sh->intr_vars[i]) - ft_strlen(value) + 1);
-	ft_printf("value %s", value);
-	if (ft_strchr(value + 1, ' '))
-	{
-		temp = ft_strjoin("'", value + 1);
-		value = ft_strjoin(temp, "'");
-		ft_strdel(&temp);
-		temp = ft_strjoin(key, value);
-		ft_strdel(&sh->intr_vars[i]);
-		sh->intr_vars[i] = ft_strdup(temp);
-		ft_strdel(&temp);
-		ft_strdel(&key);
-		ft_strdel(&value);
-	}
-}
 
 static int	find_env(t_shell *sh, char *cmd, int var_len, int *ret)
 {
@@ -62,6 +40,7 @@ static int	find_env(t_shell *sh, char *cmd, int var_len, int *ret)
 		{
 			ft_strdel(&sh->env[i]);
 			sh->env[i] = ft_strdup(cmd);
+			add_var_env_quotes(&sh->env[i]);
 			*ret = 1;
 		}
 		i++;
@@ -72,6 +51,7 @@ static int	find_env(t_shell *sh, char *cmd, int var_len, int *ret)
 		while (sh->intr_vars[i])
 			i++;
 		sh->intr_vars[i] = ft_strdup(cmd);
+		add_var_env_quotes(&sh->intr_vars[i]);
 	}
 	return (0);
 }
@@ -88,6 +68,7 @@ int	find_var(t_shell *sh, char *cmd, int var_len, int *ret)
 		{
 			ft_strdel(&sh->intr_vars[i]);
 			sh->intr_vars[i] = ft_strdup(cmd);
+			add_var_env_quotes(&sh->intr_vars[i]);
 			*ret += 1;
 		}
 		i++;
@@ -108,7 +89,6 @@ int	add_var(t_shell *sh, char **cmd)
 		var_len = get_var_len(cmd[k]);
 		find_var(sh, cmd[k], var_len, &ret);
 		find_env(sh, cmd[k], var_len, &ret);
-		add_var_quotes(sh, k);
 		k++;
 	}
 	return (k);
