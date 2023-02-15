@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 10:57:45 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 11:37:17 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:16:22 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 			return (1);
 	}
 	else if (ft_strnequ(pa->subs, STRING_LEN, 2))
-		pa->expanded = variable_length(pa->subs);
+		variable_length(pa->subs, pa);
 	else
 		pa->expanded = ft_expansion_dollar(sh, cmd);
 	if (!pa->expanded && !*pa->expanded)

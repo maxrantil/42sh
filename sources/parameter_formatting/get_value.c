@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 14:47:26 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:22:03 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ static char	*use_default_value(t_shell *sh, char *var, char *subst)
 	}
 	else
 		expanded = ft_strdup(var);
-	ft_strdel(&temp[0]);
-	ft_strdel(&temp[1]);
-	free(temp);
+	temp_free(&temp);
 	return (expanded);
 }
 
@@ -52,9 +50,7 @@ static char	*assign_default_value(t_shell *sh, char *var, char *subst)
 	}
 	else
 		expanded = ft_strdup(temp[0]);
-	ft_strdel(&temp[0]);
-	ft_strdel(&temp[1]);
-	free(temp);
+	temp_free(&temp);
 	return (expanded);
 }
 
@@ -68,14 +64,20 @@ static char	*display_error(t_shell *sh, char *var, char *subst)
 	temp[1] = NULL;
 	expanded = NULL;
 	if (!*temp[0] && subst[1])
+	{
+		temp_free(&temp);
 		ft_printf("42sh: %s: %s\n", var + 1, subst + 1);
+		return (NULL);
+	}
 	else if (!*temp[0] && !subst[1])
+	{
+		temp_free(&temp);
 		ft_printf("42sh: %s: parameter null or unset\n", var + 1);
+		return (NULL);
+	}
 	else
 		expanded = ft_strdup(temp[0]);
-	ft_strdel(&temp[0]);
-	ft_strdel(&temp[1]);
-	free(temp);
+	temp_free(&temp);
 	return (expanded);
 }
 
@@ -100,9 +102,7 @@ static char	*alternate_value(t_shell *sh, char *var, char *subst)
 		else
 			expanded = ft_strnew(1);
 	}
-	ft_strdel(&temp[0]);
-	ft_strdel(&temp[1]);
-	free(temp);
+	temp_free(&temp);
 	return (expanded);
 }
 

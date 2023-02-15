@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 09:27:20 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:17:25 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -653,7 +653,7 @@ char			*get_operator(char *cmd);
 int				is_param_exp_char(char *flag);
 int				splitter(char *cmd, t_param *pa, int *ret);
 int				expander(t_param *pa, int ret);
-char			*variable_length(char *str);
+void			variable_length(char *str, t_param *pa);
 int				perform_param_expans(char *cmd, t_param *pa, int *ret);
 char			*get_flag(char *cmd, int *ret);
 void			init_pa(t_param *pa);
@@ -668,6 +668,7 @@ char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
 int				check_var_validity(char *var);
 int				check_substitutions(char *cmd, int *ret, t_param *pa);
+void 			temp_free(char ***temp);
 
 /*			  		 SIGNALS				*/
 void			ft_signal_keyboard(int num);

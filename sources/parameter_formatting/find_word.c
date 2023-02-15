@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:26:17 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 13:16:35 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:21:40 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static char	*find_from_begin_last(char *haystack, char *needle)
 
 static char	*find_from_first_last(char *haystack, char *needle)
 {
-	int	len;
-	int	len_needle;
+	int		len;
+	int		len_needle;
 	char	*temp;
 
 	len = (int)ft_strlen(haystack) - 1;
@@ -87,9 +87,9 @@ static char	*find_from_first_last(char *haystack, char *needle)
 
 static char	*find_from_end_last(char *haystack, char *needle)
 {
-	int	i;
-	int	j;
-	char *temp;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
 	while (haystack[i])

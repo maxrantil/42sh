@@ -6,22 +6,22 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 10:27:26 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:23:44 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static char *sent_start(char *cmd)
+static char	*sent_start(char *cmd)
 {
-	char *fresh;
-	int	i;
-	
+	char	*fresh;
+	int		i;
+
 	i = 0;
 	fresh = ft_strnew(ft_strlen(cmd));
 	if (cmd[i] == '$')
-		return fresh;
-	while(cmd[i])
+		return (fresh);
+	while (cmd[i])
 	{
 		fresh[i] = cmd[i];
 		i++;
@@ -31,7 +31,7 @@ static char *sent_start(char *cmd)
 	return (fresh);
 }
 
-static void free_all(t_param *pa, char **temp, char **start, char **end)
+static void	free_all(t_param *pa, char **temp, char **start, char **end)
 {
 	if (pa->var)
 		ft_strdel(&pa->var);
@@ -43,7 +43,6 @@ static void free_all(t_param *pa, char **temp, char **start, char **end)
 	ft_strdel(&(*start));
 	ft_strdel(&(*end));
 }
-
 
 void	substitute_og_cmd(t_param *pa, char **cmd, int *j)
 {
@@ -63,4 +62,3 @@ void	substitute_og_cmd(t_param *pa, char **cmd, int *j)
 	(*j)--;
 	free_all(pa, &temp, &start, &end);
 }
-
