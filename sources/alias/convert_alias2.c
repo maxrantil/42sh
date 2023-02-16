@@ -6,38 +6,30 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 21:52:54 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/15 18:45:21 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:53:47 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int	check_next_conversion(char *alias)
+int	check_next_conversion(char **alias, int del)
 {
 	size_t	len;
+	int		ret_value;
 
-	if (!alias)
-		return (0);
-	len = ft_strlen(alias);
+	ret_value = 0;
+	if (!(*alias))
+		return (ret_value);
+	len = ft_strlen(*alias);
 	if (len == 0)
-		return (1);
-	else if (ft_iswhitespace(alias[len - 1]))
-		return (1);
-	return (0);
+		ret_value = 1;
+	else if (ft_iswhitespace((*alias)[len - 1]))
+		ret_value = 1;
+	if (del)
+		ft_strdel(alias);
+	return (ret_value);
 }
 
-void	update_alias_line(char **line, char **pre_semicolon)
-{
-	char	*full;
-
-	full = ft_strjoin_three(*pre_semicolon, " ", *line);
-	ft_strdel(line);
-	ft_strdel(pre_semicolon);
-	*line = ft_strdup(full);
-	ft_strdel(&full);
-}
-
-//	convert first of line to final-form, return rest of the line
 char	*convert_first(char ***dup, char ***alias, char **line, char *cont)
 {
 	char	*first_word;
@@ -60,35 +52,37 @@ char	*convert_first(char ***dup, char ***alias, char **line, char *cont)
 	return (post_content);
 }
 
-void	conversion_loop(char ***alias, char **line, char **content)
+static void	free_conv_loop(char ***alias, char **content)
+{
+	ft_free_doublearray(alias);
+	ft_strdel(content);
+}
+
+void	conversion_loop(char ***alias, char **line, char **cont, char ***dup)
 {
 	int		pos;
-	char	**dup_alias;
 	char	*next_word;
 	char	*post_content;
 	char	*mid_word;
 
-	dup_alias = NULL;
-	mid_word = get_mid_word(*content, &next_word);
-	post_content = convert_first(&dup_alias, alias, line, *content);
+	mid_word = get_mid_word(*cont, &next_word);
+	post_content = convert_first(dup, alias, line, *cont);
 	trim_mid_word(&mid_word, &post_content);
 	append_to_converted(line, &mid_word, &next_word);
-	while (*content && (check_next_conversion(*content)))
+	while (*cont && (check_next_conversion(cont, 1)))
 	{
-		ft_strdel(content);
 		get_first_word_move_post(&post_content, &next_word, line);
-		pos = match_first_word(dup_alias, next_word);
+		pos = match_first_word(*dup, next_word);
 		if (pos != -1)
 		{
-			*content = get_alias_content_no_quotes((dup_alias)[pos]);
-			mid_word = convert_first(&dup_alias, alias, &next_word, next_word);
+			*cont = get_alias_content_no_quotes((*dup)[pos]);
+			mid_word = convert_first(dup, alias, &next_word, next_word);
 			append_to_converted(line, &next_word, &mid_word);
 		}
 		else
 			break ;
-		free_and_refill_dup_alias(&dup_alias, *alias);
+		free_and_refill_dup_alias(dup, *alias);
 	}
 	append_to_converted(line, &next_word, &post_content);
-	ft_free_doublearray(&dup_alias);
-	ft_strdel(content);
+	free_conv_loop(dup, cont);
 }
