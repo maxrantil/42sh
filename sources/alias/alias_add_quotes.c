@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:48:14 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 21:53:52 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:23:35 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ void	add_quotes(char **content)
 	char	*added_quotes;
 	char	*tmp;
 
-	tmp = NULL;
-	if (*content)
+	if (!validate_whitespace(*content))
 		tmp = ft_strtrim(*content);
+	else
+		tmp = ft_strdup(*content);
 	if (have_single_quotes(tmp))
 	{
 		ft_strdel(content);

@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:06:04 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 22:54:01 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:34:45 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	init_alias(t_shell *sh)
 	char	*rc_filename;
 	int		rcfile_fd;
 
-	home_var = getenv("HOME"); // change to own getenv (!)
-	rc_filename = ft_strjoin(home_var, "/.42sh_alias"); // 42sh_rc ?
+	home_var = ft_strchr(*ft_env_get(sh, "HOME", sh->env), '=') + 1;
+	rc_filename = ft_strjoin(home_var, "/.bashrc");
 	rcfile_fd = open(rc_filename, O_RDONLY);
 	sh->alias = create_alias_array(rcfile_fd, rc_filename, sh);
 	close(rcfile_fd);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+         #
+#    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/15 21:47:45 by spuustin         ###   ########.fr        #
+#    Updated: 2023/02/15 16:40:22 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,10 +98,13 @@ FILES			= \
 				$(ALIAS)alias_string_handling \
 				$(ALIAS)alias_string_handling2 \
 				$(ALIAS)alias_utilities \
+				$(ALIAS)connect_pieces \
 				$(ALIAS)convert_alias \
 				$(ALIAS)convert_alias2 \
+				$(ALIAS)convert_line \
 				$(ALIAS)get_alias \
 				$(ALIAS)init_alias \
+				$(ALIAS)line_separators \
 				$(ALIAS)match_alias \
 				$(ALIAS)print_alias \
 				$(ALIAS)unalias \

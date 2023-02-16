@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:58:01 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 22:51:39 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:55:33 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ char	*get_post_content(char *line, char *arg)
 		return (ft_strdup(""));
 }
 
-//	strip quotes from returned content, MALLOC
 char	*get_alias_content_no_quotes(char *alias)
 {
 	char	*no_quotes;
@@ -84,18 +83,6 @@ char	*get_alias_content(char *alias)
 	else
 		content = ft_strsub(alias, i, len);
 	return (content);
-}
-
-int	is_command_separator(char command)
-{
-	if (command == '|' || command == ';' || command == '&' )
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
 }
 
 char	*get_first_word(char *line)
