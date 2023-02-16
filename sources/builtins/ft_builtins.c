@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/16 16:05:06 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:50:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		if (!***cmd)
 			return (0);
 		lower_case(cmd);
-		ft_printf("cmd = %s\n", **cmd);
 		if (!ft_variables(sh, &cmd))
 			return (0);
 		if (**cmd && !is_builtin(**cmd))

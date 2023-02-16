@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_no_flag_or_e_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:35:13 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/16 13:36:54 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/16 17:22:39 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,12 @@ static int	empty_in_editor(t_shell *sh, t_fc *fc)
 int	fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd)
 {
 	char	*editor;
-	char	*cmd1;
-	char	*cmd2;
 
-	cmd1 = (*cmd)[fc->flags];
-	cmd2 = (*cmd)[fc->flags + 1];
 	editor = NULL;
-	(void)cmd1;
-	(void)cmd2;
-	// if ((!ft_isdigit(*(*cmd)[fc->flags]) && *(*cmd)[fc->flags] != '-'))
-	// 	ft_printf("[%c]\n", *(*cmd)[fc->flags]);
-	if (!fc->e && (ft_isdigit(*(*cmd)[fc->flags]) || *(*cmd)[fc->flags] == '-'))
+	if (!fc->e)
 		editor = get_editor(fc, sh->env);
 	else
 	{
-
 		editor = search_bin((*cmd)[fc->flags], sh->env);
 		if (ft_strnequ((*cmd)[fc->flags + 1], "--", 2))
 			fc->flags++;
