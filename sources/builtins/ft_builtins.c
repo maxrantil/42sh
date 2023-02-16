@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/16 13:22:07 by jniemine         ###   ########.fr       */
+/*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/16 16:05:06 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 	return (0);
 }
 
-static int	is_builtin(char *cmd) //shall we add for capital letter too?
+static int	is_builtin(char *cmd)
 {
 	if (!ft_strcmp(cmd, "set") || !ft_strcmp(cmd, "export") \
 	|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "cd") \
@@ -112,6 +112,8 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		ft_expansion(sh, *cmd);
 		if (!***cmd)
 			return (0);
+		lower_case(cmd);
+		ft_printf("cmd = %s\n", **cmd);
 		if (!ft_variables(sh, &cmd))
 			return (0);
 		if (**cmd && !is_builtin(**cmd))
