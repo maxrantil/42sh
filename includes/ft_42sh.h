@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/16 16:03:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:22:15 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -649,7 +649,8 @@ char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
 int				check_var_validity(char *var);
 int				check_substitutions(char *cmd, int *ret, t_param *pa);
-void 			temp_free(char ***temp);
+void			temp_free(char ***temp);
+void			trim_and_remove_null(char ***cmd, t_pa_ints *ints);
 
 /*			  		 SIGNALS				*/
 void			ft_signal_keyboard(int num);

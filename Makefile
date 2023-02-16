@@ -6,7 +6,7 @@
 #    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/16 16:03:57 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/16 17:26:43 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -373,6 +373,7 @@ FILES			= \
 				$(PARAM_FORM)is_substring_id \
 				$(PARAM_FORM)check_substitution \
 				$(PARAM_FORM)temp_free \
+				$(PARAM_FORM)trim_and_remove_null \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \
