@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_var.c                                           :+:      :+:    :+:   */
+/*   delete_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 12:46:14 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:54:03 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/15 20:34:43 by mviinika          #+#    #+#             */
+/*   Updated: 2023/02/15 20:44:37 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int	is_var(char *cmd)
+void	delete_var(t_shell *sh, int *i)
 {
-	return ((ft_strchr(cmd, '=') && ft_isalpha(cmd[0]))
-		|| (ft_strchr(cmd, '=') && !ft_isalpha(cmd[0]) && cmd[0] == '_'));
+	ft_strdel(&sh->intr_vars[*i]);
+	sh->intr_vars[*i] = sh->intr_vars[*i + 1];
+	while (sh->intr_vars[*i + 1])
+	{
+		sh->intr_vars[*i] = sh->intr_vars[*i + 1];
+		*i += 1;
+	}
+	sh->intr_vars[*i] = NULL;
 }

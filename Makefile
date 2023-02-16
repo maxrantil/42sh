@@ -147,6 +147,9 @@ FILES			= \
 				$(BUILTIN_UTILS)builtin_usage \
 				$(BUILTIN_UTILS)cd_utils \
 				$(BUILTIN_UTILS)cd_symlink_utils \
+				$(BUILTIN_UTILS)add_var_env_quotes \
+				$(BUILTIN_UTILS)check_export_print \
+				$(BUILTIN_UTILS)delete_var \
 				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \

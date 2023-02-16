@@ -486,7 +486,9 @@ int				resolve_dotdot_symlink(t_shell *sh, char **cmd);
 void			reset_options(t_shell *sh);
 char			*env_path(t_shell *sh, char *key);
 int				ft_chdir_expanded(t_shell *sh, char **path);
-
+void			add_var_env_quotes(char **cmd);
+void			delete_var(t_shell *sh, int *i);
+int				check_export_print(t_shell *sh, char **cmd);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -624,6 +626,8 @@ int				add_var(t_shell *sh, char **cmd);
 int				is_var(char *cmd);
 int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
+void			add_var_quotes(t_shell *sh, int i);
+
 
 /*					JOBS					*/
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);

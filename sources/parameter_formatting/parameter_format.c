@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 10:20:11 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:04:44 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	param_format(char **cmd)
 	t_param		pa;
 	t_pa_ints	ints;
 	int			ret;
+	char		*temp;
 
 	init_pa_ints(&ints);
 	while (cmd[++ints.i])
@@ -102,6 +103,10 @@ int	param_format(char **cmd)
 			if (ret == -1)
 				return (-1);
 		}
+		temp = ft_strtrim(cmd[ints.i]);
+		ft_strdel(&cmd[ints.i]);
+		cmd[ints.i] = ft_strdup(temp);
+		ft_strdel(&temp);
 		ints.j = 0;
 	}
 	return (ints.err);
