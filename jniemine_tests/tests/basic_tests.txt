@@ -1,16 +1,16 @@
 doesnotexist
-echo $?
+echo ${?}
 cp ./moi.out forbidden_moi&& chmod 000 forbidden_moi
 ./forbidden_moi
-echo $?
+echo ${?}
 /bin/ls
-echo $?
+echo ${?}
 ls
-echo $?
+echo ${?}
 /bin/ls -alF
-echo $?
+echo ${?}
 /bin/ls -l -a -F
-echo $?
+echo ${?}
 ls > /tmp/ftsh_ls_out /
 echo ================
 cat /tmp/ftsh_ls_out
@@ -31,15 +31,18 @@ cat <&- abc
 ls doesnotexist . 2>&1 >/dev/null
 ls doesnotexist . >/dev/null 2>&1
 ls | sort -rn | cat -e
-#base64 < /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g
-#ps a | grep 'base64' | grep -v 'grep'
+base64 < /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g
+ps a | grep 'base64' | grep -v 'grep'
 ls -1; touch test_file; ls -1
+exit 1 | exit 2 | exit 3; echo "stayin' alive"
 echo out >&-; echo out2
 echo out >&- | echo out2
 echo out >&- && echo out2
 echo out >&- || echo out2
-echo $?
-echo $?
+exit abc
+echo ${?}
+exit 1 2 3
+echo ${?}
 cd /usr/sbin
 /bin/pwd
 cd -
@@ -57,9 +60,9 @@ pwd
 type type ls
 ls -l && ls
 ls doesnotexist || echo "Notice me senpai"
-echo $?
+echo ${?}
 echo 'No error' || echo 'You cant see me'
-echo $?
+echo ${?}
 false && echo foo || echo bar
 true || echo foo && echo bar
 a=hello b=world; b=42 echo ${a}_${b} && echo ${b}
@@ -80,11 +83,26 @@ set | grep -E '(a|b)='
 unset PATH
 PATH=/bin:/usr/bin
 mkdir testdir
-echo $?
+echo ${?}
 ls -1 | grep testdir
-true; echo $?; false; echo $?
+true; echo ${?}; false; echo ${?}
 mkfifo fifo
 ls -lR /usr >fifo 2>&1 &
+jobs
+vim &
+vim &
+vim &
+vim &
+vim &
+jobs
+fg 3
+jobs
+fg 2
+jobs
+fg 1
+jobs
+fg
+jobs
+fg
+jobs
 echo 'TODO: after the line - Perform the following commands and check that the display is compliant:'
-
-
