@@ -1,0 +1,10 @@
+mkfifo fifo
+ls -lR /usr >fifo 2>&1 &
+jobs
+vim &
+vim &
+jobs
+fg %2
+fg %3
+jobs
+ls -Rl / 2>&1

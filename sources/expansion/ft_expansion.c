@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expansion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/13 16:02:01 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/16 17:33:11 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/16 17:33:14 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

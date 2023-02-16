@@ -46,11 +46,9 @@ char	*user_expansions(char *input)
 {
 	char	*uid;
 	char	*user;
-	int		i;
 	char	*path;
 	char	*temp;
 
-	i = 0;
 	path = NULL;
 	if (!init_user_exp(input, &temp, &user))
 		return (NULL);

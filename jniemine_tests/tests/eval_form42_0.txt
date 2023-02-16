@@ -1,0 +1,12 @@
+doesnotexist
+echo ${?}
+/sbin/yubikey_shell
+echo ${?}
+/bin/ls
+echo ${?}
+ls
+echo ${?}
+/bin/ls -alF
+echo ${?}
+/bin/ls -l -a -F
+echo ${?}

@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_catinate_expansion.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 15:22:40 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/14 15:54:47 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:44:10 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static void	allocate_ret(t_shell *sh, char **ret, char **env, char *key)
+{
+	if (env)
+		*ret = ft_strdup(ft_strchr(*env, '=') + 1);
+	else if (!*ret)
+	{
+		env = ft_env_get(sh, key, sh->intr_vars);
+		if (env && *env)
+			*ret = ft_strdup(ft_strchr(*env, '=') + 1);
+		else
+			*ret = ft_strnew(1);
+	}
+	else
+		*ret = ft_strnew(1);
+}
 
 /**
  * It takes a string, finds the first instance of a dollar sign, and replaces
@@ -33,18 +49,7 @@ static char	*ft_find_env(t_shell *sh, char *arg)
 		key_len++;
 	key = ft_strsub(arg, 1, key_len - 1);
 	env = ft_env_get(sh, key, sh->env);
-	if (env)
-		ret = ft_strdup(ft_strchr(*env, '=') + 1);
-	else if (!ret)
-	{
-		env = ft_env_get(sh, key, sh->intr_vars);
-		if (env && *env)
-			ret = ft_strdup(ft_strchr(*env, '=') + 1);
-		else
-			ret = ft_strnew(1);
-	}
-	else
-		ret = ft_strnew(1);
+	allocate_ret(sh, &ret, env, key);
 	if (arg[key_len])
 		ret = strjoin_head(ret, arg + key_len);
 	ft_strdel(&key);
