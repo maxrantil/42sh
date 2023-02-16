@@ -6,13 +6,13 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 19:58:13 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/07 16:12:08 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 23:02:20 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	unalias_error(t_shell *sh, char *str)
+static void	unalias_error(t_shell *sh, char *str)
 {
 	ft_putstr_fd("42sh: unalias: ", 2);
 	ft_putstr_fd(str, 2);
@@ -20,7 +20,7 @@ void	unalias_error(t_shell *sh, char *str)
 	sh->exit_stat = 1;
 }
 
-int	delete_all_alias(t_shell *sh)
+static int	delete_all_alias(t_shell *sh)
 {
 	ft_free_doublearray(&(sh->alias));
 	sh->alias_size = 0;
@@ -49,7 +49,7 @@ void	remove_alias_single(char ***alias, int rm_pos, int size)
 	ft_free_doublearray(&new_arr);
 }
 
-void	remove_alias(t_shell *sh, int skip_pos)
+static void	remove_alias(t_shell *sh, int skip_pos)
 {
 	char	**new_arr;
 	int		i;

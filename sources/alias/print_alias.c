@@ -6,20 +6,20 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:03:05 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/08 18:20:38 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:58:53 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	alias_error(char *str)
+static void	alias_error(char *str)
 {
 	ft_putstr_fd("42sh: alias: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": not found\n", 2);
 }
 
-void	sort_aliases(char **alias)
+static void	sort_aliases(char **alias)
 {
 	int		i;
 	char	*tmp;

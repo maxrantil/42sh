@@ -6,14 +6,14 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:06:04 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/09 11:42:35 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:54:01 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
 //	parse command from line, add quotes to command if missing, return to array
-char	*format_alias(char *line)
+static char	*format_alias(char *line)
 {
 	int		i;
 	char	*command;
@@ -31,7 +31,7 @@ char	*format_alias(char *line)
 	return (alias);
 }
 
-void	fill_alias_array(char *file, char **alias, int file_fd)
+static void	fill_alias_array(char *file, char **alias, int file_fd)
 {
 	int		fd;
 	int		i;
@@ -59,7 +59,7 @@ void	fill_alias_array(char *file, char **alias, int file_fd)
 	}
 }
 
-int	count_aliases_rcfile(int alias_file)
+static int	count_aliases_rcfile(int alias_file)
 {
 	char	*line;
 	int		alias_count;
@@ -77,7 +77,7 @@ int	count_aliases_rcfile(int alias_file)
 	return (alias_count);
 }
 
-char	**create_alias_array(int file_fd, char *filename, t_shell *sh)
+static char	**create_alias_array(int file_fd, char *filename, t_shell *sh)
 {
 	char	**alias;
 

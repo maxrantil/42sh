@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
 #    Updated: 2023/02/16 17:26:43 by mviinika         ###   ########.fr        #
@@ -93,6 +93,7 @@ H_FILES 	= 	ft_42sh \
 
 FILES			= \
 				$(ALIAS)alias \
+				$(ALIAS)alias_add_quotes \
 				$(ALIAS)alias_array_handling \
 				$(ALIAS)alias_string_handling \
 				$(ALIAS)alias_string_handling2 \
@@ -196,6 +197,7 @@ FILES			= \
 				$(FC)fc_s_change \
 				$(FC)fc_s_flag \
 				$(FC)fc_update_history \
+				$(FC)fc_usage \
 				$(FC)ft_fc \
 				$(FT_TEST)ft_test_b \
 				$(FT_TEST)ft_test_c \
