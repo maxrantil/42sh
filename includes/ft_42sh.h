@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 17:01:14 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:39:49 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -478,6 +478,9 @@ int				str_only_contains_chars(char *str, char *options, t_shell *sh);
 char			*trim_dots(char *file, int i);
 void			trim_dot_dot_slash(char *path);
 void			manipulate_env(t_shell *session, char *file);
+void			add_var_env_quotes(char **cmd);
+void			delete_var(t_shell *sh, int *i);
+int				check_export_print(t_shell *sh, char **cmd);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -615,6 +618,8 @@ int				add_var(t_shell *sh, char **cmd);
 int				is_var(char *cmd);
 int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
+void			add_var_quotes(t_shell *sh, int i);
+
 
 /*					JOBS					*/
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
