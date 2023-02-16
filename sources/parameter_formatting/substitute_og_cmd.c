@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:23:44 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:42:50 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ void	substitute_og_cmd(t_param *pa, char **cmd, int *j)
 	ft_strdel(&(*cmd));
 	(*cmd) = ft_strjoin(temp, end);
 	(*j)--;
+	if (*j < 0)
+		*j = 0;
 	free_all(pa, &temp, &start, &end);
 }

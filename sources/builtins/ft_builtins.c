@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 14:26:09 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:40:25 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
