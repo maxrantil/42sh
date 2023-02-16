@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:35:13 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 13:31:50 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 16:23:05 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd)
 {
 	char	*editor;
 
-	if (!(*cmd)[fc->flags] || fc_no_flags(fc))
+	if (!(*cmd)[fc->flags] && !fc->l)
 		editor = get_editor(fc, sh->env);
 	else
 	{
