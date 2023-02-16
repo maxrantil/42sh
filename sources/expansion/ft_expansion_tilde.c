@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expansion_tilde.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:57:35 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 15:11:28 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:33:54 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	init_user(char *str, char **user)
 		return (1);
 	return (0);
 }
+
 /**
  * It takes a string and returns a string with the tilde expanded.
  *
