@@ -41,10 +41,10 @@ async def main(connection):
 		sub = await sess.async_split_pane(vertical=True)
 		#third = await sub.async_split_pane(vertical=True)
 		#Start your shell
-		time.sleep(2)
+		time.sleep(2.5)
 		await sess.async_send_text(path_to_shell)
 		#Start bash
-		time.sleep(2)
+		time.sleep(2.5)
 		await sub.async_send_text('/bin/bash')
 		await sub.async_send_text("\n")
 		await sess.async_send_text("\n")
