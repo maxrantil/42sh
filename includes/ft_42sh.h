@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/16 12:28:36 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/16 13:21:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,7 @@ typedef struct s_pipe
 	int		redir_in;
 	int		stdincpy;
 	int		stdoutcpy;
+	int		stderrcpy;
 	int		fd_aliases[SH_FD_MAX + 1];
 }			t_pipe;
 

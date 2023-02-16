@@ -16,3 +16,4 @@ ls 56>&1> Incorrect output
 
 < file cat //breaks stdin
 base64 | head -c 5 //Hangs because of endless output from base64
+Exec redir handle the alias logic better for "echo hello > 1 > 2 > 3 3>4 > 5 >&7"

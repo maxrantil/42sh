@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:21:00 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/11 15:24:16 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:06:16 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ t_treenode	*parse_left_cmd(t_token *tokens, int i_tok)
 	}
 	if (i_tok < 0)
 		i_tok = 0;
-	while (i_tok && tokens[i_tok].token != PIPE
-		&& !is_logicalop(tokens[i_tok].token)
-		&& !is_semicolon_or_ampersand(tokens[i_tok].token))
+	while (i_tok && tokens[i_tok].token != PIPE \
+		&& !is_logicalop(tokens[i_tok].token) \
+		&& !is_semicolon_or_ampersand(tokens[i_tok].token)) //Doesn't this just do nothing? It's same as above
 		--i_tok;
 	if (tokens[i_tok].token == PIPE || is_semicolon_or_ampersand(tokens[i_tok].token)
 		|| is_logicalop(tokens[i_tok].token)) //Added is_redir and is_logicalop

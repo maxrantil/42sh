@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 14:26:09 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:22:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 			update_fg_job(sh, pid, *cmd);
 		if (pid == 0)
 		{
-			ft_putendl_fd("CHILD", 2);
 			ft_signal_dfl();
 			if (!sh->pipe->redir_out && sh->pipe->write_pipe[1] >= 0 \
 			&& dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_open_fd_if_needed.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:13:07 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/14 15:52:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:29:43 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	open_fd_if_needed(int *fd, char *terminal, t_shell *sh)
 	int			len;
 	struct stat	buf;
 	int			*closefd;
+
 
 	if (alias_fd_if_necessary(sh, fd))
 		return ;

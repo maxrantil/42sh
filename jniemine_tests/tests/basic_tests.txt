@@ -86,3 +86,5 @@ true; echo $?; false; echo $?
 mkfifo fifo
 ls -lR /usr >fifo 2>&1 &
 echo 'TODO: after the line - Perform the following commands and check that the display is compliant:'
+
+
