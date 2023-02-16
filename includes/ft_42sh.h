@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/16 13:21:08 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:03:26 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,6 +443,7 @@ int				ft_chdir_expanded(t_shell *sh, char **path);
 void			add_var_env_quotes(char **cmd);
 void			delete_var(t_shell *sh, int *i);
 int				check_export_print(t_shell *sh, char **cmd);
+void			lower_case(char ***cmd);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -582,11 +583,12 @@ int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
 void			add_var_quotes(t_shell *sh, int i);
 
-
 /*					JOBS					*/
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
 void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
+void			change_process_status(t_bg_jobs *bg_node, pid_t pid, \
+				int status);
 void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
