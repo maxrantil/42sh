@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 21:49:11 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:28:36 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,11 +309,11 @@ typedef struct s_shell
 	int				exit_stat;
 	int				is_flag_on;
 	int				option_count;
-	char			option;
-	bool			ampersand;
 	int				exit_confirm;
 	int				sym_link;
 	int				arr_len;
+	char			option;
+	bool			ampersand;
 }				t_shell;
 
 	/*	libft 	*/
@@ -617,7 +617,7 @@ int				fc_print_error(int check);
 int				fc_s_change(t_shell *sh, char ***cmd);
 int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_update_history(t_shell *sh, char ***cmd);
-int				fc_usage(char *str);
+int				fc_usage(char option, char *str);
 int				ft_fc(t_shell *sh, char ***cmd);
 
 /*			  	INTERN VARIABLES			*/
@@ -651,7 +651,7 @@ size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void			wait_for_job(t_shell *sh, int pid);
 void			reap_process(t_shell *sh);
-void			update_job_status(t_shell *sh, int status, int pid);
+void			update_job_status(t_shell *sh, int status, int pid, int mode);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 

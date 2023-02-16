@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:56:45 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 16:19:55 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/16 12:17:32 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	turn_on_flags(t_fc *fc, char *str)
 		else if (*str == 'e')
 			fc->e = true;
 		else
-			return (fc_usage("invalid option"));
+			return (fc_usage(*str, "invalid option"));
 		str++;
 	}
 	return (1);
@@ -53,7 +53,7 @@ int	fc_get_flags(t_fc *fc, char **cmd)
 				break ;
 			}
 			if (turn_on_flags(fc, &cmd[i][j]) == -1)
-				return (0);
+				return (-1);
 			j = 0;
 			i++;
 		}

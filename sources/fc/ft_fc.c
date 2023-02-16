@@ -36,9 +36,12 @@ static bool	validate_input(char ***cmd, t_fc *fc)
 		while ((*cmd)[i][j])
 		{
 			if (!ft_isdigit((*cmd)[i][j]) && ((*cmd)[i][j] != '-' && !j))
+			{
+				fc_usage((*cmd)[i][j], "invalid input");
 				return (false);
+			}
 			j++;
-		}		
+		}
 		i++;
 	}
 	return (true);
@@ -54,17 +57,17 @@ int	ft_fc(t_shell *sh, char ***cmd)
 		return (-1);
 	ret = 0;
 	if (fc.e && !(*cmd)[fc.flags])
-		return (fc_usage("-e: option requires an argument"));
+		return (fc_usage('e' ,"option requires an argument"));
 	if (fc.s && !fc.e)
 		return (fc_s_flag(sh, &fc, cmd));
-	else if (fc.e && !fc.l)
+	else if (!fc.l)
 		ret = fc_no_flag_or_e_flag(sh, &fc, cmd);
 	else if (fc.l)
 	{
 		if (fc.e)
 			fc.flags++;
 		if (!validate_input(cmd, &fc))
-			return (fc_usage("invalid input"));
+			return (-1);
 		return (fc_list_flags(sh, &fc, cmd));
 	}
 	return (ret);

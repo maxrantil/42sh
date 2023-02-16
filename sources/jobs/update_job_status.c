@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_job_status.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:28:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 14:56:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:48:01 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ static void	check_fg_pipeline(t_shell *sh, pid_t pid)
 	}
 }
 
-void	update_job_status(t_shell *sh, int status, int pid)
+void	update_job_status(t_shell *sh, int status, int pid, int mode)
 {
 	if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status))
 		{
+			if (mode)
+				ft_putchar('\n');
 			check_fg_pipeline(sh, pid);
 			change_process_status(sh->bg_node, pid, TERMINATED);
 			sh->exit_stat = WTERMSIG(status) + 127;

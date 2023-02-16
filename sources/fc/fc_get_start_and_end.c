@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_get_start_and_end.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 16:52:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:01:21 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_pivot(t_shell *sh, char *cmd)
 
 	pivot = ft_atoi(cmd);
 	if (pivot == 0 || pivot == -1 || pivot > (int)sh->term->history_size)
-		pivot = sh->term->history_size - 2;
+		pivot = sh->term->history_size - 1;
 	if (pivot < -1)
 	{
 		pivot = sh->term->history_size + pivot;
