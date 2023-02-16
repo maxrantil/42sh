@@ -1,18 +1,25 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   int_check_validity.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:43:22 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 14:25:48 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/16 15:23:43 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
+/**
+ * It checks if the argument is a valid integer
+ * 
+ * @param arg the string to be checked
+ * @param prog The name of the program.
+ * 
+ * @return 0 if the argument is valid, and 1 if it is not.
+ */
 int	int_check_validity(char *arg, char *prog)
 {
 	long		arg_long;

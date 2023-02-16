@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/15 16:40:22 by rvuorenl         ###   ########.fr        #
+#    Updated: 2023/02/16 16:03:57 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -153,6 +153,7 @@ FILES			= \
 				$(BUILTIN_UTILS)add_var_env_quotes \
 				$(BUILTIN_UTILS)check_export_print \
 				$(BUILTIN_UTILS)delete_var \
+				$(BUILTIN_UTILS)lower_case \
 				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
@@ -254,6 +255,7 @@ FILES			= \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
+				$(JOBS)change_process_status \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
 				$(JOBS)delete_from_queue \

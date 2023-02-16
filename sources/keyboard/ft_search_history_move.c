@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:15:26 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/31 15:27:02 by mike_baru        ###   ########.fr       */
+/*   Updated: 2023/02/16 15:20:21 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_selector_up(t_term *t, t_search_history *config)
 		ft_run_capability("cb");
 	}
 	else if (config->index_max == (config->history_rows - 1) \
-	&& config->ptr[config->index_max - config->index] > 1 \
+	&& config->ptr[config->index_max - config->index] >= 1 \
 	&& config->to_show > 1)
 	{
 		--config->to_show;
