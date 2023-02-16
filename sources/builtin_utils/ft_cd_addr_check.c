@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:27:40 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/15 14:25:04 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:41:38 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*build_real_path(char *file)
 	char	cwd[1024];
 	char	*ret;
 
-	getcwd(cwd, 1024); // tama talteen structiin? ehka
+	getcwd(cwd, 1024);
 	ret = ft_strjoin_three(cwd, "/", file);
 	return (ret);
 }

@@ -1,8 +1,1 @@
-#You can use hash in main exclude files
-#/Users/jniemine/Workspace/42sh/jniemine_tests/tests/basic_tests.txt
-#/Users/jniemine/Workspace/42sh/jniemine_tests/tests/eval_form.txt
-/Users/jniemine/Workspace/42sh/jniemine_tests/tests/test1.txt
-#/Users/jniemine/Workspace/42sh/jniemine_tests/tests/fail.txt
-#test2.txt
-#test_pipe.txt
-#test_close_fd.txt
+/Users/mrantil/hive/42sh/jniemine_tests/tests/basic_tests.txt

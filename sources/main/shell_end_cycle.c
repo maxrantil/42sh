@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/14 16:00:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:53:22 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	shell_end_cycle(t_shell *sh)
 		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);
 	notify_completed_jobs(sh);
-	reap_process(sh);
+	// reap_process(sh);
 	init_window_size(sh->term);
 	reset_fgnode(sh);
 }

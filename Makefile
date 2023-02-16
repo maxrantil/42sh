@@ -149,6 +149,10 @@ FILES			= \
 				$(BUILTIN_UTILS)flag_check \
 				$(BUILTIN_UTILS)builtin_usage \
 				$(BUILTIN_UTILS)cd_utils \
+				$(BUILTIN_UTILS)cd_symlink_utils \
+				$(BUILTIN_UTILS)add_var_env_quotes \
+				$(BUILTIN_UTILS)check_export_print \
+				$(BUILTIN_UTILS)delete_var \
 				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
@@ -197,6 +201,7 @@ FILES			= \
 				$(FC)fc_s_change \
 				$(FC)fc_s_flag \
 				$(FC)fc_update_history \
+				$(FC)fc_usage \
 				$(FC)ft_fc \
 				$(FT_TEST)ft_test_b \
 				$(FT_TEST)ft_test_c \

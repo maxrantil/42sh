@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_for_job.c                                     :+:      :+:    :+:   */
+/*   fc_usage.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:48:33 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/15 14:07:45 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/16 12:15:11 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	wait_for_job(t_shell *sh, int pid)
+int	fc_usage(char option, char *str)
 {
-	int	status;
-
-	if (sh->ampersand)
-		waitpid(pid, &status, WNOHANG | WUNTRACED);
-	else if (!sh->pipe->piping)
-		waitpid(pid, &status, WUNTRACED);
-	if (!sh->ampersand)
-		update_job_status(sh, status, pid, 1);
+	ft_putstr_fd("42sh: fc: -", 2);
+	ft_putchar_fd(option, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(str, 2);
+	ft_putstr_fd("fc: usage: fc [-e ename] [-lnr] ", 2);
+	ft_putendl_fd("[first] [last] or fc -s [pat=rep] [command]", 2);
+	return (-1);
 }

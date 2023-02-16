@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 18:27:24 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:54:38 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	main_loop(t_shell *sh)
 				status = 0;
 		}
 		ft_raw_disable(sh->orig_termios);
+		reap_process(sh);
 		if (*(sh->term->inp))
 		{
 			sh->line = ft_lexer(sh->term);

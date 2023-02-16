@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_append.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:12:44 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/06 11:58:12 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 20:06:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_env_append(t_shell *sh, char **arg)
 	while (sh->env[++i])
 		new_array[i] = ft_strdup(sh->env[i]);
 	new_array[i++] = ft_strdup(*arg);
+	add_var_env_quotes(&new_array[i - 1]);
 	new_array[i] = NULL;
 	ft_arrclean(sh->env);
 	sh->env = new_array;

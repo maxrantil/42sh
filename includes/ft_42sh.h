@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/16 13:01:07 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:28:36 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 
 /* For fc builtin */
 # define FC_FLAGS "srnl"
-# define FC_LEN 18
+# define FC_LEN 17
 # define SH_PATH_MAX 2048
 // # define PATH_MAX 2048
 
@@ -233,7 +233,7 @@ typedef struct s_fc
 	int		start;
 	int		end;
 	int		flags;
-	int		e;
+	bool	e;
 	bool	s;
 	bool	r;
 	bool	n;
@@ -309,10 +309,11 @@ typedef struct s_shell
 	int				exit_stat;
 	int				is_flag_on;
 	int				option_count;
-	char			option;
-	bool			ampersand;
 	int				exit_confirm;
 	int				sym_link;
+	int				arr_len;
+	char			option;
+	bool			ampersand;
 }				t_shell;
 
 	/*	libft 	*/
@@ -431,6 +432,16 @@ int				str_only_contains_chars(char *str, char *options, t_shell *sh);
 char			*trim_dots(char *file, int i);
 void			trim_dot_dot_slash(char *path);
 void			manipulate_env(t_shell *session, char *file);
+int				is_path_symlink(char *path);
+int				cd_minus_symlink(t_shell *sh, char *path);
+void			erase_last_subdir(char *path);
+int				resolve_dotdot_symlink(t_shell *sh, char **cmd);
+void			reset_options(t_shell *sh);
+char			*env_path(t_shell *sh, char *key);
+int				ft_chdir_expanded(t_shell *sh, char **path);
+void			add_var_env_quotes(char **cmd);
+void			delete_var(t_shell *sh, int *i);
+int				check_export_print(t_shell *sh, char **cmd);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -559,6 +570,7 @@ int				fc_print_error(int check);
 int				fc_s_change(t_shell *sh, char ***cmd);
 int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_update_history(t_shell *sh, char ***cmd);
+int				fc_usage(char option, char *str);
 int				ft_fc(t_shell *sh, char ***cmd);
 
 /*			  	INTERN VARIABLES			*/
@@ -567,6 +579,8 @@ int				add_var(t_shell *sh, char **cmd);
 int				is_var(char *cmd);
 int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
+void			add_var_quotes(t_shell *sh, int i);
+
 
 /*					JOBS					*/
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
@@ -590,7 +604,7 @@ size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void			wait_for_job(t_shell *sh, int pid);
 void			reap_process(t_shell *sh);
-void			update_job_status(t_shell *sh, int status, int pid);
+void			update_job_status(t_shell *sh, int status, int pid, int mode);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 
