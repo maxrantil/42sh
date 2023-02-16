@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/16 13:12:40 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:16:18 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,22 @@ char *terminal, t_shell *sh)
 		return ;
 	}
 	// print_aliases(sh);
-	if (is_alias_fd(sh, open_fd))
+	// 	ft_putstr_fd("STDOUTCPY: ", 2);
+	// ft_putnbr_fd(sh->pipe->stdoutcpy, 2);
+	// ft_putstr_fd("\n", 2);
+	if (!is_std_fd_cpy(sh, open_fd) && is_alias_fd(sh, open_fd))
+	{
+		ft_putstr_fd("LOL\n", 2);
 		open_fd = sh->pipe->fd_aliases[open_fd];
+	}
 	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
-		|| (is_aliased_fd(sh, open_fd) /*|| is_alias_fd(sh, open_fd)*/))
+		|| is_aliased_fd(sh, open_fd) /*|| is_alias_fd(sh, open_fd)*/
+		|| is_std_fd_cpy(sh, open_fd))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		return ;
 	}
+	ft_putstr_fd("WTF\n", 2);
 	if (close_fd_alias(sh, node->close_fd) && dup2(open_fd, node->close_fd) < 0)
 		exit_error(sh, 1, "dup2 failed");
 	if (sh->pipe->write_pipe[1] > 0)

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/16 12:53:45 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:15:23 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,12 @@ int close_fd_alias(t_shell *sh, int fd)
 	if (fd > STDOUT_FILENO && fd <= SH_FD_MAX)
 		sh->pipe->fd_aliases[fd] = -1;
 	return (1);
+}
+
+int is_std_fd_cpy(t_shell *sh, int fd)
+{
+	if (sh->pipe->stdincpy == fd || sh->pipe->stdoutcpy == fd
+		|| sh->pipe->stderrcpy == fd)
+		return (1);
+	return (0);
 }

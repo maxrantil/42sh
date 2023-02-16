@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/16 16:03:26 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:00:21 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,7 @@ typedef struct s_pipe
 	int		stdoutcpy;
 	int		stderrcpy;
 	int		fd_aliases[SH_FD_MAX + 1];
+	int		std_fd_copies[3];
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -704,6 +705,7 @@ int				is_aliased_fd(t_shell *sh, int open_fd);
 void			print_aliases(t_shell *sh);
 int				is_alias_fd(t_shell *sh, int fd);
 int				close_fd_alias(t_shell *sh, int fd);
+int				is_std_fd_cpy(t_shell *sh, int fd);
 void			init_flags_struct(t_token_flags *flags);
 
 #endif

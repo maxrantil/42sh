@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:13:07 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/16 11:29:43 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:10:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	open_fd_if_needed(int *fd, char *terminal, t_shell *sh)
 	struct stat	buf;
 	int			*closefd;
 
-
+	sh = NULL;
 	if (alias_fd_if_necessary(sh, fd))
 		return ;
 	if (*fd <= 0)
