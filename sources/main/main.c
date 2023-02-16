@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 18:27:24 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:33:21 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static void	interactive_mode(t_shell *sh, int *status)
+{
+	ft_raw_enable(sh);
+	if (ft_keyboard(sh->term) == 1)
+	{
+		ft_history_write_to_file(sh->term);
+		jobs_exit_check(sh);
+		if (sh->exit_confirm >= 0)
+			ft_putstr("There are stopped jobs.\n");
+		else
+			*status = 0;
+	}
+	ft_raw_disable(sh->orig_termios);
+}
 
 void	main_loop(t_shell *sh)
 {
@@ -20,19 +35,8 @@ void	main_loop(t_shell *sh)
 	sh->term->clipboard.buff = NULL;
 	while (status)
 	{
-		// ft_init_signals();
-		// set_signal_keyboard();
-		ft_raw_enable(sh);
-		if (ft_keyboard(sh->term) == 1)
-		{
-			ft_history_write_to_file(sh->term);
-			jobs_exit_check(sh);
-			if (sh->exit_confirm >= 0)
-				ft_putstr("There are stopped jobs.\n");
-			else
-				status = 0;
-		}
-		ft_raw_disable(sh->orig_termios);
+		interactive_mode(sh, &status);
+		reap_process(sh);
 		if (*(sh->term->inp))
 		{
 			sh->line = ft_lexer(sh->term);

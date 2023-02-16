@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quote_bslash_removal.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 13:38:31 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 20:23:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:34:27 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ static void	ft_qoute_parse(char *buff, char *quote, int len)
 
 static void	ft_blash_parse(char *buff, char *quote, int len)
 {
-	// if (!(*quote) && special_char_check(buff, len, '\\'))
-	if (!(*quote) && blash_check(buff, len)) // valid slashes are removed
+	if (!(*quote) && blash_check(buff, len))
 	{
 		ft_memmove((void *)&buff[len], (void *)&buff[len + 1], \
 		ft_strlen(&buff[len + 1]) + 1);
 	}
-	else if (*quote == D_QUO && !blash_check(buff, len)) // invalid slashes are removed
+	else if (*quote == D_QUO && !blash_check(buff, len))
 		ft_memmove((void *)&buff[len], (void *)&buff[len + 1], \
 			ft_strlen(&buff[len + 1]) + 1);
 }
+
 static void	handle_newline(char *buff, int len)
 {
 	ft_memmove((void *)&buff[len], (void *)&buff[len + 1], \
@@ -78,7 +78,6 @@ void	ft_quote_blash_removal(char *buff)
 	len = ft_strlen(buff);
 	while (--len >= 0)
 	{
-		
 		if ((buff[len] == S_QUO || buff[len] == D_QUO))
 			ft_qoute_parse(buff, &quote, len);
 		if (quote == S_QUO)

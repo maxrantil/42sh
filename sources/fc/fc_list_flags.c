@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:09:40 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 16:58:28 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:47:41 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	print_low_to_high(t_shell *sh, t_fc *fc)
 	while (fc->start <= fc->end)
 	{
 		if (fc->l && !fc->n)
-			ft_printf("%-8d %s\n", fc->start + 1, sh->term->history_arr[fc->start]);
+			ft_printf("%-8d %s\n", fc->start + 1, \
+			sh->term->history_arr[fc->start]);
 		else if (fc->n)
 			ft_printf("\t %s\n", sh->term->history_arr[fc->start]);
 		++fc->start;
@@ -29,7 +30,8 @@ static void	print_high_to_low(t_shell *sh, t_fc *fc)
 	while (fc->start >= fc->end)
 	{
 		if (fc->l && !fc->n)
-			ft_printf("%-8d %s\n", fc->start + 1, sh->term->history_arr[fc->start]);
+			ft_printf("%-8d %s\n", fc->start + 1, \
+			sh->term->history_arr[fc->start]);
 		else if (fc->n)
 			ft_printf("\t %s\n", sh->term->history_arr[fc->start]);
 		--fc->start;

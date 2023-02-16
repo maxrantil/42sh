@@ -281,6 +281,7 @@ typedef struct s_pipe
 	int		redir_in;
 	int		stdincpy;
 	int		stdoutcpy;
+	int		stderrcpy;
 	int		fd_aliases[SH_FD_MAX + 1];
 }			t_pipe;
 
@@ -309,10 +310,11 @@ typedef struct s_shell
 	int				exit_stat;
 	int				is_flag_on;
 	int				option_count;
-	char			option;
-	bool			ampersand;
 	int				exit_confirm;
 	int				sym_link;
+	int				arr_len;
+	char			option;
+	bool			ampersand;
 }				t_shell;
 
 	/*	libft 	*/
@@ -327,90 +329,43 @@ void			ft_exit_error(char *msg, int ret);
 char			*ft_strjoin_three(char *s1, char *s2, char *s3);
 size_t			ft_strlen_match(char *str, char delimiter);			// ?
 /*					ALIAS					*/
-//	alias_add_quotes.c		(4)
-void	add_quotes(char **content);
-//	alias_array_handling.c	(2)
 void	dup_arr_rm_pos(char **alias, char ***dup_alias, int pos, int size);
 void	free_and_refill_dup_alias(char ***dup_alias, char **original);
-//	alias_string_handling.c	(5)
+int		validate_alias(char *alias, int print_error);
+int		validate_whitespace(char *str);
+void	add_quotes(char **content);
 void	append_to_converted(char **line, char **next, char **post);
 void	trim_mid_word(char **mid, char **orig_post);
-char	*get_mid_word(char *line);
-//	alias_string_handling2.c 	(5)
+char	*get_mid_word(char *line, char **next);
 int		skip_to_second_word(char *line);
 void	remove_quotes_cmd(char *cmd);
 void	get_first_word_move_post(char **post, char **next, char **line);
-//	alias_utilities.c	(3)
 int		word_count(char *line);
 size_t	strip_quotes_single(char *str, size_t quote1);
-//	alias.c	(4)
 int		alias(t_shell *sh, char **args);
-//	init_alias.c	(5)
 void	init_alias(t_shell *sh);
-//	match_alias.c	(2)
 int		check_alias_match(char **aliases, char *cmd);
 int		match_first_word(char **alias, char *line);
-//	print_alias.c	(4)
 int		print_alias_single(char *cmd, char **aliases);
 void	print_alias_all(char **alias, t_shell *sh);
-//	unalias.c	(5)
 void	remove_alias_single(char ***alias, int rm_pos, int size);
 int		unalias(t_shell *sh, char **args);
-//	validate_alias.c	(4)
-int		validate_alias(char *alias, int print_error);
-int		validate_whitespace(char *str);
-
-
-//	conversions
-
-//	convert_alias.c
-//	convert_alias2.c
-//	get_alias.c
+void	alias_convert_line(char **line, t_shell *sh);
+int		is_command_separator(char command);
+void	check_line_separators(char ***alias, char **line);
+void	connect_alias_pieces(char **pre, char **conv, char **post, char **line);
+void	convert_first_word(char ***alias, char **line, int size);
+void	trim_alias_line(char **line);
+void	conversion_dispatch(char ***alias, char **line, char **cont, int pos);
+int		convert_alias(char ***dup_alias, char **line, int i);
+int		check_next_conversion(char **alias, int del);
+char	*convert_first(char ***dup, char ***alias, char **line, char *cont);
+void	conversion_loop(char ***alias, char **line, char **cont, char ***dup);
 char	*get_post_content(char *line, char *arg);
 char	*get_alias_content_no_quotes(char *alias);
 char	*get_alias_command(char *alias);
 char	*get_alias_content(char *alias);
-int		is_command_separator(char command);
 char	*get_first_word(char *line);
-
-//	-	-	-	-	-	-
-
-//	get_alias.c
-// char			*get_post_content(char *line, char *arg);		// MALLOC
-// char			*get_alias_content_no_quotes(char *alias);		// MALLOC
-// char			*get_alias_command(char *alias);				// MALLOC
-// char			*get_alias_content(char *alias);				// MALLOC
-// char			*get_first_word(char *line);					// MALLOC
-
-//	convert_alias.c
-int				check_command_separator(char *line);
-void			convert_first_word(char ***alias, char **line, int size);
-char			*check_valid_input(char *line, int i);
-// int				convert_alias(char **line, t_shell *sh, int pos);
-void			alias_convert_line(char **line, t_shell *sh);
-//	convert_alias2.c
-int				check_next_conversion(char *alias);
-void			update_alias_line(char **line, char **pre_semicolon);
-// char			*convert_first(t_shell *sh, char ***dup_alias,
-// char **line, char *cont);
-// void			conversion_loop(t_shell *sh, char **line, char **content);
-// void			conversion_dispatch(t_shell *sh, char **line,
-// char **cont, int pos);
-
-size_t  total_line_len(char *pre, char *convert, char *post, char **new_line);
-void    free_parsed_alias_line(char **pre, char **conv, char **post, \
-char **new_line);
-void    connect_alias_pieces(char **pre, char **convert, char **post, \
-char **line);
-char	*convert_first(char ***dup, char ***alias, char **line, char *cont);
-void	conversion_loop(char ***alias, char **line, char **content);
-void	conversion_dispatch(char ***alias, char **line, char **content, int pos);
-int	convert_alias(char ***dup_alias, char **line, int i);
-void	check_line_separators(char ***alias, char **line);
-int				is_command_separator(char command);
-int	validate_char_range(char *str, int i, int start);	// no need ?
-int	validate_reserved_keywords(char *str);			// no need ?
-void	convert_dollar_tilde(char *cmd, int i, t_shell *sh);	// no need ?
 
 /*					BUILDTREE				*/
 t_treenode		*build_tree(t_token **tokens);
@@ -478,9 +433,17 @@ int				str_only_contains_chars(char *str, char *options, t_shell *sh);
 char			*trim_dots(char *file, int i);
 void			trim_dot_dot_slash(char *path);
 void			manipulate_env(t_shell *session, char *file);
+int				is_path_symlink(char *path);
+int				cd_minus_symlink(t_shell *sh, char *path);
+void			erase_last_subdir(char *path);
+int				resolve_dotdot_symlink(t_shell *sh, char **cmd);
+void			reset_options(t_shell *sh);
+char			*env_path(t_shell *sh, char *key);
+int				ft_chdir_expanded(t_shell *sh, char **path);
 void			add_var_env_quotes(char **cmd);
 void			delete_var(t_shell *sh, int *i);
 int				check_export_print(t_shell *sh, char **cmd);
+void			lower_case(char ***cmd);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -609,7 +572,7 @@ int				fc_print_error(int check);
 int				fc_s_change(t_shell *sh, char ***cmd);
 int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_update_history(t_shell *sh, char ***cmd);
-int				fc_usage(char *str);
+int				fc_usage(char option, char *str);
 int				ft_fc(t_shell *sh, char ***cmd);
 
 /*			  	INTERN VARIABLES			*/
@@ -620,11 +583,12 @@ int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
 void			add_var_quotes(t_shell *sh, int i);
 
-
 /*					JOBS					*/
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);
 void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
+void			change_process_status(t_bg_jobs *bg_node, pid_t pid, \
+				int status);
 void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
@@ -643,7 +607,7 @@ size_t			triple_ptr_len(char ***arr);
 void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void			wait_for_job(t_shell *sh, int pid);
 void			reap_process(t_shell *sh);
-void			update_job_status(t_shell *sh, int status, int pid);
+void			update_job_status(t_shell *sh, int status, int pid, int mode);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 

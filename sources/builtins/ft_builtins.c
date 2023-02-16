@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/16 17:40:25 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/16 16:50:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 			update_fg_job(sh, pid, *cmd);
 		if (pid == 0)
 		{
-			ft_putendl_fd("CHILD", 2);
 			ft_signal_dfl();
 			if (!sh->pipe->redir_out && sh->pipe->write_pipe[1] >= 0 \
 			&& dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
@@ -89,7 +88,7 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 	return (0);
 }
 
-static int	is_builtin(char *cmd) //shall we add for capital letter too?
+static int	is_builtin(char *cmd)
 {
 	if (!ft_strcmp(cmd, "set") || !ft_strcmp(cmd, "export") \
 	|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "cd") \
@@ -113,6 +112,7 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		ft_expansion(sh, *cmd);
 		if (!***cmd)
 			return (0);
+		lower_case(cmd);
 		if (!ft_variables(sh, &cmd))
 			return (0);
 		if (**cmd && !is_builtin(**cmd))

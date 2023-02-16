@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_for_job.c                                     :+:      :+:    :+:   */
+/*   lower_case.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/16 11:48:33 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/16 16:02:16 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/16 16:02:54 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	wait_for_job(t_shell *sh, int pid)
+void	lower_case(char ***cmd)
 {
-	int	status;
+	char	*str;
 
-	if (sh->ampersand)
-		waitpid(pid, &status, WNOHANG | WUNTRACED);
-	else if (!sh->pipe->piping)
-		waitpid(pid, &status, WUNTRACED);
-	if (!sh->ampersand)
-		update_job_status(sh, status, pid, 1);
+	str = **cmd;
+	while (*str)
+	{
+		*str = ft_tolower(*str);
+		++str;
+	}
 }

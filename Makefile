@@ -98,10 +98,13 @@ FILES			= \
 				$(ALIAS)alias_string_handling \
 				$(ALIAS)alias_string_handling2 \
 				$(ALIAS)alias_utilities \
+				$(ALIAS)connect_pieces \
 				$(ALIAS)convert_alias \
 				$(ALIAS)convert_alias2 \
+				$(ALIAS)convert_line \
 				$(ALIAS)get_alias \
 				$(ALIAS)init_alias \
+				$(ALIAS)line_separators \
 				$(ALIAS)match_alias \
 				$(ALIAS)print_alias \
 				$(ALIAS)unalias \
@@ -146,9 +149,11 @@ FILES			= \
 				$(BUILTIN_UTILS)flag_check \
 				$(BUILTIN_UTILS)builtin_usage \
 				$(BUILTIN_UTILS)cd_utils \
+				$(BUILTIN_UTILS)cd_symlink_utils \
 				$(BUILTIN_UTILS)add_var_env_quotes \
 				$(BUILTIN_UTILS)check_export_print \
 				$(BUILTIN_UTILS)delete_var \
+				$(BUILTIN_UTILS)lower_case \
 				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
@@ -250,6 +255,7 @@ FILES			= \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
+				$(JOBS)change_process_status \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
 				$(JOBS)delete_from_queue \

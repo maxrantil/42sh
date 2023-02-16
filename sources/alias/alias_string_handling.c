@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 11:04:27 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/14 22:38:02 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:58:52 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,12 @@ void	trim_mid_word(char **mid, char **orig_post)
 	ft_strdel(&post);
 }
 
-char	*get_mid_word(char *line)
+char	*get_mid_word(char *line, char **next)
 {
 	int		i;
 	size_t	len;
 
+	*next = NULL;
 	if (word_count(line) < 2)
 		return (ft_strdup(""));
 	i = skip_to_second_word(line);

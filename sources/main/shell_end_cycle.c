@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/14 16:00:15 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:30:37 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,22 @@ static void	ft_reset_tmp_env(t_shell *sh)
 	}
 }
 
-static void    notify_completed_jobs(t_shell *sh)
+static void	notify_completed_jobs(t_shell *sh)
 {
-    t_bg_jobs    *ptr;
+	t_bg_jobs	*ptr;
 
-    ptr = sh->bg_node;
-    while (ptr)
-    {
-		if (ptr->status == DONE || ptr->status == TERMINATED || ptr->status == EXITED)
+	ptr = sh->bg_node;
+	while (ptr)
+	{
+		if (ptr->status == DONE || ptr->status == TERMINATED \
+		|| ptr->status == EXITED)
 		{
-            display_job_node(sh, ptr);
+			display_job_node(sh, ptr);
 			bg_node_delete(sh, &ptr);
 		}
 		else
 			ptr = ptr->next;
-    }
+	}
 }
 
 /**
@@ -78,7 +79,6 @@ void	shell_end_cycle(t_shell *sh)
 		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);
 	notify_completed_jobs(sh);
-	reap_process(sh);
 	init_window_size(sh->term);
 	reset_fgnode(sh);
 }

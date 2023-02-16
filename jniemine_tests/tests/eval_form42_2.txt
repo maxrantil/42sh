@@ -1,0 +1,19 @@
+echo abc; echo def
+echo ${?}
+cd ~/hive
+pwd
+cd ..
+pwd
+cd /tmp
+/bin/pwd
+cd
+/bin/pwd
+cd /tmp
+pwd
+cd /bin
+pwd
+cd -
+pwd
+cd -L /tmp; cd -P ..
+pwd
+type type ls

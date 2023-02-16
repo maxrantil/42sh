@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:41:05 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 16:51:59by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:23:09 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,14 @@ static void	fc_init_flags(t_fc *fc)
 static bool	validate_input(char ***cmd, t_fc *fc)
 {
 	int		i;
-	int		j;
+	int		h;
 
 	i = fc->flags;
-	while ((*cmd)[i])
+	h = i;
+	while ((*cmd)[i] && i < h + 2)
 	{
-		j = 0;
-		while ((*cmd)[i][j])
-		{
-			if (!ft_isdigit((*cmd)[i][j]) && ((*cmd)[i][j] != '-' && !j))
-				return (false);
-			j++;
-		}		
+		if (!ft_isdigit(*(*cmd)[i]) && (*(*cmd)[i] != '-'))
+			return (false);
 		i++;
 	}
 	return (true);
@@ -52,19 +48,19 @@ int	ft_fc(t_shell *sh, char ***cmd)
 	fc_init_flags(&fc);
 	if (fc_get_flags(&fc, *cmd) == -1)
 		return (-1);
+	if (!validate_input(cmd, &fc))
+		return (fc_print_error(5));
 	ret = 0;
 	if (fc.e && !(*cmd)[fc.flags])
-		return (fc_usage("-e: option requires an argument"));
+		return (fc_usage('e', "option requires an argument"));
 	if (fc.s && !fc.e)
 		return (fc_s_flag(sh, &fc, cmd));
-	else if (fc.e && !fc.l)
+	else if (!fc.l)
 		ret = fc_no_flag_or_e_flag(sh, &fc, cmd);
 	else if (fc.l)
 	{
 		if (fc.e)
 			fc.flags++;
-		if (!validate_input(cmd, &fc))
-			return (fc_usage("invalid input"));
 		return (fc_list_flags(sh, &fc, cmd));
 	}
 	return (ret);
