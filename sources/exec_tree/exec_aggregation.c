@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_aggregation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/14 15:47:42 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:12:40 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char *terminal, t_shell *sh)
 	struct stat	buf;
 	int			open_fd;
 
+
 	open_fd_if_needed(&node->close_fd, terminal, sh);
 	open_fd = -1;
 	if (is_nb(node->dest))
@@ -60,14 +61,15 @@ char *terminal, t_shell *sh)
 		redir_to_file(node, sh);
 		return ;
 	}
+	// print_aliases(sh);
+	if (is_alias_fd(sh, open_fd))
+		open_fd = sh->pipe->fd_aliases[open_fd];
 	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
-		|| (!is_aliased_fd(sh, open_fd) && is_alias_fd(sh, open_fd)))
+		|| (is_aliased_fd(sh, open_fd) /*|| is_alias_fd(sh, open_fd)*/))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		return ;
 	}
-	if (is_aliased_fd(sh, open_fd))
-		open_fd = sh->pipe->fd_aliases[open_fd];
 	if (close_fd_alias(sh, node->close_fd) && dup2(open_fd, node->close_fd) < 0)
 		exit_error(sh, 1, "dup2 failed");
 	if (sh->pipe->write_pipe[1] > 0)

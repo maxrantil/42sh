@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/14 15:43:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:14:45 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	test_file_access_for_type(char *dest, int closefd, int *rights)
 	{
 		if (access(dest, F_OK) < 0)
 		{
-			if (closefd > STDIN_FILENO)
+			if (*rights & O_CREAT)
 				return (1);
-			else
+			if (!(*rights & O_CREAT))
 			{
 				ft_err_print(dest, NULL, "No such file or directory", 2);
 				return (0);
@@ -44,13 +44,31 @@ char *terminal, t_shell *sh)
 {
 	int	fd;
 
+	//TODO HERE WE OPEN 3 SO IT SHOULD BE OPEN ls > 1 > 2 > 3 3>4 > 5 1>&3
 	if (!test_file_access_for_type(node->filepath,
 			node->close_fd, &node->open_flags))
 		return ;
-	open_fd_if_needed(&node->close_fd, terminal, sh);
+	// ft_putstr_fd("CLOSEFD: ", 2);
+	// ft_putnbr_fd(node->close_fd, 2);
+	// ft_putstr_fd("\n", 2);	
+	// open_fd_if_needed(&node->close_fd, terminal, sh);
+	// ft_putstr_fd("CLOSEFD: ", 2);
+	// ft_putnbr_fd(node->close_fd, 2);
+	// ft_putstr_fd("\n", 2);	
 	fd = open(node->filepath, node->open_flags, node->rights);
 	if (fd < 0)
 		exit_error(sh, 1, "open failed");
+	give_alias_for_fd(sh, &fd);
+	// print_aliases(sh);
+	// ft_putstr_fd("--------------------------------------------\n", 2);
+	// alias_fd_if_necessary(sh, &fd);
+	// print_aliases(sh);
+	// ft_putstr_fd("--------------------------------------------\n", 2);
+	// ft_putstr_fd("CLOSEFD: ", 2);
+	// ft_putnbr_fd(node->close_fd, 2);
+	// ft_putstr_fd(" FD: ", 2);
+	// ft_putnbr_fd(fd, 2);
+	// ft_putstr_fd("\n", 2);	
 	if (close_fd_alias(sh, node->close_fd) && dup2(fd, node->close_fd) < 0)
 		exit_error(sh, 1, "exec_redir dup2 failed");
 	if (node->cmd && node->cmd->type == CMD && node->close_fd == STDOUT_FILENO)
