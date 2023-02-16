@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:32:14 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/16 15:20:07 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/16 15:26:00 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static int	is_built_in(char *command)
 {
-	static char	*builtins[12] = {"echo", "cd", "env", "type", "hash", "exit",
+	static char	*builtins[17] = {"echo", "cd", "env", "type", "hash", "exit",
 		"fg", "bg", "jobs", "export", "set", "unset", "alias", "unalias", "fc",
 		"history"};
 	int			i;
