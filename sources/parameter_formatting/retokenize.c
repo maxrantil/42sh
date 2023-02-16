@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:49:04 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 11:37:22 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:23:15 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,12 @@ static int	is_curly_end(char *fresh, char *trimmed, int *i, int *open, int k)
 
 char	*retokenize(char *subst, int *i)
 {
-	//char	*trimmed;
 	int		k;
 	int		open;
 	char	*fresh;
 
 	k = 0;
 	open = 0;
-	//trimmed = ft_strtrim(subst);
-	//*i += ft_strlen(subst) - ft_strlen(trimmed);
 	if (!subst)
 		return (NULL);
 	fresh = ft_strnew(ft_strlen(subst));
@@ -58,7 +55,5 @@ char	*retokenize(char *subst, int *i)
 		if (subst[*i] == '$' && !open)
 			break ;
 	}
-	//ft_strdel(&trimmed);
 	return (fresh);
 }
-

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_alias.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:57:03 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/13 21:47:48 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/14 23:04:17 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int	validate_alias_name_print(char *alias_name, int len)
+static int	validate_alias_name_print(char *alias_name, int len)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int	validate_alias_name_print(char *alias_name, int len)
 	return (1);
 }
 
-int	validate_alias_name(char *alias_name, int len)
+static int	validate_alias_name(char *alias_name, int len)
 {
 	int	i;
 
@@ -63,7 +63,7 @@ int	validate_alias(char *alias, int print_error)
 	while (alias[i] && alias[i] != '=')
 		i++;
 	if (i == j)
-		return (0);							// nothing before '='
+		return (0);
 	if (print_error == 1)
 		return (1);
 	else if (print_error == 2)

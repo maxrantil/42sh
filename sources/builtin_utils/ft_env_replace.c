@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_replace.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 12:12:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/02 15:04:12 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 20:10:24 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_env_replace(t_shell *sh, char *envn, char **tmp_env)
 		else
 			ft_strdel(envp);
 		*envp = ft_strdup(envn);
+		add_var_env_quotes(envp);
 		ret = 1;
 	}
 	ft_strdel(&key);

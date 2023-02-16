@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   substitute_or_create.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 10:46:07 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:23:51 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
 
 static int	split_param(t_param *param)
 {
@@ -92,4 +91,3 @@ char	*substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	del_param(&param, 0);
 	return (param.expanded);
 }
-

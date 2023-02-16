@@ -6,13 +6,13 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:21:59 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 11:37:13 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:22:15 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void init_subs_session(t_sub *sub, char *cmd)
+void	init_subs_session(t_sub *sub, char *cmd)
 {
 	sub->expanded = NULL;
 	sub->needle = NULL;

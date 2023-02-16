@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/15 18:08:13 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:22:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	cmd_comparisons_continue(t_shell *sh, char ***cmd, \
 	else if (!ft_strcmp(**cmd, "jobs"))
 		return (ft_jobs(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "type"))
-		return (type_command(sh, *cmd, *environ_cp));
+		return (type_command(sh, *cmd, *environ_cp, 1));
 	else if (!ft_strcmp(**cmd, "unalias"))
 		return (unalias(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "alias"))
@@ -112,7 +112,8 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		ft_expansion(sh, *cmd);
 		if (!***cmd)
 			return (0);
-		*(cmd) += ft_variables(sh, cmd);
+		if (!ft_variables(sh, &cmd))
+			return (0);
 		if (**cmd && !is_builtin(**cmd))
 			return (1);
 		if (!fork_if_pipe(sh, cmd, environ_cp))

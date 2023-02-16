@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:41:27 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 14:19:46 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 15:22:42 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,16 @@ static void	init_filename(char ***filename, char *editor)
 
 static int	print_to_file(t_shell *sh, t_fc *fc, char ***cmd, int fd)
 {
-	if (!fc_get_start_and_end(sh, fc, cmd))
-		return (0);
+	fc_get_start_and_end(sh, fc, cmd);
 	if (fc->start <= fc->end)
 	{
-		while (++fc->start < fc->end)
-			ft_putendl_fd(sh->term->history_arr[fc->start], fd);
+		while (fc->start <= fc->end)
+			ft_putendl_fd(sh->term->history_arr[fc->start++], fd);
 	}
 	else
 	{
-		while (--fc->start > fc->end)
-			ft_putendl_fd(sh->term->history_arr[fc->start], fd);
+		while (fc->start >= fc->end)
+			ft_putendl_fd(sh->term->history_arr[fc->start--], fd);
 	}
 	return (1);
 }

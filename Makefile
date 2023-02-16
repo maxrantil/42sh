@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/14 15:30:18 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/15 21:47:45 by spuustin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ H_FILES 	= 	ft_42sh \
 
 FILES			= \
 				$(ALIAS)alias \
+				$(ALIAS)alias_add_quotes \
 				$(ALIAS)alias_array_handling \
 				$(ALIAS)alias_string_handling \
 				$(ALIAS)alias_string_handling2 \
@@ -145,6 +146,10 @@ FILES			= \
 				$(BUILTIN_UTILS)flag_check \
 				$(BUILTIN_UTILS)builtin_usage \
 				$(BUILTIN_UTILS)cd_utils \
+				$(BUILTIN_UTILS)cd_symlink_utils \
+				$(BUILTIN_UTILS)add_var_env_quotes \
+				$(BUILTIN_UTILS)check_export_print \
+				$(BUILTIN_UTILS)delete_var \
 				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
@@ -179,14 +184,11 @@ FILES			= \
 				$(EXPANSION)ft_expansion_excla \
 				$(EXPANSION)ft_quote_bslash_removal \
 				$(EXPANSION)user_expansions \
-				$(EXPANSION)passwd_user \
-				$(EXPANSION)join_paths \
 				$(FC)fc_build_and_execute_new_tree \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
 				$(FC)fc_get_flags \
 				$(FC)fc_get_start_and_end \
-				$(FC)fc_lflag_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
 				$(FC)fc_no_flags \
@@ -196,6 +198,7 @@ FILES			= \
 				$(FC)fc_s_change \
 				$(FC)fc_s_flag \
 				$(FC)fc_update_history \
+				$(FC)fc_usage \
 				$(FC)ft_fc \
 				$(FT_TEST)ft_test_b \
 				$(FT_TEST)ft_test_c \
@@ -243,6 +246,7 @@ FILES			= \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
+				$(INTERN_VARS)is_var \
 				$(JOBS)add_to_queue \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
@@ -363,6 +367,7 @@ FILES			= \
 				$(PARAM_FORM)find_from_begin_glob \
 				$(PARAM_FORM)is_substring_id \
 				$(PARAM_FORM)check_substitution \
+				$(PARAM_FORM)temp_free \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \

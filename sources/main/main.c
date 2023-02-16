@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 09:30:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 17:39:31 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:54:38 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	main_loop(t_shell *sh)
 				status = 0;
 		}
 		ft_raw_disable(sh->orig_termios);
+		reap_process(sh);
 		if (*(sh->term->inp))
 		{
 			sh->line = ft_lexer(sh->term);
-			// alias_convert_line(&(sh->line), sh);
-			reset_fd(sh);
+			alias_convert_line(&(sh->line), sh);
 			sh->tokens = chop_line(sh->line, sh->tokens, 1);
 			sh->head = build_tree(&sh->tokens);
 			if (sh->head && ((t_semicolon *)sh->head)->left)

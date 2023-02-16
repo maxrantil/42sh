@@ -1,0 +1,57 @@
+test -b /dev/disk0 && echo ok || echo wrong
+test -b /dev/console && echo ok || echo wrong
+test -b DOESTNOTEXIST && echo ok || echo wrong
+test -c /dev/disk0 && echo ok || echo wrong
+test -c /dev/console && echo ok || echo wrong
+test -d /dev/disk0 && echo ok || echo wrong
+test -d ${HOME} && echo ok || echo wrong
+test -d /dev/disk0 && echo ok || echo wrong
+test -d ${HOME} && echo ok || echo wrong
+test -e /dev/null && echo ok || echo wrong
+test -e /usr/share/man/man2/execve.2 && echo ok || echo wrong
+test -e DOESTNOTEXIST && echo ok || echo wrong
+test -f /dev/null && echo ok || echo wrong
+test -f /usr/share/man/man2/execve.2 && echo ok || echo wrong
+test -L /dev/null && echo ok || echo wrong
+test -L /var && echo ok || echo wrong
+cd /tmp
+touch notfifo && mkfifo fifo
+test -p fifo && echo ok || echo wrong
+test -p notfifo && echo ok || echo wrong
+touch read noread; chmod u-r noread
+test -r read && echo ok || echo wrong
+test -r noread && echo ok || echo wrong
+touch write nowrite; chmod u-w nowrite
+test -w write && echo ok || echo wrong
+test -w nowrite && echo ok || echo wrong
+touch exec noexec; chmod u+x exec
+test -x exec && echo ok || echo wrong
+test -x noexec && echo ok || echo wrong
+setenv socketfile /var/run/vpncontrol.sock
+test -S ${socketfile} && echo ok || echo wrong
+test -S /dev/null && echo ok || echo wrong
+touch emptyfile; echo "not empty" > notempty
+test -s emptyfile && echo ok || echo wrong
+test -s notempty && echo ok || echo wrong
+setenv a 'hello'; setenv b ''; unsetenv c
+test ${a} && echo ok || echo wrong
+test ${b} && echo ok || echo wrong
+test ${c} && echo ok || echo wrong
+test -z ${a} && echo ok || echo wrong
+test -z ${b} && echo ok || echo wrong
+test -z ${c} && echo ok || echo wrong
+test 'abc' = 'def' && echo ok || echo wrong
+test 'abc' = 'abc' && echo ok || echo wrong
+test 'abc' != 'def' && echo ok || echo wrong
+test 'abc' != 'abc' && echo ok || echo wrong
+test 0 -eq 1 && echo ok || echo wrong
+test -1 -eq 1 && echo ok || echo wrong
+test -1 -eq -1 && echo ok || echo wrong
+setenv first '12'; setenv second '34'
+test ${first} -ne ${second} && echo ok || echo wrong
+test -1 -gt -2 && echo ok || echo wrong
+test 2 -ge 2 && echo ok || echo wrong
+test -2 -lt -2 && echo ok || echo wrong
+test 3 -le +2 && echo ok || echo wrong
+rm -rf tempdir; test ! -d tempdir && echo "tempdir removed"
+test zzz -eq 123 && echo ok || echo wrong

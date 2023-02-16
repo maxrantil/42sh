@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:43 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 18:51:38 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/15 20:42:05 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void	delete_var(t_shell *sh, int i)
-{
-	ft_strdel(&sh->intr_vars[i]);
-	sh->intr_vars[i] = sh->intr_vars[i + 1];
-	while (sh->intr_vars[i + 1])
-	{
-		sh->intr_vars[i] = sh->intr_vars[i + 1];
-		i++;
-	}
-	sh->intr_vars[i] = NULL;
-}
+// static void	delete_var(t_shell *sh, int i)
+// {
+// 	ft_strdel(&sh->intr_vars[i]);
+// 	sh->intr_vars[i] = sh->intr_vars[i + 1];
+// 	while (sh->intr_vars[i + 1])
+// 	{
+// 		sh->intr_vars[i] = sh->intr_vars[i + 1];
+// 		i++;
+// 	}
+// 	sh->intr_vars[i] = NULL;
+// }
 
 /**
  * It removes the environment variables specified by the user
@@ -53,7 +53,7 @@ int	ft_unset(t_shell *sh, char **cmd)
 		}
 		else if (ft_var_get(sh, *(cmd + i), &count))
 		{
-			delete_var(sh, count);
+			delete_var(sh, &count);
 			count = 0;
 		}
 	}

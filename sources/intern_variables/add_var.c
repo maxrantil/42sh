@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:03:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/13 14:36:47 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:22:19 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static int	get_var_len(char *input)
 	return (var_len);
 }
 
-
-static int find_env(t_shell *sh, char *cmd, int var_len, int *ret)
+static int	find_env(t_shell *sh, char *cmd, int var_len, int *ret)
 {
 	int	i;
 
@@ -39,9 +38,9 @@ static int find_env(t_shell *sh, char *cmd, int var_len, int *ret)
 		if (ft_strncmp(sh->env[i], cmd, var_len) == 0
 			&& sh->env[i][var_len - 1] == '=')
 		{
-
 			ft_strdel(&sh->env[i]);
 			sh->env[i] = ft_strdup(cmd);
+			add_var_env_quotes(&sh->env[i]);
 			*ret = 1;
 		}
 		i++;
@@ -49,14 +48,15 @@ static int find_env(t_shell *sh, char *cmd, int var_len, int *ret)
 	i = 0;
 	if (!*ret)
 	{
-		while(sh->intr_vars[i])
+		while (sh->intr_vars[i])
 			i++;
 		sh->intr_vars[i] = ft_strdup(cmd);
+		add_var_env_quotes(&sh->intr_vars[i]);
 	}
 	return (0);
 }
 
-int find_var(t_shell *sh, char *cmd, int var_len, int *ret)
+int	find_var(t_shell *sh, char *cmd, int var_len, int *ret)
 {
 	int	i;
 
@@ -68,6 +68,7 @@ int find_var(t_shell *sh, char *cmd, int var_len, int *ret)
 		{
 			ft_strdel(&sh->intr_vars[i]);
 			sh->intr_vars[i] = ft_strdup(cmd);
+			add_var_env_quotes(&sh->intr_vars[i]);
 			*ret += 1;
 		}
 		i++;
@@ -75,11 +76,11 @@ int find_var(t_shell *sh, char *cmd, int var_len, int *ret)
 	return (*ret);
 }
 
-int add_var(t_shell *sh, char **cmd)
+int	add_var(t_shell *sh, char **cmd)
 {
-	int var_len;
+	int	var_len;
 	int	ret;
-	int k;
+	int	k;
 
 	k = 0;
 	while (cmd[k] && is_var(cmd[k]))
