@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:14:38 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/15 18:05:15 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/16 05:55:13 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ char *terminal, t_shell *sh)
 	if (fd < 0)
 		exit_error(sh, 1, "open failed");
 	// give_alias_for_fd(sh, &fd);
+	print_aliases(sh);
+	ft_putstr_fd("--------------------------------------------\n", 2);
 	alias_fd_if_necessary(sh, &fd);
+	print_aliases(sh);
+	ft_putstr_fd("--------------------------------------------\n", 2);
 	if (close_fd_alias(sh, node->close_fd) && dup2(fd, node->close_fd) < 0)
 		exit_error(sh, 1, "exec_redir dup2 failed");
 	if (node->cmd && node->cmd->type == CMD && node->close_fd == STDOUT_FILENO)
