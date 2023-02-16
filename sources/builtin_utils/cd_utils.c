@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:53:08 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/13 19:02:37 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/15 22:30:38 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,22 @@
 
 int	cd_multi_command_validation(t_shell *sh, char **commands)
 {
+	int	ret;
+
+	sh->arr_len = ft_arrlen(commands);
 	sh->option = 'e';
-	if (!commands[1] || (ft_strequ(commands[1], "-") && !commands[2]))
+	ret = validate_cd_options(sh, commands, 1, 0);
+	if ((!commands[1] || ft_strequ(commands[sh->arr_len - 1], "-")) \
+	&& sh->arr_len - sh->option_count <= 2)
 		return (0);
-	if (commands[1][0] == '-' && validate_cd_options(sh, commands, 1, 0) == 1)
+	if (commands[1][0] == '-' && ret == 1)
 	{
 		sh->exit_stat = 1;
 		return (1);
 	}
-	if (ft_arrlen(commands) - sh->option_count > 2)
+	if (sh->arr_len - sh->option_count > 2)
 	{
-		ft_err_print(NULL, "cd", "too many arguments", 1);
+		ft_err_print(NULL, "cd", "too many arguments", 2);
 		sh->exit_stat = 1;
 		return (1);
 	}

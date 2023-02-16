@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/15 14:27:08 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:26:16 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	ft_session_init_continue(t_shell *sh)
 	hash_init(sh);
 	sh->is_flag_on = 0;
 	sh->option_count = 0;
+	sh->arr_len = 0;
 	ft_init_fg_node(sh);
 	sh->exit_confirm = -1;
 	reset_fd(sh);
