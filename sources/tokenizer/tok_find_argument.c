@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_find_argument.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:13:39 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/14 13:46:12 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/17 09:02:05 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,17 @@ static int	test_operator_error(char *line, int *end)
 
 static void	if_redir_with_fd_go_backwards(char *line, int *end)
 {
+	int		i;
+
+	i = *end;
 	if ((line[*end] == '>' || line[*end] == '<')
 		&& *end > 0 && ft_isdigit(line[*end - 1]))
 	{
+		--i;
+		while (i >= 0 && ft_isdigit(line[i]) && !ft_isspace(line[i]))
+			--i;
+		if (i != 0 && !ft_isspace(line[i]) && !ft_isdigit(line[i]))
+			return ;
 		--(*end);
 		while (*end > 0 && ft_isdigit(line[*end]))
 			--(*end);
