@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/17 05:57:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 08:40:33 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ static void	redir_to_file(t_aggregate *node, t_shell *sh)
 	exec_tree(node->cmd, &sh->env, sh->terminal, sh);
 }
 
+static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
+{
+	if (sh->pipe->piping)
+	{
+		if (*open_fd == STDOUT_FILENO)
+			*open_fd = sh->pipe->write_pipe[1];
+	}
+	if (dup2(*open_fd, node->close_fd) < 0)
+		exit_error(sh, 1, "dup2 failed");
+	if (node->cmd && node->cmd->type == CMD && node->close_fd == STDOUT_FILENO)
+		sh->pipe->redir_out = 1;
+	else if (node->cmd && node->cmd->type == CMD \
+	&& node->close_fd == STDIN_FILENO)
+	{
+		if (!access(ft_itoa(node->close_fd), F_OK) && sh->pipe->read_fd < 0)
+			close(STDIN_FILENO);
+		sh->pipe->redir_in = 1;
+	}
+}
+
 void	exec_aggregate(t_aggregate *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
@@ -60,53 +80,14 @@ char *terminal, t_shell *sh)
 		redir_to_file(node, sh);
 		return ;
 	}
-	// print_aliases(sh);
-	if (/*!is_std_fd_cpy(sh, open_fd) &&*/ is_aliased_fd(sh, open_fd))
+	if (is_aliased_fd(sh, open_fd))
 		open_fd = sh->pipe->fd_aliases[open_fd];
-	// ft_putstr_fd("open_fd: ", 1);
-	// ft_putnbr_fd(open_fd, 1);
-	// ft_putstr_fd(" close_fd: ", 1);
-	// ft_putnbr_fd(node->close_fd, 1);
-	// ft_putstr_fd("\n", 1);
 	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
-		|| is_std_fd_cpy(sh, open_fd) /*|| is_opened_fd(sh, open_fd)*//*|| is_aliased_fd(sh, open_fd)*/
-		/*|| (is_aliased_fd(sh, open_fd) && is_alias_fd(sh, open_fd))
-		|| (is_std_fd_cpy(sh, open_fd) && is_alias_fd(sh, open_fd))*/)
+		|| is_std_fd_cpy(sh, open_fd))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		return ;
 	}
-	// ft_putstr_fd("open_fd: ", 2);
-	// ft_putnbr_fd(open_fd, 2);
-	// ft_putstr_fd(" close_fd: ", 2);
-	// ft_putnbr_fd(node->close_fd, 2);
-	// ft_putstr_fd("\n", 2);
-	if (sh->pipe->piping)
-	{
-		if (open_fd == STDOUT_FILENO)
-			open_fd = sh->pipe->write_pipe[1];
-	}
-	// if (sh->pipe->read_fd >= 0)
-	// {
-	// 	ft_putendl_fd("read_fd", 2);
-	// 	node->close_fd = STDIN_FILENO;
-	// 	open_fd = sh->pipe->read_fd;
-	// }
-	if (/*close_fd_alias(sh, node->close_fd) &&*/ dup2(open_fd, node->close_fd) < 0)
-		exit_error(sh, 1, "dup2 failed");
-	// if (sh->pipe->write_pipe[1] > 0)
-	// {
-	// 	close(sh->pipe->write_pipe[1]);
-	// 	sh->pipe->write_pipe[1] = -1;
-	// }
-	if (node->cmd && node->cmd->type == CMD && node->close_fd == STDOUT_FILENO)
-		sh->pipe->redir_out = 1;
-	else if (node->cmd && node->cmd->type == CMD \
-	&& node->close_fd == STDIN_FILENO)
-	{
-		if (!access(ft_itoa(node->close_fd), F_OK) && sh->pipe->read_fd < 0)
-			close(STDIN_FILENO);
-		sh->pipe->redir_in = 1;
-	}
+	exec_aggre_split(node, &open_fd, sh);
 	exec_tree(node->cmd, environ_cp, terminal, sh);
 }
