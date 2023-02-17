@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/16 18:15:23 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 05:29:00 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int	give_alias_for_fd(t_shell *sh, int *fd)
 
 	if (*fd >= SH_FD_MAX)
 		ft_exit_error("Too many open filedescriptors\n", -1);
-	// alias_fd = open(sh->terminal, O_RDWR);
-	alias_fd = dup(*fd); // PROTECT
+	if (fcntl(*fd, F_GETFD) == -1) // Does not work
+		alias_fd = open(sh->terminal, O_RDWR);
+	else
+		alias_fd = dup(*fd); // PROTECT
 	if (alias_fd < 0)
 		ft_exit_error("open failed\n", alias_fd);
 	sh->pipe->fd_aliases[*fd] = alias_fd;
@@ -62,7 +64,7 @@ int close_fd_alias_if_necessary(t_shell *sh, int fd)
 //echo lol > 1 1>2 1>&6304
 int is_aliased_fd(t_shell *sh, int open_fd)
 {
-	if (open_fd > STDERR_FILENO && open_fd <= SH_FD_MAX && sh->pipe->fd_aliases[open_fd] != -1)
+	if (open_fd <= SH_FD_MAX && sh->pipe->fd_aliases[open_fd] != -1)
 		return (1);
 	return (0);
 }
@@ -114,5 +116,36 @@ int is_std_fd_cpy(t_shell *sh, int fd)
 	if (sh->pipe->stdincpy == fd || sh->pipe->stdoutcpy == fd
 		|| sh->pipe->stderrcpy == fd)
 		return (1);
+	return (0);
+}
+
+int is_opened_fd(t_shell *sh, int fd)
+{
+	int	i;
+
+	i = SH_FD_MAX;
+	while (i)
+	{
+		if (sh->pipe->open_fds[i] == fd)
+			return (1);
+		--i;
+	}
+	return(0);
+}
+
+int remove_from_open_fd(t_shell *sh, int fd)
+{
+	int i;
+
+	i = 0;
+	while (i < sh->pipe->open_fd_idx)
+	{
+		if (sh->pipe->open_fds[i] == fd)
+		{
+			sh->pipe->open_fds[i] = -1;
+			return (1);
+		}
+		++i;
+	}
 	return (0);
 }

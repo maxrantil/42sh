@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/16 16:56:27 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 04:39:10 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	ft_session_init_continue(t_shell *sh)
 	sh->pipe->new_pipe = 1;
 	sh->pipe->piping = 0;
 	sh->pipe->pid = 0;
-	ft_memset(sh->pipe->fd_aliases, -1, sizeof(int) * SH_FD_MAX);
 	hash_init(sh);
 	sh->is_flag_on = 0;
 	sh->option_count = 0;

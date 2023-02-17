@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/16 19:42:54 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 04:33:49 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,9 @@ typedef struct s_pipe
 	int		stdoutcpy;
 	int		stderrcpy;
 	int		fd_aliases[SH_FD_MAX + 1];
+	int 	open_fds[SH_FD_MAX + 1];
+	int		open_fd_idx;
+	int		read_fd;
 	int		std_fd_copies[3];
 }			t_pipe;
 
@@ -708,5 +711,7 @@ int				is_alias_fd(t_shell *sh, int fd);
 int				close_fd_alias(t_shell *sh, int fd);
 int				is_std_fd_cpy(t_shell *sh, int fd);
 void			init_flags_struct(t_token_flags *flags);
+int				is_opened_fd(t_shell *sh, int fd);
+int				remove_from_open_fd(t_shell *sh, int fd);
 
 #endif
