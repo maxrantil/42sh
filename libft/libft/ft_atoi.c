@@ -43,7 +43,7 @@ int	ft_atoi(const char *nbr)
 	}
 	if (result > INT_MAX && sign == 1)
 		return (-1);
-	if (result > INT_MAX && sign == -1)
+	if (result >= INT_MAX && sign == -1)
 		return (0);
 	return ((int)(result * sign));
 }

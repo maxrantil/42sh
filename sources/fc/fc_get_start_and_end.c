@@ -3,32 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   fc_get_start_and_end.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/16 17:27:56 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:10:50 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static int	get_pivot(t_shell *sh, char *cmd)
+static int	get_history_cap(t_shell *sh)
 {
-	int	pivot;
-
-	pivot = ft_atoi(cmd);
-	if (pivot == 0 || pivot == -1 || pivot > (int)sh->term->history_size)
-		pivot = sh->term->history_size - 1;
-	else if (pivot < -1)
-	{
-		pivot = sh->term->history_size + pivot;
-		if (pivot < 0)
-			return (0);
-	}
-	return (pivot - 1);
+	if (sh->term->history_size < 500)
+		return (0);
+	else
+		return (sh->term->history_size - 500);
 }
 
-static void	get_end(t_shell *sh, t_fc *fc)
+static int	int_check(char *arg)
+{
+	long		arg_long;
+
+	arg_long = ft_atol(arg);
+	if (arg_long < INT_MIN)
+		return (INT_MIN);
+	else if (arg_long > INT_MAX)
+		return (INT_MAX);
+	return ((int)arg_long);
+}
+
+static int	get_start(t_shell *sh, char *cmd)
+{
+	int		start;
+	int		cap;
+
+	start = int_check(cmd);
+	cap = get_history_cap(sh);
+	if (start == 0)
+		start = sh->term->history_size - 1;
+	else if (start > 0)
+	{
+		if (start < cap || start > (int)sh->term->history_size)
+			return (cap);
+	}
+	else
+	{
+		start = sh->term->history_size + start;
+		if (start < 0)
+			return (cap);
+	}
+	return (start - 1);
+}
+
+static int	get_end(t_shell *sh, char *cmd)
+{
+	long	end;
+	int		cap;
+
+	end = ft_atol(cmd);
+	cap = get_history_cap(sh);
+	if (end == 0)
+		end = sh->term->history_size - 1;
+	if (end > 0)
+	{
+		if (end < cap || end > (int)sh->term->history_size)
+			end = sh->term->history_size - 1;
+	}
+	else
+	{
+		if (end < INT_MIN)
+			end = sh->term->history_size - 1;
+		else
+		{
+			end = sh->term->history_size + end;
+			if (end < 0)
+				return (cap);
+		}
+	}
+	return (end - 1);
+}
+
+static void	get_end_default(t_shell *sh, t_fc *fc)
 {
 	if (fc->l)
 		fc->end = sh->term->history_size - 2;
@@ -50,16 +105,16 @@ void	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 			fc->start = sh->term->history_size - 2;
 		else if (sh->term->history_size > FC_LEN)
 			fc->start = sh->term->history_size - FC_LEN;
-		get_end(sh, fc);
+		get_end_default(sh, fc);
 	}
 	else if (cmd1 && !cmd2)
 	{
-		fc->start = get_pivot(sh, cmd1);
-		get_end(sh, fc);
+		fc->start = get_start(sh, cmd1);
+		get_end_default(sh, fc);
 	}
 	else if (cmd1 && cmd2)
 	{
-		fc->start = get_pivot(sh, cmd1);
-		fc->end = get_pivot(sh, cmd2);
+		fc->start = get_start(sh, cmd1);
+		fc->end = get_end(sh, cmd2);
 	}
 }
