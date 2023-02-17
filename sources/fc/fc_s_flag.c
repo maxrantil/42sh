@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:18:26 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 17:20:33 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/17 18:20:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	find_matching(t_shell *sh, char *str, char ***cmd)
 	{
 		x = 0;
 		while (sh->term->history_arr[y][x] && str[x] \
-			&& sh->term->history_arr[y][x] == str[x])
+		&& sh->term->history_arr[y][x] == str[x])
 			x++;
 		if (x == len)
 		{
@@ -62,7 +62,7 @@ static int	fc_s_only(t_shell *sh, char ***cmd, int specific)
 	return (1);
 }
 
-static int	specific(t_shell *sh, t_fc *fc, char ***cmd)
+/* static int	specific(t_shell *sh, t_fc *fc, char ***cmd)
 {
 	int	specific;
 
@@ -78,7 +78,7 @@ static int	specific(t_shell *sh, t_fc *fc, char ***cmd)
 		specific = sh->term->history_size - specific + 1;
 	fc_s_only(sh, cmd, specific);
 	return (1);
-}
+} */
 
 int	fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd)
 {
@@ -91,10 +91,14 @@ int	fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd)
 	{
 		while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
 			i++;
-		if ((*cmd)[i])
+		if ((*cmd)[i] && i == fc->flags)
 			return (find_matching(sh, (*cmd)[i], cmd));
 	}
-	else if (ft_strchr((*cmd)[fc->flags], '='))
+	if (ft_strchr((*cmd)[fc->flags], '='))
+	{
+		ft_printf("1\n");
 		return (fc_s_change(sh, cmd));
-	return (specific(sh, fc, cmd));
+	}
+	// return (specific(sh, fc, cmd));
+	return (fc_s_only(sh, cmd, 2));
 }
