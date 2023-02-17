@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:28:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/17 13:05:22 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:53:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	job_terminated(t_shell *sh, pid_t pid, int status)
 {
 	check_fg_pipeline(sh, pid);
 	change_process_status(sh->bg_node, pid, TERMINATED);
-	sh->exit_stat = WTERMSIG(status) + 127;
+	sh->exit_stat = WTERMSIG(status) + 128;
 }
 
 static void	job_exited(t_shell *sh, pid_t pid, int status)
@@ -52,24 +52,20 @@ static void	job_suspended(t_shell *sh, pid_t pid, int status)
 	if (sh->fg_node->gpid)
 		transfer_to_bg(sh, STOPPED);
 	display_suspended_job(sh, pid);
-	sh->exit_stat = WSTOPSIG(status) + 127;
+	sh->exit_stat = WSTOPSIG(status) + 128;
 }
 
 void	update_job_status(t_shell *sh, int status, int pid, int mode)
 {
+	int	ret;
+
 	if (WIFSIGNALED(status))
 	{
-		int ret = WTERMSIG(status);
-		if (ret == 2)
-		{
-			if (mode)
-				ft_putchar('\n');
-			job_terminated(sh, pid, status);
-		}
-		if (ret == 9)
-			ft_printf("Killed: %d\n", ret);
-		if (ret == 11)
-			ft_printf("Segmentation fault: %d\n", ret);
+		ret = WTERMSIG(status);
+		if (mode && ret == SIGINT)
+			ft_putchar('\n');
+		job_terminated(sh, pid, status);
+		job_wtermsig_msg(ret);
 	}
 	else if (WIFEXITED(status))
 		job_exited(sh, pid, status);

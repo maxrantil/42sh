@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/17 12:23:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:52:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@
 # define TERMINATED 4
 # define SUSPENDED 5
 # define EXITED 6
+
+/* Jobs States */
+# define SIG_HANGUP
+
 
 /* For print_tree */
 # define COUNT 10
@@ -612,6 +616,7 @@ void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void			wait_for_job(t_shell *sh, int pid);
 void			reap_process(t_shell *sh);
 void			update_job_status(t_shell *sh, int status, int pid, int mode);
+void    		job_wtermsig_msg(int status);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 

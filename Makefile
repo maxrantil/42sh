@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/17 09:38:37 by jniemine         ###   ########.fr        #
+#    Updated: 2023/02/17 14:53:01 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -259,6 +259,7 @@ FILES			= \
 				$(JOBS)change_process_status \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
+				$(JOBS)job_wtermsig_msg \
 				$(JOBS)delete_from_queue \
 				$(JOBS)display_job_node \
 				$(JOBS)reset_fgnode \
