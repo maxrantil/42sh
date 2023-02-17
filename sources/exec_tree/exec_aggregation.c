@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/17 08:40:33 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:42:46 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char *terminal, t_shell *sh)
 	struct stat	buf;
 	int			open_fd;
 
-	open_fd_if_needed(&node->close_fd, terminal, sh);
 	open_fd = -1;
 	if (is_nb(node->dest))
 		open_fd = ft_atoi(node->dest);
@@ -83,7 +82,7 @@ char *terminal, t_shell *sh)
 	if (is_aliased_fd(sh, open_fd))
 		open_fd = sh->pipe->fd_aliases[open_fd];
 	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
-		|| is_std_fd_cpy(sh, open_fd))
+		|| is_std_fd_cpy(sh, open_fd) || is_pipe(sh, open_fd))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		return ;

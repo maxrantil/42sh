@@ -6,7 +6,7 @@
 #    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/17 09:38:37 by jniemine         ###   ########.fr        #
+#    Updated: 2023/02/17 12:44:33 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -181,6 +181,7 @@ FILES			= \
 				$(EXECTREE)fork_wrap \
 				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
+				$(EXECTREE)is_pipe \
 				$(EXECTREE)exe_logicalop \
 				$(EXPANSION)ft_catinate_expansion \
 				$(EXPANSION)ft_expansion \

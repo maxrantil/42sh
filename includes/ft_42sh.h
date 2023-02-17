@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/17 09:37:39 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:43:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,7 @@ typedef struct s_pipe
 	int		fd_aliases[SH_FD_MAX + 1];
 	int 	open_fds[SH_FD_MAX + 1];
 	int		open_fd_idx;
+	int		previous_redir[2];
 	int		read_fd;
 	int		std_fd_copies[3];
 }			t_pipe;
@@ -416,6 +417,7 @@ void			check_type(t_treenode *root);
 int				next_semicolon_or_ampersand(t_token *tokens, \
 int i_tok, int end);
 t_treenode		*init_logical_op(int type);
+int				is_pipe(t_shell *sh, int fd);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_cd_addr_check(char *file, int p_option, t_shell *session);
