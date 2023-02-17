@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
+#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/17 12:44:33 by jniemine         ###   ########.fr        #
+#    Updated: 2023/02/17 14:15:57 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
