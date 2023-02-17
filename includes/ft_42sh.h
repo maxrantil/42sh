@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/17 08:51:57 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 09:37:39 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,13 +409,13 @@ int i_tok, int semicol);
 void			rec_print_tree(t_treenode *root, int lvl);
 void			exec_logicalop(t_logicalop *logicalop, char ***environ_cp, \
 char *terminal, t_shell *sh);
-//t_treenode		*create_ampersand_node(t_token *tokens, int i_tok, int end);
 t_treenode		*init_ampersand_node(void);
 t_treenode		*init_semicolon(void);
 void			print_exec(t_treenode *node);
 void			check_type(t_treenode *root);
 int				next_semicolon_or_ampersand(t_token *tokens, \
 int i_tok, int end);
+t_treenode		*init_logical_op(int type);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_cd_addr_check(char *file, int p_option, t_shell *session);

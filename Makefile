@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/16 19:58:37 by jniemine         ###   ########.fr        #
+#    Updated: 2023/02/17 09:38:37 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,6 +128,7 @@ FILES			= \
 				$(BUILDTREE)bt_choose_redir_type \
 				$(BUILDTREE)bt_if_closefd \
 				$(BUILDTREE)bt_if_redir \
+				$(BUILDTREE)bt_init_logical_op \
 				$(BUILDTREE)bt_if_aggregation \
 				$(BUILDTREE)bt_error_tok \
 				$(BUILDTREE)bt_get_file \
