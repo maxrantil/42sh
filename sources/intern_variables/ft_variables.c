@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/17 14:31:49 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:15:29 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,20 @@
 static void	treat_env(char *****cmd, int i)
 {
 	char	*temp;
+	int		k;
 
+	k = 0;
 	temp = (***cmd)[i];
-	(***cmd)[i] = (***cmd)[0];
-	(***cmd)[0] = temp;
+	(***cmd)[i] = (***cmd)[k];
+	(***cmd)[k++] = temp;
+	while (k < i)
+	{
+		temp = (***cmd)[i];
+		(***cmd)[i] = (***cmd)[k];
+		(***cmd)[k] = temp;
+		//i--;
+		k++;
+	}
 }
 
 static void	move_args(char *****cmd)
