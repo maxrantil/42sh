@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:21:00 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/15 16:06:16 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 09:48:52 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ t_treenode	*init_cmd_node(char *cmd)
 	return (new);
 }
 
+static int	is_logical_semi_or_ampersand(t_token *tokens, int i_tok)
+{
+	if (is_logicalop(tokens[i_tok].token)
+		|| is_semicolon_or_ampersand(tokens[i_tok].token))
+		return (1);
+	return (0);
+}
+
 t_treenode	*parse_left_cmd(t_token *tokens, int i_tok)
 {
 	int			cmd;
@@ -36,8 +44,7 @@ t_treenode	*parse_left_cmd(t_token *tokens, int i_tok)
 	if (i_tok >= 0 && tokens[i_tok].token == WORD)
 		cmd = i_tok;
 	while (i_tok >= 0 && tokens[i_tok].token != PIPE
-		&& !is_logicalop(tokens[i_tok].token)
-		&& !is_semicolon_or_ampersand(tokens[i_tok].token)) //Added is_redir and is_logicalop
+		&& !is_logical_semi_or_ampersand(tokens, i_tok))
 	{
 		if (tokens[i_tok].token == WORD)
 			cmd = i_tok;
@@ -46,11 +53,10 @@ t_treenode	*parse_left_cmd(t_token *tokens, int i_tok)
 	if (i_tok < 0)
 		i_tok = 0;
 	while (i_tok && tokens[i_tok].token != PIPE \
-		&& !is_logicalop(tokens[i_tok].token) \
-		&& !is_semicolon_or_ampersand(tokens[i_tok].token)) //Doesn't this just do nothing? It's same as above
+		&& !is_logical_semi_or_ampersand(tokens, i_tok))
 		--i_tok;
-	if (tokens[i_tok].token == PIPE || is_semicolon_or_ampersand(tokens[i_tok].token)
-		|| is_logicalop(tokens[i_tok].token)) //Added is_redir and is_logicalop
+	if (tokens[i_tok].token == PIPE
+		&& is_logical_semi_or_ampersand(tokens, i_tok))
 		++i_tok;
 	combine_words(&tokens[i_tok]);
 	return (parse_redirections(tokens, i_tok, cmd));
@@ -91,6 +97,5 @@ t_treenode	*build_tree(t_token **tokens)
 		return (NULL);
 	}
 	head = create_semicolon_node(*tokens, 0, calculate_tokens(*tokens));
-	// print_tree(head);
 	return (head);
 }
