@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/17 04:33:49 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 08:51:57 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -706,12 +706,7 @@ int				give_alias_for_fd(t_shell *sh, int *fd);
 int				alias_fd_if_necessary(t_shell *sh, int *fd);
 int				close_fd_alias_if_necessary(t_shell *sh, int fd);
 int				is_aliased_fd(t_shell *sh, int open_fd);
-void			print_aliases(t_shell *sh);
-int				is_alias_fd(t_shell *sh, int fd);
-int				close_fd_alias(t_shell *sh, int fd);
 int				is_std_fd_cpy(t_shell *sh, int fd);
 void			init_flags_struct(t_token_flags *flags);
-int				is_opened_fd(t_shell *sh, int fd);
-int				remove_from_open_fd(t_shell *sh, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/17 05:29:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 08:58:51 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,24 @@
 
 int	give_alias_for_fd(t_shell *sh, int *fd)
 {
-	int alias_fd;
+	int	alias_fd;
+	int	temp_fd;
 
 	if (*fd >= SH_FD_MAX)
 		ft_exit_error("Too many open filedescriptors\n", -1);
-	if (fcntl(*fd, F_GETFD) == -1) // Does not work
+	if (fcntl(*fd, F_GETFD) == -1)
+	{
 		alias_fd = open(sh->terminal, O_RDWR);
+		if (alias_fd < 0)
+			ft_exit_error("open failed\n", alias_fd);
+		temp_fd = fcntl(alias_fd, F_DUPFD, sh->pipe->open_fd_idx--);
+		if (temp_fd < 0)
+			ft_exit_error("fcntl failed\n", temp_fd);
+		close(alias_fd);
+		alias_fd = temp_fd;
+	}
 	else
-		alias_fd = dup(*fd); // PROTECT
+		alias_fd = dup(*fd);
 	if (alias_fd < 0)
 		ft_exit_error("open failed\n", alias_fd);
 	sh->pipe->fd_aliases[*fd] = alias_fd;
@@ -31,11 +41,11 @@ int	give_alias_for_fd(t_shell *sh, int *fd)
 
 int	alias_fd_if_necessary(t_shell *sh, int *fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (*fd < 3 || *fd >= SH_FD_MAX)
-		return 0;
+		return (0);
 	if (is_aliased_fd(sh, *fd))
 	{
 		*fd = sh->pipe->fd_aliases[*fd];
@@ -50,7 +60,7 @@ int	alias_fd_if_necessary(t_shell *sh, int *fd)
 	return (0);
 }
 
-int close_fd_alias_if_necessary(t_shell *sh, int fd)
+int	close_fd_alias_if_necessary(t_shell *sh, int fd)
 {
 	if (fd > 1 && fd <= SH_FD_MAX && sh->pipe->fd_aliases[fd] != -1)
 	{
@@ -61,91 +71,17 @@ int close_fd_alias_if_necessary(t_shell *sh, int fd)
 	return (0);
 }
 
-//echo lol > 1 1>2 1>&6304
-int is_aliased_fd(t_shell *sh, int open_fd)
+int	is_aliased_fd(t_shell *sh, int open_fd)
 {
 	if (open_fd <= SH_FD_MAX && sh->pipe->fd_aliases[open_fd] != -1)
 		return (1);
 	return (0);
 }
 
-int is_alias_fd(t_shell *sh, int fd)
-{
-	int i;
-
-	i = 0;
-	while (i < SH_FD_MAX)
-	{
-		if (sh->pipe->fd_aliases[i] == fd)
-			return (1);
-		++i;
-	}
-	return (0);
-}
-
-void print_aliases(t_shell *sh)
-{
-	int i;
-
-	i = 0;
-	while (i < SH_FD_MAX)
-	{
-		if (sh->pipe->fd_aliases[i] != -1)
-		{
-			ft_printf("ALIAS: %d -> %d\n", i, sh->pipe->fd_aliases[i]);
-			ft_putstr_fd("ALIAS: ", 2);
-			ft_putnbr_fd(i, 2);
-			ft_putstr_fd(" -> ", 2);
-			ft_putnbr_fd(sh->pipe->fd_aliases[i], 2);
-			ft_putchar_fd('\n', 2);
-		}
-		++i;
-	}
-}
-
-//Maybe do recursive closing if the alias has an alias?
-int close_fd_alias(t_shell *sh, int fd)
-{
-	if (fd > STDOUT_FILENO && fd <= SH_FD_MAX)
-		sh->pipe->fd_aliases[fd] = -1;
-	return (1);
-}
-
-int is_std_fd_cpy(t_shell *sh, int fd)
+int	is_std_fd_cpy(t_shell *sh, int fd)
 {
 	if (sh->pipe->stdincpy == fd || sh->pipe->stdoutcpy == fd
 		|| sh->pipe->stderrcpy == fd)
 		return (1);
-	return (0);
-}
-
-int is_opened_fd(t_shell *sh, int fd)
-{
-	int	i;
-
-	i = SH_FD_MAX;
-	while (i)
-	{
-		if (sh->pipe->open_fds[i] == fd)
-			return (1);
-		--i;
-	}
-	return(0);
-}
-
-int remove_from_open_fd(t_shell *sh, int fd)
-{
-	int i;
-
-	i = 0;
-	while (i < sh->pipe->open_fd_idx)
-	{
-		if (sh->pipe->open_fds[i] == fd)
-		{
-			sh->pipe->open_fds[i] = -1;
-			return (1);
-		}
-		++i;
-	}
 	return (0);
 }
