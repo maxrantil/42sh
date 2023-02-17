@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/16 17:27:57 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:08:43 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*separate_form(char *cmd)
 	i = -1;
 	k = 0;
 	open = 0;
-	fresh = ft_strnew(100);
+	fresh = ft_strnew(ft_strlen(cmd));
 	while (cmd[++i])
 	{
 		fresh[k++] = cmd[i];
@@ -51,11 +51,15 @@ static char	*separate_form(char *cmd)
 static char	*init_form_cycle(t_param *pa, char *cmd, t_pa_ints *ints)
 {
 	char	*new_cmd;
+	char	check;
 
 	init_pa(pa);
 	ints->ret = 0;
+	check = '\0';
+	if (ints->j >= 1)
+		check = cmd[ints->j - 1];
 	new_cmd = NULL;
-	if (ft_strnequ(&cmd[ints->j], "${", 2))
+	if (ft_strnequ(&cmd[ints->j], "${", 2) && check != '\\' && check != '\'')
 	{
 		new_cmd = separate_form(&cmd[ints->j]);
 		ints->j += ft_strlen(new_cmd);

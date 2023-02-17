@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   temp_free.c                                        :+:      :+:    :+:   */
+/*   is_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 13:57:13 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/17 12:43:27 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/17 12:42:15 by jniemine          #+#    #+#             */
+/*   Updated: 2023/02/17 12:42:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	temp_free(char ***temp)
+int is_pipe(t_shell *sh, int fd)
 {
-	ft_strdel(temp[0]);
-	free(*temp);
-	*temp = NULL;
+	if (sh->pipe->piping && (fd == sh->pipe->write_pipe[1]
+		|| fd == sh->pipe->write_pipe[0] || fd == sh->pipe->read_pipe[0]
+		|| fd == sh->pipe->read_pipe[1]))
+		return (1);
+	return (0);
 }

@@ -75,10 +75,13 @@ char *terminal, t_shell *sh)
 	int	fd;
 
 	fd = -1;
+	if (sh->pipe->previous_redir[0] == node->close_fd)
+		close (sh->pipe->previous_redir[0]);
 	if (!test_file_access_for_type(node->filepath,
 			node->close_fd, &node->open_flags))
 		return ;
 	open_file(node, terminal, sh, &fd);
+	sh->pipe->previous_redir[0] = fd;
 	if (dup2(fd, node->close_fd) < 0)
 		exit_error(sh, 1, "exec_redir dup2 failed");
 	if (node->close_fd == STDOUT_FILENO)

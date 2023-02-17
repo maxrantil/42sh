@@ -23,4 +23,3 @@ echo out >&-; echo out2
 echo out >&- | echo out2
 echo out >&- && echo out2
 echo out >&- || echo out2
-cat > /tmp/heredoc-append << FIN

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:09:48 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 11:23:49 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/17 13:15:58 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,9 @@ int	ft_history_expantion(t_term *t)
 		}
 	}
 	if (status > 0)
+	{
 		ft_printf("\n%s", t->inp);
+		++t->total_row;
+	}
 	return (status);
 }

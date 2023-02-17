@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:28:51 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/26 17:29:05 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/17 17:15:09 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ long	ft_atol(const char *nbr)
 		result = result * 10 + nbr[index] - '0';
 		index++;
 	}
-	if (result > 9223372036854775807UL && sign == 1)
+	if (result > LONG_MAX && sign == 1)
 		return (-1);
-	if (result > 9223372036854775808UL && sign == -1)
+	if (result >= LONG_MAX && sign == -1)
 		return (0);
 	return ((result * sign));
 }

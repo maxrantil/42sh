@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   int_check_validity.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:43:22 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/16 15:23:43 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/17 16:44:32 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 /**
  * It checks if the argument is a valid integer
- * 
+ *
  * @param arg the string to be checked
  * @param prog The name of the program.
- * 
+ *
  * @return 0 if the argument is valid, and 1 if it is not.
  */
 int	int_check_validity(char *arg, char *prog)
