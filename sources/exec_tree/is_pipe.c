@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_process_group.c                                :+:      :+:    :+:   */
+/*   is_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 11:56:32 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/16 20:22:25 by jniemine         ###   ########.fr       */
+/*   Created: 2023/02/17 12:42:15 by jniemine          #+#    #+#             */
+/*   Updated: 2023/02/17 12:42:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	set_process_group(t_shell *sh, pid_t pid)
+int is_pipe(t_shell *sh, int fd)
 {
-	if (!sh->fg_node->gpid)
-	{
-		setpgid(pid, 0);
-		sh->fg_node->gpid = pid;
-		if (!sh->ampersand)
-		{
-			if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->fg_node->gpid) == -1)
-				exit_error(sh, 1, "ioctl error in set_process_group()");
-		}
-	}
-	else
-		setpgid(pid, sh->fg_node->gpid);
+	if (sh->pipe->piping && (fd == sh->pipe->write_pipe[1]
+		|| fd == sh->pipe->write_pipe[0] || fd == sh->pipe->read_pipe[0]
+		|| fd == sh->pipe->read_pipe[1]))
+		return (1);
+	return (0);
 }

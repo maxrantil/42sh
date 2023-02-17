@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:13:07 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/16 11:29:43 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 08:48:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,31 @@ static void	close_previously_closed(int fd, int *closefd)
 	}
 }
 
-void	open_fd_if_needed(int *fd, char *terminal, t_shell *sh)
+static int	init_open_fd(int *fd, t_shell *sh, int **closefd)
 {
-	int			i;
-	int			len;
-	struct stat	buf;
-	int			*closefd;
-
+	int	len;
 
 	if (alias_fd_if_necessary(sh, fd))
-		return ;
+		return (1);
+	if (!sh)
+		return (1);
 	if (*fd <= 0)
 		len = 2;
 	else
 		len = *fd + 1;
-	closefd = ft_memalloc(sizeof(*closefd) * len);
-	ft_bzero(closefd, sizeof(*closefd) * len);
+	*closefd = ft_memalloc(sizeof(**closefd) * len);
+	ft_bzero(*closefd, sizeof(**closefd) * len);
+	return (0);
+}
+
+void	open_fd_if_needed(int *fd, char *terminal, t_shell *sh)
+{
+	int			i;
+	struct stat	buf;
+	int			*closefd;
+
+	if (init_open_fd(fd, sh, &closefd))
+		return ;
 	i = 0;
 	if (fstat(*fd, &buf) < 0 || fcntl(*fd, F_GETFD) < 0)
 	{

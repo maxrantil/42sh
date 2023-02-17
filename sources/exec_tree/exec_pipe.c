@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/14 19:20:47 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:14:00 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ void	exec_pipe(t_pipenode *pipenode, \
 {
 	if (pipe_wrap(sh->pipe->write_pipe))
 		return ;
-	sh->pipe->read_pipe[1] = dup(sh->pipe->write_pipe[1]);
+	sh->pipe->read_pipe[1] = fcntl(sh->pipe->write_pipe[1], F_DUPFD, sh->pipe->open_fd_idx--);//dup(sh->pipe->write_pipe[1]);
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
-	sh->pipe->read_pipe[0] = dup(sh->pipe->write_pipe[0]);
-	//If stdin is closed, fails. If stdout is closed fails.
+	sh->pipe->read_pipe[0] =  fcntl(sh->pipe->write_pipe[0], F_DUPFD, sh->pipe->open_fd_idx--);//dup(sh->pipe->write_pipe[0]);
 	if (fcntl(STDIN_FILENO, F_GETFD) < 0)
-		dup2(sh->pipe->stdincpy, STDIN_FILENO); //PROTECT MAKE WRAP 
+		dup2(sh->pipe->stdincpy, STDIN_FILENO);
 	if (dup2(sh->pipe->read_pipe[0], STDIN_FILENO) < 0)
 	{
 		ft_err_print("dup", NULL, "failed in exec_pipe", 2);
@@ -51,11 +50,4 @@ void	exec_pipe(t_pipenode *pipenode, \
 	close(sh->pipe->read_pipe[1]);
 	sh->pipe->read_pipe[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);
-	// reset_fd(sh);
-	// sh->pipe->stdincpy = dup(STDIN_FILENO);
-	// sh->pipe->stdoutcpy = dup(STDOUT_FILENO);
-	// close(sh->pipe->write_pipe[0]);
-	// close(sh->pipe->write_pipe[1]);
-	// sh->pipe->write_pipe[1] = -1;
-	// sh->pipe->write_pipe[0] = -1;
 }

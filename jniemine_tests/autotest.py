@@ -68,7 +68,7 @@ async def main(connection):
 					continue
 			#cmd = cmd.rstrip("\n")
 			#print(f'CMD: {cmd}')
-				time.sleep(1.5)
+				time.sleep(2.5)
 				await sub.async_send_text(cmd)
 				await sess.async_send_text(cmd)
 				enter_press += 1

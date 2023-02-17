@@ -6,11 +6,36 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/14 21:17:54 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:31:49 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static void	treat_env(char *****cmd, int i)
+{
+	char	*temp;
+
+	temp = (***cmd)[i];
+	(***cmd)[i] = (***cmd)[0];
+	(***cmd)[0] = temp;
+}
+
+static void	move_args(char *****cmd)
+{
+	int		k;
+	char	*temp;
+
+	k = 0;
+	while ((***cmd)[k + 1])
+	{
+		ft_strdel(&(***cmd)[k]);
+		temp = (***cmd)[k + 1];
+		(***cmd)[k] = ft_strdup(temp);
+		k++;
+	}
+	ft_strdel(&(***cmd)[k]);
+}
 
 static int	is_changeable(char **cmd, int *ret)
 {
@@ -35,24 +60,19 @@ static int	is_changeable(char **cmd, int *ret)
 int	ft_variables(t_shell *sh, char ****cmd)
 {
 	int		ret;
-	int		k;
-	char	*temp;
 
-	k = 0;
 	ret = 0;
 	if (!is_changeable(**cmd, &ret))
 		add_var(sh, **cmd);
 	else if (ret == 0)
 		return (1);
+	else if (ft_strequ((**cmd)[ret], "env"))
+	{
+		treat_env(&cmd, ret);
+		return (1);
+	}
 	if (!(**cmd)[ret])
 		return (0);
-	while ((**cmd)[k + 1])
-	{
-		ft_strdel(&(**cmd)[k]);
-		temp = (**cmd)[k + 1];
-		(**cmd)[k] = ft_strdup(temp);
-		k++;
-	}
-	ft_strdel(&(**cmd)[k]);
+	move_args(&cmd);
 	return (ret);
 }

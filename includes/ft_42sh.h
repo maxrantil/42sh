@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/17 12:28:16 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:52:24 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,11 @@ typedef struct s_pipe
 	int		stdoutcpy;
 	int		stderrcpy;
 	int		fd_aliases[SH_FD_MAX + 1];
+	int 	open_fds[SH_FD_MAX + 1];
+	int		open_fd_idx;
+	int		previous_redir[2];
+	int		read_fd;
+	int		std_fd_copies[3];
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -405,13 +410,14 @@ int i_tok, int semicol);
 void			rec_print_tree(t_treenode *root, int lvl);
 void			exec_logicalop(t_logicalop *logicalop, char ***environ_cp, \
 char *terminal, t_shell *sh);
-//t_treenode		*create_ampersand_node(t_token *tokens, int i_tok, int end);
 t_treenode		*init_ampersand_node(void);
 t_treenode		*init_semicolon(void);
 void			print_exec(t_treenode *node);
 void			check_type(t_treenode *root);
 int				next_semicolon_or_ampersand(t_token *tokens, \
 int i_tok, int end);
+t_treenode		*init_logical_op(int type);
+int				is_pipe(t_shell *sh, int fd);
 
 /*				BUILTIN UTILITIES			*/
 int				ft_cd_addr_check(char *file, int p_option, t_shell *session);
@@ -702,9 +708,7 @@ int				give_alias_for_fd(t_shell *sh, int *fd);
 int				alias_fd_if_necessary(t_shell *sh, int *fd);
 int				close_fd_alias_if_necessary(t_shell *sh, int fd);
 int				is_aliased_fd(t_shell *sh, int open_fd);
-void			print_aliases(t_shell *sh);
-int				is_alias_fd(t_shell *sh, int fd);
-int				close_fd_alias(t_shell *sh, int fd);
+int				is_std_fd_cpy(t_shell *sh, int fd);
 void			init_flags_struct(t_token_flags *flags);
 
 #endif

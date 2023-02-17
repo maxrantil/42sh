@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/17 11:35:38 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/17 14:15:57 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ CFLAGS 				= 	-Wall -Wextra
 CFLAGS				+=	-Wunreachable-code -Wtype-limits
 CFLAGS				+=	-Wpedantic
 # CFLAGS				+=	-Wconversion
-#CFLAGS				+=	-O3
+CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
 #LEAK_CHECK			+=	-fsanitize=address
@@ -128,6 +128,7 @@ FILES			= \
 				$(BUILDTREE)bt_choose_redir_type \
 				$(BUILDTREE)bt_if_closefd \
 				$(BUILDTREE)bt_if_redir \
+				$(BUILDTREE)bt_init_logical_op \
 				$(BUILDTREE)bt_if_aggregation \
 				$(BUILDTREE)bt_error_tok \
 				$(BUILDTREE)bt_get_file \
@@ -180,6 +181,7 @@ FILES			= \
 				$(EXECTREE)fork_wrap \
 				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
+				$(EXECTREE)is_pipe \
 				$(EXECTREE)exe_logicalop \
 				$(EXPANSION)ft_catinate_expansion \
 				$(EXPANSION)ft_expansion \

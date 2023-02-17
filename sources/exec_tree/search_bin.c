@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   search_bin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 18:01:29 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/14 15:16:08 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:13:15 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+extern t_shell	*g_sh;
 
 static int	ft_memd_w(void **ap)
 {
@@ -57,6 +59,8 @@ static int	try_cmd(char **cmd, char **environ_cp, char **temp_path)
 			return (1);
 	}
 	*temp_path = search_variable(environ_cp, "PATH");
+	if (!*temp_path)
+		*temp_path = search_variable(g_sh->intr_vars, "PATH");
 	return (0);
 }
 
