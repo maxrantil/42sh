@@ -1,15 +1,14 @@
 echo 'foo\
 bar' | cat -e
-
 echo "foo\
 bar" | cat -e
-
 echo "'foo\
 bar'
 baz" | cat -e
-
 l\
 s \
 -lat
 echo abc \| cat -e
 echo abc \\| cat -e
+echo "\\'abcd\\'"
+echo \'
