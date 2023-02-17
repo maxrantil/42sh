@@ -3,7 +3,7 @@
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/redir_tests
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.alias.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.alias.txt2
-/Users/mrantil/hive/42sh/jniemine_tests/tests/script.expansions.txt
+#/Users/mrantil/hive/42sh/jniemine_tests/tests/script.expansions.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.hash.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.history.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.quoting.txt
@@ -12,3 +12,9 @@
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/semicolon.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/test_close_fd.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/test_pipe.txt
+#/Users/mrantil/hive/42sh/jniemine_tests/tests/eval_form42_0.txt
+#/Users/mrantil/hive/42sh/jniemine_tests/tests/eval_form42_1.txt
+#/Users/mrantil/hive/42sh/jniemine_tests/tests/eval_form42_2.txt
+#/Users/mrantil/hive/42sh/jniemine_tests/tests/eval_form42_3.txt
+#/Users/mrantil/hive/42sh/jniemine_tests/tests/eval_form42_4.txt
+/Users/mrantil/hive/42sh/jniemine_tests/tests/eval_form42_5.txt
