@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:28:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/16 15:49:53 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:05:22 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,17 @@ void	update_job_status(t_shell *sh, int status, int pid, int mode)
 {
 	if (WIFSIGNALED(status))
 	{
-		if (WTERMSIG(status))
+		int ret = WTERMSIG(status);
+		if (ret == 2)
 		{
 			if (mode)
 				ft_putchar('\n');
 			job_terminated(sh, pid, status);
 		}
+		if (ret == 9)
+			ft_printf("Killed: %d\n", ret);
+		if (ret == 11)
+			ft_printf("Segmentation fault: %d\n", ret);
 	}
 	else if (WIFEXITED(status))
 		job_exited(sh, pid, status);

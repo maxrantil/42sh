@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/17 09:37:39 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:23:23 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -447,7 +447,7 @@ int				ft_chdir_expanded(t_shell *sh, char **path);
 void			add_var_env_quotes(char **cmd);
 void			delete_var(t_shell *sh, int *i);
 int				check_export_print(t_shell *sh, char **cmd);
-void			lower_case(char ***cmd);
+char			*lower_case(char *cmd);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
