@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/17 12:42:46 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/18 09:26:57 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	test_file_access(char *file)
 static void	redir_to_file(t_aggregate *node, t_shell *sh)
 {
 	node->cmd = init_redir_wrap(ft_strdup(node->dest), node->cmd, \
-	RE_OUT_ONE, node->close_fd);
+		RE_OUT_ONE, node->close_fd);
 	exec_tree(node->cmd, &sh->env, sh->terminal, sh);
 }
 
@@ -48,19 +48,15 @@ static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
 	if (sh->pipe->piping)
 	{
 		if (*open_fd == STDOUT_FILENO)
-			*open_fd = sh->pipe->write_pipe[1];
+			dup2(sh->pipe->write_pipe[1], node->close_fd);
 	}
-	if (dup2(*open_fd, node->close_fd) < 0)
+	else if (dup2(*open_fd, node->close_fd) < 0)
 		exit_error(sh, 1, "dup2 failed");
 	if (node->cmd && node->cmd->type == CMD && node->close_fd == STDOUT_FILENO)
 		sh->pipe->redir_out = 1;
 	else if (node->cmd && node->cmd->type == CMD \
 	&& node->close_fd == STDIN_FILENO)
-	{
-		if (!access(ft_itoa(node->close_fd), F_OK) && sh->pipe->read_fd < 0)
-			close(STDIN_FILENO);
 		sh->pipe->redir_in = 1;
-	}
 }
 
 void	exec_aggregate(t_aggregate *node, char ***environ_cp, \
