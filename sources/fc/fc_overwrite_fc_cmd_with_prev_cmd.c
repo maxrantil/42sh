@@ -14,10 +14,10 @@
 
 void	fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, char ***cmd, int y)
 {
-	if (cmd)
-		ft_freeda((void ***)cmd, calc_chptr(*cmd));
-	*cmd = \
+	if (y == 2)
+		*cmd = \
 	ft_strsplit(sh->term->history_arr[sh->term->history_size - y], ' ');
-	if (!*cmd)
-		fc_print_error(3);
+	else
+		*cmd = \
+	ft_strsplit(sh->term->history_arr[y], ' ');
 }

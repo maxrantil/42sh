@@ -61,7 +61,7 @@ int	ft_fc(t_shell *sh, char ***cmd)
 		ret = fc_no_flag_or_e_flag(sh, &fc, cmd);
 	else if (fc.l)
 	{
-		if (fc.e)
+		if (fc.e) //is this correct?
 			fc.flags++;
 		return (fc_list_flags(sh, &fc, cmd));
 	}

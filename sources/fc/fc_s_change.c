@@ -56,7 +56,7 @@ static void	update_cmd(char ***cmd, char ***tmp_cmd)
 	ft_freeda((void ***)tmp_cmd, calc_chptr(*tmp_cmd));
 }
 
-int	fc_s_change(t_shell *sh, char ***cmd)
+int	fc_s_change(t_shell *sh, t_fc *fc, char ***cmd, int y)
 {
 	int		i;
 	char	*change_to;
@@ -64,8 +64,8 @@ int	fc_s_change(t_shell *sh, char ***cmd)
 	char	**tmp_cmd;
 
 	tmp_cmd = NULL;
-	fc_overwrite_fc_cmd_with_prev_cmd(sh, &tmp_cmd, 2);
-	i = 2;
+	fc_overwrite_fc_cmd_with_prev_cmd(sh, &tmp_cmd, y);
+	i = fc->flags;
 	while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
 	{
 		change_to = ft_strdup(ft_strchr((*cmd)[i], '=') + 1);

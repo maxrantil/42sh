@@ -575,7 +575,7 @@ t_fc *fc, char ***cmd);
 void			fc_overwrite_fc_cmd_with_prev_cmd(t_shell *sh, \
 char ***cmd, int y);
 int				fc_print_error(int check);
-int				fc_s_change(t_shell *sh, char ***cmd);
+int				fc_s_change(t_shell *sh, t_fc *fc, char ***cmd, int y);
 int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_update_history(t_shell *sh, char ***cmd);
 int				fc_usage(char option, char *str);
