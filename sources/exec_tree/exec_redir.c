@@ -75,13 +75,13 @@ char *terminal, t_shell *sh)
 	int	fd;
 
 	fd = -1;
-	if (sh->pipe->previous_redir[0] == node->close_fd)
-		close (sh->pipe->previous_redir[0]);
+	if (node->close_fd < SH_FD_MAX && sh->pipe->previous_redir[node->close_fd])
+		close (sh->pipe->previous_redir[node->close_fd]);
 	if (!test_file_access_for_type(node->filepath,
 			node->close_fd, &node->open_flags))
 		return ;
 	open_file(node, terminal, sh, &fd);
-	sh->pipe->previous_redir[0] = fd;
+	sh->pipe->previous_redir[fd] = 1;
 	if (dup2(fd, node->close_fd) < 0)
 		exit_error(sh, 1, "exec_redir dup2 failed");
 	if (node->close_fd == STDOUT_FILENO)

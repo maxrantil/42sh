@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/17 17:32:01 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/18 06:31:48 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,9 +287,8 @@ typedef struct s_pipe
 	int		stdoutcpy;
 	int		stderrcpy;
 	int		fd_aliases[SH_FD_MAX + 1];
-	int 	open_fds[SH_FD_MAX + 1];
 	int		open_fd_idx;
-	int		previous_redir[2];
+	int		previous_redir[SH_FD_MAX];
 	int		read_fd;
 	int		std_fd_copies[3];
 }			t_pipe;
