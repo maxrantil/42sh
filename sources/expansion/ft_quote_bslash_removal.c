@@ -49,7 +49,7 @@ static void	ft_blash_parse(char *buff, char *quote, int len)
 {
 	// if (*quote == S_QUO && !blash_check(buff, len))
 	// {
-	// 	ft_memmove((void *)&buff[len], (void *)&buff[len + 1], \
+	// 	ft_memmove((void *)&buff[len], (void *)&buff[len + 1],
 	// 	ft_strlen(&buff[len + 1]) + 1);
 	// }
 	if (*quote == D_QUO && !blash_check(buff, len))
