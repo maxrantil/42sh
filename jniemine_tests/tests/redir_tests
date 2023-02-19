@@ -1,3 +1,5 @@
+clear
+cd /tmp;mkdir 42sh;cd 42sh
 echo hello > file;cat file
 echo hello > file world;cat file
 > file echo hello world;cat file

@@ -1,3 +1,5 @@
+clear
+cd /tmp;mkdir 42sh;cd 42sh
 test -b /dev/disk0 && echo ok || echo wrong
 test -b /dev/console && echo ok || echo wrong
 test -b DOESTNOTEXIST && echo ok || echo wrong

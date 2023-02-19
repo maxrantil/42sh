@@ -19,9 +19,9 @@ import sys
 #Stop it after N commands for enter
 async def main(connection):
 	#Path to test main
-	path_to_test_main = '/Users/jniemine/Workspace/42sh/jniemine_tests/tests/test_main.txt'
+	path_to_test_main = '/Users/mrantil/hive/42sh/jniemine_tests/tests/test_main.txt'
 	#Path to shell
-	path_to_shell = '/Users/jniemine/Workspace/42sh/42sh'
+	path_to_shell = '/Users/mrantil/hive/42sh/42sh'
 	#Number of ran tests before Enter
 	enter_cap = 1
 	enter_press = 0
@@ -45,7 +45,7 @@ async def main(connection):
 		await sess.async_send_text(path_to_shell)
 		await sess.async_send_text("\n")
 		time.sleep(0.5)
-		await sess.async_send_text("cd /tmp;mkdir 42sh;cd 42sh\n")
+		# await sess.async_send_text("cd /tmp;mkdir 42sh;cd 42sh\n")
 		#Start bash
 		time.sleep(2.5)
 		await sub.async_send_text('bash')

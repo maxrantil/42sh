@@ -1,2 +1,4 @@
+clear
+cd /tmp;mkdir 42sh;cd 42sh
 ls > lmao ; cat lmao | head -n 2 > lmao ; cat lmao
 ls -l > lol;cat lol | head -n 5 > lmao; cat lmao | tail -n 5|head -n 4|head -n 3|tail -n 3 > lol ; cat lol
