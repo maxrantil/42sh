@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:41:05 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 13:55:30 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/17 17:19:18 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	validate_input(char ***cmd, t_fc *fc)
 	if (fc->e)
 		i++;
 	h = i;
-	while ((*cmd)[i] && i < (h + 2))
+	while (!fc->s && (*cmd)[i] && i < (h + 2))
 	{
 		if (!ft_isdigit(*(*cmd)[i]) && (*(*cmd)[i] != '-'))
 			return (false);
@@ -61,7 +61,7 @@ int	ft_fc(t_shell *sh, char ***cmd)
 		ret = fc_no_flag_or_e_flag(sh, &fc, cmd);
 	else if (fc.l)
 	{
-		if (fc.e)
+		if (fc.e) //is this correct?
 			fc.flags++;
 		return (fc_list_flags(sh, &fc, cmd));
 	}

@@ -6,23 +6,13 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:18:26 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 11:29:30 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/19 13:37:58 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void	fc_use_last_match(t_shell *sh, char ***cmd, int y)
-{
-	ft_freeda((void ***)cmd, calc_chptr(*cmd));
-	*cmd = \
-	ft_strsplit(sh->term->history_arr[y], ' ');
-	if (!*cmd)
-		fc_print_error(3);
-	fc_update_history(sh, cmd);
-}
-
-static int	find_matching(t_shell *sh, char *str, char ***cmd)
+static int	find_matching(t_shell *sh, char *str)
 {
 	int		y;
 	int		x;
@@ -34,31 +24,26 @@ static int	find_matching(t_shell *sh, char *str, char ***cmd)
 	{
 		x = 0;
 		while (sh->term->history_arr[y][x] && str[x] \
-			&& sh->term->history_arr[y][x] == str[x])
+		&& sh->term->history_arr[y][x] == str[x])
 			x++;
 		if (x == len)
-		{
-			fc_use_last_match(sh, cmd, y);
-			break ;
-		}
+			return (y);
 		y--;
 	}
-	if (y == 0)
-		return (fc_print_error(5));
-	return (1);
+	// if (y == 0)
+	return (fc_print_error(5));
+	// return (2);
 }
 
-static int	fc_s_only(t_shell *sh, char ***cmd, int specific)
+static int	fc_s_only(t_shell *sh, char ***cmd, int y)
 {
 	ft_strdel(&sh->term->history_arr[sh->term->history_size - 1]);
 	sh->term->history_arr[sh->term->history_size - 1] = \
-	ft_strdup(sh->term->history_arr[sh->term->history_size - specific]);
+	ft_strdup(sh->term->history_arr[sh->term->history_size - y]);
 	ft_arrclean(*cmd);
-	ft_putendl_fd(sh->term->history_arr[sh->term->history_size - specific], 2);
+	ft_putendl_fd(sh->term->history_arr[sh->term->history_size - y], 2);
 	*cmd = \
-	ft_strsplit(sh->term->history_arr[sh->term->history_size - specific], ' ');
-	if (!*cmd)
-		fc_print_error(3);
+	ft_strsplit(sh->term->history_arr[sh->term->history_size - y], ' ');
 	return (1);
 }
 
@@ -82,19 +67,20 @@ static int	specific(t_shell *sh, t_fc *fc, char ***cmd)
 
 int	fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd)
 {
-	int	i;
+	int		i;
+	int		y;
 
+	y = 2;
 	if (!(*cmd)[fc->flags])
-		return (fc_s_only(sh, cmd, 2));
+		return (fc_s_only(sh, cmd, y));
 	i = fc->flags;
-	if ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
-	{
-		while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
-			i++;
-		if ((*cmd)[i])
-			return (find_matching(sh, (*cmd)[i], cmd));
-	}
-	else if (ft_strchr((*cmd)[fc->flags], '='))
-		return (fc_s_change(sh, cmd));
-	return (specific(sh, fc, cmd));
+	while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
+		i++;
+	if ((*cmd)[i] && (ft_isdigit((*cmd)[i][0]) || (*cmd)[i][0] == '-'))
+		return (specific(sh, fc, cmd));
+	else if ((*cmd)[i])
+		y = find_matching(sh, (*cmd)[i]);
+	if (y)
+		return (fc_s_change(sh, fc, cmd, y));
+	return (-1);
 }
