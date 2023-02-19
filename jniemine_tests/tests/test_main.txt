@@ -5,7 +5,7 @@
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.alias.txt2
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.expansions.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.hash.txt
-#/Users/mrantil/hive/42sh/jniemine_tests/tests/script.history.txt
+/Users/mrantil/hive/42sh/jniemine_tests/tests/script.history.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.quoting.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.test.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.test.txt2

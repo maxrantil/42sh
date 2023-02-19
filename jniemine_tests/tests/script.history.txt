@@ -1,3 +1,4 @@
+clear
 echo hello world
 !! | cat -e
 !echo
@@ -6,3 +7,17 @@ fc -lr
 !-1
 ls DOESNOTEXIST
 fc -s -- -1 2>/dev/null
+fc -lr 40 50
+fc -l -- -40 50
+fc -lr -- -1 0
+fc -lr -- -1 10
+fc -l -- 10 10
+fc -l -- 10 -10
+fc -l -- -10 -10
+fc -l -- -1000 -10
+fc -l -- -1000 -1000
+fc -l -- -10 -1000
+echo hello
+ls
+fc -s ll=oo he=oo echo
+fc -s kooooooooooko

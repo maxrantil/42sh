@@ -6,24 +6,13 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:18:26 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 18:20:19 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/19 13:37:58 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-// static char	**fc_use_last_match(t_shell *sh, char ***cmd, int y)
-// {
-// 	char **ret;
-
-// 	// ft_freeda((void ***)cmd, calc_chptr(*cmd));
-// 	ret = \
-// 	ft_strsplit(sh->term->history_arr[y], ' ');
-// 	fc_update_history(sh, cmd);
-// 	return (ret);
-// }
-
-static int	find_matching(t_shell *sh, char *str, char ***cmd)
+static int	find_matching(t_shell *sh, char *str)
 {
 	int		y;
 	int		x;
@@ -38,16 +27,12 @@ static int	find_matching(t_shell *sh, char *str, char ***cmd)
 		&& sh->term->history_arr[y][x] == str[x])
 			x++;
 		if (x == len)
-		{
 			return (y);
-			// return (fc_use_last_match(sh, cmd, y));
-			// break ;
-		}
 		y--;
 	}
-	if (y == 0)
-		return (fc_print_error(5));
-	return (2); // check this
+	// if (y == 0)
+	return (fc_print_error(5));
+	// return (2);
 }
 
 static int	fc_s_only(t_shell *sh, char ***cmd, int y)
@@ -62,6 +47,24 @@ static int	fc_s_only(t_shell *sh, char ***cmd, int y)
 	return (1);
 }
 
+static int	specific(t_shell *sh, t_fc *fc, char ***cmd)
+{
+	int	specific;
+
+	specific = ft_atoi((*cmd)[fc->flags]);
+	if (specific > (int)sh->term->history_size - 1 \
+	|| specific < (int)-sh->term->history_size)
+		return (fc_print_error(6));
+	else if (specific == 0)
+		specific = 2;
+	else if (specific < 0)
+		specific = (specific * -1) + 1;
+	else
+		specific = sh->term->history_size - specific + 1;
+	fc_s_only(sh, cmd, specific);
+	return (1);
+}
+
 int	fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd)
 {
 	int		i;
@@ -71,14 +74,13 @@ int	fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd)
 	if (!(*cmd)[fc->flags])
 		return (fc_s_only(sh, cmd, y));
 	i = fc->flags;
-	if ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
-	{
-		while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
-			i++;
-		if ((*cmd)[i])
-			y = find_matching(sh, (*cmd)[i], cmd);
-	}
-	if (ft_strchr((*cmd)[fc->flags], '='))
+	while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
+		i++;
+	if ((*cmd)[i] && (ft_isdigit((*cmd)[i][0]) || (*cmd)[i][0] == '-'))
+		return (specific(sh, fc, cmd));
+	else if ((*cmd)[i])
+		y = find_matching(sh, (*cmd)[i]);
+	if (y)
 		return (fc_s_change(sh, fc, cmd, y));
-	return (fc_s_only(sh, cmd, y));
+	return (-1);
 }

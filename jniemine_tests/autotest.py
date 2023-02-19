@@ -45,11 +45,11 @@ async def main(connection):
 		await sess.async_send_text(path_to_shell)
 		#Start bash
 		time.sleep(2.5)
-		await sub.async_send_text('/bin/bash')
+		await sub.async_send_text('bash')
 		await sub.async_send_text("\n")
 		await sess.async_send_text("\n")
-		await sub.async_send_text('clear\n')
-		await sess.async_send_text('clear\n')
+		# await sub.async_send_text('clear\n')
+		# await sess.async_send_text('clear\n')
 		#time.sleep(0.5)
 
 		# domain = iterm2.broadcast.BroadcastDomain()
