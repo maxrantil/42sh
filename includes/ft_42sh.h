@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/17 15:38:08 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/18 06:31:48 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@
 # define TERMINATED 4
 # define SUSPENDED 5
 # define EXITED 6
+
+/* Jobs States */
+# define SIG_HANGUP
+
 
 /* For print_tree */
 # define COUNT 10
@@ -283,9 +287,8 @@ typedef struct s_pipe
 	int		stdoutcpy;
 	int		stderrcpy;
 	int		fd_aliases[SH_FD_MAX + 1];
-	int 	open_fds[SH_FD_MAX + 1];
 	int		open_fd_idx;
-	int		previous_redir[2];
+	int		previous_redir[SH_FD_MAX];
 	int		read_fd;
 	int		std_fd_copies[3];
 }			t_pipe;
@@ -449,7 +452,7 @@ int				ft_chdir_expanded(t_shell *sh, char **path);
 void			add_var_env_quotes(char **cmd);
 void			delete_var(t_shell *sh, int *i);
 int				check_export_print(t_shell *sh, char **cmd);
-void			lower_case(char ***cmd);
+char			*lower_case(char *cmd);
 
 /*					BUILTIN					*/
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
@@ -614,6 +617,7 @@ void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void			wait_for_job(t_shell *sh, int pid);
 void			reap_process(t_shell *sh);
 void			update_job_status(t_shell *sh, int status, int pid, int mode);
+void    		job_wtermsig_msg(int status);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 

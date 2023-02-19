@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_semicolon_node.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:43:28 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/01 16:09:46 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/18 10:02:27 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	next_semicolon_or_ampersand(t_token *tokens, int i_tok, int end)
 	return (next_ampersand);
 }
 
-static int	init_values(int next_semi_or_amp,
+static int	init_values(int next_op,
 		t_token *tokens, int i_tok, t_treenode **semi_or_amp)
 {
 	int	type;
 
-	if (next_semi_or_amp >= 0)
-		type = tokens[next_semi_or_amp].token;
+	if (next_op >= 0)
+		type = tokens[next_op].token;
 	else
 		type = tokens[i_tok].token;
 	if (type == AMPERSAND)
@@ -57,43 +57,50 @@ static int	init_values(int next_semi_or_amp,
 	return (type);
 }
 
-/*	<cmd>& buts it in the background,
-	doing <samecmd>& again kills the old and stars a new */
-/* man kill -> SIGCONT, could be answer for vim ctrl+z problem */
+static void	create_semicolon_split(t_token *tokens, t_treenode *semi_or_amp,
+		int next_op, int type_end_delim[3])
+{
+	int	type;
+	int	end;
+
+	type = type_end_delim[0];
+	end = type_end_delim[1];
+	if (next_op >= 0)
+	{
+		if (type == AMPERSAND)
+			(((t_ampersand *)semi_or_amp)->right) = create_semicolon_node(
+					tokens, next_op + 1, end);
+		else
+			(((t_semicolon *)semi_or_amp)->right) = create_semicolon_node(
+					tokens, next_op + 1, end);
+	}
+}
+
 t_treenode	*create_semicolon_node(t_token *tokens, int i_tok, int end)
 {
 	t_treenode	*semi_or_amp;
-	int			next_semi_or_amp;
-	int			type;
-	int			delim;
+	int			next_op;
+	int			type_end_delim[3];
 
 	if (!tokens[i_tok].token)
 		return (NULL);
-	next_semi_or_amp = next_semicolon_or_ampersand(tokens, i_tok, end);
-	type = init_values(next_semi_or_amp, tokens, i_tok, &semi_or_amp);
-	if (next_semi_or_amp >= 0)
-		delim = next_semi_or_amp;
+	next_op = next_semicolon_or_ampersand(tokens, i_tok, end);
+	type_end_delim[0] = init_values(next_op, tokens, i_tok, &semi_or_amp);
+	if (next_op >= 0)
+		type_end_delim[2] = next_op;
 	else
-		delim = end;
-	if (type == AMPERSAND)
+		type_end_delim[1] = end;
+	if (type_end_delim[0] == AMPERSAND)
 	{
 		(((t_ampersand *)semi_or_amp)->left) = create_logical_op_tree(tokens,
-				i_tok, delim);
+				i_tok, type_end_delim[2]);
 	}
 	else
 	{
 		(((t_semicolon *)semi_or_amp)->left) = create_logical_op_tree(tokens,
-				i_tok, delim);
+				i_tok, type_end_delim[2]);
 	}
-	//next_semi_or_amp = next_semicolon_or_ampersand(tokens, next_semi_or_amp + 1, end);
-	if (next_semi_or_amp >= 0)
-	{
-		if (type == AMPERSAND)
-			(((t_ampersand *)semi_or_amp)->right) = create_semicolon_node(
-					tokens, next_semi_or_amp + 1, end);
-		else
-			(((t_semicolon *)semi_or_amp)->right) = create_semicolon_node(
-					tokens, next_semi_or_amp + 1, end);
-	}
+	create_semicolon_split(tokens, semi_or_amp, \
+		next_op, type_end_delim);
 	return (semi_or_amp);
 }

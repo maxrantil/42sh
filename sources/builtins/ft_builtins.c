@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/17 11:51:53 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/17 17:35:29 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,25 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 	return (0);
 }
 
-static int	is_builtin(char *cmd)
+static int	is_builtin(char **cmd)
 {
-	if (!ft_strcmp(cmd, "set") || !ft_strcmp(cmd, "export") \
-	|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "cd") \
-	|| !ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "exit") \
-	|| !ft_strcmp(cmd, "hash") || !ft_strcmp(cmd, "history") \
-	|| !ft_strcmp(cmd, "test") || !ft_strcmp(cmd, "fc") \
-	|| !ft_strcmp(cmd, "fg") || !ft_strcmp(cmd, "bg") \
-	|| !ft_strcmp(cmd, "jobs") || !ft_strcmp(cmd, "type") \
-	|| !ft_strcmp(cmd, "alias") || !ft_strcmp(cmd, "unalias"))
+	char	*str;
+
+	str = lower_case(*cmd);
+	if (!ft_strcmp(str, "set") || !ft_strcmp(str, "export") \
+	|| !ft_strcmp(str, "unset") || !ft_strcmp(str, "cd") \
+	|| !ft_strcmp(str, "echo") || !ft_strcmp(str, "exit") \
+	|| !ft_strcmp(str, "hash") || !ft_strcmp(str, "history") \
+	|| !ft_strcmp(str, "test") || !ft_strcmp(str, "fc") \
+	|| !ft_strcmp(str, "fg") || !ft_strcmp(str, "bg") \
+	|| !ft_strcmp(str, "jobs") || !ft_strcmp(str, "type") \
+	|| !ft_strcmp(str, "alias") || !ft_strcmp(str, "unalias"))
+	{
+		ft_strdel(cmd);
+		*cmd = str;
 		return (1);
+	}
+	ft_strdel(&str);
 	return (0);
 }
 
@@ -114,8 +122,7 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 			return (0);
 		if (!ft_variables(sh, &cmd))
 			return (0);
-		// lower_case(cmd);
-		if (**cmd && !is_builtin(**cmd))
+		if (**cmd && !is_builtin(*cmd))
 			return (1);
 		if (!fork_if_pipe(sh, cmd, environ_cp))
 			return (cmd_comparisons(sh, cmd, environ_cp));

@@ -1,4 +1,5 @@
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/basix_tests.txt
+/Users/jniemine/Workspace/42sh/jniemine_tests/tests/redir_tests
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/eval_form21.txt
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/redir_tests
 #/Users/mrantil/hive/42sh/jniemine_tests/tests/script.alias.txt
