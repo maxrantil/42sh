@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 13:18:38 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:18:16 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ft_fg(t_shell *sh, char **cmd)
 		transfer_to_fg(sh, job);
 		job->status = RUNNING;
 		wait_for_job(sh, job->gpid);
+		ft_raw_disable(sh->orig_termios);
 	}
 	return (0);
 }
