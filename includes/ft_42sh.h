@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/20 16:54:57 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:05:30 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -416,8 +416,6 @@ t_treenode		*init_ampersand_node(void);
 t_treenode		*init_semicolon(void);
 void			print_exec(t_treenode *node);
 void			check_type(t_treenode *root);
-int				next_semicolon_or_ampersand(t_token *tokens, \
-int i_tok, int end);
 t_treenode		*init_logical_op(int type);
 int				is_pipe(t_shell *sh, int fd);
 
