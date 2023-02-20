@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_history_get.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:19:02 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 11:19:20 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:13:32 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	ft_history_get(t_term *t)
 	x = 0;
 	count_history(t, &x);
 	t->history_arr = (char **)ft_memalloc(sizeof(char *) \
-	* (t->history_size + 1));
-	ft_bzero(t->history_arr, t->history_size + 1);
+	* (MAX_HISTORY + 1));
 	get_loop(t, x);
 }
