@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/20 17:45:33 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:54:02 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -550,6 +550,7 @@ void			hash_print(t_hash **ht);
 /*			  		 HISTORY				*/
 int				ft_history(t_term *t, char **cmd);
 void			ft_history_get(t_term *t);
+void			ft_history_print_add_row(t_term *t);
 int				ft_history_print_error(char *str, int prefix);
 int				ft_history_expantion(t_term *t);
 void			ft_history_write_to_file(t_term *t);

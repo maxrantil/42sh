@@ -6,7 +6,7 @@
 #    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/20 17:45:58 by rvuorenl         ###   ########.fr        #
+#    Updated: 2023/02/20 17:53:04 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -278,6 +278,7 @@ FILES			= \
 				$(JOBS)update_job_status \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
+				$(HISTORY)ft_history_print_add_row \
 				$(HISTORY)ft_history_print_error \
 				$(HISTORY)ft_history_expansion \
 				$(HISTORY)ft_history_write_to_file \
