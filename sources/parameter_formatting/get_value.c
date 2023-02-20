@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/20 16:11:14 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:21:33 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static char	*display_error(t_shell *sh, char *var, char *subst, int *format)
 		temp_free(&temp);
 		ft_err_print(var + 1, subst + 1, " ", sh->pipe->stderrcpy);
 		*format = -2;
-		return (NULL);
 	}
 	else if (!*temp[0] && !subst[1])
 	{
@@ -78,7 +77,6 @@ static char	*display_error(t_shell *sh, char *var, char *subst, int *format)
 		ft_err_print(var + 1, NULL, "parameter null or unset", \
 		sh->pipe->stderrcpy);
 		*format = -2;
-		return (NULL);
 	}
 	else
 		expanded = ft_strdup(temp[0]);

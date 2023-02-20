@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:38:51 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:20:54 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:18:34 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	is_substring_id(char *needle)
 {
-	return ((ft_strnequ(needle, "${", 2) && ft_strchr(needle , '#'))
-		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle , '%')));
+	return ((ft_strnequ(needle, "${", 2) && ft_strchr(needle, '#'))
+		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle, '%')));
 }

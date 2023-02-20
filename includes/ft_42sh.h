@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/20 20:40:41 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:24:37 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,23 @@ typedef struct s_sub
 	char	*temp_sub;
 	char	*temp_hays;
 }	t_sub;
+
+/*			PARAMETER EXPANSION PERCENT	*/
+typedef struct s_perc
+{
+	int		len;
+	int		temp_len;
+	char	*new_needle;
+	char	*temp;
+}	t_perc;
+
+/*			PARAMETER EXPANSION RETOKENIZE	*/
+typedef struct s_retok
+{
+	int		k;
+	int		open;
+	char	*fresh;
+}	t_retok;
 
 /*					TOKEN STRUCT			*/
 typedef struct s_token
@@ -652,7 +669,7 @@ void			init_pa_ints(t_pa_ints *ints);
 void			free_attrs(t_param *pa, char **new_cmd);
 void			init_subs_session(t_sub *sub, char *cmd);
 void			subs_session_free(t_sub *sub, int opt);
-char			*ft_find_word(char *haystack, char *needle, char *op);
+char			*ft_find_word(char **haystack, char *needle, char *op);
 char			*remove_globstars(char **needle, int *glob, char op);
 char			*find_from_end(char *haystack, char *needle);
 char			*find_from_begin_glob(char *haystack, char *needle);
@@ -661,6 +678,7 @@ int				check_var_validity(char *var);
 int				check_substitutions(char *cmd, int *ret, t_param *pa);
 void			temp_free(char ***temp);
 void			trim_and_remove_null(char ***cmd, t_pa_ints *ints);
+char			*get_word(char *temp, char *temp_needle, char *op, int glob);
 
 /*			  		 SIGNALS				*/
 void			ft_signal_keyboard(int num);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
+#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/17 17:31:50 by mbarutel         ###   ########.fr        #
+#    Updated: 2023/02/20 23:11:28 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ CFLAGS 				= 	-Wall -Wextra
 CFLAGS				+=	-Wunreachable-code -Wtype-limits
 CFLAGS				+=	-Wpedantic
 # CFLAGS				+=	-Wconversion
-CFLAGS				+=	-O3
+#CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
 #LEAK_CHECK			+=	-fsanitize=address
@@ -377,6 +377,7 @@ FILES			= \
 				$(PARAM_FORM)check_substitution \
 				$(PARAM_FORM)temp_free \
 				$(PARAM_FORM)trim_and_remove_null \
+				$(PARAM_FORM)get_word \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \

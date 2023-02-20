@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/20 14:30:39 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:05:08 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 		sub.needle = ft_strdup(sub.temp_sub);
 		ft_strdel(&sub.temp_sub);
 	}
-	sub.expanded = ft_find_word(sub.haystack, sub.needle, sub.op);
+	sub.expanded = ft_find_word(&sub.haystack, sub.needle, sub.op);
 	if (!sub.expanded || !*sub.expanded)
 		sub.expanded = ft_strnew(1);
-	else
-		sub.expanded = ft_strdup(sub.expanded);
 	subs_session_free(&sub, 1);
 	return (sub.expanded);
 }
