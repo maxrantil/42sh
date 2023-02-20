@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:18:26 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/19 13:37:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 11:52:19 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	find_matching(t_shell *sh, char *str)
 	// return (2);
 }
 
-static int	fc_s_only(t_shell *sh, char ***cmd, int y)
+static int	fc_s_only(t_shell *sh, t_fc *fc, char ***cmd, int y)
 {
 	ft_strdel(&sh->term->history_arr[sh->term->history_size - 1]);
 	sh->term->history_arr[sh->term->history_size - 1] = \
@@ -44,6 +44,7 @@ static int	fc_s_only(t_shell *sh, char ***cmd, int y)
 	ft_putendl_fd(sh->term->history_arr[sh->term->history_size - y], 2);
 	*cmd = \
 	ft_strsplit(sh->term->history_arr[sh->term->history_size - y], ' ');
+	fc_build_and_execute_new_tree(sh, fc);
 	return (1);
 }
 
@@ -61,7 +62,7 @@ static int	specific(t_shell *sh, t_fc *fc, char ***cmd)
 		specific = (specific * -1) + 1;
 	else
 		specific = sh->term->history_size - specific + 1;
-	fc_s_only(sh, cmd, specific);
+	fc_s_only(sh, fc, cmd, specific);
 	return (1);
 }
 
@@ -72,7 +73,7 @@ int	fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd)
 
 	y = 2;
 	if (!(*cmd)[fc->flags])
-		return (fc_s_only(sh, cmd, y));
+		return (fc_s_only(sh, fc, cmd, y));
 	i = fc->flags;
 	while ((*cmd)[i] && ft_strchr((*cmd)[i], '='))
 		i++;
