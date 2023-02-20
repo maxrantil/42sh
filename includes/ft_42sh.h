@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/20 16:04:43 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 20:40:41 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -653,7 +653,7 @@ void			free_attrs(t_param *pa, char **new_cmd);
 void			init_subs_session(t_sub *sub, char *cmd);
 void			subs_session_free(t_sub *sub, int opt);
 char			*ft_find_word(char *haystack, char *needle, char *op);
-char			*remove_globstars(char **needle, int *glob);
+char			*remove_globstars(char **needle, int *glob, char op);
 char			*find_from_end(char *haystack, char *needle);
 char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
