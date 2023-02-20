@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/19 14:44:21 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:54:33 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	wait_for_job(t_shell *sh, int pid)
 {
 	int	status;
 
-	// ft_printf("pid %d\n", pid);
-	// ft_printf("write pipe [0] -> %2d : [1] -> %2d\n", sh->pipe->write_pipe[0], sh->pipe->write_pipe[1]);
-	// ft_printf("read  pipe [0] -> %2d : [1] -> %2d\n", sh->pipe->read_pipe[0], sh->pipe->read_pipe[1]);
+	ft_printf("pid %d\n", pid);
+	ft_printf("write pipe [0] -> %2d : [1] -> %2d\n", sh->pipe->write_pipe[0], sh->pipe->write_pipe[1]);
+	ft_printf("read  pipe [0] -> %2d : [1] -> %2d\n", sh->pipe->read_pipe[0], sh->pipe->read_pipe[1]);
 	if (sh->ampersand)
 		waitpid(pid, &status, WNOHANG | WUNTRACED);
 	else if (sh->pipe->piping && sh->pipe->write_pipe[1] >= 0

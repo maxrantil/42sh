@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/17 12:24:32 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:49:58 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int access, char ***environ_cp)
 	if (access)
 	{
 		ft_signal_dfl();
-		if (!g_sh->pipe->redir_out && g_sh->pipe->write_pipe[1] >= 0 \
+		if (!g_sh->pipe->redir_out && g_sh->pipe->write_pipe[1] >= 0 && ft_printf("NOUP\n")\
 		&& dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
 		{
 			ft_err_print("dup2", NULL, "failed", 2);

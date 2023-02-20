@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/17 08:58:51 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:54:05 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	give_alias_for_fd(t_shell *sh, int *fd)
 		alias_fd = open(sh->terminal, O_RDWR);
 		if (alias_fd < 0)
 			ft_exit_error("open failed\n", alias_fd);
-		temp_fd = fcntl(alias_fd, F_DUPFD, sh->pipe->open_fd_idx--);
+		temp_fd = fcntl(alias_fd, F_DUPFD, sh->pipe->open_fd_idx--); //Protect open_fd_idx
 		if (temp_fd < 0)
 			ft_exit_error("fcntl failed\n", temp_fd);
 		close(alias_fd);
 		alias_fd = temp_fd;
 	}
 	else
-		alias_fd = dup(*fd);
+		alias_fd = fcntl(*fd, F_DUPFD, sh->pipe->open_fd_idx--); //Protect open_fd_idx //dup(*fd);
 	if (alias_fd < 0)
 		ft_exit_error("open failed\n", alias_fd);
 	sh->pipe->fd_aliases[*fd] = alias_fd;

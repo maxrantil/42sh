@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/20 08:41:16 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:48:27 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,4 @@ char *terminal, t_shell *sh)
 	}
 	exec_aggre_split(node, &open_fd, sh);
 	exec_tree(node->cmd, environ_cp, terminal, sh);
-	reset_fd(sh);
 }

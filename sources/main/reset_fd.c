@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 20:31:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/18 06:31:20 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:27:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,21 @@ void	reset_fd(t_shell *sh)
 	open_fd(sh, &fd);
 	fd = SH_FD_MAX - 1;
 	close_fd(&fd, 3);
+	// sh->pipe->pipes = ft_memalloc(sizeof(int) * SH_PIPE_MAX * 2);
+	ft_memset(sh->pipe->pipes, -1, sizeof(int) * SH_PIPE_MAX * 2);
+	sh->pipe->pipe_count = 0;
 	ft_memset(sh->pipe->fd_aliases, -1, sizeof(int) * SH_FD_MAX);
 	ft_memset(sh->pipe->previous_redir, -1, sizeof(int) * SH_FD_MAX);
 	sh->pipe->open_fd_idx = 251;
-	sh->pipe->stdincpy = fcntl(STDIN_FILENO, F_DUPFD, 252);
-	sh->pipe->stdoutcpy = fcntl(STDOUT_FILENO, F_DUPFD, 253);
-	sh->pipe->stderrcpy = fcntl(STDERR_FILENO, F_DUPFD, 254);
-	sh->pipe->read_fd = -1;
-	sh->pipe->std_fd_copies[0] = sh->pipe->stdincpy;
-	sh->pipe->std_fd_copies[1] = sh->pipe->stdoutcpy;
-	sh->pipe->std_fd_copies[2] = sh->pipe->stderrcpy;
-	if (sh->pipe->std_fd_copies[STDIN_FILENO] < 0
-		|| sh->pipe->std_fd_copies[STDOUT_FILENO] < 0
-		|| sh->pipe->std_fd_copies[STDERR_FILENO] < 0)
+	sh->pipe->stdincpy = 255; //Maybe protect this
+	// sh->pipe->stdincpy = fcntl(STDIN_FILENO, F_DUPFD, 252);
+	// sh->pipe->stdoutcpy = fcntl(STDOUT_FILENO, F_DUPFD, 253);
+	// sh->pipe->stderrcpy = fcntl(STDERR_FILENO, F_DUPFD, 254);
+	// sh->pipe->std_fd_copies[0] = sh->pipe->stdincpy;
+	// sh->pipe->std_fd_copies[1] = sh->pipe->stdoutcpy;
+	// sh->pipe->std_fd_copies[2] = sh->pipe->stderrcpy;
+	if (sh->pipe->stdincpy < 0
+		/*|| sh->pipe->std_fd_copies[STDOUT_FILENO] < 0
+		|| sh->pipe->std_fd_copies[STDERR_FILENO] < 0*/)
 		ft_exit_error("open failed\n", -1);
 }

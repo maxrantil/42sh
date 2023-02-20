@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/17 04:39:10 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:10:19 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ t_term		*g_t;
 
 static void	ft_session_init_continue(t_shell *sh)
 {
-	sh->pipe->write_pipe[0] = -1;
-	sh->pipe->write_pipe[1] = -1;
-	sh->pipe->pid = -1;
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
-	sh->pipe->new_pipe = 1;
 	sh->pipe->piping = 0;
 	sh->pipe->pid = 0;
 	hash_init(sh);

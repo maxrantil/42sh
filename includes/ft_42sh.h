@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/18 06:31:48 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:14:45 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@
 
 /* limit for filedescriptors */
 # define SH_FD_MAX 255
+
+/* limit for pipes */
+# define SH_PIPE_MAX 255
 
 /* Limit for jobs */
 # define JOBS_MAX 255
@@ -278,7 +281,8 @@ typedef struct s_pipe
 {
 	int		pid; //Is this even used?
 	int		piping;
-	int		new_pipe;
+	int		pipes[SH_PIPE_MAX][2];
+	int		pipe_count;
 	int		write_pipe[2];
 	int		read_pipe[2];
 	int		redir_out;
@@ -289,7 +293,6 @@ typedef struct s_pipe
 	int		fd_aliases[SH_FD_MAX + 1];
 	int		open_fd_idx;
 	int		previous_redir[SH_FD_MAX];
-	int		read_fd;
 	int		std_fd_copies[3];
 }			t_pipe;
 
