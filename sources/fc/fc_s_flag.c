@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_s_flag.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:18:26 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/20 15:06:48 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:41:36 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	find_matching(t_shell *sh, char *str)
 	return (fc_print_error(5));
 }
 
-static int	fc_s_only(t_shell *sh, t_fc *fc , int y)
+static int	fc_s_only(t_shell *sh, t_fc *fc, int y)
 {
 	ft_strdel(&sh->term->history_arr[sh->term->history_size - 1]);
 	sh->term->history_arr[sh->term->history_size - 1] = \
@@ -46,7 +46,7 @@ static int	fc_s_only(t_shell *sh, t_fc *fc , int y)
 
 static void	specific_in_range(t_shell *sh, int *specific)
 {
-	int cap;
+	int	cap;
 
 	if (sh->term->history_size < 500)
 		cap = 0;
