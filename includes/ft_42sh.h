@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/20 17:26:44 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:45:33 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -581,6 +581,7 @@ int				fc_s_flag(t_shell *sh, t_fc *fc, char ***cmd);
 void			fc_update_history(t_shell *sh, char ***cmd);
 int				fc_usage(char option, char *str);
 int				ft_fc(t_shell *sh, char ***cmd);
+int				get_history_cap(t_shell *sh);
 
 /*			  	INTERN VARIABLES			*/
 int				ft_variables(t_shell *sh, char ****cmd);

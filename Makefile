@@ -6,7 +6,7 @@
 #    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/20 17:21:35 by rvuorenl         ###   ########.fr        #
+#    Updated: 2023/02/20 17:45:58 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -195,6 +195,7 @@ FILES			= \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
 				$(FC)fc_get_flags \
+				$(FC)fc_get_history_cap \
 				$(FC)fc_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \

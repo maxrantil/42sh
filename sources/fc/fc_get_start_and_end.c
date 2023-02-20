@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fc_get_start_and_end.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/20 12:57:51 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:45:13 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-static int	get_history_cap(t_shell *sh)
-{
-	if (sh->term->history_size < 500)
-		return (0);
-	else
-		return (sh->term->history_size - 500);
-}
 
 static int	int_check(char *arg)
 {
