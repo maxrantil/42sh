@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:49:04 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/15 14:23:15 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:40:38 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*retokenize(char *subst, int *i)
 		is_dollar(fresh, subst, i, &open);
 		if (is_curly_end(fresh, subst, i, &open, k))
 			break ;
-		if (subst[*i] == '$' && !open)
+		if (subst[*i] == '$' && !open && subst[*i - 1] != '\'' && subst[*i - 1] != '\\')
 			break ;
 	}
 	return (fresh);

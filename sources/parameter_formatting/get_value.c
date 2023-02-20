@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/17 12:37:26 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:11:14 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*assign_default_value(t_shell *sh, char *var, char *subst)
 	return (expanded);
 }
 
-static char	*display_error(t_shell *sh, char *var, char *subst)
+static char	*display_error(t_shell *sh, char *var, char *subst, int *format)
 {
 	char	*expanded;
 	char	**temp;
@@ -69,6 +69,7 @@ static char	*display_error(t_shell *sh, char *var, char *subst)
 	{
 		temp_free(&temp);
 		ft_err_print(var + 1, subst + 1, " ", sh->pipe->stderrcpy);
+		*format = -2;
 		return (NULL);
 	}
 	else if (!*temp[0] && !subst[1])
@@ -76,6 +77,7 @@ static char	*display_error(t_shell *sh, char *var, char *subst)
 		temp_free(&temp);
 		ft_err_print(var + 1, NULL, "parameter null or unset", \
 		sh->pipe->stderrcpy);
+		*format = -2;
 		return (NULL);
 	}
 	else
@@ -107,24 +109,21 @@ static char	*alternate_value(t_shell *sh, char *var, char *subst)
 			expanded = ft_strnew(1);
 	}
 	temp_free(&temp);
-	// ft_strdel(&temp[0]);
-	// ft_strdel(&temp[1]);
-	// free(temp);
 	return (expanded);
 }
 
-char	*get_value(t_shell *sh, char *var, char *subst, int format)
+char	*get_value(t_shell *sh, char *var, char *subst, int *format)
 {
 	char	*expanded;
 
 	expanded = NULL;
-	if (format == USE_DEFAULT)
+	if (*format == USE_DEFAULT)
 		expanded = use_default_value(sh, var, subst);
-	else if (format == ASSIGN_DEFAULT)
+	else if (*format == ASSIGN_DEFAULT)
 		expanded = assign_default_value(sh, var, subst);
-	else if (format == DISPLAY_ERR)
-		expanded = display_error(sh, var, subst);
-	else if (format == ALTERNATE_VALUE)
+	else if (*format == DISPLAY_ERR)
+		expanded = display_error(sh, var, subst, format);
+	else if (*format == ALTERNATE_VALUE)
 		expanded = alternate_value(sh, var, subst);
 	return (expanded);
 }

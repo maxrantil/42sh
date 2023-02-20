@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:38:41 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:22:59 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:12:18 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ int	perform_param_expans(char *cmd, t_param *pa, int *ret)
 		return (-1);
 	if (*ret == 0)
 		retoken_into_list(pa);
-	expander(pa, *ret);
-	if (*ret == 0 && join_values(g_sh, pa, cmd, *ret))
+	expander(pa, ret);
+	if (*ret == 0 && join_values(g_sh, pa, cmd, ret))
 		err = -1;
+	if (*ret == -2)
+		err = -2;
 	if (*ret == 1)
 		err = -1;
 	return (err);

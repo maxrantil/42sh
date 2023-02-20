@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:23:21 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:30:39 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ static void	expansion_subst(t_sub *sub, t_shell *sh, int *ret)
 		sub->temp_sub = search_from_var(sh, sub->needle, ret);
 	else if (is_expansion_id(sub->needle))
 		sub->temp_sub = substitute_or_create(sh, sub->needle, ret);
-	else
+	else if (sub->needle[0] == '$')
 		sub->temp_sub = ft_expansion_dollar(sh, sub->needle);
+	else if (sub->needle[0] == '~')
+		sub->temp_sub = ft_expansion_tilde(sh, sub->needle);
 }
 
 char	*search_from_var(t_shell *sh, char *cmd, int *ret)
@@ -66,6 +68,7 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	sub.needle = get_needle_and_op(sub.strip, sub.op, cmd);
 	expansion_subst(&sub, sh, ret);
 	replace_haystack(&sub, sh);
+	ft_quote_blash_removal(sub.haystack);
 	if (!*sub.needle)
 	{
 		subs_session_free(&sub, 0);

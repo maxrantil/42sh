@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 10:57:45 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:16:22 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:11:21 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static void	init_join(t_param *pa)
 	pa->expanded = ft_strnew(1);
 }
 
-int	join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
+int	join_values(t_shell *sh, t_param *pa, char *cmd, int *ret)
 {
 	init_join(pa);
 	if (pa->oper[0] == GET_VALUE)
 	{
-		if (substitute_value(pa, &ret))
+		if (substitute_value(pa, ret))
 		{
 			ft_strdel(&pa->subs);
 			return (1);
@@ -69,7 +69,7 @@ int	join_values(t_shell *sh, t_param *pa, char *cmd, int ret)
 	}
 	else if (pa->oper[0] == SUBSTRING_BEGIN || pa->oper[0] == SUBSTRING_END)
 	{
-		if (substitute_substring(pa, &ret))
+		if (substitute_substring(pa, ret))
 			return (1);
 	}
 	else if (ft_strnequ(pa->subs, STRING_LEN, 2))

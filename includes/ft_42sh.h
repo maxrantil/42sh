@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/18 06:31:48 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:04:43 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -637,13 +637,13 @@ char			*search_from_var(t_shell *sh, char *cmd, int *ret);
 int				param_format(char **cmd);
 void			substitute_og_cmd(t_param *pa, char **cmd, int *j);
 char			*remove_braces(char *str);
-char			*get_value(t_shell *sh, char *var, char *subst, int format);
+char			*get_value(t_shell *sh, char *var, char *subst, int *format);
 int				format_mode(char op);
-int				join_values(t_shell *sh, t_param *pa, char *cmd, int ret);
+int				join_values(t_shell *sh, t_param *pa, char *cmd, int *ret);
 char			*get_operator(char *cmd);
 int				is_param_exp_char(char *flag);
 int				splitter(char *cmd, t_param *pa, int *ret);
-int				expander(t_param *pa, int ret);
+int				expander(t_param *pa, int *ret);
 void			variable_length(char *str, t_param *pa);
 int				perform_param_expans(char *cmd, t_param *pa, int *ret);
 char			*get_flag(char *cmd, int *ret);
@@ -653,7 +653,7 @@ void			free_attrs(t_param *pa, char **new_cmd);
 void			init_subs_session(t_sub *sub, char *cmd);
 void			subs_session_free(t_sub *sub, int opt);
 char			*ft_find_word(char *haystack, char *needle, char *op);
-void			remove_globstars(char **needle, int *glob);
+char			*remove_globstars(char **needle, int *glob);
 char			*find_from_end(char *haystack, char *needle);
 char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
