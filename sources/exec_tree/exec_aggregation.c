@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/20 07:59:03 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:41:16 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char *terminal, t_shell *sh)
 		|| is_std_fd_cpy(sh, open_fd) || is_pipe(sh, open_fd))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
+		sh->exit_stat = 1;
 		return ;
 	}
 	exec_aggre_split(node, &open_fd, sh);
