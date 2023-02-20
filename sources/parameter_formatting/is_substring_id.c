@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_substring_id.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:38:51 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/11 11:20:54 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:02:50 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	is_substring_id(char *needle)
 {
-	return ((ft_strnequ(needle, "${", 2) && ft_strchr(needle , '#'))
-		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle , '%')));
+	return ((ft_strnequ(needle, "${", 2) && ft_strchr(needle, '#'))
+		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle, '%')));
 }
