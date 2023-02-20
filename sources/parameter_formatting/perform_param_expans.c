@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   perform_param_expans.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:38:41 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:22:59 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:01:40 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-extern t_shell *g_sh;
+extern t_shell	*g_sh;
 
 static void	retoken_into_list(t_param *pa)
 {
