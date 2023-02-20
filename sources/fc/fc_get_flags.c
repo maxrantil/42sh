@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:56:45 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/16 12:17:32 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:04:30 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 static int	turn_on_flags(t_fc *fc, char *str)
 {
-	if (!str)
-		return (1);
+	if (str[0] == '\0')
+	{
+		ft_printf("42sh: fc: no command found\n");
+		return (-1);
+	}
 	while (*str)
 	{
 		if (*str == 's')
@@ -52,7 +55,7 @@ int	fc_get_flags(t_fc *fc, char **cmd)
 				++i;
 				break ;
 			}
-			if (turn_on_flags(fc, &cmd[i][j]) == -1)
+			if (!turn_on_flags(fc, &cmd[i][j]))
 				return (-1);
 			j = 0;
 			i++;
