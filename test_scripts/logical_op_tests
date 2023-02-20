@@ -1,0 +1,11 @@
+ls ; echo lol | cat -e && echo lmoa ; echo SDSDG && echo great 
+exit
+ls ; echo lol | cat -e && echo lmoa ; echo SDSDG && echo great 
+ls ; echo lol | cat -e && echo lmoa ; echo SDSDG && echo great || echo not
+ls ; echo lol | cat -e && echo lmoa ; echo SDSDG && echo great || echo not | cat -e
+echo SDSDG && echo great || echo not | cat -e
+echo great || echo not | cat -e
+echo great && echo not | cat -e
+echo great && echo not | cat -e
+
+ls ; echo lol | cat -e && echo lmoa ; echo SDSDG && echo >&5 || echo not | cat -e | cat -e

@@ -94,4 +94,5 @@ char *terminal, t_shell *sh)
 		sh->pipe->write_pipe[1] = -1;
 	}
 	exec_tree(node->cmd, environ_cp, terminal, sh);
+	reset_fd(sh);
 }

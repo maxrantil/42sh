@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/17 08:33:23 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:00:42 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ char *terminal, t_shell *sh)
 	}
 	if (node->cmd)
 		exec_tree(node->cmd, environ_cp, terminal, sh);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	open(sh->terminal, O_RDWR);
-	open(sh->terminal, O_RDWR);
+	reset_fd(sh);
+	// close(STDIN_FILENO);
+	// close(STDOUT_FILENO);
+	// open(sh->terminal, O_RDWR);
+	// open(sh->terminal, O_RDWR);
 }

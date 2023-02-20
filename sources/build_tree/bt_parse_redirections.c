@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_parse_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 15:14:15 by jniemine          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:22 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 08:05:58 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ t_treenode	*parse_redirections(t_token *tokens, int i_tok, int cmd)
 	if (!tokens[i_tok].value)
 		return (NULL);
 	while (!redir && tokens[i_tok].token && tokens[i_tok].token != PIPE
-		&& !is_semicolon_or_ampersand(tokens[i_tok].token))
+		&& !is_semicolon_or_ampersand(tokens[i_tok].token)
+		&& !is_logicalop(tokens[i_tok].token))
 	{
 		if (choose_redir_type(tokens, &redir, i_tok++, cmd))
 			return (NULL);
 	}
 	redir_start = redir;
 	while (tokens[i_tok].token && tokens[i_tok].token != PIPE
-		&& !is_semicolon_or_ampersand(tokens[i_tok].token))
+		&& !is_semicolon_or_ampersand(tokens[i_tok].token)
+		&& !is_logicalop(tokens[i_tok].token))
 	{
 		if (choose_redir_type(tokens, &redir, i_tok, cmd))
 			return (NULL);
