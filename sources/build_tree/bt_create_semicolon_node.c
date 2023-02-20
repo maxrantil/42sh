@@ -81,7 +81,8 @@ t_treenode	*create_semicolon_node(t_token *tokens, int i_tok, int end)
 	t_treenode	*semi_or_amp;
 	int			next_op;
 	int			type_delim[2];
-
+	
+	(void)end;
 	if (!tokens[i_tok].token)
 		return (NULL);
 	next_op = next_semicolon_or_ampersand(tokens, i_tok, calculate_tokens(tokens));
