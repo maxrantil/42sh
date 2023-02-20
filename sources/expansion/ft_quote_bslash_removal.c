@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quote_bslash_removal.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 13:38:31 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/20 11:36:33 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:39:43 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	ft_quote_blash_removal(char *buff)
 	{
 		if (buff[len] == '\\')
 			ft_blash_parse(buff, &quote, len);
-		else if (buff[len] == '\n' && len && quote != S_QUO && blash_check(buff, len - 1))
+		else if (buff[len] == '\n' && len && quote != S_QUO \
+			&& blash_check(buff, len - 1))
 			handle_newline(buff, len);
 		else if ((buff[len] == S_QUO || buff[len] == D_QUO))
 			ft_qoute_parse(buff, &quote, len);
