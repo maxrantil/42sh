@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/18 06:31:48 by jniemine         ###   ########.fr       */
+/*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
+/*   Updated: 2023/02/20 16:54:57 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@
 
 /* Jobs States */
 # define SIG_HANGUP
-
 
 /* For print_tree */
 # define COUNT 10
@@ -337,43 +336,43 @@ void			ft_exit_error(char *msg, int ret);
 char			*ft_strjoin_three(char *s1, char *s2, char *s3);
 size_t			ft_strlen_match(char *str, char delimiter);			// ?
 /*					ALIAS					*/
-void	dup_arr_rm_pos(char **alias, char ***dup_alias, int pos, int size);
-void	free_and_refill_dup_alias(char ***dup_alias, char **original);
-int		validate_alias(char *alias, int print_error);
-int		validate_whitespace(char *str);
-void	add_quotes(char **content);
-void	append_to_converted(char **line, char **next, char **post);
-void	trim_mid_word(char **mid, char **orig_post);
-char	*get_mid_word(char *line, char **next);
-int		skip_to_second_word(char *line);
-void	remove_quotes_cmd(char *cmd);
-void	get_first_word_move_post(char **post, char **next, char **line);
-int		word_count(char *line);
-size_t	strip_quotes_single(char *str, size_t quote1);
-int		alias(t_shell *sh, char **args);
-void	init_alias(t_shell *sh);
-int		check_alias_match(char **aliases, char *cmd);
-int		match_first_word(char **alias, char *line);
-int		print_alias_single(char *cmd, char **aliases);
-void	print_alias_all(char **alias, t_shell *sh);
-void	remove_alias_single(char ***alias, int rm_pos, int size);
-int		unalias(t_shell *sh, char **args);
-void	alias_convert_line(char **line, t_shell *sh);
-int		is_command_separator(char command);
-void	check_line_separators(char ***alias, char **line);
-void	connect_alias_pieces(char **pre, char **conv, char **post, char **line);
-void	convert_first_word(char ***alias, char **line, int size);
-void	trim_alias_line(char **line);
-void	conversion_dispatch(char ***alias, char **line, char **cont, int pos);
-int		convert_alias(char ***dup_alias, char **line, int i);
-int		check_next_conversion(char **alias, int del);
-char	*convert_first(char ***dup, char ***alias, char **line, char *cont);
-void	conversion_loop(char ***alias, char **line, char **cont, char ***dup);
-char	*get_post_content(char *line, char *arg);
-char	*get_alias_content_no_quotes(char *alias);
-char	*get_alias_command(char *alias);
-char	*get_alias_content(char *alias);
-char	*get_first_word(char *line);
+void			dup_arr_rm_pos(char **alias, char ***dup, int pos, int size);
+void			free_and_refill_dup_alias(char ***dup_alias, char **original);
+int				validate_alias(char *alias, int print_error);
+int				validate_whitespace(char *str);
+void			add_quotes(char **content);
+void			append_to_converted(char **line, char **next, char **post);
+void			trim_mid_word(char **mid, char **orig_post);
+char			*get_mid_word(char *line, char **next);
+int				skip_to_second_word(char *line);
+void			remove_quotes_cmd(char *cmd);
+void			get_first_word_move_post(char **post, char **next, char **line);
+int				word_count(char *line);
+size_t			strip_quotes_single(char *str, size_t quote1);
+int				alias(t_shell *sh, char **args);
+void			init_alias(t_shell *sh);
+int				check_alias_match(char **aliases, char *cmd);
+int				match_first_word(char **alias, char *line);
+int				print_alias_single(char *cmd, char **aliases);
+void			print_alias_all(char **alias, t_shell *sh);
+void			remove_alias_single(char ***alias, int rm_pos, int size);
+int				unalias(t_shell *sh, char **args);
+void			alias_convert_line(char **line, t_shell *sh);
+int				is_command_separator(char command);
+void			check_line_separators(char ***alias, char **line);
+void			connect_alias_pieces(char **pr, char **c, char **pos, char **l);
+void			convert_first_word(char ***alias, char **line, int size);
+void			trim_alias_line(char **line);
+void			conversion_dispatch(char ***ali, char **li, char **con, int p);
+int				convert_alias(char ***dup_alias, char **line, int i);
+int				check_next_conversion(char **alias, int del);
+char			*convert_first(char ***dup, char ***ali, char **lin, char *con);
+void			conversion_loop(char ***ali, char **li, char **con, char ***du);
+char			*get_post_content(char *line, char *arg);
+char			*get_alias_content_no_quotes(char *alias);
+char			*get_alias_command(char *alias);
+char			*get_alias_content(char *alias);
+char			*get_first_word(char *line);
 
 /*					BUILDTREE				*/
 t_treenode		*build_tree(t_token **tokens);
@@ -617,7 +616,7 @@ void			update_fg_job(t_shell *sh, pid_t pid, char **cmd);
 void			wait_for_job(t_shell *sh, int pid);
 void			reap_process(t_shell *sh);
 void			update_job_status(t_shell *sh, int status, int pid, int mode);
-void    		job_wtermsig_msg(int status);
+void			job_wtermsig_msg(int status);
 
 /*		KEYYBOARD HAS IT'S OWN H-FILE		*/
 
