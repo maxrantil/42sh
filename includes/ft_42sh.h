@@ -6,7 +6,7 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/20 17:05:30 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:26:44 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -443,6 +443,7 @@ int				is_path_symlink(char *path);
 int				cd_minus_symlink(t_shell *sh, char *path);
 void			erase_last_subdir(char *path);
 int				resolve_dotdot_symlink(t_shell *sh, char **cmd);
+int				cd_symlink_utils_free(char **path, int ret);
 void			reset_options(t_shell *sh);
 char			*env_path(t_shell *sh, char *key);
 int				ft_chdir_expanded(t_shell *sh, char **path);

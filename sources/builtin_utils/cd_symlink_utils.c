@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_symlink_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 21:30:31 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/15 22:07:54 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:23:41 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ int	resolve_dotdot_symlink(t_shell *sh, char **cmd)
 	{
 		path = env_path(sh, "PWD");
 		if (path && ft_strequ(path, "/"))
-		{
-			ft_memdel((void *)&path);
-			return (1);
-		}
+			return (cd_symlink_utils_free(&path, 1));
 		if (sh->is_flag_on == 0)
 		{
 			erase_last_subdir(path);
@@ -102,8 +99,7 @@ int	resolve_dotdot_symlink(t_shell *sh, char **cmd)
 				exit(1);
 			ft_dir_change(sh);
 		}
-		ft_memdel((void *)&path);
-		return (0);
+		return (cd_symlink_utils_free(&path, 0));
 	}
 	return (1);
 }
