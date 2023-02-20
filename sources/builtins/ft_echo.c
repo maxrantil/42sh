@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 20:33:02 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 19:23:43 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:37:16 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	echo_fd_check(void)
 	if (fstat(1, &buf) == -1)
 	{
 		ft_err_print(NULL, "echo", "write error: Bad file descriptor", 2);
+		//Should we update exit_status for logical operators?
 		return (1);
 	}
 	return (0);

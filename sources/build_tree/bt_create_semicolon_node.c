@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:43:28 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/18 10:02:27 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:16:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ static int	init_values(int next_op,
 }
 
 static void	create_semicolon_split(t_token *tokens, t_treenode *semi_or_amp,
-		int next_op, int type_end_delim[3])
+		int next_op, int type_delim[2])
 {
 	int	type;
 	int	end;
 
-	type = type_end_delim[0];
-	end = type_end_delim[1];
+	type = type_delim[0];
+	end = type_delim[1];
 	if (next_op >= 0)
 	{
 		if (type == AMPERSAND)
@@ -80,27 +80,27 @@ t_treenode	*create_semicolon_node(t_token *tokens, int i_tok, int end)
 {
 	t_treenode	*semi_or_amp;
 	int			next_op;
-	int			type_end_delim[3];
+	int			type_delim[2];
 
 	if (!tokens[i_tok].token)
 		return (NULL);
-	next_op = next_semicolon_or_ampersand(tokens, i_tok, end);
-	type_end_delim[0] = init_values(next_op, tokens, i_tok, &semi_or_amp);
+	next_op = next_semicolon_or_ampersand(tokens, i_tok, calculate_tokens(tokens));
+	type_delim[0] = init_values(next_op, tokens, i_tok, &semi_or_amp);
 	if (next_op >= 0)
-		type_end_delim[2] = next_op;
+		type_delim[1] = next_op;
 	else
-		type_end_delim[1] = end;
-	if (type_end_delim[0] == AMPERSAND)
+		type_delim[1] = calculate_tokens(tokens);
+	if (type_delim[0] == AMPERSAND)
 	{
 		(((t_ampersand *)semi_or_amp)->left) = create_logical_op_tree(tokens,
-				i_tok, type_end_delim[2]);
+				i_tok, type_delim[1]);
 	}
 	else
 	{
 		(((t_semicolon *)semi_or_amp)->left) = create_logical_op_tree(tokens,
-				i_tok, type_end_delim[2]);
+				i_tok, type_delim[1]);
 	}
 	create_semicolon_split(tokens, semi_or_amp, \
-		next_op, type_end_delim);
+		next_op, type_delim);
 	return (semi_or_amp);
 }

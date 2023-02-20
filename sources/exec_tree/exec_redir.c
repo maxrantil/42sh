@@ -12,19 +12,20 @@
 
 #include "ft_42sh.h"
 
-static int	protect_fd(int closefd)
+static int	protect_fd(int closefd, t_shell *sh)
 {
 	if (closefd > 255 || closefd < 0)
 	{
 		ft_err_print(ft_itoa(closefd), NULL, "Bad file descriptor", 2);
+		sh->exit_stat = 1;
 		return (1);
 	}
 	return (0);
 }
 
-static int	test_file_access_for_type(char *dest, int closefd, int *rights)
+static int	test_file_access_for_type(char *dest, int closefd, int *rights, t_shell *sh)
 {
-	if (protect_fd(closefd))
+	if (protect_fd(closefd, sh))
 		return (0);
 	if (test_if_file(dest))
 	{
@@ -78,7 +79,7 @@ char *terminal, t_shell *sh)
 	if (node->close_fd < SH_FD_MAX && sh->pipe->previous_redir[node->close_fd])
 		close (sh->pipe->previous_redir[node->close_fd]);
 	if (!test_file_access_for_type(node->filepath,
-			node->close_fd, &node->open_flags))
+			node->close_fd, &node->open_flags, sh))
 		return ;
 	open_file(node, terminal, sh, &fd);
 	sh->pipe->previous_redir[fd] = 1;
@@ -94,4 +95,5 @@ char *terminal, t_shell *sh)
 		sh->pipe->write_pipe[1] = -1;
 	}
 	exec_tree(node->cmd, environ_cp, terminal, sh);
+	reset_fd(sh);
 }
