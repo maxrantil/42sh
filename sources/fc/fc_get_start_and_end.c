@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:13:55 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 17:10:50 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 12:57:51 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,8 @@ static void	get_end_default(t_shell *sh, t_fc *fc)
 
 void	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 {
-	char	*cmd1;
-	char	*cmd2;
-
-	cmd1 = (*cmd)[fc->flags];
-	cmd2 = (*cmd)[fc->flags + 1];
 	fc->start = 0;
-	if (!cmd1)
+	if (!(*cmd)[fc->flags])
 	{
 		if (!fc->l)
 			fc->start = sh->term->history_size - 2;
@@ -107,14 +102,14 @@ void	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 			fc->start = sh->term->history_size - FC_LEN;
 		get_end_default(sh, fc);
 	}
-	else if (cmd1 && !cmd2)
+	else if ((*cmd)[fc->flags] && !(*cmd)[fc->flags + 1])
 	{
-		fc->start = get_start(sh, cmd1);
+		fc->start = get_start(sh, (*cmd)[fc->flags]);
 		get_end_default(sh, fc);
 	}
-	else if (cmd1 && cmd2)
+	else if ((*cmd)[fc->flags] && (*cmd)[fc->flags + 1])
 	{
-		fc->start = get_start(sh, cmd1);
-		fc->end = get_end(sh, cmd2);
+		fc->start = get_start(sh, (*cmd)[fc->flags]);
+		fc->end = get_end(sh, (*cmd)[fc->flags + 1]);
 	}
 }

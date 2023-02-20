@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:52:49 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/20 12:02:30 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:09:30 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,38 +46,41 @@ static	void	remove_heredoc(char *str)
 	}
 }
 
-static char	*if_heredoc(t_shell *sh, t_fc *fc)
+static void	if_heredoc(t_shell *sh, t_fc *fc)
 {
 	char	*new_cl;
 
 	sh->term->fc_flag = true;
 	new_cl = ft_strtrim(fc->ret_cmd);
-	if (ft_heredoc_handling2(new_cl))
-		remove_heredoc(new_cl);
-	return (new_cl);
+	ft_strdel(&fc->ret_cmd);
+	if (new_cl)
+	{
+		fc->ret_cmd = new_cl;
+		if (ft_heredoc_handling2(fc->ret_cmd))
+			remove_heredoc(fc->ret_cmd);
+	}
+	else
+	{
+		ft_putchar('\n');
+		ft_history_add_command(sh->term, "-");
+	}
 }
 
 void	fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc)
 {
-	char		*new_cl = NULL;
 	t_treenode	*head;
 	t_token		*tokens;
 
-	ft_printf("1\n");
-	new_cl = if_heredoc(sh, fc);
-	ft_printf("2\n");
+	if_heredoc(sh, fc);
 	tokens = NULL;
-	tokens = chop_line(new_cl, tokens, 1);
-	ft_printf("3\n");
-	head = build_tree(&tokens);
-	ft_printf("4\n");
-	if (head && ((t_semicolon *)head)->left)
-		exec_tree(head, &sh->env, sh->terminal, sh);
-	ft_printf("5\n");
-	free_node(head);
-	ft_printf("6\n");
-	free_tokens(&tokens);
-	ft_printf("7\n");
+	if (fc->ret_cmd)
+	{
+		tokens = chop_line(fc->ret_cmd, tokens, 1);
+		head = build_tree(&tokens);
+		if (head && ((t_semicolon *)head)->left)
+			exec_tree(head, &sh->env, sh->terminal, sh);
+		free_node(head);
+		free_tokens(&tokens);
+	}
 	fc_free(fc);
-	ft_printf("8\n");
 }

@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:20:25 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/13 11:20:26 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 12:36:12 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	fc_free(t_fc *fc)
 {
-	ft_strdel(&fc->ret_cmd);
-	ft_arrclean(fc->filename);
+	// ft_strdel(&fc->ret_cmd);
+	if (fc->filename)
+		ft_arrclean(fc->filename);
 }
