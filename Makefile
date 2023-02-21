@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/20 17:53:04 by rvuorenl         ###   ########.fr        #
+#    Updated: 2023/02/21 13:20:10 by mrantil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -255,7 +255,6 @@ FILES			= \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
 				$(INTERN_VARS)is_var \
-				$(JOBS)add_to_queue \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
@@ -263,7 +262,8 @@ FILES			= \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
 				$(JOBS)job_wtermsig_msg \
-				$(JOBS)delete_from_queue \
+				$(JOBS)queue_move_to_front \
+				$(JOBS)queue_remove \
 				$(JOBS)display_job_node \
 				$(JOBS)reset_fgnode \
 				$(JOBS)reset_cmd \

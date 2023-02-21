@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   transfer_to_bg.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/14 14:59:24 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:28:13 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+void	queue_add(t_shell *sh, int index)
+{
+	int			i;
+	t_bg_jobs	*tmp;
+
+	i = 0;
+	tmp = sh->bg_node;
+	while (tmp)
+	{
+		if (tmp->index == sh->process_queue[i])
+		{
+			if (tmp->status == STOPPED)
+			{
+				i++;
+				tmp = sh->bg_node;
+			}
+		}
+		tmp = tmp->next;
+	}
+	++sh->process_count;
+	ft_memmove(&sh->process_queue[i + 1], \
+	&sh->process_queue[i], sh->process_count * sizeof(int));
+	sh->process_queue[i] = index;
+}
 
 static t_bg_jobs	*init_bg_node(t_shell *sh, int status, \
 int index, t_bg_jobs *prev)
@@ -23,7 +48,7 @@ int index, t_bg_jobs *prev)
 	init_cmd(sh, bg_node);
 	bg_node->status = status;
 	bg_node->index = index;
-	add_to_queue(sh, index);
+	queue_add(sh, index);
 	bg_node->prev = prev;
 	bg_node->next = NULL;
 	return (bg_node);
@@ -40,11 +65,7 @@ static bool	fg_to_bg(t_shell *sh, t_bg_jobs	**job, int status)
 		if (sh->fg_node->gpid == (*job)->gpid)
 		{
 			(*job)->status = status;
-			delete_from_queue(sh, *job);
-			sh->process_count++;
-			ft_memmove(&sh->process_queue[1], \
-			&sh->process_queue[0], sh->process_count * sizeof(int));
-			sh->process_queue[0] = (*job)->index;
+			queue_move_to_front(sh, *job);
 			return (false);
 		}
 		prev = *job;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/20 17:54:02 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:26:43 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -598,16 +598,16 @@ void			append_pid_arr(t_fg_job *fg_node, pid_t pid);
 void			bg_node_delete(t_shell *sh, t_bg_jobs **curr);
 void			change_process_status(t_bg_jobs *bg_node, pid_t pid, \
 				int status);
-void			delete_from_queue(t_shell *sh, t_bg_jobs *process);
 void			display_job_node(t_shell *sh, t_bg_jobs *job);
 void			display_job_pipeline(t_shell *sh, t_bg_jobs *job);
 void			display_bg_job(t_shell *sh);
 void			display_suspended_job(t_shell *sh, int pid);
 void			display_pipeline_cmd(t_shell *sh, t_bg_jobs *job);
 char			**dup_dbl_ptr(char **cmd);
+void			queue_remove(t_shell *sh, t_bg_jobs *process);
+void			queue_move_to_front(t_shell *sh, t_bg_jobs *process);
 void			reset_fgnode(t_shell *sh);
 void			set_process_group(t_shell *sh, pid_t pid);
-void			add_to_queue(t_shell *sh, int index);
 void			init_cmd(t_shell *sh, t_bg_jobs *bg_node);
 void			init_pid(t_shell *sh, t_bg_jobs *bg_node);
 void			transfer_to_bg(t_shell *sh, int status);
