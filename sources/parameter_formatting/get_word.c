@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:10:34 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/21 14:42:23 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:23:11 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,37 @@ static char	*find_from_begin_last(char *haystack, char *needle)
 	return (haystack);
 }
 
-static char	*find_from_first_last(char *haystack, char *needle)
-{
-	int		len;
-	int		len_needle;
-	char	*temp;
+// static char	*find_from_first_last(char *haystack, char *needle)
+// {
+// 	int		len;
+// 	int		len_needle;
+// 	char	*temp;
 
-	len = (int)ft_strlen(haystack);
+// 	len = (int)ft_strlen(haystack);
+// 	while (--len > 0)
+// 	{
+// 		if (haystack[len] == needle[len_needle])
+// 		{
+// 			len_needle--;
+// 			if (len < 0 && len_needle > 0)
+// 				return (NULL);
+// 			if (len_needle < 0)
+// 			{
+// 				temp = ft_strndup(haystack, len);
+// 				return (temp);
+// 			}
+// 			else
+// 				len_needle = (int)ft_strlen(needle) - 1;
+// 		}
+// 	}
+// 	return (ft_strdup(haystack));
+// }
+static char *find_from_first_last(char *haystack, char *needle)
+{
+	int len = (int)ft_strlen(haystack);
+	int len_needle = (int)ft_strlen(needle) - 1; // Initialize to length of needle - 1
+	char *temp;
+
 	while (--len > 0)
 	{
 		if (haystack[len] == needle[len_needle])
