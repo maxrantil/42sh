@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/18 06:31:48 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:00:27 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,11 +286,13 @@ typedef struct s_pipe
 	int		stdincpy;
 	int		stdoutcpy;
 	int		stderrcpy;
+	int		pipes[SH_FD_MAX][2]; 
+	int		pipe_idx;
 	int		fd_aliases[SH_FD_MAX + 1];
 	int		open_fd_idx;
 	int		previous_redir[SH_FD_MAX];
 	int		read_fd;
-	int		std_fd_copies[3];
+	// int		std_fd_copies[3];
 }			t_pipe;
 
 /*				SESSION STRUCT				*/

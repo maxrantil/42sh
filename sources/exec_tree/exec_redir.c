@@ -57,15 +57,15 @@ static void	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 	int	fd_temp;
 
 	open_fd_if_needed(&node->close_fd, terminal, sh);
-	fd_temp = open(node->filepath, node->open_flags, node->rights);
-	if (sh->pipe->open_fd_idx >= 0)
-		*fd = fcntl(fd_temp, F_DUPFD, sh->pipe->open_fd_idx--);
-	else
-		error_exit("Too many open files");
-	close(fd_temp);
-	sh->pipe->fd_aliases[node->close_fd] = *fd;
-	if (node->open_flags == O_RDONLY)
-		sh->pipe->read_fd = *fd;
+	*fd= open(node->filepath, node->open_flags, node->rights);
+	// if (sh->pipe->open_fd_idx >= 0)
+	// 	*fd = fcntl(fd_temp, F_DUPFD, sh->pipe->open_fd_idx--);
+	// else
+	// 	error_exit("Too many open files");
+	// close(fd_temp);
+	// sh->pipe->fd_aliases[node->close_fd] = *fd;
+	// if (node->open_flags == O_RDONLY)
+	// 	sh->pipe->read_fd = *fd;
 	if (*fd < 0)
 		exit_error(sh, 1, "open failed");
 }
@@ -74,15 +74,19 @@ void	exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
 	int	fd;
+	int cpy;
 
 	fd = -1;
-	if (node->close_fd < SH_FD_MAX && sh->pipe->previous_redir[node->close_fd])
-		close (sh->pipe->previous_redir[node->close_fd]);
+
 	if (!test_file_access_for_type(node->filepath,
 			node->close_fd, &node->open_flags, sh))
 		return ;
 	open_file(node, terminal, sh, &fd);
 	sh->pipe->previous_redir[fd] = 1;
+	cpy = dup(node->close_fd);
+	sh->pipe->previous_redir[cpy] = 1;
+	if (sh->pipe->previous_redir[node->close_fd] == 1)
+		sh->pipe->previous_redir[node->close_fd] = 0;
 	if (dup2(fd, node->close_fd) < 0)
 		exit_error(sh, 1, "exec_redir dup2 failed");
 	if (node->close_fd == STDOUT_FILENO)
@@ -95,5 +99,7 @@ char *terminal, t_shell *sh)
 		sh->pipe->write_pipe[1] = -1;
 	}
 	exec_tree(node->cmd, environ_cp, terminal, sh);
-	reset_fd(sh);
+	// close(sh->pipe->previous_redir[node->close_fd]);
+	dup2(cpy, node->close_fd); // PROTECT
+	// reset_fd(sh);
 }
