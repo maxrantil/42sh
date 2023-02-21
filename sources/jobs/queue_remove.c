@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_from_queue.c                                :+:      :+:    :+:   */
+/*   queue_remove.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 18:10:46 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/11 18:22:28 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:16:02 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	delete_from_queue(t_shell *sh, t_bg_jobs *process)
+void	queue_remove(t_shell *sh, t_bg_jobs *process)
 {
 	int	i;
 
