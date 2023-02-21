@@ -1,0 +1,29 @@
+echo ${PWD:+${HOME:+${PWD:+${USER:+${PWD:+${USER:+${SHELL:+${HOME:+${USER:+${abc:-${efg:-${PWD:+${ohwow:-${PWD:+${USER:+${hello:-${SHELL:+"hello     :)"}}}}}}}}}}}}}}}}}
+echo "${HOME:+'$PWD'}"
+echo ${HOME:- here ${PWD:+"he'll'o |w'orl"d}}
+echo ${HOME:+ here ${PWD:+"he'll'o |w'orl"d}}
+echo \${HOME:+hello}
+echo ${#$SHELL}
+echo ${HOME:~+}
+echo ${HOME:%~+}
+echo ${HOME: }
+echo ${HOME: helo}
+echo ${HOME: hello wordl}
+echo ${HOME: #}
+echo ${PWD%${PWD#~/work}}
+echo ${{HOME}}
+${NOEXIST:+ }
+${NOEXIST:?helo}
+${NOEXIST:-hello wordl}
+${NOEXIST:=hello wordl}
+${s}
+${HOME##*}
+echo ${NOEXIST:+ }
+echo ${NOEXIST:?helo}
+echo ${NOEXIST:-hello wordl}
+echo ${NOEXIST:=hello wordl}
+${HOME#/Users*ne}
+${HOME##/Users*ne}
+${HOME##*/}
+${HOME%%*ne}
+${HOME%U*ne}

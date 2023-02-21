@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:55 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:23:51 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:11:08 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ char	*substitute_or_create(t_shell *sh, char *cmd, int *ret)
 	get_temp_subst(&param, sh, ret);
 	format = format_mode(param.op);
 	if (!param.expanded || !*param.expanded)
-		param.expanded = get_value(sh, param.var, param.subs, format);
+		param.expanded = get_value(sh, param.var, param.subs, &format);
+	if (format == -2)
+		*ret = -2;
 	del_param(&param, 0);
 	return (param.expanded);
 }

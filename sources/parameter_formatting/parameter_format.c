@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/17 14:08:43 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:11:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,12 @@ static int	proceed_to_execute(t_param *pa, \
 	new_cmd = init_form_cycle(pa, cmd[ints->i], ints);
 	if (check_syntax(new_cmd))
 	{
-		ft_quote_blash_removal(new_cmd);
 		*ret = perform_param_expans(new_cmd, pa, &ints->ret);
 		substitute_og_cmd(pa, &cmd[ints->i], &ints->j);
 		if (*ret != 0)
 		{
 			free_attrs(pa, &new_cmd);
-			if (ints->ret == -1)
+			if (ints->ret == -1 || *ret == -2)
 				return (-1);
 			return (1);
 		}
