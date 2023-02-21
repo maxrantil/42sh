@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/21 15:01:57 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:23:10 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,17 @@ static char	*get_needle_and_op(char *strip, char *op, char *cmd)
 	if (ft_strchr(cmd, '#'))
 	{
 		needle = ft_strdup(ft_strchr(strip, '#'));
-		while (needle[++k] == '#')
+		while (needle[++k] == '#' && k < 2)
 			op[k] = needle[k];
-		needle = ft_memmove(needle, needle + 1 + (k - 1), ft_strlen(needle));
+		needle = ft_memmove(needle, needle + k, ft_strlen(needle) - 1);
+		ft_printf("needle %s\n", needle);
 	}
 	else if (ft_strchr(strip, '%'))
 	{
 		needle = ft_strdup(ft_strchr(strip, '%'));
-		while (needle[++k] == '%')
+		while (needle[++k] == '%' && k < 2)
 			op[k] = needle[k];
-		needle = ft_memmove(needle, needle + 1 + (k - 1), ft_strlen(needle));
+		needle = ft_memmove(needle, needle + k, ft_strlen(needle) - 1);
 	}
 	return (needle);
 }

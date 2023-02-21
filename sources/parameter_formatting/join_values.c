@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 10:57:45 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/21 13:05:55 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:03:51 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	substitute_substring(t_param *pa, int *ret)
 	temp = ft_strjoin(pa->expanded, subs);
 	ft_strdel(&pa->expanded);
 	pa->expanded = ft_strdup(temp);
-	ft_strdel(&subs);
+	if (subs)
+		ft_strdel(&subs);
 	ft_strdel(&temp);
 	return (0);
 }
