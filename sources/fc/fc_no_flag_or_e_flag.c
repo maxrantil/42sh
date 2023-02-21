@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:35:13 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 13:55:10 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 12:50:33 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	fc_overwrite_history(t_shell *sh, char *ret_cmd)
 
 	ft_strdel(&sh->term->history_arr[sh->term->history_size - 1]);
 	sh->term->history_size--;
-	args = ft_strsplit(ret_cmd, ';');
+	args = ft_strsplit(ret_cmd, ';'); // Is this necessary?
 	i = 0;
 	while (args[i])
 		ft_history_add_command(sh->term, args[i++]);

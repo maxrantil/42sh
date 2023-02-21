@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:41:05 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 17:19:18 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:09:05 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	fc_init_flags(t_fc *fc)
 	fc->flags = 0;
 	fc->start = 0;
 	fc->end = 0;
+	fc->filename = NULL;
 }
 
 static bool	validate_input(char ***cmd, t_fc *fc)
@@ -49,7 +50,7 @@ int	ft_fc(t_shell *sh, char ***cmd)
 
 	fc_init_flags(&fc);
 	if (fc_get_flags(&fc, *cmd) == -1)
-		return (-1);
+		return (0);
 	ret = 0;
 	if (fc.e && !(*cmd)[fc.flags])
 		return (fc_usage('e', "option requires an argument"));
@@ -61,7 +62,7 @@ int	ft_fc(t_shell *sh, char ***cmd)
 		ret = fc_no_flag_or_e_flag(sh, &fc, cmd);
 	else if (fc.l)
 	{
-		if (fc.e) //is this correct?
+		if (fc.e)
 			fc.flags++;
 		return (fc_list_flags(sh, &fc, cmd));
 	}

@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_to_queue.c                                     :+:      :+:    :+:   */
+/*   queue_move_to_front.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/11 18:09:39 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/11 18:22:47 by mrantil          ###   ########.fr       */
+/*   Created: 2023/02/21 12:56:50 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/21 13:16:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	add_to_queue(t_shell *sh, int index)
+void	queue_move_to_front(t_shell *sh, t_bg_jobs *job)
 {
-	int			i;
-	t_bg_jobs	*tmp;
-
-	i = 0;
-	tmp = sh->bg_node;
-	while (tmp)
-	{
-		if (tmp->index == sh->process_queue[i])
-		{
-			if (tmp->status == STOPPED)
-			{
-				i++;
-				tmp = sh->bg_node;
-			}
-		}
-		tmp = tmp->next;
-	}
-	++sh->process_count;
-	ft_memmove(&sh->process_queue[i + 1], \
-	&sh->process_queue[i], sh->process_count * sizeof(int));
-	sh->process_queue[i] = index;
+	queue_remove(sh, job);
+	sh->process_count++;
+	ft_memmove(&sh->process_queue[1], \
+	&sh->process_queue[0], sh->process_count * sizeof(int));
+	sh->process_queue[0] = job->index;
 }

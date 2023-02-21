@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:48:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/17 14:55:36 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/21 12:03:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,4 @@ void	job_wtermsig_msg(int status)
 	else if (status == SIGBUS)
 		ft_printf("Bus error: %d\n", status);
 	job_wtermsig_msg_continue(status);
-
 }

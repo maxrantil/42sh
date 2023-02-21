@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 #CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -150,6 +150,7 @@ FILES			= \
 				$(BUILTIN_UTILS)flag_check \
 				$(BUILTIN_UTILS)builtin_usage \
 				$(BUILTIN_UTILS)cd_utils \
+				$(BUILTIN_UTILS)cd_symlink_utils_free \
 				$(BUILTIN_UTILS)cd_symlink_utils \
 				$(BUILTIN_UTILS)add_var_env_quotes \
 				$(BUILTIN_UTILS)check_export_print \
@@ -194,6 +195,7 @@ FILES			= \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
 				$(FC)fc_get_flags \
+				$(FC)fc_get_history_cap \
 				$(FC)fc_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
@@ -253,7 +255,6 @@ FILES			= \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
 				$(INTERN_VARS)is_var \
-				$(JOBS)add_to_queue \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
@@ -261,7 +262,8 @@ FILES			= \
 				$(JOBS)dup_dbl_ptr \
 				$(JOBS)job_info_display \
 				$(JOBS)job_wtermsig_msg \
-				$(JOBS)delete_from_queue \
+				$(JOBS)queue_move_to_front \
+				$(JOBS)queue_remove \
 				$(JOBS)display_job_node \
 				$(JOBS)reset_fgnode \
 				$(JOBS)reset_cmd \
@@ -276,6 +278,7 @@ FILES			= \
 				$(JOBS)update_job_status \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
+				$(HISTORY)ft_history_print_add_row \
 				$(HISTORY)ft_history_print_error \
 				$(HISTORY)ft_history_expansion \
 				$(HISTORY)ft_history_write_to_file \

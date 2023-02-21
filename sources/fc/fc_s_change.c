@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 18:21:29 by mrantil           #+#    #+#             */
-/*   Updated: 2023/01/27 18:25:40 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 12:30:52 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ int	fc_s_change(t_shell *sh, t_fc *fc, char ***cmd, int y)
 	}
 	fc_update_history(sh, &tmp_cmd);
 	update_cmd(cmd, &tmp_cmd);
-	return (1);
+	return (0);
 }
