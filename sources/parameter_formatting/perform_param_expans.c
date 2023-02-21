@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   perform_param_expans.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:38:41 by mviinika          #+#    #+#             */
 /*   Updated: 2023/02/21 13:06:11 by mviinika         ###   ########.fr       */

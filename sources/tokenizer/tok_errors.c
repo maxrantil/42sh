@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:09:10 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/13 12:34:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:14:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ int	test_if_error(char *first_c)
 
 static int	redir_error_split(char *str, int err_flag)
 {
-	if (!err_flag && ft_strnequ(str, "&", 1))
+	if (!err_flag && *str && ft_strnequ(str, "&", 1))
 		err_flag = ft_err_print(NULL, "syntax error near unexpected token",
 				"`&'", 1);
-	else if (!err_flag && (*str && *str == '|'))
-		err_flag = ft_err_print(NULL, "syntax error near unexpected token",
+	else if (!err_flag && (*str && *str == '|' && *(str + 1) != '|'))
+		err_flag = ft_err_print(NULL, "syntax errorRRRR near unexpected token",
 				"`|'", 1);
 	else if (!err_flag && *str && ft_strnequ(str, ";;", 2))
 		err_flag = ft_err_print(NULL, "syntax error near unexpected token",

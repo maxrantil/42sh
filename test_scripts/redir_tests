@@ -47,3 +47,4 @@ echo hello 7>&1 7>file
 echo hello 7>file 6>&1
 echo hello 3> file 1>&3 > file2
 echo lollello 56>&1 >&56
+echo SDSDG && echo lol 256>1 || echo not | cat -e | cat -e

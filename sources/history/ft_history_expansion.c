@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_history_expansion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:09:48 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 13:15:58 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:55:24 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,6 @@ int	ft_history_expantion(t_term *t)
 		}
 	}
 	if (status > 0)
-	{
-		ft_printf("\n%s", t->inp);
-		++t->total_row;
-	}
+		ft_history_print_add_row(t);
 	return (status);
 }

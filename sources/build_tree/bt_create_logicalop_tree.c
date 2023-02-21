@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_logicalop_tree.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/17 09:40:55 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 16:59:41 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ t_treenode	*create_logical_op_tree(t_token *tokens, int i_tok, int semicol)
 	if (logical_op >= 0)
 	{
 		logicalptr = init_logical_op(logical_op_type(tokens, logical_op));
-		((t_logicalop *)logicalptr)->left = parse_left_cmd(tokens, i_tok);
+		((t_logicalop *)logicalptr)->left \
+				= create_command_tree(tokens, i_tok, logical_op);
 		((t_logicalop *)logicalptr)->right = create_logical_op_node(tokens,
 				logical_op, semicol);
 		head = logicalptr;

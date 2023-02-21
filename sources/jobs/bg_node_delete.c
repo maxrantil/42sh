@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 22:10:49 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/10 17:15:12 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:16:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	bg_node_delete(t_shell *sh, t_bg_jobs **curr)
 
 	prev = (*curr)->prev;
 	next = (*curr)->next;
-	delete_from_queue(sh, *curr);
+	queue_remove(sh, *curr);
 	remove_node(curr);
 	if (prev)
 		prev->next = next;
