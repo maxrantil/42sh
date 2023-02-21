@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_semicolon_node.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:43:28 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/20 08:16:29 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:11:53 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_treenode	*init_semicolon(void)
 	return (semicolon);
 }
 
-int	next_semicolon_or_ampersand(t_token *tokens, int i_tok, int end)
+static int	next_semicolon_or_ampers(t_token *tokens, int i_tok, int end)
 {
 	int			next_semicol;
 	int			next_ampersand;
@@ -81,11 +81,11 @@ t_treenode	*create_semicolon_node(t_token *tokens, int i_tok, int end)
 	t_treenode	*semi_or_amp;
 	int			next_op;
 	int			type_delim[2];
-	
+
 	(void)end;
 	if (!tokens[i_tok].token)
 		return (NULL);
-	next_op = next_semicolon_or_ampersand(tokens, i_tok, calculate_tokens(tokens));
+	next_op = next_semicolon_or_ampers(tokens, i_tok, calculate_tokens(tokens));
 	type_delim[0] = init_values(next_op, tokens, i_tok, &semi_or_amp);
 	if (next_op >= 0)
 		type_delim[1] = next_op;

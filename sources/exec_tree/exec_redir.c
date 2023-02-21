@@ -23,7 +23,7 @@ static int	protect_fd(int closefd, t_shell *sh)
 	return (0);
 }
 
-static int	test_file_access_for_type(char *dest, int closefd, int *rights, t_shell *sh)
+static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 {
 	if (protect_fd(closefd, sh))
 		return (0);
@@ -78,7 +78,7 @@ char *terminal, t_shell *sh)
 	fd = -1;
 	if (node->close_fd < SH_FD_MAX && sh->pipe->previous_redir[node->close_fd])
 		close (sh->pipe->previous_redir[node->close_fd]);
-	if (!test_file_access_for_type(node->filepath,
+	if (!test_access_type(node->filepath,
 			node->close_fd, &node->open_flags, sh))
 		return ;
 	open_file(node, terminal, sh, &fd);

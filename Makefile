@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/20 12:55:47 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/20 17:53:04 by rvuorenl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -150,6 +150,7 @@ FILES			= \
 				$(BUILTIN_UTILS)flag_check \
 				$(BUILTIN_UTILS)builtin_usage \
 				$(BUILTIN_UTILS)cd_utils \
+				$(BUILTIN_UTILS)cd_symlink_utils_free \
 				$(BUILTIN_UTILS)cd_symlink_utils \
 				$(BUILTIN_UTILS)add_var_env_quotes \
 				$(BUILTIN_UTILS)check_export_print \
@@ -194,6 +195,7 @@ FILES			= \
 				$(FC)fc_error_check_for_no_flag_or_e_flag \
 				$(FC)fc_free \
 				$(FC)fc_get_flags \
+				$(FC)fc_get_history_cap \
 				$(FC)fc_get_start_and_end \
 				$(FC)fc_list_flags \
 				$(FC)fc_no_flag_or_e_flag \
@@ -276,6 +278,7 @@ FILES			= \
 				$(JOBS)update_job_status \
 				$(HISTORY)ft_history \
 				$(HISTORY)ft_history_get \
+				$(HISTORY)ft_history_print_add_row \
 				$(HISTORY)ft_history_print_error \
 				$(HISTORY)ft_history_expansion \
 				$(HISTORY)ft_history_write_to_file \

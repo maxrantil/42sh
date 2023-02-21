@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_substring_id.c                                  :+:      :+:    :+:   */
+/*   ft_history_print_add_row.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 12:38:51 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/20 18:02:50 by rvuorenl         ###   ########.fr       */
+/*   Created: 2023/02/20 17:51:59 by rvuorenl          #+#    #+#             */
+/*   Updated: 2023/02/20 17:53:27 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int	is_substring_id(char *needle)
+void	ft_history_print_add_row(t_term *t)
 {
-	return ((ft_strnequ(needle, "${", 2) && ft_strchr(needle, '#'))
-		|| (ft_strnequ(needle, "${", 2) && ft_strchr(needle, '%')));
+	ft_printf("\n%s", t->inp);
+	++t->total_row;
 }
