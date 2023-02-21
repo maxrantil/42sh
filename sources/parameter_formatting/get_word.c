@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:10:34 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/20 23:18:13 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:51:44 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,24 @@ static char	*find_from_first_last(char *haystack, char *needle)
 	int		len_needle;
 	char	*temp;
 
-	len = (int)ft_strlen(haystack) - 1;
-	while (len > 0)
+	len = (int)ft_strlen(haystack);
+	while (--len > 0)
 	{
-		len_needle = (int)ft_strlen(needle) - 1;
-		while (haystack[len] == needle[len_needle])
+		if (haystack[len] == needle[len_needle])
 		{
-			len--;
 			len_needle--;
 			if (len < 0 && len_needle > 0)
 				return (NULL);
 			if (len_needle < 0)
 			{
-				temp = ft_strndup(haystack, len + 1);
+				temp = ft_strndup(haystack, len);
 				return (temp);
 			}
+			else
+				len_needle = (int)ft_strlen(needle) - 1;
 		}
-		len--;
 	}
-	return (haystack);
+	return (ft_strdup(haystack));
 }
 
 static char	*find_from_end_last(char *haystack, char *needle)
@@ -102,7 +101,7 @@ static char	*find_from_end_last(char *haystack, char *needle)
 			i++;
 			j++;
 			if (!haystack[i] && needle[j])
-				return (haystack);
+				return (ft_strdup(haystack));
 			if (!needle[j])
 			{
 				temp = ft_strndup(haystack, i - ft_strlen(needle));
@@ -111,7 +110,7 @@ static char	*find_from_end_last(char *haystack, char *needle)
 		}
 		i++;
 	}
-	return (haystack);
+	return (ft_strdup(haystack));
 }
 
 char	*get_word(char *temp, char *temp_needle, char *op, int glob)
@@ -121,14 +120,15 @@ char	*get_word(char *temp, char *temp_needle, char *op, int glob)
 	else if ((!glob && ft_strequ("#", op))
 		|| (!glob && ft_strequ("##", op)))
 		temp = find_from_begin(temp, temp_needle);
-	else if (glob && ft_strequ("##", op))
+	else if (glob == 1 && ft_strequ("##", op))
 		temp = find_from_begin_last(temp, temp_needle);
 	else if ((!glob && ft_strequ("%", op))
 		|| (!glob && ft_strequ("%%", op)))
 		temp = find_from_end(temp, temp_needle);
-	else if ((glob && ft_strequ("%", op)))
+	else if ((glob == 1 && ft_strequ("%", op)))
 		temp = (find_from_first_last(temp, temp_needle));
-	else if ((glob && ft_strequ("%%", op)))
+	else if ((glob == 1 && ft_strequ("%%", op))
+		|| (glob == 2 && ft_strequ("##", op)))
 		temp = find_from_end_last(temp, temp_needle);
 	else
 		temp = find_from_begin(temp, temp_needle);

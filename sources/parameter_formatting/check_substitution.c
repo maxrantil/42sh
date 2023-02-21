@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:18:07 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:47:42 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:11:27 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ static int	check_variable(int *i, char *cmd, int *ret, t_param *pa)
 
 	temp = &cmd[*i];
 	(*i) += 2;
-	if (!ft_isalpha(cmd[*i]) && cmd[*i] != '_'
-		&& cmd[*i] != '?' && cmd[*i] != '#')
+	if ((!ft_isalpha(cmd[*i]) && cmd[*i] != '_'
+			&& cmd[*i] != '?' && cmd[*i] != '#')
+		|| (cmd[*i] == '#' && !ft_isalpha(cmd[(*i) + 1])))
 		return (set_values(temp, ret, pa));
 	if (cmd[*i] == '?')
 		return (1);
