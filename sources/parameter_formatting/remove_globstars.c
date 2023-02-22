@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:33:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/21 21:38:18 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/22 22:30:16 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ char	*remove_globstars(char **needle, int *glob, char op)
 	new_needle = NULL;
 	len = ft_strlen(*needle);
 	check_globs(needle, glob, op);
-	if (*glob == 1 && op != '%')
+	if ((*glob == 1 && op != '%') || (*glob == 2 && op == '%'))
 		new_needle = strdup(*needle + 1);
 	else if ((*glob == 2 && op != '%') || (*glob == 1 && op == '%'))
 		new_needle = strndup(*needle, len - 1);
 	else if (*glob == 3)
 	{
-		new_needle = strndup(*needle + 1, len - 2);
+		new_needle = strndup(*needle + 1, len - 1);
 		*glob = 2;
 	}
 	else

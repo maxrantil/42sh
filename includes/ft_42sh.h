@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/21 13:26:43 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/22 21:07:29 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -671,7 +671,7 @@ void			init_subs_session(t_sub *sub, char *cmd);
 void			subs_session_free(t_sub *sub, int opt);
 char			*ft_find_word(char *haystack, char *needle, char *op);
 char			*remove_globstars(char **needle, int *glob, char op);
-char			*find_from_end(char *haystack, char *needle);
+char			*find_from_end(char *haystack, char *needle, int glob);
 char			*find_from_begin_glob(char *haystack, char *needle);
 int				is_substring_id(char *needle);
 int				check_var_validity(char *var);
