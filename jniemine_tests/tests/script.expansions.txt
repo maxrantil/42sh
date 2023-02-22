@@ -1,3 +1,5 @@
+clear
+cd /tmp;mkdir 42sh;cd 42sh
 cd / && cd ~ && pwd
 unset HOME && cd / && cd ~; pwd
 cd / && cd ~trololo; pwd

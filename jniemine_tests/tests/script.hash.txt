@@ -1,3 +1,5 @@
+clear
+cd /tmp;mkdir 42sh;cd 42sh
 hash mkdir; hash
 hash -r
 hash

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:35:19 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/15 14:21:24 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/21 09:58:37 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 char	*find_from_end(char *haystack, char *needle)
 {
-	int	len;
-	int	len_needle;
+	int		len;
+	int		len_needle;
+	char	*temp;
 
 	len = (int)ft_strlen(haystack);
 	while (len > 0)
@@ -26,17 +27,15 @@ char	*find_from_end(char *haystack, char *needle)
 			len--;
 			len_needle--;
 			if (len == 0)
-			{
 				return (NULL);
-			}
 			if (len_needle == 0)
 			{
-				haystack = ft_strndup(haystack, \
+				temp = ft_strndup(haystack, \
 				ft_strlen(haystack) - ft_strlen(needle));
-				return (haystack);
+				return (temp);
 			}
 		}
 		len--;
 	}
-	return (haystack);
+	return (ft_strdup(haystack));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/17 17:35:29 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:49:30 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,16 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 	if (**cmd == NULL)
 		return (0);
 	if (!ft_strcmp(**cmd, "fc"))
-		if (ft_fc(sh, cmd) < 0)
-			return (0);
-	if (**cmd && !ft_strcmp(**cmd, "set"))
+		return (ft_fc(sh, cmd));
+	if (!ft_strcmp(**cmd, "set"))
 		return (ft_set(sh, cmd));
-	else if (**cmd && !ft_strcmp(**cmd, "export"))
+	else if (!ft_strcmp(**cmd, "export"))
 		return (ft_export(sh, *cmd));
-	else if (**cmd && !ft_strcmp(**cmd, "unset"))
+	else if (!ft_strcmp(**cmd, "unset"))
 		return (ft_unset(sh, *cmd));
-	else if (**cmd && !ft_strcmp(**cmd, "cd"))
+	else if (!ft_strcmp(**cmd, "cd"))
 		return (ft_cd(sh, *cmd));
-	else if (**cmd && !ft_strcmp(**cmd, "echo"))
+	else if (!ft_strcmp(**cmd, "echo"))
 		return (ft_echo(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "history"))
 		return (ft_history(sh->term, *cmd));
