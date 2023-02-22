@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/22 10:03:36 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:15:20 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,7 +354,9 @@ int				ft_strarray_size(char **arr);
 void			ft_exit_error(char *msg, int ret);
 char			*ft_strjoin_three(char *s1, char *s2, char *s3);
 size_t			ft_strlen_match(char *str, char delimiter);			// ?
+
 /*					ALIAS					*/
+void			alias_heredoc_check(char **line);
 void			dup_arr_rm_pos(char **alias, char ***dup, int pos, int size);
 void			free_and_refill_dup_alias(char ***dup_alias, char **original);
 int				validate_alias(char *alias, int print_error);

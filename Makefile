@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/22 15:56:37 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/22 16:23:23 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ FILES			= \
 				$(ALIAS)alias \
 				$(ALIAS)alias_add_quotes \
 				$(ALIAS)alias_array_handling \
+				$(ALIAS)alias_heredoc_check \
 				$(ALIAS)alias_string_handling \
 				$(ALIAS)alias_string_handling2 \
 				$(ALIAS)alias_utilities \
