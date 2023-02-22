@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/19 14:44:21 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:49:31 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	wait_for_job(t_shell *sh, int pid)
 	else if (sh->pipe->piping && sh->pipe->write_pipe[1] >= 0
 		/*&& sh->pipe->read_pipe[0] >= 0*/)
 	{
-		close(sh->pipe->write_pipe[1]);
 		waitpid(pid, &status, WNOHANG);
 	}
 	else

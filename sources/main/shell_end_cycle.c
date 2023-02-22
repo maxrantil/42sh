@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/17 09:03:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/21 12:48:35 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	shell_end_cycle(t_shell *sh)
 {
 	free_node(sh->head);
 	free_tokens(&sh->tokens);
+	close(sh->pipe->stdincpy);
+	sh->pipe->stdincpy = -1;
 	reset_fd(sh);
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
