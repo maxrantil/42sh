@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/21 15:41:40 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:06:35 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	error_exit(char *msg)
 	exit(-1);
 }
 
-int	pipe_wrap(t_shell *sh, int write_pipe[])
+int	pipe_wrap(t_shell *sh)
 {
 	//PROTECT MAX PIPES
 	if (pipe(sh->pipe->write_pipe) < 0)
@@ -37,11 +37,8 @@ int	pipe_wrap(t_shell *sh, int write_pipe[])
 void	exec_pipe(t_pipenode *pipenode, \
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
-	int dunno_fd;
-	int pipe_idx;
-
 	// dunno_fd = open(sh->terminal, O_RDONLY); // PROTEXT
-	if (pipe_wrap(sh, sh->pipe->write_pipe))
+	if (pipe_wrap(sh))
 		return ;
 	// pipe_idx = sh->pipe->pipe_idx++;
 	sh->pipe->read_pipe[1] = fcntl(sh->pipe->write_pipe[1], \

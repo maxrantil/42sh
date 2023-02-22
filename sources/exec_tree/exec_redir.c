@@ -54,8 +54,6 @@ static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 
 static void	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 {
-	int	fd_temp;
-
 	open_fd_if_needed(&node->close_fd, terminal, sh);
 	*fd= open(node->filepath, node->open_flags, node->rights);
 	// if (sh->pipe->open_fd_idx >= 0)
@@ -78,7 +76,7 @@ char *terminal, t_shell *sh)
 
 	fd = -1;
 
-	if (!test_file_access_for_type(node->filepath,
+	if (!test_access_type(node->filepath,
 			node->close_fd, &node->open_flags, sh))
 		return ;
 	open_file(node, terminal, sh, &fd);

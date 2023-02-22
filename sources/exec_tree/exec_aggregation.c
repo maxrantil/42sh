@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/21 15:47:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:09:01 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static void	redir_to_file(t_aggregate *node, t_shell *sh)
 
 static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
 {
-	int temp_fd;
-	
 	if (sh->pipe->piping)
 	{
 		if (*open_fd == STDOUT_FILENO)
