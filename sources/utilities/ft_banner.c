@@ -6,13 +6,13 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 10:31:02 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/16 15:27:01 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 13:04:04 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-/* static int	banner_padding(size_t str_len)
+static int	banner_padding(size_t str_len)
 {
 	struct winsize	arg;
 
@@ -22,9 +22,9 @@
 		exit(1);
 	}
 	return ((arg.ws_col - str_len) >> 1);
-} */
+}
 
-/* static void	banner(void)
+static void	banner(void)
 {
 	int		padd;
 	char	*str;
@@ -34,10 +34,10 @@
 	ft_printf("%*s%s\n", padd, "",
 		"      42sh, lets do this! ");
 	ft_strdel(&str);
-} */
+}
 
 void	banner_print(void)
 {
 	ft_run_capability("cl");
-	/* banner(); */
+	banner();
 }
