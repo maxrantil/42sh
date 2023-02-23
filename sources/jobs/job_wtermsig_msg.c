@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_wtermsig_msg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:48:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/23 10:28:27 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 22:03:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

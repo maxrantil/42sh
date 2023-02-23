@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 19:05:16 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 22:05:03 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static int	proceed_to_execute(t_param *pa, \
 	new_cmd = init_form_cycle(pa, cmd[ints->i], ints);
 	if (check_syntax(new_cmd))
 	{
-		ft_quote_blash_removal(new_cmd);
 		*ret = perform_param_expans(new_cmd, pa, &ints->ret);
 		substitute_og_cmd(pa, &cmd[ints->i], &ints->j);
 		if (*ret != 0)
@@ -102,7 +101,6 @@ int	param_format(char **cmd)
 	{
 		while (cmd[ints.i][ints.j])
 		{
-		//ft_printf("cmd[ints.i] %s\n", cmd[ints.i]);
 			ret = proceed_to_execute(&pa, &ints, cmd, &ret);
 			if (ret == -1)
 				return (-1);
@@ -110,8 +108,6 @@ int	param_format(char **cmd)
 				break ;
 		}
 		ints.j = 0;
-		//trim_and_remove_null(&cmd, &ints);
-		//ft_printf("ju cmd[ints.i] %s\n", cmd[ints.i]);
 	}
 	return (ints.err);
 }

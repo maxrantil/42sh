@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/23 17:39:16 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:53:04 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,17 @@ typedef struct s_sub
 	char	*temp_sub;
 	char	*temp_hays;
 }	t_sub;
+
+/*			PARAMETER EXPANSION SUBSTRING QUOTES	*/
+typedef struct s_subquo
+{
+	int		d_quote;
+	int		s_quote;
+	int		i;
+	int		k;
+	int		closed;
+	char	*new;
+}	t_subquo;
 
 /*			PARAMETER EXPANSION PERCENT	*/
 typedef struct s_perc
@@ -682,6 +693,7 @@ int				check_substitutions(char *cmd, int *ret, t_param *pa);
 void			temp_free(char ***temp);
 void			trim_and_remove_null(char ***cmd, t_pa_ints *ints);
 char			*get_word(char *temp, char *temp_needle, char *op, int glob);
+char 			*remove_quotes_subs(char **str);
 int				check_param_format_seq(t_param *pa);
 
 /*			  		 SIGNALS				*/

@@ -6,20 +6,20 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/22 22:31:33 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 22:05:55 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static char	*get_needle_and_op(char *strip, char *op, char *cmd)
+static char	*get_needle_and_op(char *strip, char *op)
 {
 	char	*needle;
 	int		k;
 
 	k = -1;
 	needle = NULL;
-	if (ft_strchr(cmd, '#'))
+	if (ft_strchr(strip, '#'))
 	{
 		needle = ft_strdup(ft_strchr(strip, '#'));
 		while (needle[++k] == '#' && k < 2)
@@ -65,7 +65,8 @@ char	*search_from_var(t_shell *sh, char *cmd, int *ret)
 	t_sub	sub;
 
 	init_subs_session(&sub, cmd);
-	sub.needle = get_needle_and_op(sub.strip, sub.op, cmd);
+	sub.strip = remove_quotes_subs(&sub.strip);
+	sub.needle = get_needle_and_op(sub.strip, sub.op);
 	expansion_subst(&sub, sh, ret);
 	replace_haystack(&sub, sh);
 	ft_quote_blash_removal(sub.haystack);
