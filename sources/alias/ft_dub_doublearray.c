@@ -6,15 +6,11 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:09:29 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/09 13:52:18 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:06:49 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-#include "libft.h"
-
-int		ft_strarray_size(char **arr);
-char	**ft_create_empty_str_array(int size);
 
 char	**ft_dup_doublearray(char **original)
 {
