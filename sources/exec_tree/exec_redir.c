@@ -29,6 +29,7 @@ static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 		return (0);
 	if (test_if_file(dest))
 	{
+
 		if (access(dest, F_OK) < 0)
 		{
 			if (*rights & O_CREAT)
