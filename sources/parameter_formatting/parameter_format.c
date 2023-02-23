@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/22 11:55:00 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:51:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,16 @@ int	param_format(char **cmd)
 	{
 		while (cmd[ints.i][ints.j])
 		{
+		//ft_printf("cmd[ints.i] %s\n", cmd[ints.i]);
 			ret = proceed_to_execute(&pa, &ints, cmd, &ret);
 			if (ret == -1)
 				return (-1);
-			// if (ints.j > (int)ft_strlen(cmd[ints.i]))
-			// 	break ;
+			if (ints.j > (int)ft_strlen(cmd[ints.i]))
+				break ;
 		}
 		ints.j = 0;
 		trim_and_remove_null(&cmd, &ints);
+		//ft_printf("ju cmd[ints.i] %s\n", cmd[ints.i]);
 	}
 	return (ints.err);
 }

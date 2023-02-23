@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 09:01:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/21 15:29:37 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 09:30:00 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	substitute_og_cmd(t_param *pa, char **cmd, int *j)
 	start = sent_start(*cmd);
 	end = ft_strdup(&(*cmd)[*j]);
 	temp = ft_strjoin(start, pa->expanded);
+	//ft_printf("start [%s] end [%s] te,p [%s] \n", start, end, temp);
 	*j = ft_strlen(temp);
 	ft_strdel(&(*cmd));
 	(*cmd) = ft_strjoin(temp, end);
