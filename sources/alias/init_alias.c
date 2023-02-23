@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_alias.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 20:06:04 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/16 12:34:45 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:57:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,21 @@ static char	**create_alias_array(int file_fd, char *filename, t_shell *sh)
 
 void	init_alias(t_shell *sh)
 {
+	char	**home;
 	char	*home_var;
 	char	*rc_filename;
 	int		rcfile_fd;
 
-	home_var = ft_strchr(*ft_env_get(sh, "HOME", sh->env), '=') + 1;
-	rc_filename = ft_strjoin(home_var, "/.bashrc");
-	rcfile_fd = open(rc_filename, O_RDONLY);
-	sh->alias = create_alias_array(rcfile_fd, rc_filename, sh);
-	close(rcfile_fd);
-	ft_strdel(&rc_filename);
+	home = ft_env_get(sh, "HOME", sh->env);
+	if (home)
+	{
+		home_var = ft_strchr(*home, '=') + 1;
+		rc_filename = ft_strjoin(home_var, "/.bashrc");
+		rcfile_fd = open(rc_filename, O_RDONLY);
+		sh->alias = create_alias_array(rcfile_fd, rc_filename, sh);
+		close(rcfile_fd);
+		ft_strdel(&rc_filename);
+	}
+	else
+		sh->alias = create_alias_array(-1, NULL, sh);
 }

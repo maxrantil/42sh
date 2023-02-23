@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_history_expansion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:09:48 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/20 17:55:24 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:00:17 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+extern t_shell	*g_sh;
 
 static int	expand(t_term *t, int i, int pos, int len)
 {
@@ -56,7 +58,7 @@ static int	expand_specific(t_term *t, int i, int prefix)
 	}
 	if (prefix == 1 && digit < (int)t->history_size)
 		digit = t->history_size - digit + 1;
-	if (digit > (int)t->history_size)
+	if (digit > (int)t->history_size - get_history_cap(g_sh))
 		return (ft_history_print_error(t->inp + i + prefix, prefix));
 	return (expand(t, i, digit, int_len + prefix));
 }

@@ -6,12 +6,11 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:12:18 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/06 16:48:25 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:06:19 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-#include "libft.h"
 
 void	ft_copy_doublearray(char **src, char **dst)
 {

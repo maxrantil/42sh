@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_wtermsig_msg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:48:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/21 12:03:59 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:28:27 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	job_wtermsig_msg(int status)
 		ft_printf("Trace/BPT trap: %d\n", status);
 	else if (status == SIGABRT)
 		ft_printf("Abort trap: %d\n", status);
-	else if (status == 7/* SIGEMT */)
+	else if (status == SIGEMT)
 		ft_printf("EMT trap: %d\n", status);
 	else if (status == SIGFPE)
 		ft_printf("Floating point exception: %d\n", status);

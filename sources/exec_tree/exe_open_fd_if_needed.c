@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:13:07 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/17 08:48:37 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 01:40:27 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static int	init_open_fd(int *fd, t_shell *sh, int **closefd)
 {
 	int	len;
 
-	if (alias_fd_if_necessary(sh, fd))
-		return (1);
 	if (!sh)
 		return (1);
 	if (*fd <= 0)

@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 17:35:40 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:42:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	dbl_array_to_export(char ***dbl_ptr, char **cmd)
 		else
 			(*dbl_ptr)[i++] = ft_strdup(cmd[k++]);
 	}
-	(*dbl_ptr)[++i] = NULL;
+	(*dbl_ptr)[i] = NULL;
 }
 
 static void	treat_env(t_shell *sh, char **cmd)

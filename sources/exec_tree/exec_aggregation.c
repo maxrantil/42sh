@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_aggregation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/20 08:41:16 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:31:00 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
 	if (sh->pipe->piping)
 	{
 		if (*open_fd == STDOUT_FILENO)
-			dup2(sh->pipe->write_pipe[1], node->close_fd);
+			if (dup2(sh->pipe->write_pipe[1], node->close_fd) < 0)
+				exit_error(sh, 1, "dup2 failed");
 	}
 	else if (dup2(*open_fd, node->close_fd) < 0)
 		exit_error(sh, 1, "dup2 failed");
@@ -59,11 +60,26 @@ static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
 		sh->pipe->redir_in = 1;
 }
 
+static int	if_previous_redir(t_shell *sh, int dest)
+{
+	int	i;
+
+	i = 0;
+	while (i < SH_FD_MAX)
+	{
+		if (sh->pipe->previous_redir[dest] == 1)
+			return (1);
+		++i;
+	}
+	return (0);
+}
+
 void	exec_aggregate(t_aggregate *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
 	struct stat	buf;
 	int			open_fd;
+	int			cp_fd;
 
 	open_fd = -1;
 	if (is_nb(node->dest))
@@ -75,16 +91,17 @@ char *terminal, t_shell *sh)
 		redir_to_file(node, sh);
 		return ;
 	}
-	if (is_aliased_fd(sh, open_fd))
-		open_fd = sh->pipe->fd_aliases[open_fd];
 	if (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
-		|| is_std_fd_cpy(sh, open_fd) || is_pipe(sh, open_fd))
+		|| is_pipe(sh, open_fd) || if_previous_redir(sh, open_fd))
 	{
 		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 		sh->exit_stat = 1;
 		return ;
 	}
+	cp_fd = dup(node->close_fd);
+	sh->pipe->previous_redir[cp_fd] = 1;
 	exec_aggre_split(node, &open_fd, sh);
 	exec_tree(node->cmd, environ_cp, terminal, sh);
-	reset_fd(sh);
+	if (cp_fd >= 0)
+		dup2(cp_fd, node->close_fd);
 }

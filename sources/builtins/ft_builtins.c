@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/23 16:34:25 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:39:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	int	pid;
 
-	if (sh->pipe->piping || sh->ampersand)
+	if (sh->pipe->piping || sh->ampersand /*|| sh->pipe->write_fd >= 0*/)
 	{
 		pid = fork_wrap();
 		if (sh->pipe->pid == 0)
@@ -73,7 +73,10 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 		if (pid == 0)
 		{
 			ft_signal_dfl();
-			if (!sh->pipe->redir_out && sh->pipe->write_pipe[1] >= 0 \
+			if (sh->pipe->close_fd < 0)
+				// if (fcntl(STDOUT_FILENO, F_GETFD) < 0) // WITH THIS IT FAILS TO WORK
+					dup2(sh->pipe->stdincpy, STDOUT_FILENO);
+			if (sh->pipe->close_fd != STDOUT_FILENO && sh->pipe->write_pipe[1] >= 0 \
 			&& dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
 			{
 				ft_err_print("dup2", NULL, "failed", 2);

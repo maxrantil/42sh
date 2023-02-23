@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/23 17:00:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:39:16 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,7 @@ typedef struct s_bg_jobs
 /*				PIPE DATA				*/
 typedef struct s_pipe
 {
-	int		pid; //Is this even used?
+	int		pid;
 	int		piping;
 	int		new_pipe;
 	int		write_pipe[2];
@@ -300,13 +300,15 @@ typedef struct s_pipe
 	int		redir_out;
 	int		redir_in;
 	int		stdincpy;
-	int		stdoutcpy;
-	int		stderrcpy;
+	int		pipes[SH_FD_MAX][2];
+	int		pipe_idx;
 	int		fd_aliases[SH_FD_MAX + 1];
 	int		open_fd_idx;
 	int		previous_redir[SH_FD_MAX];
 	int		read_fd;
-	int		std_fd_copies[3];
+	int		write_fd;
+	int		close_fd;
+	int		redir_fork;
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -343,7 +345,7 @@ typedef struct s_shell
 	char			**temp_env;
 }				t_shell;
 
-	/*	libft 	*/
+/*					ALIAS					*/
 int				ft_iswhitespace(char c);
 int				ft_strcount(char *str, char target);
 void			ft_free_doublearray(char ***array);
@@ -353,8 +355,8 @@ char			**ft_dup_doublearray(char **original);
 int				ft_strarray_size(char **arr);
 void			ft_exit_error(char *msg, int ret);
 char			*ft_strjoin_three(char *s1, char *s2, char *s3);
-size_t			ft_strlen_match(char *str, char delimiter);			// ?
-/*					ALIAS					*/
+size_t			ft_strlen_match(char *str, char delimiter);
+void			alias_heredoc_check(char **line);
 void			dup_arr_rm_pos(char **alias, char ***dup, int pos, int size);
 void			free_and_refill_dup_alias(char ***dup_alias, char **original);
 int				validate_alias(char *alias, int print_error);

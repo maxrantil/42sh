@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/23 13:31:14 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/23 17:38:48 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ CFLAGS				+=	-Wpedantic
 CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-#LEAK_CHECK			+=	-fsanitize=address
+LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -95,6 +95,7 @@ FILES			= \
 				$(ALIAS)alias \
 				$(ALIAS)alias_add_quotes \
 				$(ALIAS)alias_array_handling \
+				$(ALIAS)alias_heredoc_check \
 				$(ALIAS)alias_string_handling \
 				$(ALIAS)alias_string_handling2 \
 				$(ALIAS)alias_utilities \

@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exe_test_if_file.c                                 :+:      :+:    :+:   */
+/*   alias_heredoc_check.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 18:45:22 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/23 13:45:56 by mbarutel         ###   ########.fr       */
+/*   Created: 2023/02/22 16:03:33 by mbarutel          #+#    #+#             */
+/*   Updated: 2023/02/22 16:19:34 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-int	test_if_file(char *file)
+void	alias_heredoc_check(char **line)
 {
-	struct stat	buf;
+	int	i;
+	int	count;
 
-	if (stat(file, &buf) < 0)
+	if (!*line)
+		return ;
+	i = -1;
+	count = 0;
+	while ((*line)[++i])
 	{
-		if (ft_strchr(file, '/'))
+		if ((*line)[i] == '<')
+			++count;
+		if (count == 2)
 		{
-			ft_err_print(file, NULL, "No such file or directory", 2);
-			return (0);
+			ft_memmove(&(*line)[i], &(*line)[i + 1],
+				ft_strlen(&(*line)[i + 1]) + 1);
+			--count;
 		}
-		return (1);
 	}
-	if (buf.st_mode & S_IFDIR)
-	{
-		ft_err_print(file, NULL, "Is a direcotry", 2);
-		return (0);
-	}
-	return (1);
 }

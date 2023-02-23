@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:35:13 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/20 12:50:33 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 14:37:49 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	fc_overwrite_history(t_shell *sh, char *ret_cmd)
 
 	ft_strdel(&sh->term->history_arr[sh->term->history_size - 1]);
 	sh->term->history_size--;
-	args = ft_strsplit(ret_cmd, ';'); // Is this necessary?
+	args = ft_strsplit(ret_cmd, ';');
 	i = 0;
 	while (args[i])
 		ft_history_add_command(sh->term, args[i++]);
@@ -87,12 +87,12 @@ int	fc_no_flag_or_e_flag(t_shell *sh, t_fc *fc, char ***cmd)
 	editor = NULL;
 	if (!fc->e)
 		editor = get_editor(fc, sh->env);
-	else
+	else if ((*cmd)[fc->flags])
 	{
 		editor = search_bin((*cmd)[fc->flags], sh->env);
-		fc->flags++;
 		if (ft_strnequ((*cmd)[fc->flags + 1], "--", 2))
 			fc->flags++;
+		fc->flags++;
 	}
 	if (!editor)
 		return (fc_print_error(5));
