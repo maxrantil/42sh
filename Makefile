@@ -6,7 +6,7 @@
 #    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/23 09:15:31 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/23 13:31:14 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -363,7 +363,7 @@ FILES			= \
 				$(PARAM_FORM)get_operator \
 				$(PARAM_FORM)is_param_exp_char \
 				$(PARAM_FORM)splitter \
-				$(PARAM_FORM)expander \
+				$(PARAM_FORM)check_param_format_seq \
 				$(PARAM_FORM)get_flag \
 				$(PARAM_FORM)init_pa_ints \
 				$(PARAM_FORM)free_attrs \

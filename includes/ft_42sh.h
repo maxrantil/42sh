@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/22 21:07:29 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:30:58 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -660,7 +660,6 @@ int				join_values(t_shell *sh, t_param *pa, char *cmd, int *ret);
 char			*get_operator(char *cmd);
 int				is_param_exp_char(char *flag);
 int				splitter(char *cmd, t_param *pa, int *ret);
-int				expander(t_param *pa, int *ret);
 void			variable_length(char *str, t_param *pa);
 int				perform_param_expans(char *cmd, t_param *pa, int *ret);
 char			*get_flag(char *cmd, int *ret);
@@ -679,6 +678,7 @@ int				check_substitutions(char *cmd, int *ret, t_param *pa);
 void			temp_free(char ***temp);
 void			trim_and_remove_null(char ***cmd, t_pa_ints *ints);
 char			*get_word(char *temp, char *temp_needle, char *op, int glob);
+int				check_param_format_seq(t_param *pa);
 
 /*			  		 SIGNALS				*/
 void			ft_signal_keyboard(int num);

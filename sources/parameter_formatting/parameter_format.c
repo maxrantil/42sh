@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:40:05 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 11:51:56 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:16:56 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	param_format(char **cmd)
 				break ;
 		}
 		ints.j = 0;
-		trim_and_remove_null(&cmd, &ints);
+		//trim_and_remove_null(&cmd, &ints);
 		//ft_printf("ju cmd[ints.i] %s\n", cmd[ints.i]);
 	}
 	return (ints.err);
