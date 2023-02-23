@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/21 12:48:35 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 02:51:11 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	shell_end_cycle(t_shell *sh)
 	sh->pipe->redir_out = 0;
 	sh->pipe->redir_in = 0;
 	sh->pipe->piping = 0;
+	if (fcntl(sh->pipe->stdincpy, F_GETFD) < 0)
+		sh->pipe->stdincpy = open("/dev/tty", O_RDWR);
 	if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
 		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);

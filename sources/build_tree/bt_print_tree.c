@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 20:22:15 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/14 23:39:55 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 01:04:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	rec_print_tree(t_treenode *root, int lvl)
 		ft_printf("\n");
 		rec_print_tree(((t_pipenode *)root)->left, lvl);
 	}
-	else if (root->type == REDIR)
+	else if (root->type == REDIR || root->type == CLOSEFD)
 	{
 		print_spaces(lvl);
 		check_type(root);

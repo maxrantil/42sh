@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/22 16:15:20 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 01:44:11 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,7 @@ typedef struct s_bg_jobs
 /*				PIPE DATA				*/
 typedef struct s_pipe
 {
-	int		pid; //Is this even used?
+	int		pid;
 	int		piping;
 	int		new_pipe;
 	int		write_pipe[2];
@@ -300,15 +300,12 @@ typedef struct s_pipe
 	int		redir_out;
 	int		redir_in;
 	int		stdincpy;
-	int		stdoutcpy;
-	int		stderrcpy;
 	int		pipes[SH_FD_MAX][2];
 	int		pipe_idx;
 	int		fd_aliases[SH_FD_MAX + 1];
 	int		open_fd_idx;
 	int		previous_redir[SH_FD_MAX];
 	int		read_fd;
-	// int		std_fd_copies[3];
 }			t_pipe;
 
 /*				SESSION STRUCT				*/

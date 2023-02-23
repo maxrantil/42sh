@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/22 10:06:35 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 01:45:34 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,19 @@ void	error_exit(char *msg)
 
 int	pipe_wrap(t_shell *sh)
 {
-	//PROTECT MAX PIPES
 	if (pipe(sh->pipe->write_pipe) < 0)
 	{
 		ft_err_print(NULL, "pipe failed", "exec_pipe", 2);
 		return (1);
 	}
-	// ft_printf("write_pipe[0]: %d, write_pipe[1]: %d\n", \
-	// 	sh->pipe->write_pipe[0], sh->pipe->write_pipe[1]);
-	// sh->pipe->write_pipe[0] = sh->pipe->pipes[sh->pipe->pipe_idx][0];
-	// sh->pipe->write_pipe[1] = sh->pipe->pipes[sh->pipe->pipe_idx][1];
 	return (0);
 }
 
 void	exec_pipe(t_pipenode *pipenode, \
 		char ***environ_cp, char *terminal, t_shell *sh)
 {
-	// dunno_fd = open(sh->terminal, O_RDONLY); // PROTEXT
 	if (pipe_wrap(sh))
 		return ;
-	// pipe_idx = sh->pipe->pipe_idx++;
 	sh->pipe->read_pipe[1] = fcntl(sh->pipe->write_pipe[1], \
 		F_DUPFD, sh->pipe->open_fd_idx--);
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
@@ -53,10 +46,8 @@ void	exec_pipe(t_pipenode *pipenode, \
 		ft_err_print("dup", NULL, "failed in exec_pipe", 2);
 		exit (1);
 	}
-	// sh->pipe->redir_out = 0;
 	close (sh->pipe->write_pipe[1]);
 	sh->pipe->write_pipe[1] = -1;
-	// // close (dunno_fd);
 	close(sh->pipe->read_pipe[1]);
 	sh->pipe->read_pipe[1] = -1;
 	exec_tree(pipenode->right, environ_cp, terminal, sh);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fg.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/19 14:42:12 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 02:50:48 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_fg(t_shell *sh, char **cmd)
 			return (0);
 		}
 		display_pipeline_cmd(sh, job);
+		if (fcntl(sh->pipe->stdincpy, F_GETFD) < 0)
+			sh->pipe->stdincpy = open("/dev/tty", O_RDWR);
 		if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &job->gpid) == -1)
 			exit_error(sh, 1, "ioctl error\n");
 		if (job->status == STOPPED || job->status == SUSPENDED)

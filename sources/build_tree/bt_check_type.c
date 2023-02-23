@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 13:40:19 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/18 10:05:58 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 01:06:34 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	check_type_split(t_treenode *root)
 		ft_printf("[;]");
 	else if (root->type == AMPERSAND)
 		ft_printf("[&]");
+	else if (root->type == CLOSEFD)
+		ft_printf("[%d>&-]", ((t_closefd *)root)->close_fd);
 }
 
 void	check_type(t_treenode *root)
