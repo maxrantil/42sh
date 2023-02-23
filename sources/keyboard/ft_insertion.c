@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 07:56:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 16:59:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:21:56 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static void	ft_insertion_enter(t_term *t)
 		ft_create_prompt_line(t, t->bytes);
 		t->index = t->bytes;
 	}
+	ft_delim_update(t);
 }
 
 /*

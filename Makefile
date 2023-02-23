@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/23 10:39:41 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/23 18:43:43 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -313,6 +313,7 @@ FILES			= \
 				$(KEYBOARD)ft_delete \
 				$(KEYBOARD)ft_deletion_shift \
 				$(KEYBOARD)ft_delim_fetch \
+				$(KEYBOARD)ft_delim_update \
 				$(KEYBOARD)ft_esc_parse \
 				$(KEYBOARD)ft_get_prompt_len \
 				$(KEYBOARD)ft_history_trigger \

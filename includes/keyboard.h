@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:09:25 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 15:37:03 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 18:45:01 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void	ft_cut(t_term *t);
 void	ft_delete(t_term *t);
 void	ft_deletion_shift(t_term *t, ssize_t index);
 int		ft_delim_fetch(t_term *t);
+void	ft_delim_update(t_term *t);
 void	ft_end_cycle(t_term *t);
 void	ft_esc_parse(t_term *t);
 int		ft_get_input(void);
