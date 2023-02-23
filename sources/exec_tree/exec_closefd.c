@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_closefd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/22 11:37:28 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 02:43:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 void	exec_closefd(t_closefd *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
-	if (!close_fd_alias_if_necessary(sh, node->close_fd))
+	if(sh->pipe->previous_redir[node->close_fd] != 1)
 		close(node->close_fd);
-	if (node->cmd && node->cmd->type == CMD)
-		sh->pipe->redir_out = 1;
-	if (sh->pipe->write_pipe[1] > 0)
+	if (node->close_fd == STDOUT_FILENO)
 	{
 		close(sh->pipe->write_pipe[1]);
+		close(sh->pipe->read_pipe[1]);
+		sh->pipe->read_pipe[1] = -1;
 		sh->pipe->write_pipe[1] = -1;
 	}
 	if (node->cmd)
 		exec_tree(node->cmd, environ_cp, terminal, sh);
-	reset_fd(sh); // MAYBE DO SIMILAR THAN OTHER REDIRS INSTEAD
-	// close(STDIN_FILENO);
-	// close(STDOUT_FILENO);
-	// open(sh->terminal, O_RDWR);
-	// open(sh->terminal, O_RDWR);
+	if (sh->pipe->piping && node->close_fd == STDOUT_FILENO)
+	{
+		if (dup2(sh->pipe->stdincpy, STDOUT_FILENO) < 0)
+			error_exit("dup2 failed in exec_closefd");
+	}
 }

@@ -56,14 +56,6 @@ static void	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 {
 	open_fd_if_needed(&node->close_fd, terminal, sh);
 	*fd= open(node->filepath, node->open_flags, node->rights);
-	// if (sh->pipe->open_fd_idx >= 0)
-	// 	*fd = fcntl(fd_temp, F_DUPFD, sh->pipe->open_fd_idx--);
-	// else
-	// 	error_exit("Too many open files");
-	// close(fd_temp);
-	// sh->pipe->fd_aliases[node->close_fd] = *fd;
-	// if (node->open_flags == O_RDONLY)
-	// 	sh->pipe->read_fd = *fd;
 	if (*fd < 0)
 		exit_error(sh, 1, "open failed");
 }
@@ -97,7 +89,6 @@ char *terminal, t_shell *sh)
 		sh->pipe->write_pipe[1] = -1;
 	}
 	exec_tree(node->cmd, environ_cp, terminal, sh);
-	// close(sh->pipe->previous_redir[node->close_fd]);
-	dup2(cpy, node->close_fd); // PROTECT
-	// reset_fd(sh);
+	if (dup2(cpy, node->close_fd) < 0)
+		exit_error(sh, 1, "exec_redir dup2 failed");
 }
