@@ -65,22 +65,27 @@ void	exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
 	int	fd;
-	// int	cpy;
+	int	cpy;
 
 	fd = -1;
+	// if (!sh->pipe->redir_fork)
+	// {
+	// 	sh->pipe->redir_fork = 1;
+	// 	fork_wrap();
+	// }
 	if (!test_access_type(node->filepath,
 			node->close_fd, &node->open_flags, sh))
 		return ;
 	open_file(node, terminal, sh, &fd);
-	// sh->pipe->previous_redir[fd] = 1;
-	// cpy = dup(node->close_fd);
-	// sh->pipe->previous_redir[cpy] = 1;
+	sh->pipe->previous_redir[fd] = 1;
+	cpy = dup(node->close_fd);
+	sh->pipe->previous_redir[cpy] = 1;
 	if (sh->pipe->previous_redir[node->close_fd] == 1)
 		sh->pipe->previous_redir[node->close_fd] = 0;
 	sh->pipe->write_fd = fd;
 	sh->pipe->close_fd = node->close_fd;
-	// if (dup2(fd, node->close_fd) < 0)
-	// 	exit_error(sh, 1, "exec_redir dup2 failed");
+	if (dup2(fd, node->close_fd) < 0)
+		exit_error(sh, 1, "exec_redir dup2 failed");
 	if (node->close_fd == STDOUT_FILENO)
 		sh->pipe->redir_out = 1;
 	else if (node->close_fd == STDIN_FILENO)
@@ -91,6 +96,7 @@ char *terminal, t_shell *sh)
 		sh->pipe->write_pipe[1] = -1;
 	}
 	exec_tree(node->cmd, environ_cp, terminal, sh);
+	sh->pipe->close_fd = -1;
 	// sh->pipe->write_fd = -1;
 	// if (dup2(cpy, node->close_fd) < 0)
 	// 	exit_error(sh, 1, "exec_redir dup2 failed");

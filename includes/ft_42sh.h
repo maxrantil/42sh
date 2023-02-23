@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:32:09 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/23 13:46:29 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:36:26 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,7 @@ typedef struct s_pipe
 	int		read_fd;
 	int		write_fd;
 	int		close_fd;
+	int		redir_fork;
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
