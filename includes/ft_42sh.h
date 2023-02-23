@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:32:09 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/23 16:53:01 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:19:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,7 +344,7 @@ typedef struct s_shell
 	bool			ampersand;
 }				t_shell;
 
-	/*	libft 	*/
+/*					ALIAS					*/
 int				ft_iswhitespace(char c);
 int				ft_strcount(char *str, char target);
 void			ft_free_doublearray(char ***array);
@@ -354,9 +354,7 @@ char			**ft_dup_doublearray(char **original);
 int				ft_strarray_size(char **arr);
 void			ft_exit_error(char *msg, int ret);
 char			*ft_strjoin_three(char *s1, char *s2, char *s3);
-size_t			ft_strlen_match(char *str, char delimiter);			// ?
-
-/*					ALIAS					*/
+size_t			ft_strlen_match(char *str, char delimiter);
 void			alias_heredoc_check(char **line);
 void			dup_arr_rm_pos(char **alias, char ***dup, int pos, int size);
 void			free_and_refill_dup_alias(char ***dup_alias, char **original);

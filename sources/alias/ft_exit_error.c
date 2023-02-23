@@ -6,12 +6,11 @@
 /*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 21:06:05 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/06 16:48:14 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:07:05 by rvuorenl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-#include "libft.h"
 
 void	ft_exit_error(char *msg, int ret)
 {
