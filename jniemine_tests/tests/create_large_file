@@ -1,5 +1,0 @@
-#!/bin/bash
-for i in {1..1055}
-do
-   echo "echo Welcome $i times" >> ~/.42sh_history
-done
