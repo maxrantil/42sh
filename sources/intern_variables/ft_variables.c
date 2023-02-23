@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_variables.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 17:42:46 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:57:06 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	treat_env(t_shell *sh, char **cmd)
 	char	**dbl_ptr;
 
 	dbl_ptr = NULL;
-	sh->temp_env = NULL;
 	sh->temp_env_bool = 1;
 	sh->temp_env = ft_dup_doublearray(sh->env);
 	dbl_array_to_export(&dbl_ptr, cmd);

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:31:22 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 09:40:51 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:01:41 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ char	*remove_braces(char *str)
 		str[i] = str[i + 1];
 		i++;
 	}
-	ft_printf("str %s\n", str);
 	return (str);
 }

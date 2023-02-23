@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_session_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:44:03 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/17 04:39:10 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:58:12 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	ft_session_init(t_shell *sh)
 	sh->terminal = ttyname(STDOUT_FILENO);
 	sh->head = NULL;
 	sh->tmp_env_key = NULL;
+	sh->temp_env = NULL;
+	sh->temp_env_bool = 0;
 	sh->tokens = NULL;
 	sh->pipe = ft_memalloc(sizeof(t_pipe));
 	ft_session_init_continue(sh);
