@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -26,7 +27,7 @@ char *terminal, t_shell *sh)
 	}
 	if (node->cmd)
 		exec_tree(node->cmd, environ_cp, terminal, sh);
-	if (sh->pipe->piping && node->close_fd == STDOUT_FILENO)
+	if (node->close_fd == STDOUT_FILENO)
 	{
 		if (dup2(sh->pipe->stdincpy, STDOUT_FILENO) < 0)
 			error_exit("dup2 failed in exec_closefd");
