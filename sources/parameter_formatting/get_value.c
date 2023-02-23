@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/20 23:21:33 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:10:53 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,11 @@ static char	*display_error(t_shell *sh, char *var, char *subst, int *format)
 	expanded = NULL;
 	if (!*temp[0] && subst[1])
 	{
-		temp_free(&temp);
-		ft_err_print(var + 1, subst + 1, " ", sh->pipe->stderrcpy);
+		ft_err_print(var + 1, NULL, subst + 1, sh->pipe->stderrcpy);
 		*format = -2;
 	}
 	else if (!*temp[0] && !subst[1])
 	{
-		temp_free(&temp);
 		ft_err_print(var + 1, NULL, "parameter null or unset", \
 		sh->pipe->stderrcpy);
 		*format = -2;
