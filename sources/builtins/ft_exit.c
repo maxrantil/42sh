@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:16:30 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/22 16:47:13 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 12:29:50 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_exit(t_shell *sh, char **commands)
 	{
 		if (commands[0] && commands[1] && commands[2])
 		{
-			write(2, "42sh: exit: too many arguments\n", 32);
+			ft_err_print(NULL, "exit", "too many arguments", 2);
 			sh->exit_stat = 1;
 			return (0);
 		}
@@ -81,7 +81,8 @@ int	ft_exit(t_shell *sh, char **commands)
 			ft_raw_disable(sh->orig_termios);
 			if (sh->term->clipboard.buff)
 				ft_strdel(&sh->term->clipboard.buff);
-			shell_end_cycle(sh);
+			if (sh->pgid == getpid())
+				shell_end_cycle(sh);
 		}
 		exit(sh->exit_stat);
 	}
