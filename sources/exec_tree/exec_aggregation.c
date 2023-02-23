@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_aggregation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 20:26:00 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/23 02:07:35 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:31:00 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
 		sh->pipe->redir_in = 1;
 }
 
-int if_previous_redir(t_shell *sh, int dest)
+static int	if_previous_redir(t_shell *sh, int dest)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < SH_FD_MAX)

@@ -55,7 +55,7 @@ static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 static void	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 {
 	open_fd_if_needed(&node->close_fd, terminal, sh);
-	*fd= open(node->filepath, node->open_flags, node->rights);
+	*fd = open(node->filepath, node->open_flags, node->rights);
 	if (*fd < 0)
 		exit_error(sh, 1, "open failed");
 }
@@ -64,10 +64,9 @@ void	exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
 	int	fd;
-	int cpy;
+	int	cpy;
 
 	fd = -1;
-
 	if (!test_access_type(node->filepath,
 			node->close_fd, &node->open_flags, sh))
 		return ;
