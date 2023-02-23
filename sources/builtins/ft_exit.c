@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:16:30 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/16 17:30:41 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:47:13 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static int	get_exit_status(char **commands)
  */
 int	ft_exit(t_shell *sh, char **commands)
 {
-	ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (sh->pgid == getpid())
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 	jobs_exit_check(sh);
 	if (sh->exit_confirm == -1)
 	{

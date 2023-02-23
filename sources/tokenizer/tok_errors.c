@@ -6,34 +6,11 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 15:09:10 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/20 09:14:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 01:44:44 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-/*
-//Saved if needed
-int	control_op_error(char *str)
-{
-	if (*str == '|' && ft_strnequ(str + 1, "||", 2))
-		ft_err_print(NULL, "syntax error near unexpected token",
-			"`||'", 2);
-	else if (*str == '|' && ft_strnequ(str + 1, "|", 1))
-		ft_err_print(NULL, "syntax error near unexpected token",
-			"`|'", 1);
-	else if (*str == '&' && ft_strnequ(str + 1, "&&", 2))
-		ft_err_print(NULL, "syntax error near unexpected token",
-			"`&&'", 2);
-	else if (*str == '&' && ft_strnequ(str + 1, "&", 1))
-		ft_err_print(NULL, "syntax error near unexpected token",
-			"`&'", 1);
-	else if (*str == ';' && ft_strnequ(str + 1, ";;", 2))
-		ft_err_print(NULL, "syntax error near unexpected token",
-			"`;;'", 2);
-	return (control_op_error_split(str));
-}
-*/
 
 static int	check_if_redir(char *line)
 {

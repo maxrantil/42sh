@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:01:18 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/21 13:28:13 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/22 16:35:20 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ void	queue_add(t_shell *sh, int index)
 	tmp = sh->bg_node;
 	while (tmp)
 	{
-		if (tmp->index == sh->process_queue[i])
+		if (tmp->index == sh->process_queue[i] && tmp->status == STOPPED)
 		{
-			if (tmp->status == STOPPED)
-			{
-				i++;
-				tmp = sh->bg_node;
-			}
+			i++;
+			tmp = sh->bg_node;
 		}
-		tmp = tmp->next;
+		else
+			tmp = tmp->next;
 	}
 	++sh->process_count;
 	ft_memmove(&sh->process_queue[i + 1], \

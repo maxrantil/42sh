@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 08:32:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/20 23:21:33 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 02:01:43 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ static char	*display_error(t_shell *sh, char *var, char *subst, int *format)
 	if (!*temp[0] && subst[1])
 	{
 		temp_free(&temp);
-		ft_err_print(var + 1, subst + 1, " ", sh->pipe->stderrcpy);
+		ft_err_print(var + 1, subst + 1, " ", sh->pipe->stdincpy);
 		*format = -2;
 	}
 	else if (!*temp[0] && !subst[1])
 	{
 		temp_free(&temp);
 		ft_err_print(var + 1, NULL, "parameter null or unset", \
-		sh->pipe->stderrcpy);
+		sh->pipe->stdincpy);
 		*format = -2;
 	}
 	else

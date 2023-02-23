@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 15:52:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/18 05:24:10 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 01:40:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ t_treenode	*init_redir_wrap(char *filepath,
 		return (init_redir(filepath, cmd, close_fd, O_RDONLY));
 	else if (redir_type == RE_OUT_ONE)
 		return (init_redir(filepath, cmd, close_fd,
-				O_CREAT | O_TRUNC | O_WRONLY/*O_RDWR*/));
+				O_CREAT | O_TRUNC | O_WRONLY));
 	else if (redir_type == RE_OUT_TWO)
 		return (init_redir(filepath, cmd, close_fd,
-				O_CREAT | O_APPEND | O_WRONLY/*O_RDWR*/));
+				O_CREAT | O_APPEND | O_WRONLY));
 	return (NULL);
 }
 

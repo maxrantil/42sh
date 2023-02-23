@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/02/22 10:03:36 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 01:44:11 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,7 +292,7 @@ typedef struct s_bg_jobs
 /*				PIPE DATA				*/
 typedef struct s_pipe
 {
-	int		pid; //Is this even used?
+	int		pid;
 	int		piping;
 	int		new_pipe;
 	int		write_pipe[2];
@@ -300,15 +300,12 @@ typedef struct s_pipe
 	int		redir_out;
 	int		redir_in;
 	int		stdincpy;
-	int		stdoutcpy;
-	int		stderrcpy;
 	int		pipes[SH_FD_MAX][2];
 	int		pipe_idx;
 	int		fd_aliases[SH_FD_MAX + 1];
 	int		open_fd_idx;
 	int		previous_redir[SH_FD_MAX];
 	int		read_fd;
-	// int		std_fd_copies[3];
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -354,7 +351,9 @@ int				ft_strarray_size(char **arr);
 void			ft_exit_error(char *msg, int ret);
 char			*ft_strjoin_three(char *s1, char *s2, char *s3);
 size_t			ft_strlen_match(char *str, char delimiter);			// ?
+
 /*					ALIAS					*/
+void			alias_heredoc_check(char **line);
 void			dup_arr_rm_pos(char **alias, char ***dup, int pos, int size);
 void			free_and_refill_dup_alias(char ***dup_alias, char **original);
 int				validate_alias(char *alias, int print_error);

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 23:02:12 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/17 08:58:51 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 02:01:30 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	is_aliased_fd(t_shell *sh, int open_fd)
 
 int	is_std_fd_cpy(t_shell *sh, int fd)
 {
-	if (sh->pipe->stdincpy == fd || sh->pipe->stdoutcpy == fd
-		|| sh->pipe->stderrcpy == fd)
+	if (sh->pipe->stdincpy == fd || sh->pipe->stdincpy == fd
+		|| sh->pipe->stdincpy == fd)
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_job_status.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:28:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/21 13:09:11 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/22 12:21:36 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	job_terminated(t_shell *sh, pid_t pid, int status)
 static void	job_exited(t_shell *sh, pid_t pid, int status)
 {
 	sh->exit_stat = WEXITSTATUS(status);
-	if (sh->exit_stat == 126)
+	if (sh->exit_stat)
 		change_process_status(sh->bg_node, pid, EXITED);
 	else
 		change_process_status(sh->bg_node, pid, DONE);
