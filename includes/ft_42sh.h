@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:32:09 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/23 10:32:12 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 13:46:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,8 @@ typedef struct s_pipe
 	int		open_fd_idx;
 	int		previous_redir[SH_FD_MAX];
 	int		read_fd;
+	int		write_fd;
+	int		close_fd;
 }			t_pipe;
 
 /*				SESSION STRUCT				*/

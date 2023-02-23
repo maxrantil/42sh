@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 20:31:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/23 02:20:20 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:03:30 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ void	reset_fd(t_shell *sh)
 	ft_memset(sh->pipe->fd_aliases, -1, sizeof(int) * SH_FD_MAX);
 	ft_memset(sh->pipe->previous_redir, -1, sizeof(int) * SH_FD_MAX);
 	sh->pipe->open_fd_idx = 254;
-	sh->pipe->stdincpy = 255;//PROTECT 255
+	sh->pipe->stdincpy = 255;
 	sh->pipe->read_fd = -1;
+	sh->pipe->close_fd = -1;
+	sh->pipe->write_fd = -1;
 	if (sh->pipe->stdincpy < 0)
 		ft_exit_error("open failed\n", -1);
 }
