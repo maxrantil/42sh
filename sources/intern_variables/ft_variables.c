@@ -6,18 +6,45 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 16:55:34 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:35:40 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
+static void	dbl_array_to_export(char ***dbl_ptr, char **cmd)
+{
+	int	i;
+	int	k;
+	int	len;
+
+	len = 0;
+	while (cmd[len] && is_var(cmd[len]))
+		len++;
+	*dbl_ptr = (char **)ft_memalloc(sizeof(char *) * (len + 2));
+	i = 0;
+	k = 0;
+	while (k < len)
+	{
+		if (!i)
+			(*dbl_ptr)[i++] = ft_strdup("export");
+		else
+			(*dbl_ptr)[i++] = ft_strdup(cmd[k++]);
+	}
+	(*dbl_ptr)[++i] = NULL;
+}
+
 static void	treat_env(t_shell *sh, char **cmd)
 {
+	char	**dbl_ptr;
+
+	dbl_ptr = NULL;
 	sh->temp_env = NULL;
 	sh->temp_env_bool = 1;
 	sh->temp_env = ft_dup_doublearray(sh->env);
-	ft_export(sh, cmd, 1);
+	dbl_array_to_export(&dbl_ptr, cmd);
+	ft_export(sh, dbl_ptr, 1);
+	ft_arrclean(dbl_ptr);
 }
 
 static void	move_args(char ***cmd, int ret)
