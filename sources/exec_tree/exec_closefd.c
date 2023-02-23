@@ -18,8 +18,10 @@ char *terminal, t_shell *sh)
 {
 	if (sh->pipe->previous_redir[node->close_fd] != 1)
 		close(node->close_fd);
+	sh->pipe->closed_fds[node->close_fd] = 1;
 	if (node->close_fd == STDOUT_FILENO)
 	{
+		sh->pipe->close_fd = STDOUT_FILENO;
 		close(sh->pipe->write_pipe[1]);
 		close(sh->pipe->read_pipe[1]);
 		sh->pipe->read_pipe[1] = -1;
