@@ -308,6 +308,7 @@ typedef struct s_pipe
 	int		read_fd;
 	int		write_fd;
 	int		close_fd;
+	int		redir_fork;
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
