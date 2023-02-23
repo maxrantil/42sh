@@ -25,6 +25,9 @@ static int	protect_fd(int closefd, t_shell *sh)
 
 static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 {
+	struct stat buf;
+
+	stat(dest, &buf);
 	if (protect_fd(closefd, sh))
 		return (0);
 	if (test_if_file(dest))
@@ -43,6 +46,9 @@ static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 			return (1);
 		else if (closefd >= STDOUT_FILENO && !access(dest, W_OK))
 		{
+			if (S_ISFIFO(buf.st_mode) && ft_err_print(dest, NULL, \
+			"Is a named pipe", 2)) //This is preventing the hangin and memleak after ctrl + c
+				return (0);
 			if (*rights & O_CREAT & O_TRUNC)
 				*rights = O_WRONLY;
 			return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   job_wtermsig_msg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:48:24 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/23 10:28:27 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 21:35:39 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	job_wtermsig_msg(int status)
 		ft_printf("Trace/BPT trap: %d\n", status);
 	else if (status == SIGABRT)
 		ft_printf("Abort trap: %d\n", status);
-	else if (status == SIGEMT)
-		ft_printf("EMT trap: %d\n", status);
+	// else if (status == SIGEMT) // JUST UNCOMMENT WASN'T COMPILING ON UBUNTU
+	// 	ft_printf("EMT trap: %d\n", status);
 	else if (status == SIGFPE)
 		ft_printf("Floating point exception: %d\n", status);
 	else if (status == SIGKILL)
