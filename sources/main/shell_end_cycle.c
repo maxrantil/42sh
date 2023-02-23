@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/23 15:37:19 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:58:43 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ static void	notify_completed_jobs(t_shell *sh)
 
 void	free_temp_env(t_shell *sh)
 {
-	if (sh->temp_env)
+	if (sh->temp_env_bool)
 	{
 		ft_free_doublearray(&sh->env);
 		sh->env = ft_dup_doublearray(sh->temp_env);
+		ft_free_doublearray(&sh->temp_env);
 		sh->temp_env_bool = 0;
 	}
 }
@@ -85,8 +86,7 @@ void	shell_end_cycle(t_shell *sh)
 	if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
 		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);
-	if (sh->temp_env_bool)
-		free_temp_env(sh);
+	free_temp_env(sh);
 	notify_completed_jobs(sh);
 	init_window_size(sh->term);
 	reset_fgnode(sh);

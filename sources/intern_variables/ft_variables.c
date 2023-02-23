@@ -3,47 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_variables.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 16:01:30 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:55:34 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void	treat_env(t_shell *sh, char *****cmd)
+static void	treat_env(t_shell *sh, char **cmd)
 {
 	sh->temp_env = NULL;
 	sh->temp_env_bool = 1;
 	sh->temp_env = ft_dup_doublearray(sh->env);
-	ft_export(sh, ***cmd, 1);
+	ft_export(sh, cmd, 1);
 }
 
-static void	move_args(char ****cmd, int ret)
+static void	move_args(char ***cmd, int ret)
 {
 	int		k;
+	int		len;
+	char	**new_arr;
 
 	k = 0;
-	while (k < ret)
-		ft_strdel(&(**cmd)[k++]);
-	ft_memmove(**cmd, (**cmd)[k], ft_arrlen(&(**cmd)[k]) + 1);
-	ft_printf("cmd %s  another cmd k %s\n", ****cmd, (***cmd)[k]);
-	// ****cmd = (***cmd)[k];
-	// ft_printf("cmd %s  another cmd k %s\n", ****cmd, (***cmd)[k]);
+	len = ft_arrlen(&(*cmd)[ret]);
+	new_arr = (char **)ft_memalloc(sizeof(char *) * (len + 1));
+	while ((*cmd)[ret])
+		new_arr[k++] = ft_strdup((*cmd)[ret++]);
+	new_arr[k] = NULL;
+	ft_arrclean(*cmd);
+	*cmd = new_arr;
 }
-// static void	move_args(char *****cmd, int ret)
-// {
-// 	int		k;
-
-// 	k = 0;
-// 	while (k < ret)
-// 		ft_strdel(&(***cmd)[k++]);
-// 	ft_memmove(****cmd, (***cmd)[k], ft_arrlen((**cmd)[k]) + 1);
-// 	ft_printf("cmd %s  another cmd k %s\n", ****cmd, (***cmd)[k]);
-// 	// ****cmd = (***cmd)[k];
-// 	// ft_printf("cmd %s  another cmd k %s\n", ****cmd, (***cmd)[k]);
-// }
 
 static int	is_changeable(char **cmd, int *ret)
 {
@@ -65,20 +56,19 @@ static int	is_changeable(char **cmd, int *ret)
 	return (0);
 }
 
-int	ft_variables(t_shell *sh, char ****cmd)
+int	ft_variables(t_shell *sh, char ***cmd)
 {
 	int		ret;
 
 	ret = 0;
-	if (!is_changeable(**cmd, &ret))
-		add_var(sh, **cmd);
+	if (!is_changeable(*cmd, &ret))
+		add_var(sh, *cmd);
 	else if (ret == 0)
 		return (1);
 	else if (ret)
-		treat_env(sh, &cmd);
-	if (!(**cmd)[ret])
+		treat_env(sh, *cmd);
+	if (!(*cmd)[ret])
 		return (0);
-	// move_args(&cmd, ret);
 	move_args(cmd, ret);
 	return (ret);
 }

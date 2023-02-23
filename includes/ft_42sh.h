@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/23 15:12:10 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:00:46 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -604,7 +604,7 @@ int				ft_fc(t_shell *sh, char ***cmd);
 int				get_history_cap(t_shell *sh);
 
 /*			  	INTERN VARIABLES			*/
-int				ft_variables(t_shell *sh, char ****cmd);
+int				ft_variables(t_shell *sh, char ***cmd);
 int				add_var(t_shell *sh, char **cmd);
 int				is_var(char *cmd);
 int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
