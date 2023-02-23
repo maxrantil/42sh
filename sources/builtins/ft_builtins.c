@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/20 14:49:30 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/23 14:14:11 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 	if (!ft_strcmp(**cmd, "set"))
 		return (ft_set(sh, cmd));
 	else if (!ft_strcmp(**cmd, "export"))
-		return (ft_export(sh, *cmd));
+		return (ft_export(sh, *cmd, 0));
 	else if (!ft_strcmp(**cmd, "unset"))
 		return (ft_unset(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "cd"))

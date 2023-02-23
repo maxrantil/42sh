@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/23 13:30:58 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:12:10 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,6 +339,8 @@ typedef struct s_shell
 	int				arr_len;
 	char			option;
 	bool			ampersand;
+	int				temp_env_bool;
+	char			**temp_env;
 }				t_shell;
 
 	/*	libft 	*/
@@ -477,7 +479,7 @@ int				ft_echo(t_shell *sh, char **cmd);
 int				ft_set(t_shell *sh, char ***cmd);
 int				ft_exit(t_shell *sesh, char **commands);
 int				ft_fg(t_shell *sh, char **cmd);
-int				ft_export(t_shell *sh, char **cmd);
+int				ft_export(t_shell *sh, char **cmd, int opt);
 int				ft_jobs(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
 int				type_command(t_shell *sesh, char **commands, char **env, int i);
