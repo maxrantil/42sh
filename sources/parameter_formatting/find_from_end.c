@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:35:19 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 09:21:54 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:34:57 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ char	*find_from_end(char *haystack, char *needle, int glob)
 	int		len_needle;
 	char	*temp;
 
-	len = (int)ft_strlen(haystack) - 1;
-	len_needle = (int)ft_strlen(needle) - 1;
-	if (!*needle && glob == 2)
-		return (NULL);
+	len = (int)ft_strlen(haystack);
+	len_needle = (int)ft_strlen(needle);
+	if ((!*needle && glob == 2) || !len_needle)
+		return (ft_strnew(1));
 	while (haystack[len] == needle[len_needle])
 	{
 		len--;
@@ -33,7 +33,7 @@ char	*find_from_end(char *haystack, char *needle, int glob)
 			temp = ft_strndup(haystack, \
 			ft_strlen(haystack) - ft_strlen(needle));
 			if (glob == 2)
-				return (NULL);
+				return (ft_strnew(1));
 			return (temp);
 		}
 	}

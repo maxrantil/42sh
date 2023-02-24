@@ -1,10 +1,13 @@
+/Users/mviinika/workspace/42sh/auto_tests/tests/script.expansions.txt
+
+
+
 #/Users/mrantil/hive/42sh/auto_tests/tests/basic_tests.txt
 #/Users/jniemine/Workspace/42sh/auto_tests/tests/redir_tests
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form21.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/redir_tests
 #/Users/mrantil/hive/42sh/auto_tests/tests/script.alias.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/script.alias.txt2
-#/Users/mrantil/hive/42sh/auto_tests/tests/script.expansions.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/script.hash.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/script.history.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/script.quoting.txt
@@ -17,7 +20,7 @@
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_1.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_2.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_3.txt
-/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_4.txt
+#/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_4.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_5(dont_automate).txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_6.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_7.txt

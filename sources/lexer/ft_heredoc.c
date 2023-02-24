@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:04:51 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 12:08:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:35:52 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*write_to_tmp_file(t_term *t, char *str, int fd)
 	char	*cpy;
 
 	ret = ft_strsub(str, 0, ft_strchr(str, '\n') - str);
-	cpy = ft_strrchr(str, '<') + 1;
+	cpy = ft_strchr(str, '<') + 1;
 	get_to_end_of_delim(t, &cpy);
 	if (ft_strrchr(cpy, '\n'))
 		cpy = ft_strsub(ft_strchr(cpy, '\n') + 1, 0, \
