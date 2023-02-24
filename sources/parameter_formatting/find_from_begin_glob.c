@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:36:24 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/22 19:48:23 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:39:18 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*find_from_begin_glob(char *haystack, char *needle)
 	int	j;
 
 	i = 0;
+	if (!*needle)
+		ft_strdup(haystack);
 	while (haystack[i])
 	{
 		j = 0;

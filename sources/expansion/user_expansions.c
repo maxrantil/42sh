@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:24:20 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/14 15:44:27 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:42:59 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	*user_expansions(char *input)
 	uid = get_uid(&user[1]);
 	if (!uid)
 	{
+		ft_strdel(&user);
 		ft_strdel(&temp);
 		return (NULL);
 	}
