@@ -6,44 +6,60 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:54:26 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/20 23:31:33 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:57:06 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static void	treat_env(char *****cmd, int i)
+static void	dbl_array_to_export(char ***dbl_ptr, char **cmd)
 {
-	char	*temp;
-	int		k;
+	int	i;
+	int	k;
+	int	len;
 
+	len = 0;
+	while (cmd[len] && is_var(cmd[len]))
+		len++;
+	*dbl_ptr = (char **)ft_memalloc(sizeof(char *) * (len + 2));
+	i = 0;
 	k = 0;
-	temp = (***cmd)[i];
-	(***cmd)[i] = (***cmd)[k];
-	(***cmd)[k++] = temp;
-	while (k < i)
+	while (k < len)
 	{
-		temp = (***cmd)[i];
-		(***cmd)[i] = (***cmd)[k];
-		(***cmd)[k] = temp;
-		k++;
+		if (!i)
+			(*dbl_ptr)[i++] = ft_strdup("export");
+		else
+			(*dbl_ptr)[i++] = ft_strdup(cmd[k++]);
 	}
+	(*dbl_ptr)[i] = NULL;
 }
 
-static void	move_args(char *****cmd)
+static void	treat_env(t_shell *sh, char **cmd)
+{
+	char	**dbl_ptr;
+
+	dbl_ptr = NULL;
+	sh->temp_env_bool = 1;
+	sh->temp_env = ft_dup_doublearray(sh->env);
+	dbl_array_to_export(&dbl_ptr, cmd);
+	ft_export(sh, dbl_ptr, 1);
+	ft_arrclean(dbl_ptr);
+}
+
+static void	move_args(char ***cmd, int ret)
 {
 	int		k;
-	char	*temp;
+	int		len;
+	char	**new_arr;
 
 	k = 0;
-	while ((***cmd)[k + 1])
-	{
-		ft_strdel(&(***cmd)[k]);
-		temp = (***cmd)[k + 1];
-		(***cmd)[k] = ft_strdup(temp);
-		k++;
-	}
-	ft_strdel(&(***cmd)[k]);
+	len = ft_arrlen(&(*cmd)[ret]);
+	new_arr = (char **)ft_memalloc(sizeof(char *) * (len + 1));
+	while ((*cmd)[ret])
+		new_arr[k++] = ft_strdup((*cmd)[ret++]);
+	new_arr[k] = NULL;
+	ft_arrclean(*cmd);
+	*cmd = new_arr;
 }
 
 static int	is_changeable(char **cmd, int *ret)
@@ -66,22 +82,19 @@ static int	is_changeable(char **cmd, int *ret)
 	return (0);
 }
 
-int	ft_variables(t_shell *sh, char ****cmd)
+int	ft_variables(t_shell *sh, char ***cmd)
 {
 	int		ret;
 
 	ret = 0;
-	if (!is_changeable(**cmd, &ret))
-		add_var(sh, **cmd);
+	if (!is_changeable(*cmd, &ret))
+		add_var(sh, *cmd);
 	else if (ret == 0)
 		return (1);
-	else if (ft_strequ((**cmd)[ret], "env"))
-	{
-		treat_env(&cmd, ret);
-		return (1);
-	}
-	if (!(**cmd)[ret])
+	else if (ret)
+		treat_env(sh, *cmd);
+	if (!(*cmd)[ret])
 		return (0);
-	move_args(&cmd);
+	move_args(cmd, ret);
 	return (ret);
 }

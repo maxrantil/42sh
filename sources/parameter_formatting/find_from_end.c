@@ -6,36 +6,36 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:35:19 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/21 09:58:37 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 09:21:54 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-char	*find_from_end(char *haystack, char *needle)
+char	*find_from_end(char *haystack, char *needle, int glob)
 {
 	int		len;
 	int		len_needle;
 	char	*temp;
 
-	len = (int)ft_strlen(haystack);
-	while (len > 0)
+	len = (int)ft_strlen(haystack) - 1;
+	len_needle = (int)ft_strlen(needle) - 1;
+	if (!*needle && glob == 2)
+		return (NULL);
+	while (haystack[len] == needle[len_needle])
 	{
-		len_needle = (int)ft_strlen(needle);
-		while (haystack[len] == needle[len_needle])
-		{
-			len--;
-			len_needle--;
-			if (len == 0)
-				return (NULL);
-			if (len_needle == 0)
-			{
-				temp = ft_strndup(haystack, \
-				ft_strlen(haystack) - ft_strlen(needle));
-				return (temp);
-			}
-		}
 		len--;
+		len_needle--;
+		if (len < 0 && len_needle > 0)
+			return (ft_strdup(haystack));
+		if (len_needle < 0)
+		{
+			temp = ft_strndup(haystack, \
+			ft_strlen(haystack) - ft_strlen(needle));
+			if (glob == 2)
+				return (NULL);
+			return (temp);
+		}
 	}
 	return (ft_strdup(haystack));
 }

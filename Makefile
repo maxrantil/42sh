@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/23 10:39:41 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/23 21:52:31 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,10 @@ CFLAGS 				= 	-Wall -Wextra
 CFLAGS				+=	-Wunreachable-code -Wtype-limits
 CFLAGS				+=	-Wpedantic
 # CFLAGS				+=	-Wconversion
-#CFLAGS				+=	-O3
+CFLAGS				+=	-O3
 
 LEAK_CHECK			= -g
-# LEAK_CHECK			+=	-fsanitize=address
+#LEAK_CHECK			+=	-fsanitize=address
 
 UNAME				= $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -364,7 +364,7 @@ FILES			= \
 				$(PARAM_FORM)get_operator \
 				$(PARAM_FORM)is_param_exp_char \
 				$(PARAM_FORM)splitter \
-				$(PARAM_FORM)expander \
+				$(PARAM_FORM)check_param_format_seq \
 				$(PARAM_FORM)get_flag \
 				$(PARAM_FORM)init_pa_ints \
 				$(PARAM_FORM)free_attrs \
@@ -382,6 +382,7 @@ FILES			= \
 				$(PARAM_FORM)temp_free \
 				$(PARAM_FORM)trim_and_remove_null \
 				$(PARAM_FORM)get_word \
+				$(PARAM_FORM)remove_quotes_subs \
 				$(SIGNALS)handler_signal_keyboard \
 				$(SIGNALS)handler_signal_search_history \
 				$(SIGNALS)set_signal_dfl \

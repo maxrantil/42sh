@@ -19,7 +19,7 @@ import sys
 #Stop it after N commands for enter
 async def main(connection):
 	#Path to test main
-	path_to_test_main = '/Users/mrantil/hive/42sh/jniemine_tests/tests/test_main.txt'
+	path_to_test_main = '/Users/mrantil/hive/42sh/auto_tests/tests/test_main.txt'
 	#Path to shell
 	path_to_shell = '/Users/mrantil/hive/42sh/42sh'
 	#Number of ran tests before Enter

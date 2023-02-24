@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/23 15:15:16 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:39:25 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 	if (!ft_strcmp(**cmd, "set"))
 		return (ft_set(sh, cmd));
 	else if (!ft_strcmp(**cmd, "export"))
-		return (ft_export(sh, *cmd));
+		return (ft_export(sh, *cmd, 0));
 	else if (!ft_strcmp(**cmd, "unset"))
 		return (ft_unset(sh, *cmd));
 	else if (!ft_strcmp(**cmd, "cd"))
@@ -122,7 +122,7 @@ int	ft_builtins(t_shell *sh, char ***cmd, char ***environ_cp)
 		ft_expansion(sh, *cmd);
 		if (!***cmd)
 			return (0);
-		if (!ft_variables(sh, &cmd))
+		if (!ft_variables(sh, cmd))
 			return (0);
 		if (**cmd && !is_builtin(*cmd))
 			return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perform_param_expans.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:38:41 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/21 13:06:11 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:33:35 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	retoken_into_list(t_param *pa)
 	{
 		pa->list[i++] = retokenize(pa->subs, &j);
 	}
+	pa->list[i] = NULL;
 }
 
 int	perform_param_expans(char *cmd, t_param *pa, int *ret)
@@ -38,7 +39,7 @@ int	perform_param_expans(char *cmd, t_param *pa, int *ret)
 		return (-1);
 	if (*ret == 0)
 		retoken_into_list(pa);
-	expander(pa, ret);
+	check_param_format_seq(pa);
 	if (*ret == 0 && join_values(g_sh, pa, cmd, ret))
 		err = -1;
 	if (*ret == -2)

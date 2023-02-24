@@ -2,6 +2,7 @@ echo ${PWD:+${HOME:+${PWD:+${USER:+${PWD:+${USER:+${SHELL:+${HOME:+${USER:+${abc
 echo "${HOME:+'$PWD'}"
 echo ${HOME:- here ${PWD:+"he'll'o |w'orl"d}}
 echo ${HOME:+ here ${PWD:+"he'll'o |w'orl"d}}
+echo ${var:=${PWD:+${SHELL:-hello}}}
 echo \${HOME:+hello}
 echo ${#$SHELL}
 echo ${HOME:~+}
@@ -22,8 +23,23 @@ echo ${NOEXIST:+ }
 echo ${NOEXIST:?helo}
 echo ${NOEXIST:-hello wordl}
 echo ${NOEXIST:=hello wordl}
-${HOME#/Users*ne}
-${HOME##/Users*ne}
 ${HOME##*/}
-${HOME%%*ne}
-${HOME%U*ne}
+${HOME##/*}
+${HOME#*/}
+${HOME#/*}
+${HOME%%*/}
+${HOME%%/*}
+${HOME%*/}
+${HOME%/*}
+${HOME##*}
+${HOME##**}
+${HOME#*}
+${HOME#**}
+${HOME%%*}
+${HOME%%**}
+${HOME%*}
+${HOME%**}
+${HOME%*/*}
+${HOME%%*/*}
+${HOME#*/*}
+${HOME##*/*}
