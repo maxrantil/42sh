@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:41:49 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/24 11:44:24 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:10:12 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static ssize_t	delim_row(t_term *t)
 	ssize_t	delim_row;
 
 	delim_row = 0;
-	while (delim_row < t->total_row && (!delim_row || !ft_is_prompt_line(t, delim_row) || ft_delim_bslash(t->inp, (t->nl_addr[delim_row] - 2) - t->inp)))
+	while (delim_row < t->total_row && (!delim_row \
+	|| !ft_is_prompt_line(t, delim_row) \
+	|| ft_delim_bslash(t->inp, (t->nl_addr[delim_row] - 2) - t->inp)))
 		delim_row++;
 	return (delim_row);
 }

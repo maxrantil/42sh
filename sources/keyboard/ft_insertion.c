@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 07:56:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 11:23:11 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:09:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	ft_insertion_enter(t_term *t)
 		t->index = t->bytes;
 	}
 }
-
 
 /*
  * It handles the insertion of characters into the input string
