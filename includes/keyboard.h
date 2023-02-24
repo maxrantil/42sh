@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:09:25 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/17 15:37:03 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/24 10:13:14 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ void	ft_trigger_nl(t_term *t);
 void	ft_window_size(t_term *t);
 void	ft_word_mv(t_term *t);
 void	ft_history_add_command(t_term *t, char *command);
+int		ft_delim_bslash(char *ptr, int pos);
 
 /*				SEARCH HISTORY				*/
 void	ft_select_history(t_term *t, t_search_history *config);
