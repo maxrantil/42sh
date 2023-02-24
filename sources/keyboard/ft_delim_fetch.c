@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delim_fetch.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 13:35:01 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 08:34:19 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:10:17 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ static void	delim_fetch_error(t_term *t, char *ptr)
 	else
 		ft_putstr_fd("\n42sh: syntax error near unexpected token `newline'", 2);
 	ft_strclr(t->inp);
+	t->term_val[1]++;
 	t->heredoc = 0;
 }
 
 static void	bslash_off(t_term *t, char *ptr)
 {
-	char *end_q;
+	char	*end_q;
 
 	while (*ptr && ft_isspace(*ptr))
 		ptr++;
@@ -41,30 +42,22 @@ static void	bslash_off(t_term *t, char *ptr)
 		delim_fetch_error(t, ptr);
 }
 
-static void bslash_on(t_term *t, char *ptr)
+static void	bslash_on(t_term *t, char *ptr)
 {
 	int	i;
-	
-	i = -1;
+
+	i = ft_strlen(ptr) - 1;
 	t->delim = ft_strdup(ptr);
-	while (t->delim[++i])
+	while (i >= 0)
 	{
-		if (t->delim[i] == '\n' || (t->delim[i] == '\\' && special_char_check(t->delim, i, '\\')))
+		if (t->delim[i] == '\n' || (t->delim[i] == '\\' \
+		&& ft_delim_bslash(t->delim, i)))
 		{
 			ft_memmove((void *)&t->delim[i], (void *)&t->delim[i + 1], \
 			ft_strlen(&t->delim[i + 1]) + 1);
-			--i;
 		}	
-		// if (t->delim[i] == '\\' && t->delim[i + 1] != '\\' && !special_char_check(t->delim, i + 1, '\\'))
-		// {
-		// 	ft_strclr(&t->delim[i + 1]);
-		// 	break ;
-		// }
-	}	
-	ft_run_capability("sc");
-	ft_setcursor(0, t->ws_row - 2);
-	ft_printf("delim: [%s]\n", t->delim);
-	ft_run_capability("rc");
+		--i;
+	}
 }
 
 static char	*strdelim(t_term *t)
@@ -78,9 +71,9 @@ static char	*strdelim(t_term *t)
 	{
 		if (*ptr == '<')
 			delim_qty++;
-		if (delim_qty >= 2 && *ptr != '<')
-			break ;
 		ptr++;
+		if (delim_qty == 2)
+			break ;
 	}
 	return (ptr);
 }
@@ -94,34 +87,23 @@ static char	*strdelim(t_term *t)
 int	ft_delim_fetch(t_term *t)
 {
 	char	*ptr;
-	// char 	*end_q;
 
 	if (t->heredoc && !t->delim)
 	{
 		ptr = strdelim(t);
-		if (*ptr == '>')
+		if (*ptr == '<')
 		{
-			ft_printf("Syntax error\n");
-			return 0;
+			delim_fetch_error(t, ptr);
+			return (0);
 		}
 		while (*ptr && ft_isspace(*ptr))
 			++ptr;
-		// end_q = ptr;
-		// while (*end_q && ft_isspace(*end_q) && *end_q != '\\')
-		// 	end_q++;
-		// ft_printf("end_q [%s]\n", end_q);
-		if (!special_char_check(ptr, ft_strlen(ptr), '\\'))
+		if (!ft_delim_bslash(ptr, ft_strlen(ptr) - 1))
 		{
 			if (ft_strchr(ptr, '\\'))
-			{
 				bslash_on(t, ptr);
-			}
 			else
 				bslash_off(t, ptr);
-			// ft_run_capability("sc");
-			// ft_setcursor(0, t->ws_row - 2);
-			// ft_printf("delim: [%s]\n", t->delim);
-			// ft_run_capability("rc");
 		}
 	}
 	return (0);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+         #
+#    By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/23 10:39:41 by mrantil          ###   ########.fr        #
+#    Updated: 2023/02/24 10:13:45 by mbarutel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -327,6 +327,7 @@ FILES			= \
 				$(KEYBOARD)ft_reset_nl_addr \
 				$(KEYBOARD)ft_restart_cycle \
 				$(KEYBOARD)ft_row_lowest_line \
+				$(KEYBOARD)ft_delim_bslash \
 				$(KEYBOARD)ft_run_capability \
 				$(KEYBOARD)ft_search_history_display \
 				$(KEYBOARD)ft_search_history_edit \
