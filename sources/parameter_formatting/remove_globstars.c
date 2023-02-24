@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:33:53 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 19:01:51 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:05:54 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*remove_globstars(char **needle, int *glob, char op)
 	{
 		new_needle = strndup(*needle + 1, len - 2);
 		*glob = 2;
+		if (op == '%')
+			*glob = 1;
 	}
 	else
 		new_needle = strdup(*needle);

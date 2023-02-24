@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/24 11:05:21 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:16:50 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static	char	*get_needle(char **needle, int k)
 
 	temp = ft_strdup(*needle);
 	ft_strdel(needle);
-	*needle = ft_strndup(temp + k, ft_strlen(temp));
+	if (temp && temp[k])
+		*needle = ft_strndup(temp + k, ft_strlen(temp));
+	else
+		*needle = ft_strnew(1);
 	ft_strdel(&temp);
 	return (*needle);
 }
@@ -35,20 +38,17 @@ static char	*get_needle_and_op(char *strip, char *op)
 		needle = ft_strdup(ft_strchr(strip, '#'));
 		while (needle[++k] == '#' && k < 2)
 			op[k] = needle[k];
-		if (needle && needle[k])
-			needle = get_needle(&needle, k);
+		needle = get_needle(&needle, k);
 	}
 	else if (ft_strchr(strip, '%'))
 	{
 		needle = ft_strdup(ft_strchr(strip, '%'));
 		while (needle[++k] == '%' && k < 2)
 			op[k] = needle[k];
-		if (needle && needle[k])
-			needle = get_needle(&needle, k);
+		needle = get_needle(&needle, k);
 	}
 	return (needle);
 }
-
 
 static void	replace_haystack(t_sub *sub, t_shell *sh)
 {

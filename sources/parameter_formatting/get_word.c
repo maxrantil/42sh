@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:10:34 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/24 11:50:07 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:16:40 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static char	*find_from_begin(char *haystack, char *needle, int glob)
 
 	i = 0;
 	j = 0;
-
 	if (!haystack[i] || (glob == 2 && !*needle))
 		return (ft_strnew(1));
 	while (haystack[i] == needle[j])
@@ -120,6 +119,8 @@ static char	*find_from_end_last(char *haystack, char *needle)
 
 char	*get_word(char *temp, char *temp_needle, char *op, int glob)
 {
+	if (!glob && !*temp_needle)
+		temp = ft_strdup(temp);
 	if (glob == 1 && ft_strequ("#", op))
 		temp = find_from_begin_glob(temp, temp_needle);
 	else if ((glob == 2 && ft_strequ("#", op))
@@ -130,10 +131,9 @@ char	*get_word(char *temp, char *temp_needle, char *op, int glob)
 		temp = find_from_begin(temp, temp_needle, glob);
 	else if (glob == 1 && ft_strequ("##", op))
 		temp = find_from_begin_last(temp, temp_needle);
-	else if ((!glob && ft_strequ("%", op))
-		|| (glob == 2 && ft_strequ("%", op)))
+	else if ((!glob && ft_strequ("%", op)))
 		temp = find_from_end(temp, temp_needle, 0);
-	else if (glob == 1 && ft_strequ("%", op))
+	else if (glob && ft_strequ("%", op))
 		temp = find_from_first_last(temp, temp_needle);
 	else if (glob == 1 && ft_strequ("%%", op))
 		temp = find_from_end_last(temp, temp_needle);
