@@ -3,74 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 20:04:51 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/01/26 09:55:24 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/24 12:08:45 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static char	*get_command(char *str, size_t i, size_t len_ndle)
+static char	*make_heredoc_input(char *str)
 {
-	char	*ret;
-	char	*pre_ndle;
-	char	*post_ndle;
-
-	post_ndle = NULL;
-	pre_ndle = ft_strsub(str, 0, i);
-	if (ft_strlen(str) > (i + len_ndle))
-	{
-		post_ndle = ft_strsub(str, i + len_ndle, \
-		ft_strlen(str) - (i + len_ndle));
-		ret = ft_strjoin(pre_ndle, "/tmp/heredoc");
-		ret = strjoin_head(ret, post_ndle);
-		ft_strdel(&post_ndle);
-	}
-	else
-		ret = ft_strjoin(pre_ndle, "/tmp/heredoc");
-	ft_strdel(&pre_ndle);
-	ft_strdel(&str);
-	return (ret);
+	ft_strclr(ft_strrchr(str, '<'));
+	return (strjoin_head(str, " /tmp/heredoc"));
 }
 
-static char	*change_delim_to_file(t_term *t, char *str)
+static void	get_to_end_of_delim(t_term *t, char **cpy)
 {
-	size_t	i;
-	size_t	len_ndle;
+	char	*ptr;
 
-	i = 0;
-	len_ndle = ft_strlen(t->delim);
-	while (str && str[i])
+	ptr = t->delim;
+	while (*(*cpy))
 	{
-		if (!ft_strnequ(&str[i], t->delim, len_ndle))
-			i++;
-		else
+		if (*(*cpy) == *ptr)
+			ptr++;
+		(*cpy)++;
+		if (!*ptr)
 			break ;
 	}
-	ft_strdel(&t->delim);
-	if (str && str[i])
-		return (get_command(str, i, len_ndle));
-	return (NULL);
-}
-
-static char	*make_heredoc_input(t_term *t, char *str)
-{
-	size_t	len;
-	int		i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (i && str[i] == '<' && str[i - 1] == '<')
-		{
-			len = ft_strlen(&str[i]);
-			ft_memmove((void *)&str[i], (void *)&str[i + 1], len);
-		}
-		i++;
-	}
-	return (change_delim_to_file(t, str));
 }
 
 static char	*write_to_tmp_file(t_term *t, char *str, int fd)
@@ -79,19 +39,22 @@ static char	*write_to_tmp_file(t_term *t, char *str, int fd)
 	char	*cpy;
 
 	ret = ft_strsub(str, 0, ft_strchr(str, '\n') - str);
-	cpy = ft_strchr(str, '\n') + 1;
+	cpy = ft_strrchr(str, '<') + 1;
+	get_to_end_of_delim(t, &cpy);
 	if (ft_strrchr(cpy, '\n'))
-		cpy = ft_strsub(cpy, 0, (ft_strrchr(cpy, '\n') - cpy) + 1);
-	if (*cpy && !ft_strequ(cpy, t->delim))
+		cpy = ft_strsub(ft_strchr(cpy, '\n') + 1, 0, \
+		((ft_strrchr(cpy, '\n') - 1) - ft_strchr(cpy, '\n') + 1));
+	if (cpy && !ft_strequ(cpy, t->delim))
 	{
 		write(fd, cpy, ft_strlen(cpy));
 		ft_strdel(&cpy);
 	}
 	else
 		write(fd, "\0", 1);
+	ft_strdel(&t->delim);
 	ft_strdel(&str);
 	close(fd);
-	return (make_heredoc_input(t, ret));
+	return (make_heredoc_input(ret));
 }
 
 char	*ft_heredoc(t_term *t, char *str)

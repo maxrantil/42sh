@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 07:56:09 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/11 16:59:52 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:09:48 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	ft_insertion_enter(t_term *t)
 	while (delim_row && !ft_is_prompt_line(t, delim_row))
 		delim_row--;
 	if (t->q_qty % 2 || t->bslash || t->bracket || \
-	(t->heredoc && (t->delim && ft_strcmp(t->nl_addr[delim_row], t->delim))))
+	(t->heredoc && (!t->delim || ft_strcmp(t->nl_addr[delim_row], t->delim))))
 	{
 		t->history_row = -1;
 		ft_memcpy(t->history_buff, t->inp, (unsigned long)t->bytes);
