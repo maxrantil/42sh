@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_addr_check.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 18:27:40 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/15 21:41:38 by spuustin         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:14:35 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	manipulate_env(t_shell *session, char *file)
 		list[0] = ft_strjoin("PWD=", file);
 		list[1] = ft_strjoin("PWD=", file);
 		list[2] = NULL;
-		ft_export(session, list);
+		ft_export(session, list, 0);
 		ft_arrclean(list);
 	}
 	ft_memdel((void *)&file);

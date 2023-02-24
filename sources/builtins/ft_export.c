@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:13:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/16 16:05:45 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:51:09 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,17 @@ static void	insert_variable(t_shell *sh, char **cmd, int i)
  *
  * @return The return value is the exit status of the command.
  */
-int	ft_export(t_shell *sh, char **cmd)
+int	ft_export(t_shell *sh, char **cmd, int opt)
 {
 	int		i;
 	char	*key;
 
 	i = 0;
+	if (opt)
+		i = -1;
 	sh->exit_stat = 0;
 	key = NULL;
-	if (check_export_print(sh, cmd))
+	if (check_export_print(sh, cmd) && !opt)
 		return (0);
 	while (*(cmd + ++i))
 	{

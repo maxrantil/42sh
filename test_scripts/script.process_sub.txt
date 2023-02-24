@@ -1,4 +1,0 @@
-cat -e < <(ls)
-vimdiff <(ls) <(ls -a)
-ls | tee >(cat -e) >/dev/null
-sort <(cat -e <(grep fork <(ls -tr /usr/share/man/man2)) | (head -n 1 1> >(rev)))
