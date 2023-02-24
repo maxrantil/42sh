@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:32:09 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/24 15:05:10 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/24 21:27:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,7 @@ typedef struct s_pipe
 	int		write_fd;
 	int		close_fd;
 	int		redir_fork;
+	int		interrupt;
 }			t_pipe;
 
 /*				SESSION STRUCT				*/
@@ -750,5 +751,7 @@ int				is_aliased_fd(t_shell *sh, int open_fd);
 int				is_std_fd_cpy(t_shell *sh, int fd);
 void			init_flags_struct(t_token_flags *flags);
 
-void	exec_redir_child(t_cmdnode *head, char ***environ_cp, t_shell *sh);
+char	**get_cmd_name(t_treenode *node);
+int		is_builtin(char **cmd);
+
 #endif

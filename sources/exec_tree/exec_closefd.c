@@ -24,7 +24,7 @@ char *terminal, t_shell *sh)
 		{
 			sh->pipe->redir_fork = 0;
 			// set_process_group(sh, sh->pipe->pid);
-			update_fg_job(sh, sh->pipe->pid, ((t_cmdnode *)node->cmd)->cmd);
+			update_fg_job(sh, sh->pipe->pid, get_cmd_name((t_treenode *)node));
 			wait_for_job(sh, sh->pipe->pid);
 		}
 	}

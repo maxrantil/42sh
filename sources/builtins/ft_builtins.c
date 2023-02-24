@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 15:36:37 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/24 20:43:45 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 
 	if (sh->pipe->piping || sh->ampersand /*|| sh->pipe->write_fd >= 0*/)
 	{
-		pid = fork_wrap();
+		if (sh->pipe->redir_fork == 0)
+			sh->pipe->pid = fork_wrap();
+		pid = sh->pipe->pid;
 		if (sh->pipe->pid == 0)
 			sh->pipe->pid = pid;
 		if (pid)
@@ -90,7 +92,7 @@ static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
 	return (0);
 }
 
-static int	is_builtin(char **cmd)
+int	is_builtin(char **cmd)
 {
 	char	*str;
 

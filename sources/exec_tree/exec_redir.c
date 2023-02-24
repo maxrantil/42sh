@@ -57,24 +57,51 @@ static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 	}
 	return (0);
 }
-#include <errno.h>
-#include <stdio.h>
+// #include <errno.h>
+// #include <stdio.h>
+extern t_shell *g_sh;
+
+static void tiny_signal_handler(int num)
+{
+	if (num == SIGINT)
+	{
+		ft_err_print(NULL, "fifo", "Interrupted system call", 2);
+		g_sh->pipe->interrupt = 1;
+	}
+}
+
 static int open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 {
 	struct stat buf;
+	sig_t			sig;
+	struct sigaction sa;
 
+	// sa.sa_handler = tiny_signal_handler;
+	sa.sa_flags = 0;
+	sig = 0;
+	sigemptyset(&sa.sa_mask);
 	open_fd_if_needed(&node->close_fd, terminal, sh);
 	stat(node->filepath, &buf);
 	if (S_ISFIFO(buf.st_mode))
 	{
 		ft_signal_dfl();
+		sig = signal(SIGINT, tiny_signal_handler);
+		ft_printf("SIG: %d SIGINT: %d\n", sig, SIGINT);
 		// ft_printf("PIDPID: %d\n", sh->pipe->pid);
-		node->open_flags = O_RDWR;
+		node->open_flags = O_WRONLY;
 		// node->rights = 0666;
 		//signal(SIGINT, SIG_DFL);
 	}
 	// ft_printf("FILEPATH: %s\n", node->filepath);
-	*fd = open(node->filepath, node->open_flags/*, node->rights*/);
+	*fd = open(node->filepath, node->open_flags, node->rights);
+	ft_printf("SIG: %d SIGINT: %d FD:%d \n", sig, SIGINT, *fd);
+	if (sh->pipe->interrupt)
+	{
+		// ft_init_signals();
+		ft_signal_dfl();
+		// kill(0, SIGKILL);
+		return (1);
+	}
 	// perror(strerror(errno));
 	// ft_putendl_fd("RETURN\n", 2);
 	if (*fd < 0)
@@ -146,7 +173,7 @@ void	exec_redir_child(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 }
 */
 
-char **get_cmd_name(t_redir *node)
+char **get_cmd_name(t_treenode *node)
 {
 	t_treenode *head;
 
@@ -167,29 +194,39 @@ char **get_cmd_name(t_redir *node)
 void	exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
-	int	fd;
-	int	cpy;
+	int		fd;
+	int		cpy;
+	char	**cmd;
+	int		builtin;
+	struct stat buf;
 
 	terminal = NULL;
 	fd = -1;
-	if (!sh->pipe->redir_fork)
+	builtin = 0;
+	cmd = get_cmd_name((t_treenode *)node);
+	if (!test_access_type(node->filepath, \
+		node->close_fd, &node->open_flags, sh))
+			return ;
+	builtin = is_builtin(cmd);
+	if (!stat(node->filepath, &buf) && S_ISFIFO(buf.st_mode))
+		builtin = 0;
+	if (!sh->pipe->redir_fork && !builtin)
 	{
+		ft_printf("FORK\n");
 		sh->pipe->redir_fork = 1;
 		sh->pipe->pid = fork_wrap();
 		if (sh->pipe->pid != 0)
 		{
 			sh->pipe->redir_fork = 0;
 			// set_process_group(sh, sh->pipe->pid);
-			update_fg_job(sh, sh->pipe->pid, ((t_cmdnode *)node->cmd)->cmd);
+			update_fg_job(sh, sh->pipe->pid, get_cmd_name((t_treenode *)node));
 			wait_for_job(sh, sh->pipe->pid);
 		}
 	}
-	if (sh->pipe->pid == 0)
+	if (sh->pipe->pid == 0 || builtin)
 	{
-		ft_signal_dfl();
-		if (!test_access_type(node->filepath, \
-				node->close_fd, &node->open_flags, sh))
-			return ;
+		if (!builtin)
+			ft_signal_dfl();
 		if (open_file(node, terminal, sh, &fd))
 			return ;
 		sh->pipe->previous_redir[fd] = 1;

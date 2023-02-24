@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 19:17:32 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/24 22:47:44 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	wait_for_job(t_shell *sh, int pid)
 	{
 		waitpid(pid, &status, WUNTRACED);
 		if (!WIFSTOPPED(status))
+		{
+			ft_printf("KILLKILLKILL STATUS: %d\n", status);
 			kill(sh->fg_node->gpid, SIGINT);
+		}
 	}
 	if (!sh->ampersand)
 		update_job_status(sh, status, pid, 1);

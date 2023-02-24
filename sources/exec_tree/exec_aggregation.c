@@ -90,19 +90,19 @@ char *terminal, t_shell *sh)
 
 	if (!sh->pipe->redir_fork)
 	{
+		ft_printf("LOL\n");
 		sh->pipe->redir_fork = 1;
 		sh->pipe->pid = fork_wrap();
 		if (sh->pipe->pid != 0)
 		{
 			sh->pipe->redir_fork = 0;
 			// set_process_group(sh, sh->pipe->pid);
-			update_fg_job(sh, sh->pipe->pid, ((t_cmdnode *)node->cmd)->cmd);
+			update_fg_job(sh, sh->pipe->pid, get_cmd_name((t_treenode *)node));
 			wait_for_job(sh, sh->pipe->pid);
 		}
 	}
 	if (sh->pipe->pid == 0)
 	{
-		ft_putendl_fd("aggre child\n", 2);
 		open_fd = -1;
 		if (is_nb(node->dest))
 			open_fd = ft_atoi(node->dest);
@@ -125,12 +125,12 @@ char *terminal, t_shell *sh)
 	}
 	// else
 	// {
-		ft_putendl_fd("aggre PARENT\n", 2);
-		sh->pipe->redir_fork = 0;
-		// set_process_group(sh, sh->pipe->pid);
-		if (node->cmd->type == CMD)
-			update_fg_job(sh, sh->pipe->pid, ((t_cmdnode *)node->cmd)->cmd);
-		wait_for_job(sh, sh->pipe->pid);
-		return ;
-	// }
+	// 	ft_putendl_fd("aggre PARENT\n", 2);
+	// 	sh->pipe->redir_fork = 0;
+	// 	// set_process_group(sh, sh->pipe->pid);
+	// 	if (node->cmd->type == CMD)
+	// 		update_fg_job(sh, sh->pipe->pid, ((t_cmdnode *)node->cmd)->cmd);
+	// 	wait_for_job(sh, sh->pipe->pid);
+	// 	return ;
+	// // }
 }
