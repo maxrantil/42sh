@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_symlink_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 21:30:31 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/20 17:23:41 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:14:46 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	cd_minus_symlink(t_shell *sh, char *path)
 	list[1] = ft_strjoin("PWD=", path);
 	list[2] = NULL;
 	ft_printf("%s\n", path);
-	ft_export(sh, list);
+	ft_export(sh, list, 0);
 	ft_arrclean(list);
 	ft_memdel((void *)&path);
 	return (1);
