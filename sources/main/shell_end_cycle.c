@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/24 23:19:13 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:31:17 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ void	free_temp_env(t_shell *sh)
  *
  * @param sh the session struct
  */
-#include <errno.h>
-#include <stdio.h>
 void	shell_end_cycle(t_shell *sh)
 {
 	free_node(sh->head);
@@ -89,12 +87,8 @@ void	shell_end_cycle(t_shell *sh)
 	sh->pipe->piping = 0;
 	if (fcntl(sh->pipe->stdincpy, F_GETFD) < 0)
 		sh->pipe->stdincpy = open(sh->terminal, O_RDWR);
-	ft_printf("PGID: %d ANOTHER: %d\n", sh->pgid, sh->fg_node->gpid);
 	if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
-	{
 		ft_putstr_fd("ioctl error", 2);
-		perror(strerror(errno));
-	}
 	ft_reset_tmp_env(sh);
 	free_temp_env(sh);
 	notify_completed_jobs(sh);

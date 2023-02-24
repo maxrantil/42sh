@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:11:18 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/20 09:07:53 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:30:39 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*tok_if_redir(char *line, int *i, int *start, int *end)
 	{
 		*start = *i;
 		*i = *i + digits;
-		*end = *i + 1; //+ digits
+		*end = *i + 1;
 		if (line[*end] == '<' || line[*end] == '>' || line[*end] == '&')
 			++(*end);
 		if (*end && line[(*end) - 1] == '&' && line[*end] == '-')

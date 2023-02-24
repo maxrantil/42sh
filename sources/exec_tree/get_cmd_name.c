@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_for_job.c                                     :+:      :+:    :+:   */
+/*   get_cmd_name.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 23:46:20 by jniemine         ###   ########.fr       */
+/*   Created: 2023/02/25 00:22:44 by jniemine          #+#    #+#             */
+/*   Updated: 2023/02/25 00:32:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-void	wait_for_job(t_shell *sh, int pid)
+char	**get_cmd_name(t_treenode *node)
 {
-	int	status;
+	t_treenode	*head;
 
-	if (sh->ampersand)
-		waitpid(pid, &status, WNOHANG | WUNTRACED);
-	else if (sh->pipe->piping && sh->pipe->write_pipe[1] >= 0)
+	head = (t_treenode *)node;
+	while (head->type != CMD)
 	{
-		waitpid(pid, &status, WNOHANG);
+		if ((head)->type == REDIR)
+			head = (((t_redir *)(head))->cmd);
+		else if ((head)->type == AGGREGATION)
+			head = (((t_aggregate *)(head))->cmd);
+		else if ((head)->type == CLOSEFD)
+			head = (((t_closefd *)(head))->cmd);
 	}
-	else
-	{
-		waitpid(pid, &status, WUNTRACED);
-		if (!WIFSTOPPED(status))
-			kill(sh->fg_node->gpid, SIGINT);
-	}
-	if (!sh->ampersand)
-		update_job_status(sh, status, pid, 1);
+	return (((t_cmdnode *)head)->cmd);
 }

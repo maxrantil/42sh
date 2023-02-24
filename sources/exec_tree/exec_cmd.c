@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 23:04:41 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:56:51 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@ int access, char ***environ_cp)
 	{
 		ft_signal_dfl();
 		if (g_sh->pipe->close_fd < 0)
-			// if (fcntl(STDOUT_FILENO, F_GETFD) < 0) // WITH THIS IT FAILS TO WORK
-				dup2(g_sh->pipe->stdincpy, STDOUT_FILENO);
-		if (g_sh->pipe->close_fd != STDOUT_FILENO && g_sh->pipe->write_pipe[1] >= 0 \
-		&& dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
+		{
+			if (dup2(g_sh->pipe->stdincpy, STDOUT_FILENO) < 0)
+			{
+				ft_err_print("dup2", NULL, "failed", 2);
+				exit(1);
+			}
+		}
+		if (g_sh->pipe->close_fd != STDOUT_FILENO \
+		&& g_sh->pipe->write_pipe[1] >= 0
+			&& dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
 		{
 			ft_err_print("dup2", NULL, "failed", 2);
 			exit(1);
@@ -42,9 +48,9 @@ int access, char ***environ_cp)
 {
 	int		pid;
 
-	// if (g_sh->pipe->redir_fork == 0)
+	if (g_sh->pipe->redir_fork == 0)
 		g_sh->pipe->pid = fork_wrap();
-	pid = g_sh->pipe->pid; //TOTHINK, Now when we redir, it's only the child process that comes here, and it does all of these.
+	pid = g_sh->pipe->pid;
 	if (g_sh->pipe->pid == 0)
 		g_sh->pipe->pid = pid;
 	if (pid)

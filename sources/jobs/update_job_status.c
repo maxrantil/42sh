@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:28:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 22:10:42 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:31:39 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	job_terminated(t_shell *sh, pid_t pid, int status)
 
 static void	job_exited(t_shell *sh, pid_t pid, int status)
 {
-
 	sh->exit_stat = WEXITSTATUS(status);
 	if (sh->exit_stat)
 		change_process_status(sh->bg_node, pid, EXITED);

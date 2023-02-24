@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:32:09 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/24 21:27:08 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 01:20:58 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,6 +487,7 @@ int				check_export_print(t_shell *sh, char **cmd);
 char			*lower_case(char *cmd);
 
 /*					BUILTIN					*/
+int				fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp);
 int				ft_builtins(t_shell *sesh, char ***cmd, char ***environ_cp);
 int				ft_bg(t_shell *sh, char **cmd);
 int				ft_cd(t_shell *sh, char **cmd);
@@ -497,7 +498,9 @@ int				ft_fg(t_shell *sh, char **cmd);
 int				ft_export(t_shell *sh, char **cmd, int opt);
 int				ft_jobs(t_shell *sh, char **cmd);
 int				ft_unset(t_shell *sh, char **cmd);
+int				cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp);
 int				type_command(t_shell *sesh, char **commands, char **env, int i);
+int				is_builtin(char **cmd);
 
 /*					EXEC_TREE			*/
 int				check_access(char *cmd, char **args, t_shell *sh);
@@ -522,6 +525,12 @@ size_t			calc_chptr(char **arr);
 int				fork_wrap(void);
 void			open_fd_if_needed(int *fd, char *terminal, t_shell *sh);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
+int				test_access_type(char *dest, int closefd, int *rights, \
+t_shell *sh);
+int				is_nb(char *str);
+int				test_file_access(char *file);
+void			redir_to_file(t_aggregate *node, t_shell *sh);
+char			**get_cmd_name(t_treenode *node);
 
 /*					EXECUTE_UTILS			*/
 int				check_access(char *cmd, char **args, t_shell *sh);
@@ -695,7 +704,7 @@ int				check_substitutions(char *cmd, int *ret, t_param *pa);
 void			temp_free(char ***temp);
 void			trim_and_remove_null(char ***cmd, t_pa_ints *ints);
 char			*get_word(char *temp, char *temp_needle, char *op, int glob);
-char 			*remove_quotes_subs(char **str);
+char			*remove_quotes_subs(char **str);
 int				check_param_format_seq(t_param *pa);
 
 /*			  		 SIGNALS				*/
@@ -750,8 +759,5 @@ int				close_fd_alias_if_necessary(t_shell *sh, int fd);
 int				is_aliased_fd(t_shell *sh, int open_fd);
 int				is_std_fd_cpy(t_shell *sh, int fd);
 void			init_flags_struct(t_token_flags *flags);
-
-char	**get_cmd_name(t_treenode *node);
-int		is_builtin(char **cmd);
 
 #endif

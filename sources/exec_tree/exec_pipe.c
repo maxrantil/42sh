@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/24 10:18:38 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 00:54:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,6 @@ void	exec_pipe(t_pipenode *pipenode, \
 	exec_tree(pipenode->left, environ_cp, terminal, sh);
 	sh->pipe->read_pipe[0] = fcntl(sh->pipe->write_pipe[0], \
 		F_DUPFD, sh->pipe->open_fd_idx--);
-	// if (fcntl(sh->pipe->write_pipe[1], F_GETFD) < 0)
-	// {
-	// 	dup2(sh->pipe->stdincpy, STDOUT_FILENO);
-	// 	if (dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
-	// 	{
-	// 		ft_err_print("dup", NULL, "failed in exec_pipe", 2);
-	// 		exit (1);
-	// 	}
-	// }
 	if (fcntl(STDIN_FILENO, F_GETFD) < 0)
 		dup2(sh->pipe->stdincpy, STDIN_FILENO);
 	if (dup2(sh->pipe->read_pipe[0], STDIN_FILENO) < 0)

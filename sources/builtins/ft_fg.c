@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:09:07 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 16:26:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/24 23:46:03 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	ft_fg(t_shell *sh, char **cmd)
 		display_pipeline_cmd(sh, job);
 		if (fcntl(sh->pipe->stdincpy, F_GETFD) < 0)
 			sh->pipe->stdincpy = open(sh->terminal, O_RDWR);
-		ft_printf("GRP ID: %d\n", job->gpid);
 		if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &job->gpid) == -1)
 			exit_error(sh, 1, "ioctl lol error\n");
 		if (job->status == STOPPED || job->status == SUSPENDED)
