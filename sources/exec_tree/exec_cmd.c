@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/23 15:15:23 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:06:00 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int access, char ***environ_cp)
 {
 	if (access)
 	{
+		ft_printf("HELLO: %s\n", *cmd);
 		ft_signal_dfl();
 		if (g_sh->pipe->close_fd < 0)
 			// if (fcntl(STDOUT_FILENO, F_GETFD) < 0) // WITH THIS IT FAILS TO WORK
@@ -42,7 +43,11 @@ int access, char ***environ_cp)
 {
 	int		pid;
 
-	pid = fork_wrap();
+	if (g_sh->pipe->redir_fork == 0)
+	{
+		g_sh->pipe->pid = fork_wrap();
+	}
+	pid = g_sh->pipe->pid;
 	if (g_sh->pipe->pid == 0)
 		g_sh->pipe->pid = pid;
 	if (pid)

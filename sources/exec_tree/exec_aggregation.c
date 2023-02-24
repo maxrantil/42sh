@@ -87,36 +87,50 @@ char *terminal, t_shell *sh)
 {
 	struct stat	buf;
 	int			open_fd;
-	// int			cp_fd;
-	// int 		skip;
 
-	// skip = 0;
-	open_fd = -1;
-	if (is_nb(node->dest))
-		open_fd = ft_atoi(node->dest);
-	else if (node->close_fd == 1)
+	if (!sh->pipe->redir_fork)
 	{
-		if (!test_if_file(node->dest) || !test_file_access(node->dest))
+		sh->pipe->redir_fork = 1;
+		sh->pipe->pid = fork_wrap();
+		if (sh->pipe->pid != 0)
+		{
+			sh->pipe->redir_fork = 0;
+			// set_process_group(sh, sh->pipe->pid);
+			update_fg_job(sh, sh->pipe->pid, ((t_cmdnode *)node->cmd)->cmd);
+			wait_for_job(sh, sh->pipe->pid);
+		}
+	}
+	if (sh->pipe->pid == 0)
+	{
+		ft_putendl_fd("aggre child\n", 2);
+		open_fd = -1;
+		if (is_nb(node->dest))
+			open_fd = ft_atoi(node->dest);
+		else if (node->close_fd == 1)
+		{
+			if (!test_if_file(node->dest) || !test_file_access(node->dest))
+				return ;
+			redir_to_file(node, sh);
 			return ;
-		redir_to_file(node, sh);
-		return ;
-	}
-	// if (fcntl(open_fd, F_GETFD) < 0 )
-	// 	skip = 1;
-	// if (fcntl(node->close_fd, F_GETFD) < 0 || fcntl(open_fd, F_GETFD) < 0)
-	// 	sh->pipe->close_fd = node->close_fd; //Dont open stdout in child
-	if (sh->pipe->closed_fds[open_fd] < 1 && (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
-		|| is_pipe(sh, open_fd) || if_previous_redir(sh, open_fd)))
-	{
-		ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
-		sh->exit_stat = 1;
-		return ;
-	}
-	// cp_fd = dup(node->close_fd);
-	// sh->pipe->previous_redir[cp_fd] = 1;
-	// if (!skip)
+		}
+		if (sh->pipe->closed_fds[open_fd] < 1 && (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0
+			|| is_pipe(sh, open_fd) || if_previous_redir(sh, open_fd)))
+		{
+			ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
+			sh->exit_stat = 1;
+			return ;
+		}
 		exec_aggre_split(node, &open_fd, sh);
-	exec_tree(node->cmd, environ_cp, terminal, sh);
-	// if (cp_fd >= 0)
-	// 	dup2(cp_fd, node->close_fd);
+		exec_tree(node->cmd, environ_cp, terminal, sh);
+	}
+	// else
+	// {
+		ft_putendl_fd("aggre PARENT\n", 2);
+		sh->pipe->redir_fork = 0;
+		// set_process_group(sh, sh->pipe->pid);
+		if (node->cmd->type == CMD)
+			update_fg_job(sh, sh->pipe->pid, ((t_cmdnode *)node->cmd)->cmd);
+		wait_for_job(sh, sh->pipe->pid);
+		return ;
+	// }
 }
