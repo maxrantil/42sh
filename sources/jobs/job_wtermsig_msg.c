@@ -46,7 +46,7 @@ void	job_wtermsig_msg(int status)
 		ft_printf("Trace/BPT trap: %d\n", status);
 	else if (status == SIGABRT)
 		ft_printf("Abort trap: %d\n", status);
-	else if (status == SIGEMT)
+	else if (status == 7 /* SIGEMT */)
 		ft_printf("EMT trap: %d\n", status);
 	else if (status == SIGFPE)
 		ft_printf("Floating point exception: %d\n", status);
