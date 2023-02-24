@@ -88,9 +88,9 @@ char *terminal, t_shell *sh)
 	struct stat	buf;
 	int			open_fd;
 	// int			cp_fd;
-	int 		skip;
+	// int 		skip;
 
-	skip = 0;
+	// skip = 0;
 	open_fd = -1;
 	if (is_nb(node->dest))
 		open_fd = ft_atoi(node->dest);
