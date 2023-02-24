@@ -15,5 +15,71 @@ unset foo 2>&-; echo ${#foo}
 foo=foo; echo ${#foo}
 foo=foobarfoo; echo ${foo%foo}
 foo=foobarfoo; echo ${foo%%o*}
+HOME=/Users/mviinika/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 NEWPATH=$PATH:$HOME/.bin; echo ${NEWPATH#"$PATH:$HOME/"}
 x=/one/two/three; echo ${x##*/}
+echo ${PWD:+${HOME:+${PWD:+${USER:+${PWD:+${USER:+${SHELL:+${HOME:+${USER:+${abc:-${efg:-${PWD:+${ohwow:-${PWD:+${USER:+${hello:-${SHELL:+"hello     :)"}}}}}}}}}}}}}}}}}
+echo "${HOME:+'$PWD'}"
+echo ${HOME:- here ${PWD:+"he'll'o |w'orl"d}}
+echo ${HOME:+ here ${PWD:+"he'll'o |w'orl"d}}
+echo ${var:=${PWD:+${SHELL:-hello}}}
+echo \${HOME:+hello}
+echo ${#$SHELL}
+echo ${HOME:~+}
+echo ${HOME:%~+}
+echo ${HOME: }
+echo ${HOME: helo}
+echo ${HOME: hello wordl}
+echo ${HOME: #}
+echo ${PWD%${PWD#~/work}}
+echo ${{HOME}}
+${NOEXIST:+ }
+${NOEXIST:?helo}
+${NOEXIST:-hello wordl}
+${NOEXIST:=hello wordl}
+${s}
+${HOME##*}
+echo ${NOEXIST:+ }
+echo ${NOEXIST:?helo}
+echo ${NOEXIST:-hello wordl}
+echo ${NOEXIST:=hello wordl}
+${HOME##*/}
+${HOME##/*}
+${HOME#*/}
+${HOME#/*}
+${HOME%%*/}
+${HOME%%/*}
+${HOME%*/}
+${HOME%/*}
+${HOME##*}
+${HOME##**}
+${HOME#*}
+${HOME#**}
+${HOME%%*}
+${HOME%%**}
+${HOME%*}
+${HOME%**}
+${HOME%*/*}
+${HOME%%*/*}
+${HOME#*/*}
+${HOME##*/*}
+${HME##*/}
+${HME##/*}
+${HME#*/}
+${HME#/*}
+${HME%%*/}
+${HME%%/*}
+${HME%*/}
+${HME%/*}
+${HME##*}
+${HME##**}
+${HME#*}
+${HME#**}
+${HME%%*}
+${HME%%**}
+${HOME%*}
+${HME%**}
+${HME%*/*}
+${HME%%*/*}
+${HME#*/*}
+${HME##*/*}

@@ -6,7 +6,7 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:10:34 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 22:04:41 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:50:07 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static char	*find_from_begin(char *haystack, char *needle, int glob)
 
 	i = 0;
 	j = 0;
+
+	if (!haystack[i] || (glob == 2 && !*needle))
+		return (ft_strnew(1));
 	while (haystack[i] == needle[j])
 	{
 		i++;
@@ -28,7 +31,7 @@ static char	*find_from_begin(char *haystack, char *needle, int glob)
 		if (!needle[j])
 		{
 			if (glob == 2)
-				return (ft_strdup(&haystack[ft_strlen(haystack)]));
+				return (ft_strnew(1));
 			return (ft_strdup(&haystack[i]));
 		}
 	}
@@ -41,8 +44,8 @@ static char	*find_from_begin_last(char *haystack, char *needle)
 	int	len_needle;
 
 	len = (int)ft_strlen(haystack) - 1;
-	if (!*needle)
-		return (NULL);
+	if (!*haystack || !*needle)
+		return (ft_strnew(1));
 	while (len > 0)
 	{
 		len_needle = (int)ft_strlen(needle) - 1;
@@ -93,8 +96,8 @@ static char	*find_from_end_last(char *haystack, char *needle)
 	char	*temp;
 
 	i = 0;
-	if (!*needle)
-		return (NULL);
+	if (!haystack[i] || !*needle)
+		return (ft_strnew(1));
 	while (haystack[i])
 	{
 		j = 0;

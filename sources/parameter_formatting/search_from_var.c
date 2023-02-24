@@ -6,11 +6,22 @@
 /*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 10:38:39 by mviinika          #+#    #+#             */
-/*   Updated: 2023/02/23 22:05:55 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:05:21 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
+
+static	char	*get_needle(char **needle, int k)
+{
+	char	*temp;
+
+	temp = ft_strdup(*needle);
+	ft_strdel(needle);
+	*needle = ft_strndup(temp + k, ft_strlen(temp));
+	ft_strdel(&temp);
+	return (*needle);
+}
 
 static char	*get_needle_and_op(char *strip, char *op)
 {
@@ -24,22 +35,20 @@ static char	*get_needle_and_op(char *strip, char *op)
 		needle = ft_strdup(ft_strchr(strip, '#'));
 		while (needle[++k] == '#' && k < 2)
 			op[k] = needle[k];
-		needle = ft_memmove(needle, needle + k, ft_strlen(needle));
+		if (needle && needle[k])
+			needle = get_needle(&needle, k);
 	}
 	else if (ft_strchr(strip, '%'))
 	{
 		needle = ft_strdup(ft_strchr(strip, '%'));
 		while (needle[++k] == '%' && k < 2)
 			op[k] = needle[k];
-		needle = ft_memmove(needle, needle + k, ft_strlen(needle));
+		if (needle && needle[k])
+			needle = get_needle(&needle, k);
 	}
 	return (needle);
 }
 
-static int	is_expansion_id(char *needle)
-{
-	return (ft_strnequ(needle, "${", 2));
-}
 
 static void	replace_haystack(t_sub *sub, t_shell *sh)
 {
@@ -52,7 +61,7 @@ static void	expansion_subst(t_sub *sub, t_shell *sh, int *ret)
 {
 	if (is_substring_id(sub->needle))
 		sub->temp_sub = search_from_var(sh, sub->needle, ret);
-	else if (is_expansion_id(sub->needle))
+	else if (ft_strnequ(sub->needle, "${", 2))
 		sub->temp_sub = substitute_or_create(sh, sub->needle, ret);
 	else if (sub->needle[0] == '$')
 		sub->temp_sub = ft_expansion_dollar(sh, sub->needle);
