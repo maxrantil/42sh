@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 16:52:36 by rvuorenl          #+#    #+#             */
-/*   Updated: 2023/02/23 21:53:04 by mviinika         ###   ########.fr       */
+/*   Created: 2023/02/23 10:32:09 by mrantil           #+#    #+#             */
+/*   Updated: 2023/02/23 18:19:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,6 +315,7 @@ typedef struct s_pipe
 	int		pipe_idx;
 	int		fd_aliases[SH_FD_MAX + 1];
 	int		open_fd_idx;
+	int		closed_fds[SH_FD_MAX];
 	int		previous_redir[SH_FD_MAX];
 	int		read_fd;
 	int		write_fd;

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   job_wtermsig_msg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:48:24 by mbarutel          #+#    #+#             */
 /*   Updated: 2023/02/23 22:03:56 by mviinika         ###   ########.fr       */

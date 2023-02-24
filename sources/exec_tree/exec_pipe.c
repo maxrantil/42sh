@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:15:20 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/23 14:00:24 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:14:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	exec_pipe(t_pipenode *pipenode, \
 		ft_err_print("dup", NULL, "failed in exec_pipe", 2);
 		exit (1);
 	}
-	sh->pipe->write_fd = -1;
+	sh->pipe->close_fd = 1;
 	close (sh->pipe->write_pipe[1]);
 	sh->pipe->write_pipe[1] = -1;
 	close(sh->pipe->read_pipe[1]);

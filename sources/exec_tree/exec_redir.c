@@ -25,11 +25,13 @@ static int	protect_fd(int closefd, t_shell *sh)
 
 static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 {
+	struct stat buf;
+
+	stat(dest, &buf);
 	if (protect_fd(closefd, sh))
 		return (0);
 	if (test_if_file(dest))
 	{
-
 		if (access(dest, F_OK) < 0)
 		{
 			if (*rights & O_CREAT)
@@ -44,6 +46,9 @@ static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 			return (1);
 		else if (closefd >= STDOUT_FILENO && !access(dest, W_OK))
 		{
+			if (S_ISFIFO(buf.st_mode) && ft_err_print(dest, NULL, \
+			"Is a named pipe", 2)) //This is preventing the hangin and memleak after ctrl + c
+				return (0);
 			if (*rights & O_CREAT & O_TRUNC)
 				*rights = O_WRONLY;
 			return (1);
@@ -53,12 +58,18 @@ static int	test_access_type(char *dest, int closefd, int *rights, t_shell *sh)
 	return (0);
 }
 
-static void	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
+static int open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 {
+	struct stat buf;
+
 	open_fd_if_needed(&node->close_fd, terminal, sh);
+	stat(node->filepath, &buf);
 	*fd = open(node->filepath, node->open_flags, node->rights);
+	if (S_ISFIFO(buf.st_mode))
+		return (1);
 	if (*fd < 0)
 		exit_error(sh, 1, "open failed");
+	return (0);
 }
 
 void	exec_redir(t_redir *node, char ***environ_cp, \
@@ -76,7 +87,8 @@ char *terminal, t_shell *sh)
 	if (!test_access_type(node->filepath,
 			node->close_fd, &node->open_flags, sh))
 		return ;
-	open_file(node, terminal, sh, &fd);
+	if (open_file(node, terminal, sh, &fd))
+		return ;
 	sh->pipe->previous_redir[fd] = 1;
 	cpy = dup(node->close_fd);
 	sh->pipe->previous_redir[cpy] = 1;
