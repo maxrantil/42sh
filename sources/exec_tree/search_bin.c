@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 18:01:29 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/17 12:13:15 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/25 17:34:47 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ char	*search_bin(char *cmd, char **environ_cp)
 		{
 			temp_path = ft_strjoin(bin_paths[i], "/");
 			exepath = ft_strjoin(temp_path, cmd);
-			if (ft_memd_w((void **)&temp_path) && !access(exepath, F_OK)
-				&& !access(exepath, X_OK)
-				&& ft_freeda_w((void ***)&bin_paths, calc_chptr(bin_paths)))
+			if (ft_memd_w((void **)&temp_path) && !access(exepath, F_OK) \
+			&& !access(exepath, X_OK) \
+			&& ft_freeda_w((void ***)&bin_paths, calc_chptr(bin_paths)))
 				return (exepath);
 			else
 				ft_memdel((void **)&exepath);

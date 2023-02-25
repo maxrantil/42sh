@@ -6,30 +6,11 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:28:17 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/25 15:20:23 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:17:53 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
-
-// static void	check_fg_pipeline(t_shell *sh, pid_t pid)
-// {
-// 	pid_t	*ptr;
-
-// 	if (!sh->fg_node->gpid)
-// 		return ;
-// 	ptr = sh->fg_node->pid;
-// 	while (ptr && *ptr)
-// 	{
-// 		if (*ptr == pid)
-// 		{
-// 			ft_printf("do we go here\n");
-// 			reset_fgnode(sh);
-// 			return ;
-// 		}
-// 		ptr++;
-// 	}
-// }
 
 static void	job_terminated(t_shell *sh, pid_t pid, int status)
 {

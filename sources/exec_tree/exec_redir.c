@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:53:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 17:36:41 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:21:59 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static int	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 	terminal = NULL;
 	stat(node->filepath, &buf);
 	if (S_ISFIFO(buf.st_mode))
-	{
 		node->open_flags = O_WRONLY;
-		sh->pipe->interrupt = 1;
-	}
 	*fd = open(node->filepath, node->open_flags, node->rights);
 	temp_fd = *fd;
 	*fd = fcntl(*fd, F_DUPFD, 3);
@@ -60,6 +57,7 @@ static int	fork_if_needed(t_redir *node, t_shell *sh)
 		{
 			update_fg_job(sh, sh->pipe->pid, cmd);
 			sh->pipe->redir_fork = 0;
+			wait_for_job(sh, sh->pipe->pid);
 		}
 	}
 	return (builtin);
