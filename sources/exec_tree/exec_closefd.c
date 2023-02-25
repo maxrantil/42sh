@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_closefd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
 /*   Updated: 2023/02/25 20:48:58 by jniemine         ###   ########.fr       */

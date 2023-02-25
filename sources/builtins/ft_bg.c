@@ -6,7 +6,7 @@
 /*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:03:43 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/21 13:16:20 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:01:29 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	ft_bg(t_shell *sh, char **cmd)
 	job = bg_fetch_node(sh, *(cmd + 1), "bg");
 	if (job)
 	{
-		if (job->status == DONE || job->status == TERMINATED)
+		if (job->status == DONE || job->status == TERMINATED \
+		|| job->status == EXITED)
 		{
 			ft_err_print(NULL, "bg", "job has terminated", 2);
 			return (0);

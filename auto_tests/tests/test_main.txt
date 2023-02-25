@@ -9,9 +9,9 @@
 #/Users/mrantil/hive/42sh/auto_tests/tests/script.quoting.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/script.test.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/script.test.txt2
-#/Users/mrantil/hive/42sh/auto_tests/tests/semicolon.txt
-#/Users/mrantil/hive/42sh/auto_tests/tests/test_close_fd.txt
-#/Users/mrantil/hive/42sh/auto_tests/tests/test_pipe.txt
+/Users/mrantil/hive/42sh/auto_tests/tests/semicolon.txt
+/Users/mrantil/hive/42sh/auto_tests/tests/test_close_fd.txt
+/Users/mrantil/hive/42sh/auto_tests/tests/test_pipe.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_0.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_1.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_2.txt
@@ -21,4 +21,4 @@
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_6.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_7.txt
 #/Users/mrantil/hive/42sh/auto_tests/tests/eval_form42_8.txt
-#/Users/mrantil/hive/42sh/auto_tests/tests/redir_tests
+/Users/mrantil/hive/42sh/auto_tests/tests/redir_tests
