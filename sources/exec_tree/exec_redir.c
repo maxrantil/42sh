@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:53:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 19:21:59 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:29:53 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ static int	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 	temp_fd = *fd;
 	*fd = fcntl(*fd, F_DUPFD, 3);
 	close(temp_fd);
-	if (sh->pipe->interrupt)
-	{
-		ft_err_print(NULL, "fifo", "Interrupted system call", 2);
-		return (1);
-	}
 	if (*fd < 0)
 		exit_error(sh, 1, "open failed");
 	return (0);

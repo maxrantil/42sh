@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 17:32:46 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:36:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	fork_if_needed(t_closefd *node, t_shell *sh)
 		{
 			update_fg_job(sh, sh->pipe->pid, cmd);
 			sh->pipe->redir_fork = 0;
+			wait_for_job(sh, sh->pipe->pid);
 		}
 	}
 	return (builtin);
@@ -56,8 +57,8 @@ char *terminal, t_shell *sh)
 		sh->pipe->closed_fds[node->close_fd] = 1;
 		if (node->close_fd == STDOUT_FILENO)
 			close_pipes(sh);
-		if (node->cmd)
-			exec_tree(node->cmd, environ_cp, terminal, sh);
+		exec_tree(node->cmd, environ_cp, terminal, sh);
+		ft_putendl_fd("RETURN", 2);
 		if (node->close_fd == STDOUT_FILENO)
 		{
 			if (dup2(sh->pipe->stdincpy, STDOUT_FILENO) < 0)
