@@ -100,10 +100,7 @@ char *terminal, t_shell *sh)
 			&& (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0 \
 				|| is_pipe(sh, open_fd) || if_previous_redir(sh, open_fd)))
 		{
-			ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
-			sh->exit_stat = 1;
-			if (!builtin)
-				exit (1);
+			exec_aggre_errors(node, sh, builtin);
 			return ;
 		}
 		exec_aggre_split(node, &open_fd, sh);

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 01:01:57 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 01:02:47 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:37:59 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ int	test_file_access(char *file)
 		}
 	}
 	return (1);
+}
+
+void	exec_aggre_errors(t_aggregate *node, t_shell *sh, int builtin)
+{
+	ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
+	sh->exit_stat = 1;
+	if (!builtin)
+		exit (1);
+	return ;
 }
 
 void	redir_to_file(t_aggregate *node, t_shell *sh)

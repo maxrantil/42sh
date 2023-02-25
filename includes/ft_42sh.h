@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:32:09 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/25 12:27:42 by mviinika         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:40:41 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -536,6 +536,8 @@ char			**get_cmd_name(t_treenode *node);
 int				check_access(char *cmd, char **args, t_shell *sh);
 int				check_if_user_exe(char *cmd, char **dest);
 void			exe_fail(char **cmd, char **args, char ***env_cp);
+void			exec_aggre_errors(t_aggregate *node, t_shell *sh, \
+int builtin);
 
 /*					EXPANSION				*/
 void			ft_catinate_expansion(t_shell *sh, char **splits, \
