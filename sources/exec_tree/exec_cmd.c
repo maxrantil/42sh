@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/25 11:11:50 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:01:58 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int access, char ***environ_cp)
 {
 	if (access)
 	{
-		ft_signal_dfl();
 		if (g_sh->pipe->close_fd < 0)
 		{
 			if (dup2(g_sh->pipe->stdincpy, STDOUT_FILENO) < 0)
@@ -35,6 +34,7 @@ int access, char ***environ_cp)
 			ft_err_print("dup2", NULL, "failed", 2);
 			exit(1);
 		}
+		ft_signal_dfl();
 		if (!cmd || execve(*cmd, head->cmd, *environ_cp) < 0)
 			exe_fail(cmd, head->cmd, environ_cp);
 		exit(1);
@@ -49,17 +49,17 @@ int access, char ***environ_cp)
 	int		pid;
 
 	if (g_sh->pipe->redir_fork == 0)
-	{
 		g_sh->pipe->pid = fork_wrap();
-		pid = g_sh->pipe->pid;
-		if (g_sh->pipe->pid == 0)
-			g_sh->pipe->pid = pid;
-		if (pid)
-			update_fg_job(g_sh, pid, head->cmd);
-		if (pid == 0)
-			child_execute(cmd, head, access, environ_cp);
-		wait_for_job(g_sh, pid);
+	pid = g_sh->pipe->pid;
+	if (g_sh->pipe->pid == 0)
+		g_sh->pipe->pid = pid;
+	if (pid)
+	{
+		update_fg_job(g_sh, pid, head->cmd);
 	}
+	if (pid == 0)
+		child_execute(cmd, head, access, environ_cp);
+	wait_for_job(g_sh, pid);
 }
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
