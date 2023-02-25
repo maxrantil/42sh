@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 00:58:48 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 04:00:07 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	fork_if_needed(t_closefd *node, t_shell *sh)
 	builtin = is_builtin(cmd);
 	if (!sh->pipe->redir_fork && !builtin)
 	{
-		sh->pipe->redir_fork = 1;
 		sh->pipe->pid = fork_wrap();
+		sh->pipe->redir_fork = 1;
 		if (sh->pipe->pid != 0)
 		{
 			sh->pipe->redir_fork = 0;

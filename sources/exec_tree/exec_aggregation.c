@@ -27,16 +27,12 @@ static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
 	else if (fcntl(*open_fd, F_GETFD) < 0 && \
 	fcntl(node->close_fd, F_GETFD) >= 0)
 	{
-		if (node->close_fd == STDOUT_FILENO)
-			sh->pipe->close_fd = STDOUT_FILENO;
+	//	if (node->close_fd == STDOUT_FILENO)
+	//		sh->pipe->close_fd = STDOUT_FILENO;
 		close(node->close_fd);
 		sh->pipe->close_fd = 1;
 	}
-	if (node->cmd && node->cmd->type == CMD && node->close_fd == STDOUT_FILENO)
-		sh->pipe->redir_out = 1;
-	else if (node->cmd && node->cmd->type == CMD \
-	&& node->close_fd == STDIN_FILENO)
-		sh->pipe->redir_in = 1;
+	sh->pipe->close_fd = 1;
 }
 
 static int	if_previous_redir(t_shell *sh, int dest)
@@ -109,6 +105,8 @@ char *terminal, t_shell *sh)
 		{
 			ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 			sh->exit_stat = 1;
+			if (!builtin)
+				exit (1);
 			return ;
 		}
 		exec_aggre_split(node, &open_fd, sh);

@@ -49,6 +49,6 @@ echo lollello 56>&1 >&56
 echo lol <&- | cat -e <file
 echo lmao >&- | echo lmao >&- | echo lilo
 echo first >first | echo second >second | echo third >third ; cat first second third
-cat 2< file
 ls 255>&- 0>&- 1>&- 2>&- 3>&- 4>&- 5>&-
+cat 2< file
 the end

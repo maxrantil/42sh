@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/25 00:56:51 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 04:48:49 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,17 @@ int access, char ***environ_cp)
 	int		pid;
 
 	if (g_sh->pipe->redir_fork == 0)
+	{
 		g_sh->pipe->pid = fork_wrap();
-	pid = g_sh->pipe->pid;
-	if (g_sh->pipe->pid == 0)
-		g_sh->pipe->pid = pid;
-	if (pid)
-		update_fg_job(g_sh, pid, head->cmd);
-	if (pid == 0)
-		child_execute(cmd, head, access, environ_cp);
-	wait_for_job(g_sh, pid);
+		pid = g_sh->pipe->pid;
+		if (g_sh->pipe->pid == 0)
+			g_sh->pipe->pid = pid;
+		if (pid)
+			update_fg_job(g_sh, pid, head->cmd);
+		if (pid == 0)
+			child_execute(cmd, head, access, environ_cp);
+		wait_for_job(g_sh, pid);
+	}
 }
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:13:07 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/23 01:40:27 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 04:12:05 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,18 @@ void	open_fd_if_needed(int *fd, char *terminal, t_shell *sh)
 	{
 		while (i <= *fd)
 		{
-			if (fstat(i, &buf) < 0)
+					ft_putstr_fd("CLOSEFD: ", 2);
+			ft_putnbr_fd(i, 2);
+			ft_putstr_fd(" ", 2);
+			ft_putnbr_fd(closefd[i], 2);
+			ft_putstr_fd("\n", 2);
+			if (fcntl(i, F_GETFD) < 0 && fstat(i, &buf) < 0)
 				closefd[i] = 1;
+			ft_putstr_fd("CLOSEFD: ", 2);
+			ft_putnbr_fd(i, 2);
+			ft_putstr_fd(" ", 2);
+			ft_putnbr_fd(closefd[i], 2);
+			ft_putstr_fd("\n", 2);
 			++i;
 		}
 		open_until_fd(*fd, terminal);

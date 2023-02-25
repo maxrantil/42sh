@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:53:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 00:53:28 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 04:17:03 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 {
 	struct stat	buf;
 
-	open_fd_if_needed(&node->close_fd, terminal, sh);
+	terminal = NULL;
+	// open_fd_if_needed(&node->close_fd, terminal, sh);
 	stat(node->filepath, &buf);
 	if (S_ISFIFO(buf.st_mode))
 	{
@@ -49,8 +50,8 @@ static int	fork_if_needed(t_redir *node, t_shell *sh)
 		builtin = 0;
 	if (!sh->pipe->redir_fork && !builtin)
 	{
-		sh->pipe->redir_fork = 1;
 		sh->pipe->pid = fork_wrap();
+		sh->pipe->redir_fork = 1;
 		if (sh->pipe->pid != 0)
 		{
 			sh->pipe->redir_fork = 0;
@@ -82,14 +83,23 @@ char *terminal, t_shell *sh)
 	fd = -1;
 	if (!test_access_type(node->filepath, \
 	node->close_fd, &node->open_flags, sh))
+	{
+		if (sh->pipe->redir_fork)
+			exit (1);
+		sh->exit_stat = 1;
 		return ;
+	}
 	builtin = fork_if_needed(node, sh);
 	if (sh->pipe->pid == 0 || builtin)
 	{
 		if (!builtin)
 			ft_signal_dfl();
 		if (open_file(node, terminal, sh, &fd))
+		{
+			if (!builtin)
+				exit (1);
 			return ;
+		}
 		sh->pipe->previous_redir[fd] = 1;
 		cpy = dup(node->close_fd);
 		sh->pipe->previous_redir[cpy] = 1;

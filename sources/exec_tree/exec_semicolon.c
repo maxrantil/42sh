@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_semicolon.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 15:24:40 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 15:40:58 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 03:14:58 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * It executes the left side of the semicolon, then the right side.
- * 
+ *
  * @param head the head of the tree
  * @param environ_cp a copy of the environment
  * @param terminal the name of the terminal
