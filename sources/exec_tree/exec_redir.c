@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:53:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 15:22:55 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:44:34 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 	struct stat	buf;
 
 	terminal = NULL;
-	// open_fd_if_needed(&node->close_fd, terminal, sh);
 	stat(node->filepath, &buf);
 	if (S_ISFIFO(buf.st_mode))
 	{
@@ -72,6 +71,19 @@ static void	exec_redir_split(t_redir *node, int fd, t_shell *sh)
 	}
 }
 
+static int	test_access_wrap(t_redir *node, t_shell *sh)
+{
+	if (!test_access_type(node->filepath, \
+	node->close_fd, &node->open_flags, sh))
+	{
+		if (sh->pipe->redir_fork)
+			exit (1);
+		sh->exit_stat = 1;
+		return (1);
+	}
+	return (0);
+}
+
 void	exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
@@ -79,15 +91,8 @@ char *terminal, t_shell *sh)
 	int		cpy;
 	int		builtin;
 
-	fd = -1;
-	if (!test_access_type(node->filepath, \
-	node->close_fd, &node->open_flags, sh))
-	{
-		if (sh->pipe->redir_fork)
-			exit (1);
-		sh->exit_stat = 1;
+	if (test_access_wrap(node, sh))
 		return ;
-	}
 	builtin = fork_if_needed(node, sh);
 	if (sh->pipe->pid == 0 || builtin)
 	{
