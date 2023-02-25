@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/25 16:02:02 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 18:59:47 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int access, char ***environ_cp)
 		exit(1);
 	}
 	else
-		exit(127);
+		exit(g_sh->exit_stat);
 }
 
 static void	ft_execve(char **cmd, t_cmdnode *head, \
@@ -54,9 +54,7 @@ int access, char ***environ_cp)
 	if (g_sh->pipe->pid == 0)
 		g_sh->pipe->pid = pid;
 	if (pid)
-	{
 		update_fg_job(g_sh, pid, head->cmd);
-	}
 	if (pid == 0)
 		child_execute(cmd, head, access, environ_cp);
 	wait_for_job(g_sh, pid);

@@ -60,12 +60,13 @@ static int	fork_if_needed(t_aggregate *node, t_shell *sh)
 		builtin = 0;
 	if (!sh->pipe->redir_fork && !builtin)
 	{
-		sh->pipe->redir_fork = 1;
 		sh->pipe->pid = fork_wrap();
+		sh->pipe->redir_fork = 1;
 		if (sh->pipe->pid != 0)
 		{
 			update_fg_job(sh, sh->pipe->pid, cmd);
 			sh->pipe->redir_fork = 0;
+			wait_for_job(sh, sh->pipe->pid);
 		}
 	}
 	return (builtin);
