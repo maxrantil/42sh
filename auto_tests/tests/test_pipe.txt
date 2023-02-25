@@ -1,5 +1,5 @@
 clear
-cd /tmp;mkdir 42sh;cd 42sh
+
 ls -l | tail -n 2
 ls -l | head -n 5 | tail -n 2
 ls -l | head -n 5 > lol | cat lol

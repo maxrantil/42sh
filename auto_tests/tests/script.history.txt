@@ -1,5 +1,5 @@
 clear
-cd /tmp;mkdir 42sh;cd 42sh
+
 clear
 echo hello world
 !! | cat -e

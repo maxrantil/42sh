@@ -1,5 +1,5 @@
 clear
-cd /tmp;mkdir 42sh;cd 42sh
+
 ls
 >&- 0>&- >lol ls -l; cat lol
 >&- >lol ls -l; cat lol
