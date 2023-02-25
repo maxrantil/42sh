@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   append_cmd_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 12:49:28 by mike_baru         #+#    #+#             */
-/*   Updated: 2023/02/05 12:26:57 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:26:40 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static char	***realloc_cmd(char ***cmd_arr, char **cmd)
 	len = triple_ptr_len(cmd_arr);
 	new_arr = (char ***)ft_memalloc(sizeof(char **) * (len + 2));
 	new_arr[len + 1] = NULL;
-	new_arr[len] = dup_dbl_ptr(cmd);
+	if (cmd)
+		new_arr[len] = dup_dbl_ptr(cmd);
+	else
+		new_arr[len] = NULL;
 	while (--len >= 0)
 		new_arr[len] = cmd_arr[len];
 	ft_memdel((void **)&cmd_arr);
@@ -32,7 +35,9 @@ static char	***alloc_cmd(char **cmd)
 	char	***cmd_arr;
 
 	cmd_arr = (char ***)ft_memalloc(sizeof(char **) * 2);
-	*cmd_arr = dup_dbl_ptr(cmd);
+	*cmd_arr = NULL;
+	if (cmd)
+		*cmd_arr = dup_dbl_ptr(cmd);
 	*(cmd_arr + 1) = NULL;
 	return (cmd_arr);
 }

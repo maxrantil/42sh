@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 20:31:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/23 16:53:33 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:32:23 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	reset_fd(t_shell *sh)
 	sh->pipe->read_fd = -1;
 	sh->pipe->close_fd = -1;
 	sh->pipe->write_fd = -1;
+	sh->pipe->pid = -1;
 	sh->pipe->redir_fork = 0;
 	if (sh->pipe->stdincpy < 0)
 		ft_exit_error("open failed\n", -1);

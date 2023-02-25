@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:22:44 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 00:32:55 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:00:51 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**get_cmd_name(t_treenode *node)
 	t_treenode	*head;
 
 	head = (t_treenode *)node;
-	while (head->type != CMD)
+	while (head && head->type != CMD)
 	{
 		if ((head)->type == REDIR)
 			head = (((t_redir *)(head))->cmd);
@@ -26,5 +26,7 @@ char	**get_cmd_name(t_treenode *node)
 		else if ((head)->type == CLOSEFD)
 			head = (((t_closefd *)(head))->cmd);
 	}
-	return (((t_cmdnode *)head)->cmd);
+	if (head)
+		return (((t_cmdnode *)head)->cmd);
+	return (NULL);
 }
