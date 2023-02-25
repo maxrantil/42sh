@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:53:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 20:03:15 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:27:05 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char *terminal, t_shell *sh)
 			return ;
 		}
 		sh->pipe->previous_redir[fd] = 1;
+		sh->pipe->previous_redir[node->close_fd] = 0;
 		sh->pipe->close_fd = node->close_fd;
 		exec_redir_split(node, fd, sh);
 		exec_tree(node->cmd, environ_cp, terminal, sh);
