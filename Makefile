@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
+#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/25 12:28:28 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/25 15:47:42 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -183,7 +183,6 @@ FILES			= \
 				$(EXECTREE)exec_semicolon \
 				$(EXECTREE)search_bin \
 				$(EXECTREE)fork_wrap \
-				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
 				$(EXECTREE)get_cmd_name \
 				$(EXECTREE)is_pipe \

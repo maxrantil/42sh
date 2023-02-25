@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_for_job.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 21:07:13 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/25 15:17:03 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:33:54 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	wait_for_job(t_shell *sh, int pid)
 		waitpid(pid, &status, WUNTRACED);
 		if (!WIFSTOPPED(status))
 		{
-			int i = 0;
+			int	i;
+
+			i = 0;
 			while (sh->fg_node->pid[i])
 			{
 				kill(sh->fg_node->pid[i], SIGINT);
