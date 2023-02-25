@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:53:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 19:29:53 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 20:03:15 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
 	int		fd;
-	// int		cpy;
 	int		builtin;
 
 	if (test_access_wrap(node, sh))
@@ -101,10 +100,6 @@ char *terminal, t_shell *sh)
 			return ;
 		}
 		sh->pipe->previous_redir[fd] = 1;
-		// cpy = dup(node->close_fd);
-		// sh->pipe->previous_redir[cpy] = 1;
-		// if (sh->pipe->previous_redir[node->close_fd] == 1)
-		// 	sh->pipe->previous_redir[node->close_fd] = 0;
 		sh->pipe->close_fd = node->close_fd;
 		exec_redir_split(node, fd, sh);
 		exec_tree(node->cmd, environ_cp, terminal, sh);
