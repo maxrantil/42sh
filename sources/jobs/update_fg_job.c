@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_fg_job.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:58:35 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/14 14:58:40 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:11:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * It sets the process group of the given pid that is first in the pipeline.
  * It then appends the pid and command to the foreground node.
- * 
+ *
  * @param sh the shell struct
  * @param pid the pid of the process that was just created
  * @param cmd The command to be executed.

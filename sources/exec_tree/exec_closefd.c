@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_closefd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 15:21:59 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:32:46 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	fork_if_needed(t_closefd *node, t_shell *sh)
 
 	builtin = 0;
 	cmd = get_cmd_name((t_treenode *)node);
-	builtin = is_builtin(cmd);
+	if (cmd)
+		builtin = is_builtin(cmd);
 	if (!sh->pipe->redir_fork && !builtin)
 	{
 		sh->pipe->pid = fork_wrap();
@@ -62,5 +63,7 @@ char *terminal, t_shell *sh)
 			if (dup2(sh->pipe->stdincpy, STDOUT_FILENO) < 0)
 				error_exit("dup2 failed in exec_closefd");
 		}
+		if (!builtin)
+			exit (1);
 	}
 }

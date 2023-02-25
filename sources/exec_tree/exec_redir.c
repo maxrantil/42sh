@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:53:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 15:44:34 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:36:41 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ extern t_shell	*g_sh;
 static int	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 {
 	struct stat	buf;
+	int			temp_fd;
 
 	terminal = NULL;
 	stat(node->filepath, &buf);
@@ -26,6 +27,9 @@ static int	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
 		sh->pipe->interrupt = 1;
 	}
 	*fd = open(node->filepath, node->open_flags, node->rights);
+	temp_fd = *fd;
+	*fd = fcntl(*fd, F_DUPFD, 3);
+	close(temp_fd);
 	if (sh->pipe->interrupt)
 	{
 		ft_err_print(NULL, "fifo", "Interrupted system call", 2);
@@ -44,7 +48,8 @@ static int	fork_if_needed(t_redir *node, t_shell *sh)
 
 	builtin = 0;
 	cmd = get_cmd_name((t_treenode *)node);
-	builtin = is_builtin(cmd);
+	if (cmd)
+		builtin = is_builtin(cmd);
 	if (!stat(node->filepath, &buf) && S_ISFIFO(buf.st_mode))
 		builtin = 0;
 	if (!sh->pipe->redir_fork && !builtin)
@@ -88,7 +93,7 @@ void	exec_redir(t_redir *node, char ***environ_cp, \
 char *terminal, t_shell *sh)
 {
 	int		fd;
-	int		cpy;
+	// int		cpy;
 	int		builtin;
 
 	if (test_access_wrap(node, sh))
@@ -103,13 +108,15 @@ char *terminal, t_shell *sh)
 			return ;
 		}
 		sh->pipe->previous_redir[fd] = 1;
-		cpy = dup(node->close_fd);
-		sh->pipe->previous_redir[cpy] = 1;
-		if (sh->pipe->previous_redir[node->close_fd] == 1)
-			sh->pipe->previous_redir[node->close_fd] = 0;
+		// cpy = dup(node->close_fd);
+		// sh->pipe->previous_redir[cpy] = 1;
+		// if (sh->pipe->previous_redir[node->close_fd] == 1)
+		// 	sh->pipe->previous_redir[node->close_fd] = 0;
 		sh->pipe->close_fd = node->close_fd;
 		exec_redir_split(node, fd, sh);
 		exec_tree(node->cmd, environ_cp, terminal, sh);
 		sh->pipe->redir_fork = 0;
+		if (!builtin)
+			exit (1);
 	}
 }

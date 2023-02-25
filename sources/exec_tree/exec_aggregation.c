@@ -33,19 +33,19 @@ static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
 	sh->pipe->close_fd = 1;
 }
 
-static int	if_previous_redir(t_shell *sh, int dest)
-{
-	int	i;
+// static int	if_previous_redir(t_shell *sh, int dest)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < SH_FD_MAX)
-	{
-		if (sh->pipe->previous_redir[dest] == 1)
-			return (1);
-		++i;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (i < SH_FD_MAX)
+// 	{
+// 		if (sh->pipe->previous_redir[dest] == 1)
+// 			return (1);
+// 		++i;
+// 	}
+// 	return (0);
+// }
 
 static int	fork_if_needed(t_aggregate *node, t_shell *sh)
 {
@@ -55,7 +55,8 @@ static int	fork_if_needed(t_aggregate *node, t_shell *sh)
 
 	builtin = 0;
 	cmd = get_cmd_name((t_treenode *)node);
-	builtin = is_builtin(cmd);
+	if (cmd)
+		builtin = is_builtin(cmd);
 	if (!is_nb(node->dest) && !stat(node->dest, &buf) && S_ISFIFO(buf.st_mode))
 		builtin = 0;
 	if (!sh->pipe->redir_fork && !builtin)
@@ -96,7 +97,7 @@ char *terminal, t_shell *sh)
 			write_to_file(node, sh);
 		if (sh->pipe->closed_fds[open_fd] < 1 \
 			&& (fstat(open_fd, &buf) < 0 || fcntl(open_fd, F_GETFD) < 0 \
-				|| is_pipe(sh, open_fd) || if_previous_redir(sh, open_fd)))
+				|| is_pipe(sh, open_fd) /*|| if_previous_redir(sh, open_fd)*/))
 		{
 			ft_err_print(node->dest, NULL, "Bad file descriptor", 2);
 			sh->exit_stat = 1;
@@ -106,5 +107,7 @@ char *terminal, t_shell *sh)
 		}
 		exec_aggre_split(node, &open_fd, sh);
 		exec_tree(node->cmd, environ_cp, terminal, sh);
+		if (!builtin)
+			exit (1);
 	}
 }
