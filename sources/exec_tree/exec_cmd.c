@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/25 15:01:58 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:02:02 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)
 		cmd = search_bin(head->cmd[0], *environ_cp);
 	access = check_access(cmd, head->cmd, sh);
 	ft_execve(&cmd, head, access, environ_cp);
-	if (access)
-	{
-		if (!hash)
-			hash_init_struct(sh, cmd, 1);
-	}
+	if (access && !hash)
+		hash_init_struct(sh, cmd, 1);
 	ft_memdel((void **)&cmd);
 }

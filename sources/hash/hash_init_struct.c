@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_init_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:35:59 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/06 13:35:56 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:59:05 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	hash_init_struct(t_shell *sh, char *exepath, int hits)
 		}
 		new->program = program;
 		new->path = ft_strdup(exepath);
-		new->hits = hits;
+		if (sh->exit_stat == 0)
+			new->hits = hits;
+		else
+			new->hits = 0;
 		new->next = NULL;
 		ht_insert(sh, new);
 	}
