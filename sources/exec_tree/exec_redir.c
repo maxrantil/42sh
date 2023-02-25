@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 00:53:25 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 11:01:54 by mrantil          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:22:55 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ static int	fork_if_needed(t_redir *node, t_shell *sh)
 		sh->pipe->redir_fork = 1;
 		if (sh->pipe->pid != 0)
 		{
+			update_fg_job(sh, sh->pipe->pid, cmd);
 			sh->pipe->redir_fork = 0;
-			update_fg_job(sh, sh->pipe->pid, get_cmd_name((t_treenode *)node));
-			wait_for_job(sh, sh->pipe->pid);
 		}
 	}
 	return (builtin);
@@ -92,8 +91,6 @@ char *terminal, t_shell *sh)
 	builtin = fork_if_needed(node, sh);
 	if (sh->pipe->pid == 0 || builtin)
 	{
-		if (!builtin)
-			ft_signal_dfl();
 		if (open_file(node, terminal, sh, &fd))
 		{
 			if (!builtin)

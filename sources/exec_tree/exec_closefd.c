@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_closefd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 04:00:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:21:59 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ static int	fork_if_needed(t_closefd *node, t_shell *sh)
 		sh->pipe->redir_fork = 1;
 		if (sh->pipe->pid != 0)
 		{
+			update_fg_job(sh, sh->pipe->pid, cmd);
 			sh->pipe->redir_fork = 0;
-			update_fg_job(sh, sh->pipe->pid, get_cmd_name((t_treenode *)node));
-			wait_for_job(sh, sh->pipe->pid);
 		}
 	}
 	return (builtin);
@@ -51,8 +50,6 @@ char *terminal, t_shell *sh)
 	builtin = fork_if_needed(node, sh);
 	if (sh->pipe->pid == 0 || builtin)
 	{
-		if (!builtin)
-			ft_signal_dfl();
 		if (sh->pipe->previous_redir[node->close_fd] != 1)
 			close(node->close_fd);
 		sh->pipe->closed_fds[node->close_fd] = 1;

@@ -27,8 +27,6 @@ static void	exec_aggre_split(t_aggregate *node, int *open_fd, t_shell *sh)
 	else if (fcntl(*open_fd, F_GETFD) < 0 && \
 	fcntl(node->close_fd, F_GETFD) >= 0)
 	{
-	//	if (node->close_fd == STDOUT_FILENO)
-	//		sh->pipe->close_fd = STDOUT_FILENO;
 		close(node->close_fd);
 		sh->pipe->close_fd = 1;
 	}
@@ -66,9 +64,8 @@ static int	fork_if_needed(t_aggregate *node, t_shell *sh)
 		sh->pipe->pid = fork_wrap();
 		if (sh->pipe->pid != 0)
 		{
+			update_fg_job(sh, sh->pipe->pid, cmd);
 			sh->pipe->redir_fork = 0;
-			update_fg_job(sh, sh->pipe->pid, get_cmd_name((t_treenode *)node));
-			wait_for_job(sh, sh->pipe->pid);
 		}
 	}
 	return (builtin);
@@ -92,8 +89,6 @@ char *terminal, t_shell *sh)
 	builtin = fork_if_needed(node, sh);
 	if (sh->pipe->pid == 0 || builtin)
 	{
-		if (!builtin)
-			ft_signal_dfl();
 		open_fd = -1;
 		if (is_nb(node->dest))
 			open_fd = ft_atoi(node->dest);
