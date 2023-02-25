@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_closefd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 20:13:40 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/25 19:36:12 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:50:29 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char *terminal, t_shell *sh)
 		if (node->close_fd == STDOUT_FILENO)
 			close_pipes(sh);
 		exec_tree(node->cmd, environ_cp, terminal, sh);
-		ft_putendl_fd("RETURN", 2);
 		if (node->close_fd == STDOUT_FILENO)
 		{
 			if (dup2(sh->pipe->stdincpy, STDOUT_FILENO) < 0)
