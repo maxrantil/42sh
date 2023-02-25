@@ -1,42 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   change_process_status.c                            :+:      :+:    :+:   */
+/*   get_cmd_name.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 15:42:38 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/24 22:11:37 by jniemine         ###   ########.fr       */
+/*   Created: 2023/02/25 00:22:44 by jniemine          #+#    #+#             */
+/*   Updated: 2023/02/25 00:32:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_42sh.h"
 
-static bool	check_bg_pipeline(t_bg_jobs *job, pid_t pid)
+char	**get_cmd_name(t_treenode *node)
 {
-	pid_t	*ptr;
+	t_treenode	*head;
 
-	ptr = job->pid;
-	while (*ptr)
+	head = (t_treenode *)node;
+	while (head->type != CMD)
 	{
-		if (*ptr == pid)
-			return (true);
-		ptr++;
+		if ((head)->type == REDIR)
+			head = (((t_redir *)(head))->cmd);
+		else if ((head)->type == AGGREGATION)
+			head = (((t_aggregate *)(head))->cmd);
+		else if ((head)->type == CLOSEFD)
+			head = (((t_closefd *)(head))->cmd);
 	}
-	return (false);
-}
-
-void	change_process_status(t_bg_jobs *bg_node, pid_t pid, int status)
-{
-	t_bg_jobs	*job;
-
-	job = bg_node;
-	while (job)
-	{
-		if (check_bg_pipeline(job, pid))
-			break ;
-		job = job->next;
-	}
-	if (job)
-		job->status = status;
+	return (((t_cmdnode *)head)->cmd);
 }

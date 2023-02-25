@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bt_create_semicolon_node.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvuorenl <rvuorenl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:43:28 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/20 17:11:53 by rvuorenl         ###   ########.fr       */
+/*   Updated: 2023/02/25 02:10:13 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	init_values(int next_op,
 	return (type);
 }
 
-static void	create_semicolon_split(t_token *tokens, t_treenode *semi_or_amp,
+static void	split(t_token *tokens, t_treenode *semi_or_amp,
 		int next_op, int type_delim[2])
 {
 	int	type;
@@ -101,7 +101,6 @@ t_treenode	*create_semicolon_node(t_token *tokens, int i_tok, int end)
 		(((t_semicolon *)semi_or_amp)->left) = create_logical_op_tree(tokens,
 				i_tok, type_delim[1]);
 	}
-	create_semicolon_split(tokens, semi_or_amp, \
-		next_op, type_delim);
+	split(tokens, semi_or_amp, next_op, type_delim);
 	return (semi_or_amp);
 }

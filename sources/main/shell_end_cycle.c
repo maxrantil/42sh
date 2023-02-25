@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_end_cycle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 14:26:23 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/23 17:39:30 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 03:17:59 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	shell_end_cycle(t_shell *sh)
 	sh->pipe->redir_in = 0;
 	sh->pipe->piping = 0;
 	if (fcntl(sh->pipe->stdincpy, F_GETFD) < 0)
-		sh->pipe->stdincpy = open("/dev/tty", O_RDWR);
+		sh->pipe->stdincpy = open(sh->terminal, O_RDWR);
 	if (ioctl(sh->pipe->stdincpy, TIOCSPGRP, &sh->pgid) == -1)
 		ft_putstr_fd("ioctl error", 2);
 	ft_reset_tmp_env(sh);

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/23 15:15:23 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 04:48:49 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@ int access, char ***environ_cp)
 	{
 		ft_signal_dfl();
 		if (g_sh->pipe->close_fd < 0)
-			// if (fcntl(STDOUT_FILENO, F_GETFD) < 0) // WITH THIS IT FAILS TO WORK
-				dup2(g_sh->pipe->stdincpy, STDOUT_FILENO);
-		if (g_sh->pipe->close_fd != STDOUT_FILENO && g_sh->pipe->write_pipe[1] >= 0 \
-		&& dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
+		{
+			if (dup2(g_sh->pipe->stdincpy, STDOUT_FILENO) < 0)
+			{
+				ft_err_print("dup2", NULL, "failed", 2);
+				exit(1);
+			}
+		}
+		if (g_sh->pipe->close_fd != STDOUT_FILENO \
+		&& g_sh->pipe->write_pipe[1] >= 0
+			&& dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
 		{
 			ft_err_print("dup2", NULL, "failed", 2);
 			exit(1);
@@ -42,14 +48,18 @@ int access, char ***environ_cp)
 {
 	int		pid;
 
-	pid = fork_wrap();
-	if (g_sh->pipe->pid == 0)
-		g_sh->pipe->pid = pid;
-	if (pid)
-		update_fg_job(g_sh, pid, head->cmd);
-	if (pid == 0)
-		child_execute(cmd, head, access, environ_cp);
-	wait_for_job(g_sh, pid);
+	if (g_sh->pipe->redir_fork == 0)
+	{
+		g_sh->pipe->pid = fork_wrap();
+		pid = g_sh->pipe->pid;
+		if (g_sh->pipe->pid == 0)
+			g_sh->pipe->pid = pid;
+		if (pid)
+			update_fg_job(g_sh, pid, head->cmd);
+		if (pid == 0)
+			child_execute(cmd, head, access, environ_cp);
+		wait_for_job(g_sh, pid);
+	}
 }
 
 void	exec_cmd(t_cmdnode *head, char ***environ_cp, t_shell *sh)

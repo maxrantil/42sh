@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:53:04 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/23 17:39:25 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 01:14:26 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	cmd_comparisons_continue(t_shell *sh, char ***cmd, \
 	return (1);
 }
 
-static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
+int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 {
 	if (**cmd == NULL)
 		return (0);
@@ -59,38 +59,7 @@ static int	cmd_comparisons(t_shell *sh, char ***cmd, char ***environ_cp)
 	return (1);
 }
 
-static int	fork_if_pipe(t_shell *sh, char ***cmd, char ***environ_cp)
-{
-	int	pid;
-
-	if (sh->pipe->piping || sh->ampersand /*|| sh->pipe->write_fd >= 0*/)
-	{
-		pid = fork_wrap();
-		if (sh->pipe->pid == 0)
-			sh->pipe->pid = pid;
-		if (pid)
-			update_fg_job(sh, pid, *cmd);
-		if (pid == 0)
-		{
-			ft_signal_dfl();
-			if (sh->pipe->close_fd < 0)
-				// if (fcntl(STDOUT_FILENO, F_GETFD) < 0) // WITH THIS IT FAILS TO WORK
-					dup2(sh->pipe->stdincpy, STDOUT_FILENO);
-			if (sh->pipe->close_fd != STDOUT_FILENO && sh->pipe->write_pipe[1] >= 0 \
-			&& dup2(sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
-			{
-				ft_err_print("dup2", NULL, "failed", 2);
-				exit(1);
-			}
-			cmd_comparisons(sh, cmd, environ_cp);
-			exit(1);
-		}
-		return (1);
-	}
-	return (0);
-}
-
-static int	is_builtin(char **cmd)
+int	is_builtin(char **cmd)
 {
 	char	*str;
 

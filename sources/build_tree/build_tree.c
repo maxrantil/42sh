@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:21:00 by jniemine          #+#    #+#             */
-/*   Updated: 2023/02/23 14:05:40 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 04:18:11 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_treenode	*parse_left_cmd(t_token *tokens, int i_tok)
 		&& !is_logical_semi_or_ampersand(tokens, i_tok))
 		--i_tok;
 	if (tokens[i_tok].token == PIPE
-		&& !is_logical_semi_or_ampersand(tokens, i_tok)) // LATESTT CHANGE WAS MISSING !
+		&& !is_logical_semi_or_ampersand(tokens, i_tok))
 		++i_tok;
 	combine_words(&tokens[i_tok]);
 	return (parse_redirections(tokens, i_tok, cmd));

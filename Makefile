@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
+#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/24 15:18:49 by mviinika         ###   ########.fr        #
+#    Updated: 2023/02/25 01:13:27 by jniemine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -157,6 +157,7 @@ FILES			= \
 				$(BUILTIN_UTILS)check_export_print \
 				$(BUILTIN_UTILS)delete_var \
 				$(BUILTIN_UTILS)lower_case \
+				$(BUILTIN)fork_if_pipe \
 				$(BUILTIN)ft_bg \
 				$(BUILTIN)ft_builtins \
 				$(BUILTIN)ft_cd \
@@ -177,14 +178,17 @@ FILES			= \
 				$(EXECTREE)exec_ampersand \
 				$(EXECTREE)exec_redir \
 				$(EXECTREE)exec_closefd \
+				$(EXECTREE)exec_aggre_utils \
 				$(EXECTREE)exec_aggregation \
 				$(EXECTREE)exec_semicolon \
 				$(EXECTREE)search_bin \
 				$(EXECTREE)fork_wrap \
 				$(EXECTREE)exe_open_fd_if_needed \
 				$(EXECTREE)exe_test_if_file \
+				$(EXECTREE)get_cmd_name \
 				$(EXECTREE)is_pipe \
 				$(EXECTREE)exe_logicalop \
+				$(EXECTREE)test_access_type \
 				$(EXPANSION)ft_catinate_expansion \
 				$(EXPANSION)ft_expansion \
 				$(EXPANSION)ft_expansion_dollar \
@@ -252,6 +256,7 @@ FILES			= \
 				$(INITIALIZE)ft_init_fg_node \
 				$(INITIALIZE)ft_init_window_size \
 				$(INITIALIZE)ft_session_init \
+				$(INITIALIZE)ft_init_signals \
 				$(INTERN_VARS)ft_variables \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
