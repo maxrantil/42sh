@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:23:35 by jakken            #+#    #+#             */
-/*   Updated: 2023/02/14 15:27:17 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:29:48 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ char *terminal, t_shell *sh)
 		exec_logicalop(((t_logicalop *)head), environ_cp, terminal, sh);
 	else if (head->type == AMPERSAND)
 		exec_ampersand((t_ampersand *)head, environ_cp, terminal, sh);
+	free_temp_env(sh);
 }

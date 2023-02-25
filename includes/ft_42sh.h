@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_42sh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 10:32:09 by mrantil           #+#    #+#             */
-/*   Updated: 2023/02/25 01:20:58 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:27:42 by mviinika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -634,6 +634,7 @@ int				is_var(char *cmd);
 int				find_var(t_shell *sh, char *cmd, int var_len, int *ret);
 char			**ft_var_get(t_shell *sh, char *key, int *count);
 void			add_var_quotes(t_shell *sh, int i);
+void			free_temp_env(t_shell *sh);
 
 /*					JOBS					*/
 void			append_cmd_arr(t_fg_job *fg_node, char **cmd);

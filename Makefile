@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+         #
+#    By: mviinika <mviinika@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 06:01:22 by mbarutel          #+#    #+#              #
-#    Updated: 2023/02/25 01:13:27 by jniemine         ###   ########.fr        #
+#    Updated: 2023/02/25 12:28:28 by mviinika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -261,6 +261,7 @@ FILES			= \
 				$(INTERN_VARS)add_var \
 				$(INTERN_VARS)ft_var_get \
 				$(INTERN_VARS)is_var \
+				$(INTERN_VARS)free_temp_env \
 				$(JOBS)append_cmd_arr \
 				$(JOBS)append_pid_arr \
 				$(JOBS)bg_node_delete \
