@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrantil <mrantil@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 13:35:18 by mbarutel          #+#    #+#             */
-/*   Updated: 2023/02/25 04:48:49 by jniemine         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:11:50 by mrantil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int access, char ***environ_cp)
 			}
 		}
 		if (g_sh->pipe->close_fd != STDOUT_FILENO \
-		&& g_sh->pipe->write_pipe[1] >= 0
-			&& dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
+		&& g_sh->pipe->write_pipe[1] >= 0 \
+		&& dup2(g_sh->pipe->write_pipe[1], STDOUT_FILENO) < 0)
 		{
 			ft_err_print("dup2", NULL, "failed", 2);
 			exit(1);
