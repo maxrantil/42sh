@@ -6,7 +6,7 @@
 /*   By: mbarutel <mbarutel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:16:30 by spuustin          #+#    #+#             */
-/*   Updated: 2023/02/23 12:29:50 by mbarutel         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:44:11 by mbarutel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,27 @@ static int	get_exit_status(char **commands)
 	return (status);
 }
 
+static void	exit_confirmed(t_shell *sh, char **commands)
+{
+	if (commands[0] && commands[1] && commands[2])
+	{
+		ft_err_print(NULL, "exit", "too many arguments", 2);
+		sh->exit_stat = 1;
+		return ;
+	}
+	else if (commands[0])
+	{
+		sh->exit_stat = get_exit_status(commands);
+		ft_history_write_to_file(sh->term);
+		ft_raw_disable(sh->orig_termios);
+		if (sh->term->clipboard.buff)
+			ft_strdel(&sh->term->clipboard.buff);
+		if (sh->pgid == getpid())
+			shell_end_cycle(sh);
+	}
+	exit(sh->exit_stat);
+}
+
 /**
  * It exits the shell
  *
@@ -67,25 +88,7 @@ int	ft_exit(t_shell *sh, char **commands)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	jobs_exit_check(sh);
 	if (sh->exit_confirm == -1)
-	{
-		if (commands[0] && commands[1] && commands[2])
-		{
-			ft_err_print(NULL, "exit", "too many arguments", 2);
-			sh->exit_stat = 1;
-			return (0);
-		}
-		else if (commands[0])
-		{
-			sh->exit_stat = get_exit_status(commands);
-			ft_history_write_to_file(sh->term);
-			ft_raw_disable(sh->orig_termios);
-			if (sh->term->clipboard.buff)
-				ft_strdel(&sh->term->clipboard.buff);
-			if (sh->pgid == getpid())
-				shell_end_cycle(sh);
-		}
-		exit(sh->exit_stat);
-	}
+		exit_confirmed(sh, commands);
 	else
 		ft_putstr("There are stopped jobs.\n");
 	return (0);
