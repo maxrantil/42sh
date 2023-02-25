@@ -1,5 +1,5 @@
 clear
-cd /tmp;mkdir 42sh;cd 42sh
+
 a=hello b=world; b=42 echo ${a}_${b} && echo ${b}
 directory=/ ls_opt=-atr
 ls ${ls_opt} ${directory}
