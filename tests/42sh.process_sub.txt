@@ -1,7 +1,0 @@
-$> cat -e < <(ls)
-{{ Output of "ls" command with each lines ending with a '$' }}
-$> vimdiff <(ls) <(ls -a)
-$> ls | tee >(cat -e) >/dev/null
-{{ Output of "ls" command with each lines ending with a '$' }}
-$> sort <(cat -e <(grep fork <(ls -tr /usr/share/man/man2)) | (head -n 1 1> >(rev)))
-$2.krof
