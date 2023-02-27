@@ -19,9 +19,9 @@ import sys
 #Stop it after N commands for enter
 async def main(connection):
 	#Path to test main
-	path_to_test_main = '/Users/mrantil/hive/42sh/tests/test_main.txt'
+	path_to_test_main = '/Users/mviinika/workspace/42sh/tests/test_main.txt'
 	#Path to shell
-	path_to_shell = '/Users/mrantil/hive/42sh/42sh'
+	path_to_shell = '/Users/mviinika/workspace/42sh/42sh'
 	#Number of ran tests before Enter
 	enter_cap = 1
 	enter_press = 0
@@ -41,25 +41,25 @@ async def main(connection):
 		sub = await sess.async_split_pane(vertical=True)
 		#third = await sub.async_split_pane(vertical=True)
 		#Start your shell
-		time.sleep(3.5)
+		time.sleep(1)
 		await sess.async_send_text(path_to_shell)
 		await sess.async_send_text("\n")
-		time.sleep(1.0)
+		time.sleep(0)
 		await sess.async_send_text('cd /tmp; mkdir test1; cd test1')
 		await sess.async_send_text("\n")
-		time.sleep(1.0)
+		time.sleep(0)
 		await sess.async_send_text('/bin/pwd')
 		await sess.async_send_text("\n")
-		time.sleep(1.0)
+		time.sleep(0)
 		# await sess.async_send_text("cd /tmp;mkdir 42sh;cd 42sh\n")
 		#Start bash
-		time.sleep(3.5)
+		time.sleep(1)
 		await sub.async_send_text('bash')
 		await sub.async_send_text("\n")
-		time.sleep(1.0)
+		time.sleep(0)
 		await sub.async_send_text('cd /tmp; mkdir test; cd test')
 		await sub.async_send_text("\n")
-		time.sleep(1.0)
+		time.sleep(0)
 		await sub.async_send_text('/bin/pwd')
 		await sub.async_send_text("\n")
 

@@ -1,4 +1,4 @@
-#/Users/mrantil/hive/42sh/tests/script.expansions.txt
+/Users/mviinika/workspace/42sh/tests/script.expansions.txt
 #/Users/mrantil/hive/42sh/tests/basic_tests.txt
 #/Users/mrantil/hive/42sh/tests/script.alias.txt
 #/Users/mrantil/hive/42sh/tests/script.hash.txt
