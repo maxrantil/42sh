@@ -75,6 +75,7 @@ void	fc_build_and_execute_new_tree(t_shell *sh, t_fc *fc)
 	tokens = NULL;
 	if (fc->ret_cmd)
 	{
+		ft_putendl_fd(fc->ret_cmd, 2);
 		tokens = chop_line(fc->ret_cmd, tokens, 1);
 		head = build_tree(&tokens);
 		if (head && ((t_semicolon *)head)->left)

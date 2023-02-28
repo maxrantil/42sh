@@ -39,7 +39,6 @@ static int	fc_s_only(t_shell *sh, t_fc *fc, int y)
 	sh->term->history_arr[sh->term->history_size - 1] = \
 	ft_strdup(sh->term->history_arr[y]);
 	fc->ret_cmd = ft_strdup(sh->term->history_arr[y]);
-	ft_putendl_fd(sh->term->history_arr[y], 2);
 	fc_build_and_execute_new_tree(sh, fc);
 	return (0);
 }
