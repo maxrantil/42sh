@@ -31,12 +31,12 @@ With complete history management capabilities, 42sh allows users to easily acces
 42sh provides a built-in `test` with a comprehensive set of operators, including `-b`, `-c`, `-d`, `-e`, `-f`, `-g`, `-L`, `-p`, `-r`, `-S`, `-s`, `-u`, `-w`, `-x`, `-z`, `=`, `!=`, `-eq`, `-ne`, `-ge`, `-lt`, `-le`, and `!`. The shell interpreter also supports the use of a simple operand without an operator.
 
 #
-Inhibitors:
+### Inhibitors:
 
 Finally, 42sh provides complete handling of inhibitors, including `"` (double quote), `'` (simple quote) and `\` and ensuring that users can execute commands with confidence.
 
 #
-Conclusion:
+### Conclusion:
 With its comprehensive set of features, 42sh is a powerful tool that allows users to execute commands and manage their shell environment with ease. Whether you're a seasoned user or new to the shell environment, 42sh provides a seamless and efficient user experience.
 
 ## Contributors
