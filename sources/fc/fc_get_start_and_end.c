@@ -77,7 +77,7 @@ static int	get_end(t_shell *sh, char *cmd)
 
 static void	get_end_default(t_shell *sh, t_fc *fc)
 {
-	if (fc->l)
+	if (fc->l && sh->term->history_size > 1)
 		fc->end = sh->term->history_size - 2;
 	else
 		fc->end = fc->start;
@@ -88,7 +88,7 @@ void	fc_get_start_and_end(t_shell *sh, t_fc *fc, char ***cmd)
 	fc->start = 0;
 	if (!(*cmd)[fc->flags])
 	{
-		if (!fc->l)
+		if (!fc->l && sh->term->history_size > 1)
 			fc->start = sh->term->history_size - 2;
 		else if (sh->term->history_size > FC_LEN)
 			fc->start = sh->term->history_size - FC_LEN;
