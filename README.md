@@ -3,7 +3,7 @@
 
 Our shell interpreter, 42sh, is a powerful tool that allows users to execute commands and manage their shell environment with ease. With its comprehensive set of features, 42sh provides a seamless and efficient user experience. In this README, we will explore the various capabilities of 42sh, including the monitoring of shell variables, job control, history management, alias management, hash table interaction, and built-in test operators.
 
-Additionally, it's worth noting that 42sh was built on top of Mikes and Jakkes 21sh, with each member of the group responsible for one modular part and something from the mandatory requirements. This collaboration allowed us to create a robust and reliable shell interpreter that meets the needs of both novice and experienced users.
+Additionally, it's worth noting that 42sh was built on top of Mikes and Jakkes [21sh](https://github.com/mike-ninja/21sh), with each member of the group responsible for one modular part and something from the mandatory requirements. This collaboration allowed us to create a robust and reliable shell interpreter that meets the needs of both novice and experienced users.
 
 #
 ### Monitoring of shell variables:
