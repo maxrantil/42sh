@@ -49,4 +49,15 @@ With its comprehensive set of features, 42sh is a powerful tool that allows user
 [![](https://avatars.githubusercontent.com/u/57210997?size=100)](https://github.com/mike-ninja)
 [![](https://avatars.githubusercontent.com/u/48917337?size=100)](https://github.com/MiikaViini)
 
-
+#
+### Installation
+You will preferably use MacOs or Linux to compile and run this software.
+Download the source code:
+```bash
+git clone https://github.com/maxrantil/42sh.git; cd 42sh
+```
+Compile and run:
+```bash
+make; ./42sh
+```
+This shell must never experience a crash (such as a segmentation fault or bus issue) or memory leak If you come across any such problems, kindly create an issue or PR.
