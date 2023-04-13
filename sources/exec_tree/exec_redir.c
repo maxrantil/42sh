@@ -14,12 +14,11 @@
 
 extern t_shell	*g_sh;
 
-static int	open_file(t_redir *node, char *terminal, t_shell *sh, int *fd)
+static int	open_file(t_redir *node, t_shell *sh, int *fd)
 {
 	struct stat	buf;
 	int			temp_fd;
 
-	terminal = NULL;
 	stat(node->filepath, &buf);
 	if (S_ISFIFO(buf.st_mode))
 		node->open_flags = O_WRONLY;
@@ -93,7 +92,7 @@ char *terminal, t_shell *sh)
 	builtin = fork_if_needed(node, sh);
 	if (sh->pipe->pid == 0 || builtin)
 	{
-		if (open_file(node, terminal, sh, &fd))
+		if (open_file(node, sh, &fd))
 		{
 			if (!builtin)
 				exit (1);
