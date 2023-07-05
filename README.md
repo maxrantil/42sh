@@ -3,7 +3,7 @@
 
 Our shell interpreter, 42sh, is a powerful tool that allows users to execute commands and manage their shell environment with ease. With its comprehensive set of features, 42sh provides a seamless and efficient user experience. In this README, we will explore the various capabilities of 42sh, including the monitoring of shell variables, job control, history management, alias management, hash table interaction, and built-in test operators.
 
-Additionally, it's worth noting that 42sh was built on top of Mikes and Jakkes [21sh](https://github.com/mike-ninja/21sh), with each member of the group responsible for one modular part and something from the mandatory requirements. This collaboration allowed us to create a robust and reliable shell interpreter that meets the needs of both novice and experienced users.
+Additionally, it's worth noting that 42sh was built on top of Mikes and Jakkes [21sh](https://github.com/mike-ninja/21sh), with each member of the group responsible for one modular part and something from the mandatory requirements. This collaboration resulted in a robust and reliable shell interpreter tailored to the needs of both novice and experienced users.
 
 #
 ### Monitoring of shell variables:
@@ -18,7 +18,7 @@ Additionally, it's worth noting that 42sh was built on top of Mikes and Jakkes [
 #
 ### History management:
 
-With complete history management capabilities, 42sh allows users to easily access their command history and perform various expansions using `!!`, `!word`, `!number`, and `!-number` syntax. Users can also save their command history to a file, enabling it to be used over several sessions. The built-in `fc` command supports all POSIX options, and users can perform incremental search in the history with `CTRL-R`.
+With complete history management capabilities, 42sh allows users to easily access their command history and perform various expansions using `!!`, `!word`, `!number`, and `!-number` syntax. Users can also save their command history to a file for use across multiple sessions. The built-in `fc` command supports all POSIX options, and users can perform incremental search in the history with `CTRL-R`.
 
 #
 ### Alias management and hash table interaction:
@@ -51,15 +51,15 @@ With its comprehensive set of features, 42sh is a powerful tool that allows user
 
 #
 ### Installation
-You will preferably use MacOs or Linux to compile and run this software.
+We recommend using MacOS or Linux to compile and run this software.
 
 Download the source code:
 ```bash
-git clone https://github.com/maxrantil/42sh.git; cd 42sh
+git clone [https://github.com/maxrantil/42sh.git](https://github.com/maxrantil/42sh.git); cd 42sh
 ```
 Compile and run:
 ```bash
 make; ./42sh
 ```
 
-This shell must never experience a crash (such as a segmentation fault or bus issue) or memory leak If you come across any such problems, kindly create an issue or PR.
+This shell is designed to prevent crashes (such as segmentation faults or bus issues) and memory leaks. If you encounter any such problems, please kindly create an issue or PR.
