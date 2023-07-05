@@ -1,5 +1,5 @@
 # 42sh
-Our shell interpreter, **42sh**, is a robust tool that enables users to execute commands and manage their shell environment with ease. 
+Welcome to **42sh**, our advanced shell interpreter. Designed with a focus on robustness and ease of use, 42sh provides a powerful and intuitive interface for command execution and shell environment management.
 
 ## Table of Contents
 - [How 42sh Works](#how-42sh-works)
