@@ -57,7 +57,25 @@ The built-in `fc` command supports all POSIX options.
 ## Conclusion
 42sh is a powerful tool with a comprehensive set of features that allow users to execute commands and manage their shell environment effortlessly. Whether you're a seasoned user or new to the shell environment, 42sh offers a seamless and efficient user experience.
 
-## Contributors
+## Features and Contributors
+Here, we outline who contributed to each major feature of 42sh:
+
+- **Exit code access via $? expansion** (Mike)
+- **Alias management via built-ins alias and unalias** (Roope)
+- **Termcaps implementation** (Mike & Max)
+- **Automated tester development** (Jakke)
+- **A hash table and built-in hash for interaction** (Max)
+- **Builtins cd, echo, exit, type (after 21 is done)** (Simo)
+- **Each built-in must have the announced options by POSIX standard, except for explicit cases as set or unset** (Simo)
+- **Inhibitors ” (double quote), ’ (simple quote) and \ handling** (Mike)
+- **Job control monitoring, with built-ins jobs, fg, bg and the & operator** (Mike, Jakke & Max)
+- **A correct monitoring of all signals** (Mike)
+- **Monitoring of intern shell variables** (Miika)
+- **Tilde expansion and additional parameter formats** (Miika)
+- **The following logical operators "&&" and "||"** (Jakke)
+- **Incremental search in the history with CTRL-R** (Mike)
+- **The built-in test with the following operators** (Max & Jakke)
+- **Complete management of the history, including expansions and built-in fc with all POSIX options** (Max)
 
 [![](https://avatars.githubusercontent.com/u/86000260?size=100)](https://github.com/maxrantil)
 [![](https://avatars.githubusercontent.com/u/79006614?size=100)](https://github.com/Zakki-coder)
