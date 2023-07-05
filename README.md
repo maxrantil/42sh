@@ -154,7 +154,6 @@ Before installing and running 42sh, ensure you have the following:
 -  Basic knowledge of shell scripting and command-line interfaces
     
 ## Installation
-We recommend using MacOS or Linux to compile and run this software.
 
 Download the source code:
 ```bash
