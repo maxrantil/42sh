@@ -3,11 +3,11 @@
 
 Our shell interpreter, **42sh**, is a robust tool that enables users to execute commands and manage their shell environment with ease. This README provides an overview of the various capabilities of 42sh, including:
 
-- Shell variable monitoring
-- Job control
+- [Shell variable](https://www.gnu.org/software/bash/manual/html_node/Shell-Variables.html) monitoring
+- [Job control](https://www.gnu.org/software/bash/manual/html_node/Job-Control-Basics.html)
 - History management
 - Alias management
-- Hash table interaction
+- [Hash table](https://en.wikipedia.org/wiki/Hash_table) interaction
 - Built-in test operators
 
 42sh is built on top of Mike's and Jakke's [21sh](https://github.com/mike-ninja/21sh), with each member of the group responsible for one modular part and fulfilling mandatory requirements. This collaboration has resulted in a reliable shell interpreter that caters to the needs of both novice and experienced users.
@@ -17,8 +17,14 @@ Our shell interpreter, **42sh**, is a robust tool that enables users to execute 
 42sh offers complete monitoring of shell variables, allowing users to:
 
 - Create and export internal variables to the environment using the built-in `export` command.
+  ```bash
+  export VAR_NAME="Hello, World!"
+  ```
 - List all shell internal variables with the `set` command, without any additional options required.
 - Revoke internal and environment variables with the `unset` command.
+  ```bash
+  unset VAR_NAME
+  ```
 
 42sh also supports environment variable creation for unique commands, such as `HOME=/tmp cd`, enhancing shell environment management.
 
