@@ -19,11 +19,16 @@ Our shell interpreter, **42sh**, is a robust tool that enables users to execute 
 - Create and export internal variables to the environment using the built-in `export` command.
   ```bash
   export VAR_NAME="Hello, World!"
+  echo $VAR_NAME # Outputs: Hello, World!
   ```
 - List all shell internal variables with the `set` command, without any additional options required.
+  ```bash
+  set # Lists all shell internal variables.
+  ```
 - Revoke internal and environment variables with the `unset` command.
   ```bash
   unset VAR_NAME
+  echo $VAR_NAME # Outputs nothing as VAR_NAME is unset.
   ```
 
 42sh also supports environment variable creation for unique commands, such as `HOME=/tmp cd`, enhancing shell environment management.
@@ -31,12 +36,19 @@ Our shell interpreter, **42sh**, is a robust tool that enables users to execute 
 ## Job Control and Signal Monitoring
 
 42sh provides job control monitoring with built-ins `jobs`, `fg`, `bg`, and the `&` operator. The shell interpreter also correctly monitors all signals, ensuring a smooth user experience.
-
+```bash
+sleep 100 & # Starts a job in the background.
+jobs # Lists the jobs.
+```
 ## History Management
 
 42sh features complete history management capabilities, allowing users to:
 
 - Access their command history and perform expansions using `!!`, `!word`, `!number`, and `!-number` syntax.
+  ```bash
+  echo hello # Outputs: hello
+  !! # Outputs: hello
+  ```
 - Save command history to a file for usage over multiple sessions.
 - Perform incremental search in the history with `CTRL-R`.
 
@@ -45,7 +57,10 @@ The built-in `fc` command supports all POSIX options.
 ## Alias Management and Hash Table Interaction
 
 42sh provides easy alias management with built-ins `alias` and `unalias`, simplifying the process of creating and removing aliases. Furthermore, 42sh provides a hash table and built-in `hash` to interact with it, facilitating the management of frequently used commands.
-
+```bash
+alias ll="ls -lah" # Creates an alias 'll' for the command 'ls -lah'.
+ll # Executes 'ls -lah'.
+```
 ## Check File Types and Compare Values
 
 42sh includes a built-in `test` with a comprehensive set of operators, facilitating file type checks and value comparisons.
@@ -53,7 +68,9 @@ The built-in `fc` command supports all POSIX options.
 ## Inhibitors
 
 42sh provides complete handling of inhibitors, including `"` (double quote), `'` (simple quote) and `\`, ensuring that users can execute commands with confidence.
-
+```bash
+echo "This is a \"quoted\" word." # Outputs: This is a "quoted" word.
+```
 ## Conclusion
 42sh is a powerful tool with a comprehensive set of features that allow users to execute commands and manage their shell environment effortlessly. Whether you're a seasoned user or new to the shell environment, 42sh offers a seamless and efficient user experience.
 
