@@ -77,22 +77,37 @@ echo "This is a \"quoted\" word." # Outputs: This is a "quoted" word.
 ## Features and Contributors
 Here, we outline who contributed to each major feature of 42sh:
 
-- **Job control monitoring, with built-ins jobs, fg, bg and the & operator** - [Mike](https://github.com/mike-ninja), [Jakke](https://github.com/Zakki-coder) & [Max](https://github.com/maxrantil)
-- **Exit code access via $? expansion** - [Mike](https://github.com/mike-ninja)
-- **Termcaps implementation** - [Mike](https://github.com/mike-ninja) & [Max](https://github.com/maxrantil)
-- **The following logical operators "&&" and "||"** - [Jakke](https://github.com/Zakki-coder)
-- **Monitoring of intern shell variables** - [Miika](https://github.com/MiikaViini)
-- **Builtins cd, echo, exit, type** - [Simo](https://github.com/nuuskamuikkusenhattu)
-- **Each built-in must have the announced options by POSIX standard, except for explicit cases as set or unset** - [Simo](https://github.com/nuuskamuikkusenhattu)
-- **Inhibitors ” (double quote), ’ (simple quote) and \ handling** - [Mike](https://github.com/mike-ninja)
-- **A correct monitoring of all signals** - [Mike](https://github.com/mike-ninja)
-- **Tilde expansion and additional parameter formats** - [Miika](https://github.com/MiikaViini)
-- **Alias management via built-ins alias and unalias** - [Roope](https://github.com/jungleistx)
-- **A hash table and built-in hash for interaction** - [Max](https://github.com/maxrantil)
-- **The built-in test with the following operators** - [Max](https://github.com/maxrantil) & [Jakke](https://github.com/Zakki-coder)
-- **Complete management of the history, including expansions and built-in fc with all POSIX options** - [Max](https://github.com/maxrantil)
-- **Incremental search in the history with CTRL-R** - [Mike](https://github.com/mike-ninja)
-- **Automated tester development** - [Jakke](https://github.com/Zakki-coder)
+- **Job Control Monitoring**: The 42sh shell includes built-in commands like `jobs`, `fg`, `bg`, and the `&` operator for job control. This feature, contributed by [Mike](https://github.com/mike-ninja), [Jakke](https://github.com/Zakki-coder), and [Max](https://github.com/maxrantil), allows users to manage and monitor processes running in the shell.
+
+- **Exit Code Access**: Our shell provides the `?$` expansion for accessing the exit status of the last executed command, making error handling more intuitive. This feature is the work of [Mike](https://github.com/mike-ninja).
+
+- **Termcaps Implementation**: 42sh supports terminal capabilities (Termcaps) to ensure compatibility with various terminal types. This feature was implemented by [Mike](https://github.com/mike-ninja) and [Max](https://github.com/maxrantil).
+
+- **Logical Operators**: The shell supports the logical operators "&&" (AND) and "||" (OR) for command chaining and control flow. This feature was contributed by [Jakke](https://github.com/Zakki-coder).
+
+- **Internal Shell Variables Monitoring**: The shell tracks the state of internal shell variables, providing the user with useful information about the shell's status. This feature is credited to [Miika](https://github.com/MiikaViini).
+
+- **Built-in Commands**: 42sh includes various built-in commands, such as `cd`, `echo`, `exit`, and `type`, contributed by [Simo](https://github.com/nuuskamuikkusenhattu).
+
+- **POSIX Compliance**: Each built-in command conforms to POSIX standards, with exceptions only in explicit cases like `set` or `unset`. This adherence to standards was ensured by [Simo](https://github.com/nuuskamuikkusenhattu).
+
+- **Inhibitors Handling**: The shell properly handles inhibitors, including `"` (double quote), `'` (single quote) and `\`, allowing users to accurately use these special characters in their commands. This was implemented by [Mike](https://github.com/mike-ninja).
+
+- **Signal Monitoring**: 42sh properly handles all signals, ensuring a smooth and safe user experience. This functionality was contributed by [Mike](https://github.com/mike-ninja).
+
+- **Tilde Expansion and Additional Parameter Formats**: The shell supports tilde expansion and various parameter formats for a flexible and user-friendly experience, thanks to [Miika](https://github.com/MiikaViini).
+
+- **Alias Management**: 42sh includes built-ins `alias` and `unalias` to easily create and manage command shortcuts. This feature was contributed by [Roope](https://github.com/jungleistx).
+
+- **Hash Table Interaction**: The shell provides a built-in hash table and a `hash` command for interaction, simplifying command execution and storage. This feature is brought to you by [Max](https://github.com/maxrantil).
+
+- **Built-in `test` Command**: The shell includes a built-in `test` command with various operators for file type checks and value comparisons, implemented by [Max](https://github.com/maxrantil) and [Jakke](https://github.com/Zakki-coder).
+
+- **History Management**: 42sh provides comprehensive history management, including expansions and built-in `fc` with all POSIX options. This was achieved by [Max](https://github.com/maxrantil).
+
+- **Incremental Search**: Users can perform incremental search in the command history using `CTRL-R`, thanks to [Mike](https://github.com/mike-ninja), 42sh provides an incremental search in the command history using the CTRL-R shortcut, enabling users to find and execute previous commands more efficiently.
+
+- **Automated Tester Development**: For quality assurance, an automated tester was developed by [Jakke](https://github.com/Zakki-coder), ensuring the shell functions as expected.
 
 [![](https://avatars.githubusercontent.com/u/86000260?size=100)](https://github.com/maxrantil)
 [![](https://avatars.githubusercontent.com/u/79006614?size=100)](https://github.com/Zakki-coder)
