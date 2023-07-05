@@ -1,7 +1,33 @@
 # 42sh
-### Final Project in the Unix Branch at Hive Helsinki
+Our shell interpreter, **42sh**, is a robust tool that enables users to execute commands and manage their shell environment with ease. 
 
-Our shell interpreter, **42sh**, is a robust tool that enables users to execute commands and manage their shell environment with ease. This README provides an overview of the various capabilities of 42sh, including:
+## Table of Contents
+- [How 42sh Works](#how-42sh-works)
+- [Features](#features)
+- [Monitoring of Shell Variables](#monitoring-of-shell-variables)
+- [Job Control and Signal Monitoring](#job-control-and-signal-monitoring)
+- [History Management](#history-management)
+- [Alias Management and Hash Table Interaction](#alias-management-and-hash-table-interaction)
+- [Check File Types and Compare Values](#check-file-types-and-compare-values)
+- [Inhibitors](#inhibitors)
+- [Conclusion](#conclusion)
+- [Features and Contributors](#features-and-contributors)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+
+## How 42sh Works
+
+When a command is entered into 42sh, it undergoes several stages of processing:
+
+**Lexical Analysis**: Initially, the shell performs a lexical analysis on the input. This phase involves converting a sequence of characters into meaningful sequences, known as lexemes. During this process, 42sh reads the stream of characters that make up the command, grouping them into lexemes. For each lexeme, 42sh generates a token in the form of (token-name, attribute-value), which is then passed on to the next phase—syntactic analysis.
+**Syntactic Analysis**: The subsequent phase is syntactic analysis, also referred to as parsing. In this stage, 42sh utilizes the tokens produced by the lexical analysis to construct a tree-like intermediate representation that illustrates the grammatical structure of the command. This representation is typically an Abstract Syntax Tree (AST), where each interior node signifies an operation, and the node's children represent the operation's arguments.
+**Execution**: Once the command has been parsed into an AST, 42sh functions as an interpreter to execute the command. An interpreter is a computer program that directly executes instructions written in a programming or scripting language, without the need for these instructions to have been previously compiled into a machine language program. In this context, 42sh interprets the AST and executes the command as per the interpretation.
+
+## Features
+
+This README provides an overview of the various capabilities of 42sh, including:
 
 - [Shell variable](https://www.gnu.org/software/bash/manual/html_node/Shell-Variables.html) monitoring
 - [Job control](https://www.gnu.org/software/bash/manual/html_node/Job-Control-Basics.html)
@@ -116,6 +142,15 @@ Here, we outline who contributed to each major feature of 42sh:
 [![](https://avatars.githubusercontent.com/u/57210997?size=100)](https://github.com/mike-ninja)
 [![](https://avatars.githubusercontent.com/u/48917337?size=100)](https://github.com/MiikaViini)
 
+## Prerequisites
+
+Before installing and running 42sh, ensure you have the following:
+
+-  A Unix-like operating system (MacOS, Linux, BSD)
+-  GNU Compiler Collection (GCC) or similar compiler
+-  GNU make
+-  Basic knowledge of shell scripting and command-line interfaces
+    
 ## Installation
 We recommend using MacOS or Linux to compile and run this software.
 
@@ -131,5 +166,32 @@ Compile and run:
 make
 ./42sh
 ```
+
+## Usage
+
+After compiling the shell, you can start it with the ./42sh command. Here are some examples of how to use 42sh:
+
+```bash
+# Change directory
+cd /path/to/directory
+
+# List files
+ls -l
+
+# Use built-in text editor
+nano file.txt
+```
+For more advanced usage, refer to the [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/bash.html).
+
+## Contributing
+
+We welcome contributions from the community. If you'd like to contribute, please follow these steps:
+
+-    Fork the repository to your own GitHub account.
+-    Clone the forked repository to your local machine.
+-    Make your changes and commit them to your forked repository.
+-    Submit a pull request with your changes.
+
+Please make sure your code has no syntax errors and is in line with our project's coding style before submitting a pull request.
 
 This shell is designed to prevent crashes (such as segmentation faults or bus issues) and memory leaks. If you encounter any such problems, or if you have suggestions or feedback, please kindly create an issue or PR.
