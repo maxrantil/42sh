@@ -58,7 +58,7 @@
 # define COPY		0
 # define CUT		1
 
-# define PROMPT			"$> "
+# define PROMPT			"42sh> "
 # define MINI_PROMPT	"> "
 # define MAX_HISTORY	1024
 

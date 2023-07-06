@@ -29,10 +29,10 @@ static void	banner(void)
 	int		padd;
 	char	*str;
 
-	str = ft_strdup("42sh, lets do this!");
+	str = ft_strdup("^^");
 	padd = banner_padding(ft_strlen(str));
 	ft_printf("%*s%s\n", padd, "",
-		"      42sh, lets do this! ");
+		"      ^^ ");
 	ft_strdel(&str);
 }
 
