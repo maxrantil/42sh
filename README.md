@@ -59,8 +59,6 @@ This README provides an overview of the various capabilities of 42sh, including:
   echo $VAR_NAME # Outputs nothing as VAR_NAME is unset.
   ```
 
-![](https://github.com/maxrantil/42sh/shell_variables.gif)
-
 42sh also supports environment variable creation for unique commands, such as `HOME=/tmp cd`, enhancing shell environment management.
 
 ## Job Control and Signal Monitoring
@@ -101,6 +99,8 @@ ll # Executes 'ls -lah'.
 ```bash
 echo "This is a \"quoted\" word." # Outputs: This is a "quoted" word.
 ```
+![gif inhibitors](https://github.com/maxrantil/42sh/blob/main/gifs/inhibitors_resize.gif)
+
 ## Conclusion
 42sh is a powerful tool with a comprehensive set of features that allow users to execute commands and manage their shell environment effortlessly. Whether you're a seasoned user or new to the shell environment, 42sh offers a seamless and efficient user experience.
 
