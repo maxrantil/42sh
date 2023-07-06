@@ -59,6 +59,8 @@ This README provides an overview of the various capabilities of 42sh, including:
   echo $VAR_NAME # Outputs nothing as VAR_NAME is unset.
   ```
 
+![](https://github.com/maxrantil/42sh/shell_variables.gif)
+
 42sh also supports environment variable creation for unique commands, such as `HOME=/tmp cd`, enhancing shell environment management.
 
 ## Job Control and Signal Monitoring
@@ -152,7 +154,7 @@ Before installing and running 42sh, ensure you have the following:
 -  GNU Compiler Collection (GCC) or similar compiler
 -  GNU make
 -  Basic knowledge of shell scripting and command-line interfaces
-    
+
 ## Installation
 
 Download the source code:
