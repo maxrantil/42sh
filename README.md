@@ -79,6 +79,7 @@ jobs # Lists the jobs.
   ```
 - Save command history to a file for usage over multiple sessions.
 - Perform incremental search in the history with `CTRL-R`.
+![gif ctrl_r](https://github.com/maxrantil/42sh/blob/main/gifs/ctrl_r.gif)
 
 The built-in `fc` command supports all POSIX options.
 
@@ -99,7 +100,6 @@ ll # Executes 'ls -lah'.
 ```bash
 echo "This is a \"quoted\" word." # Outputs: This is a "quoted" word.
 ```
-![gif inhibitors](https://github.com/maxrantil/42sh/blob/main/gifs/inhibitors_resize.gif)
 
 ## Conclusion
 42sh is a powerful tool with a comprehensive set of features that allow users to execute commands and manage their shell environment effortlessly. Whether you're a seasoned user or new to the shell environment, 42sh offers a seamless and efficient user experience.
